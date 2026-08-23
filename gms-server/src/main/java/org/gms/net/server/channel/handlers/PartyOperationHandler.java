@@ -78,11 +78,11 @@ public final class PartyOperationHandler extends AbstractPacketHandler {
                 Character invited = world.getPlayerStorage().getCharacterByName(name);
                 if (invited != null) {
                     if (invited.getLevel() < 10 && (!GameConfig.getServerBoolean("use_party_for_starters") || player.getLevel() >= 10)) { //min requirement is level 10
-                        c.sendPacket(PacketCreator.serverNotice(5, "The player you have invited does not meet the requirements."));
+                        c.sendPacket(PacketCreator.serverNotice(5, "你邀请的玩家未达到组队要求。"));
                         return;
                     }
                     if (GameConfig.getServerBoolean("use_party_for_starters") && invited.getLevel() >= 10 && player.getLevel() < 10) {    //trying to invite high level
-                        c.sendPacket(PacketCreator.serverNotice(5, "The player you have invited does not meet the requirements."));
+                        c.sendPacket(PacketCreator.serverNotice(5, "你邀请的玩家未达到组队要求。"));
                         return;
                     }
 

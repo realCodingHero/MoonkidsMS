@@ -87,7 +87,7 @@ public final class AllianceOperationHandler extends AbstractPacketHandler {
                 String guildName = p.readString();
 
                 if (alliance.getGuilds().size() == alliance.getCapacity()) {
-                    chr.dropMessage(5, "Your alliance cannot comport any more guilds at the moment.");
+                    chr.dropMessage(5, "你的家族联盟目前无法容纳更多家族。");
                 } else {
                     Alliance.sendInvitation(c, guildName, alliance.getId());
                 }
@@ -112,7 +112,7 @@ public final class AllianceOperationHandler extends AbstractPacketHandler {
                 }
 
                 if (alliance.getGuilds().size() == alliance.getCapacity()) {
-                    chr.dropMessage(5, "Your alliance cannot comport any more guilds at the moment.");
+                    chr.dropMessage(5, "你的家族联盟目前无法容纳更多家族。");
                     return;
                 }
 
@@ -132,7 +132,7 @@ public final class AllianceOperationHandler extends AbstractPacketHandler {
                 Server.getInstance().allianceMessage(alliance.getId(), GuildPackets.addGuildToAlliance(alliance, guildid, c), -1, -1);
                 Server.getInstance().allianceMessage(alliance.getId(), GuildPackets.updateAllianceInfo(alliance, c.getWorld()), -1, -1);
                 Server.getInstance().allianceMessage(alliance.getId(), GuildPackets.allianceNotice(alliance.getId(), alliance.getNotice()), -1, -1);
-                guild.dropMessage("Your guild has joined the [" + alliance.getName() + "] union.");
+                guild.dropMessage("你的家族已成功加入 [" + alliance.getName() + "] 联盟。");
 
                 break;
             }
@@ -193,7 +193,7 @@ public final class AllianceOperationHandler extends AbstractPacketHandler {
                 alliance.dropMessage(5, "* Alliance Notice : " + notice);
                 break;
             default:
-                chr.dropMessage("Feature not available");
+                chr.dropMessage("该功能暂未开放。");
         }
 
         alliance.saveToDB();

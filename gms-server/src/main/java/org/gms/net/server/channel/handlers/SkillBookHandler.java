@@ -87,7 +87,7 @@ public final class SkillBookHandler extends AbstractPacketHandler {
                         player.changeSkillLevel(skill2, player.getSkillLevel(skill2), Math.max(skilldata.get("masterLevel"), player.getMasterLevel(skill2)), -1);
                     } else {
                         success = false;
-                        //player.dropMessage("The skill book lights up, but the skill winds up as if nothing happened.");
+                        //player.dropMessage("技能书发出了光芒，但似乎什么都没有发生。");
                     }
                 } else {
                     canuse = false;

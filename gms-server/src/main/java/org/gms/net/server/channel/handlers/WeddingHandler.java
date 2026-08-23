@@ -128,7 +128,7 @@ public final class WeddingHandler extends AbstractPacketHandler {
                                     c.sendPacket(WeddingPackets.onWeddingGiftResult((byte) 0xE, marriage.getWishlistItems(groomWishlist), marriage.getGiftItems(c, groomWishlist)));
                                 }
                             } else {
-                                c.getPlayer().dropMessage(1, "You have already collected this item.");
+                                c.getPlayer().dropMessage(1, "你已经领取过该道具了。");
                                 c.sendPacket(WeddingPackets.onWeddingGiftResult((byte) 0xE, marriage.getWishlistItems(groomWishlist), marriage.getGiftItems(c, groomWishlist)));
                             }
                         }
@@ -147,7 +147,7 @@ public final class WeddingHandler extends AbstractPacketHandler {
                                 c.sendPacket(WeddingPackets.onWeddingGiftResult((byte) 0xE, Collections.singletonList(""), items));
                             }
                         } catch (Exception e) {
-                            c.getPlayer().dropMessage(1, "You have already collected this item.");
+                            c.getPlayer().dropMessage(1, "你已经领取过该道具了。");
                             c.sendPacket(WeddingPackets.onWeddingGiftResult((byte) 0xE, Collections.singletonList(""), items));
                         }
                     }

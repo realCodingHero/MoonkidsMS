@@ -137,7 +137,7 @@ public class MakerProcessor {
 
                         if (!reagentids.isEmpty()) {
                             if (!removeOddMakerReagents(toCreate, reagentids)) {
-                                c.sendPacket(PacketCreator.serverNotice(1, "You can only use WATK and MATK Strengthening Gems on weapon items."));
+                                c.sendPacket(PacketCreator.serverNotice(1, "你只能在武器类道具上使用物理攻击力与魔法攻击力强化宝石。"));
                                 c.sendPacket(PacketCreator.makerEnableActions());
                                 return;
                             }
@@ -152,32 +152,32 @@ public class MakerProcessor {
                 switch (createStatus) {
                     case -1:// non-available for Maker itemid has been tried to forge
                         log.warn("Chr {} tried to craft itemid {} using the Maker skill.", c.getPlayer().getName(), toCreate);
-                        c.sendPacket(PacketCreator.serverNotice(1, "The requested item could not be crafted on this operation."));
+                        c.sendPacket(PacketCreator.serverNotice(1, "请求的道具在此次操作中无法进行锻造。"));
                         c.sendPacket(PacketCreator.makerEnableActions());
                         break;
 
                     case 1: // no items
-                        c.sendPacket(PacketCreator.serverNotice(1, "You don't have all required items in your inventory to make " + ii.getName(toCreate) + "."));
+                        c.sendPacket(PacketCreator.serverNotice(1, "你的背包中缺少制作 " + ii.getName(toCreate) + " 所需的全部材料。"));
                         c.sendPacket(PacketCreator.makerEnableActions());
                         break;
 
                     case 2: // no meso
-                        c.sendPacket(PacketCreator.serverNotice(1, "You don't have enough mesos (" + GameConstants.numberWithCommas(recipe.getCost()) + ") to complete this operation."));
+                        c.sendPacket(PacketCreator.serverNotice(1, "你的金币不足（需要 " + GameConstants.numberWithCommas(recipe.getCost()) + " 金币）以完成本次制作。"));
                         c.sendPacket(PacketCreator.makerEnableActions());
                         break;
 
                     case 3: // no req level
-                        c.sendPacket(PacketCreator.serverNotice(1, "You don't have enough level to complete this operation."));
+                        c.sendPacket(PacketCreator.serverNotice(1, "你的角色等级不足以完成本次制作。"));
                         c.sendPacket(PacketCreator.makerEnableActions());
                         break;
 
                     case 4: // no req skill level
-                        c.sendPacket(PacketCreator.serverNotice(1, "You don't have enough Maker level to complete this operation."));
+                        c.sendPacket(PacketCreator.serverNotice(1, "你的锻造技能等级不足以完成本次制作。"));
                         c.sendPacket(PacketCreator.makerEnableActions());
                         break;
 
                     case 5: // inventory full
-                        c.sendPacket(PacketCreator.serverNotice(1, "Your inventory is full."));
+                        c.sendPacket(PacketCreator.serverNotice(1, "你的背包空间不足。"));
                         c.sendPacket(PacketCreator.makerEnableActions());
                         break;
 

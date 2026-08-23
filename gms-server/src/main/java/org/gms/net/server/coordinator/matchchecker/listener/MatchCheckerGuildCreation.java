@@ -83,7 +83,7 @@ public class MatchCheckerGuildCreation implements MatchCheckerListenerRecipe {
                 matchPlayers.remove(leader);
 
                 if (leader.getGuildId() > 0) {
-                    leader.dropMessage(1, "You cannot create a new Guild while in one.");
+                    leader.dropMessage(1, "你已加入家族，无法创建新家族。");
                     broadcastGuildCreationDismiss(matchPlayers);
                     return;
                 }
