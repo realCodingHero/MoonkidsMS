@@ -8603,7 +8603,7 @@ public class Character extends AbstractCharacterObject {
                 }
             }
 
-            dropMessage(6, "EQUIPMENT MERGE operation results:");
+            dropMessage(6, "【装备融合】操作结果：");
             for (Entry<Equip, List<Pair<StatUpgrade, Integer>>> eqpUpg : equipUpgrades.entrySet()) {
                 List<Pair<StatUpgrade, Integer>> eqpStatups = eqpUpg.getValue();
                 if (!eqpStatups.isEmpty()) {

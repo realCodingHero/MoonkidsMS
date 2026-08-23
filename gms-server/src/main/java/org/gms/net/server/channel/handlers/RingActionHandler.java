@@ -100,15 +100,15 @@ public final class RingActionHandler extends AbstractPacketHandler {
             source.sendPacket(WeddingPackets.OnMarriageResult((byte) 0));
             return;
         } else if (target.getLevel() < 50) {
-            source.dropMessage(1, "You can only propose to someone level 50 or higher.");
+            source.dropMessage(1, "你只能向50级及以上的角色求婚。");
             source.sendPacket(WeddingPackets.OnMarriageResult((byte) 0));
             return;
         } else if (source.getLevel() < 50) {
-            source.dropMessage(1, "You can only propose being level 50 or higher.");
+            source.dropMessage(1, "你的等级达到50级及以上才可以求婚。");
             source.sendPacket(WeddingPackets.OnMarriageResult((byte) 0));
             return;
         } else if (!target.getMap().equals(source.getMap())) {
-            source.dropMessage(1, "Make sure your partner is on the same map!");
+            source.dropMessage(1, "请确保你的伴侣处于同一张地图！");
             source.sendPacket(WeddingPackets.OnMarriageResult((byte) 0));
             return;
         } else if (!source.haveItem(itemid) || itemid < ItemId.ENGAGEMENT_BOX_MIN || itemid > ItemId.ENGAGEMENT_BOX_MAX) {
@@ -123,7 +123,7 @@ public final class RingActionHandler extends AbstractPacketHandler {
             source.sendPacket(WeddingPackets.OnMarriageResult((byte) 0));
             return;
         } else if (target.haveWeddingRing()) {
-            source.dropMessage(1, "The player already holds a marriage ring...");
+            source.dropMessage(1, "对方已经拥有结婚戒指了……");
             source.sendPacket(WeddingPackets.OnMarriageResult((byte) 0));
             return;
         } else if (source.haveWeddingRing()) {
@@ -139,7 +139,7 @@ public final class RingActionHandler extends AbstractPacketHandler {
             source.sendPacket(WeddingPackets.OnMarriageResult((byte) 0));
             return;
         } else if (!InventoryManipulator.checkSpace(target.getClient(), newBoxId + 1, 1, "")) {
-            source.dropMessage(5, "The girl you proposed doesn't have a ETC slot available right now.");
+            source.dropMessage(5, "对方的其他栏空间不足。");
             source.sendPacket(WeddingPackets.OnMarriageResult((byte) 0));
             return;
         }
@@ -213,7 +213,7 @@ public final class RingActionHandler extends AbstractPacketHandler {
             org.gms.server.quest.medal.OutstandingCitizenMedal.refreshEligibility(partner);
         }
 
-        chr.dropMessage(5, "You have successfully break the marriage with " + Character.getNameById(partnerid) + ".");
+        chr.dropMessage(5, "你已经成功解除了与以下角色的婚姻关系：" + Character.getNameById(partnerid) + ".");
 
         //chr.sendPacket(Wedding.OnMarriageResult((byte) 0));
         chr.sendPacket(WeddingPackets.OnNotifyWeddingPartnerTransfer(0, 0));
@@ -264,7 +264,7 @@ public final class RingActionHandler extends AbstractPacketHandler {
         if (chr.haveItem(marriageitemid)) {
             InventoryManipulator.removeById(chr.getClient(), InventoryType.ETC, marriageitemid, (short) 1, false, false);
         }
-        chr.dropMessage(5, "You have successfully break the engagement with " + Character.getNameById(partnerid) + ".");
+        chr.dropMessage(5, "你已经成功解除了与以下角色的订婚关系：" + Character.getNameById(partnerid) + ".");
 
         //chr.sendPacket(Wedding.OnMarriageResult((byte) 0));
         chr.sendPacket(WeddingPackets.OnNotifyWeddingPartnerTransfer(0, 0));
@@ -378,7 +378,7 @@ public final class RingActionHandler extends AbstractPacketHandler {
                         log.error("Error with engagement", e);
                     }
                 } else {
-                    source.dropMessage(1, "She has politely declined your engagement request.");
+                    source.dropMessage(1, "对方礼貌地拒绝了你的订婚请求。");
                     source.sendPacket(WeddingPackets.OnMarriageResult((byte) 0));
 
                     source.setMarriageItemId(-1);

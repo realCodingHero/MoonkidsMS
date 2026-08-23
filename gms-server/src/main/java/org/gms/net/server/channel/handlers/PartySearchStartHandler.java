@@ -48,7 +48,7 @@ public class PartySearchStartHandler extends AbstractPacketHandler {
         }
 
         if (max - min > 30) {
-            chr.dropMessage(1, "You can only search for party members within a range of 30 levels.");
+            chr.dropMessage(1, "你只能在30级等级范围内搜索组队队员。");
             c.sendPacket(PacketCreator.enableActions());
             return;
         }

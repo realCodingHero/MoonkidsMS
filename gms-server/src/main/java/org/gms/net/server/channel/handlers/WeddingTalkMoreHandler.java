@@ -37,7 +37,7 @@ public final class WeddingTalkMoreHandler extends AbstractPacketHandler {
         EventInstanceManager eim = c.getPlayer().getEventInstance();
         if (eim != null && !(c.getPlayer().getId() == eim.getIntProperty("groomId") || c.getPlayer().getId() == eim.getIntProperty("brideId"))) {
             eim.gridInsert(c.getPlayer(), 1);
-            c.getPlayer().dropMessage(5, "High Priest John: Your blessings have been added to their love. What a noble act for a lovely couple!");
+            c.getPlayer().dropMessage(5, "大祭司约翰：你的祝福已经融入了他们的爱意之中。多么美好的祝福！");
         }
 
         c.sendPacket(WeddingPackets.OnWeddingProgress(true, 0, 0, (byte) 3));

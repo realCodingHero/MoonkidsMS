@@ -57,7 +57,7 @@ public final class EnterMTSHandler extends AbstractPacketHandler {
         }
 
         if (chr.getEventInstance() != null) {
-            c.sendPacket(PacketCreator.serverNotice(5, "Entering Cash Shop or MTS are disabled when registered on an event."));
+            c.sendPacket(PacketCreator.serverNotice(5, "参与活动期间禁止进入现金商城或拍卖场。"));
             c.sendPacket(PacketCreator.enableActions());
             return;
         }
