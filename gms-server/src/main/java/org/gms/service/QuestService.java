@@ -43,20 +43,30 @@ public class QuestService {
         return queststatusDOList.stream().map(queststatusDO -> {
             Quest quest = Quest.getInstance(queststatusDO.getQuest());
             QuestStatus questStatus = new QuestStatus(quest, QuestStatus.Status.getById(queststatusDO.getStatus()));
-            if (queststatusDO.getTime() > -1) {
-                questStatus.setCompletionTime(TimeUnit.SECONDS.toMillis(queststatusDO.getTime()));
+            long completionTimeMillis = (queststatusDO.getTime() != null && queststatusDO.getTime() > -1) ? TimeUnit.SECONDS.toMillis(queststatusDO.getTime()) : 0L;
+            if (completionTimeMillis > 0) {
+                questStatus.setCompletionTime(completionTimeMillis);
             }
-            if (queststatusDO.getExpires() > 0) {
+            if (queststatusDO.getExpires() != null && queststatusDO.getExpires() > 0) {
                 questStatus.setExpirationTime(queststatusDO.getExpires());
             }
-            questStatus.setForfeited(queststatusDO.getForfeited());
-            questStatus.setCompleted(queststatusDO.getCompleted());
+            if (queststatusDO.getForfeited() != null) {
+                questStatus.setForfeited(queststatusDO.getForfeited());
+            }
+            if (queststatusDO.getCompleted() != null) {
+                questStatus.setCompleted(queststatusDO.getCompleted());
+            }
             questprogressDOList.stream()
                     .filter(questprogressDO -> Objects.equals(queststatusDO.getQueststatusid(), questprogressDO.getQueststatusid()))
                     .forEach(questprogressDO -> questStatus.setProgress(questprogressDO.getProgressid(),  questprogressDO.getProgress()));
             medalmapsDOList.stream()
                     .filter(medalmapsDO -> Objects.equals(queststatusDO.getQueststatusid(), medalmapsDO.getQueststatusid()))
                     .forEach(medalmapsDO -> questStatus.addMedalMap(medalmapsDO.getMapid()));
+
+            // 关键：在填充完 progress 和 medalMaps 后恢复真实历史时间戳，避免被 setProgress 覆写为当前登录时间
+            long lastModified = completionTimeMillis > 0 ? completionTimeMillis : (queststatusDO.getQueststatusid() != null ? queststatusDO.getQueststatusid() * 1000L : 0L);
+            questStatus.setLastModifiedTime(lastModified);
+
             return questStatus;
         }).toList();
     }

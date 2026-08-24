@@ -183,8 +183,25 @@ function showQuestList(category) {
             return;
         }
 
+        var normalQuests = [];
+        var medalQuests = [];
+
         for (var i = 0; i < listSize; i++) {
             var item = list.get(i);
+            var isMedal = false;
+            try {
+                isMedal = (typeof item.isMedalQuest === "function") ? item.isMedalQuest() : false;
+            } catch (ignored) {}
+            if (isMedal) {
+                medalQuests.push(item);
+            } else {
+                normalQuests.push(item);
+            }
+        }
+
+        // 1. 普通任务（最新状态更新排在最上方）
+        for (var i = 0; i < normalQuests.length; i++) {
+            var item = normalQuests[i];
             var tag = "";
             if (item.isCanComplete()) {
                 tag = " #r[可交付]#k";
@@ -192,6 +209,25 @@ function showQuestList(category) {
                 tag = " #d[可一键补齐]#k";
             }
             text += "#L" + item.getQuestId() + "# [Lv." + item.getMinLevel() + "] #b" + item.getQuestName() + "#k" + tag + "#l\r\n";
+        }
+
+        // 2. 勋章任务（始终排在最下方，并展示清晰分界线）
+        if (medalQuests.length > 0) {
+            if (normalQuests.length > 0) {
+                text += "\r\n#d-------------------- 探险与挑战勋章 --------------------#k\r\n\r\n";
+            } else {
+                text += "#d【 探险与挑战勋章 】#k\r\n";
+            }
+            for (var j = 0; j < medalQuests.length; j++) {
+                var item = medalQuests[j];
+                var tag = "";
+                if (item.isCanComplete()) {
+                    tag = " #r[可交付]#k";
+                } else if (item.isPurchasableComplete()) {
+                    tag = " #d[可一键补齐]#k";
+                }
+                text += "#L" + item.getQuestId() + "# [Lv." + item.getMinLevel() + "] #d" + item.getQuestName() + "#k" + tag + "#l\r\n";
+            }
         }
 
         text += "\r\n#L999999##b[返回主菜单]#k#l";
