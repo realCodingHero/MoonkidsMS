@@ -665,7 +665,27 @@ public class MapleMap {
         Item idrop;
         ItemInformationProvider ii = ItemInformationProvider.getInstance();
 
-        for (final MonsterDropEntry de : dropEntry) {
+        // 原版装备池化机制：非 Boss 且非爆装怪物的普通野怪，采用原版槽位判定（整只怪最多掉落 1 件装备，按单项权重抽取）
+        boolean isBossOrExplosive = (mob != null && (mob.isBoss() || mob.getStats().isExplosiveReward()));
+        boolean useEquipPool = !isBossOrExplosive;
+
+        List<MonsterDropEntry> nonEquipDrops = new ArrayList<>();
+        List<MonsterDropEntry> equipDrops = new ArrayList<>();
+
+        if (useEquipPool) {
+            for (MonsterDropEntry de : dropEntry) {
+                if (de.itemId != 0 && ItemConstants.isEquipment(de.itemId)) {
+                    equipDrops.add(de);
+                } else {
+                    nonEquipDrops.add(de);
+                }
+            }
+        } else {
+            nonEquipDrops.addAll(dropEntry);
+        }
+
+        // 1. 处理非装备掉落（金币、消耗品、其它道具、以及 Boss 的所有掉落）
+        for (final MonsterDropEntry de : nonEquipDrops) {
             float cardRate = chr.getCardRate(de.itemId);
             int dropChance = (int) Math.min((float) de.chance * chRate * cardRate, Integer.MAX_VALUE);
 
@@ -698,6 +718,43 @@ public class MapleMap {
                     spawnDrop(idrop, calcDropPos(pos, mob.getPosition()), mob, chr, droptype, de.questid);
                 }
                 d++;
+            }
+        }
+
+        // 2. 处理普通野怪的装备池化掉落（整只怪最多掉落 1 件装备，按单件权重加权随机选取）
+        if (useEquipPool && !equipDrops.isEmpty()) {
+            int totalEquipWeight = 0;
+            List<Integer> weights = new ArrayList<>(equipDrops.size());
+            for (MonsterDropEntry de : equipDrops) {
+                float cardRate = chr.getCardRate(de.itemId);
+                int effChance = (int) Math.min((float) de.chance * chRate * cardRate, Integer.MAX_VALUE);
+                weights.add(effChance);
+                totalEquipWeight += effChance;
+            }
+
+            int poolChance = Math.min(totalEquipWeight, 999999);
+            if (totalEquipWeight > 0 && Randomizer.nextInt(999999) < poolChance) {
+                int randVal = Randomizer.nextInt(totalEquipWeight);
+                int running = 0;
+                MonsterDropEntry selectedEquip = null;
+                for (int i = 0; i < equipDrops.size(); i++) {
+                    running += weights.get(i);
+                    if (randVal < running) {
+                        selectedEquip = equipDrops.get(i);
+                        break;
+                    }
+                }
+
+                if (selectedEquip != null) {
+                    if (droptype == 3) {
+                        pos.x = mobpos + ((d % 2 == 0) ? (40 * ((d + 1) / 2)) : -(40 * (d / 2)));
+                    } else {
+                        pos.x = mobpos + ((d % 2 == 0) ? (25 * ((d + 1) / 2)) : -(25 * (d / 2)));
+                    }
+                    idrop = ii.randomizeStats((Equip) ii.getEquipById(selectedEquip.itemId));
+                    spawnDrop(idrop, calcDropPos(pos, mob.getPosition()), mob, chr, droptype, selectedEquip.questid);
+                    d++;
+                }
             }
         }
 
