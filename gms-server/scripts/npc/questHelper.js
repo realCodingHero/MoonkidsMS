@@ -605,7 +605,7 @@ function showDropMobList(item) {
                 if (dropMob.isBoss()) {
                     text += "#L" + (400000 + entry.index) + "# " + dropMob.getMobName() + " #r[Boss]#k (掉率: " + dropMob.getChanceText() + ") #r[Boss需自行前往]#k#l\r\n";
                 } else {
-                    text += "#L" + (400000 + entry.index) + "# " + dropMob.getMobName() + " (掉率: " + dropMob.getChanceText() + ", 已解锁地图: " + mUnlocked.length + ")#l\r\n";
+                    text += "#L" + (400000 + entry.index) + "# " + dropMob.getMobName() + " (掉率: " + dropMob.getChanceText() + ", 可传送)#l\r\n";
                 }
             }
             text += "\r\n";
@@ -616,8 +616,7 @@ function showDropMobList(item) {
             for (var j = 0; j < unlockedDropReactors.length; j++) {
                 var rEntry = unlockedDropReactors[j];
                 var dropReactor = rEntry.reactor;
-                var rUnlocked = rEntry.maps;
-                text += "#L" + (450000 + rEntry.index) + "# 【采集】 " + dropReactor.getReactorName() + " (掉率: " + dropReactor.getChanceText() + ", 已解锁地图: " + rUnlocked.length + ")#l\r\n";
+                text += "#L" + (450000 + rEntry.index) + "# 【采集】 " + dropReactor.getReactorName() + " (掉率: " + dropReactor.getChanceText() + ", 可传送)#l\r\n";
             }
             text += "\r\n";
         }
