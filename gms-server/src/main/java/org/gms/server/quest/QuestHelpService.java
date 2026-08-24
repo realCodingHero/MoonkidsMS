@@ -1383,9 +1383,14 @@ public final class QuestHelpService {
         if (player == null || q == null) {
             return false;
         }
-        int completeNpcId = q.getNpcRequirement(true);
-        Integer npcId = completeNpcId > 0 ? completeNpcId : null;
-        return q.canComplete(player, npcId);
+        try {
+            int completeNpcId = q.getNpcRequirement(true);
+            Integer npcId = completeNpcId > 0 ? completeNpcId : null;
+            return q.canComplete(player, npcId);
+        } catch (Throwable t) {
+            log.warn("Error checking isQuestCompletable for quest {} player {}: {}", q.getId(), (player != null ? player.getName() : "null"), t.toString());
+            return false;
+        }
     }
 
     /**
@@ -1400,68 +1405,73 @@ public final class QuestHelpService {
         if (player == null || q == null) {
             return false;
         }
-        if (isQuestCompletable(player, q)) {
-            return false;
-        }
-        QuestStatus qs = player.getQuest(q);
-        if (qs == null || !QuestStatus.Status.STARTED.equals(qs.getStatus())) {
-            return false;
-        }
-
-        // 1. 击杀目标：所有未达成的目标必须满足账号历史共享条件（且非Boss）
-        Map<Integer, Integer> reqMobs = new HashMap<>(q.getRequiredMobs());
-        if (reqMobs.isEmpty() && !q.getRelevantMobs().isEmpty()) {
-            for (int mobId : q.getRelevantMobs()) {
-                int count = q.getMobAmountNeeded(mobId);
-                if (count > 0) {
-                    reqMobs.put(mobId, count);
-                }
+        try {
+            if (isQuestCompletable(player, q)) {
+                return false;
             }
-        }
-        boolean hasIncompleteSyncableOrPurchasable = false;
-        MonsterInformationProvider mip = MonsterInformationProvider.getInstance();
-
-        for (Map.Entry<Integer, Integer> entry : reqMobs.entrySet()) {
-            int mobId = entry.getKey();
-            int req = entry.getValue();
-            int currentKills = parseProgress(qs.getProgress(mobId));
-            if (currentKills < req) {
-                if (mip.isBoss(mobId)) {
-                    return false; // 有未完成的 Boss 目标，无法一键补齐
-                }
-                long accKills = getAccountMobKills(player.getAccountId(), mobId);
-                if (accKills < req) {
-                    return false; // 账号历史击杀不足
-                }
-                hasIncompleteSyncableOrPurchasable = true;
+            QuestStatus qs = player.getQuest(q);
+            if (qs == null || !QuestStatus.Status.STARTED.equals(qs.getStatus())) {
+                return false;
             }
-        }
 
-        // 2. 道具目标：所有未集齐的道具必须全是可购买材料（普通怪物材料或原生商店道具）
-        Map<Integer, Integer> reqItems = q.getRequiredItems();
-        if (reqItems != null) {
-            for (Map.Entry<Integer, Integer> entry : reqItems.entrySet()) {
-                int itemId = entry.getKey();
-                int reqCount = entry.getValue();
-                InventoryType iType = ItemConstants.getInventoryType(itemId);
-                int currentCount = 0;
-                if (iType != null && !iType.equals(InventoryType.UNDEFINED) && player.getInventory(iType) != null) {
-                    currentCount = player.getInventory(iType).countById(itemId);
-                }
-                if (currentCount < reqCount) {
-                    if (reqCount <= 1) {
-                        return false;
+            // 1. 击杀目标：所有未达成的目标必须满足账号历史共享条件（且非Boss）
+            Map<Integer, Integer> reqMobs = new HashMap<>(q.getRequiredMobs());
+            if (reqMobs.isEmpty() && !q.getRelevantMobs().isEmpty()) {
+                for (int mobId : q.getRelevantMobs()) {
+                    int count = q.getMobAmountNeeded(mobId);
+                    if (count > 0) {
+                        reqMobs.put(mobId, count);
                     }
-                    boolean deliverableItem = isPurchasableMaterial(itemId) || (isQuestExclusiveItem(itemId) && currentCount >= 1);
-                    if (!deliverableItem) {
-                        return false; // 有未达成的不可购买道具
+                }
+            }
+            boolean hasIncompleteSyncableOrPurchasable = false;
+            MonsterInformationProvider mip = MonsterInformationProvider.getInstance();
+
+            for (Map.Entry<Integer, Integer> entry : reqMobs.entrySet()) {
+                int mobId = entry.getKey();
+                int req = entry.getValue();
+                int currentKills = parseProgress(qs.getProgress(mobId));
+                if (currentKills < req) {
+                    if (mip.isBoss(mobId)) {
+                        return false; // 有未完成的 Boss 目标，无法一键补齐
+                    }
+                    long accKills = getAccountMobKills(player.getAccountId(), mobId);
+                    if (accKills < req) {
+                        return false; // 账号历史击杀不足
                     }
                     hasIncompleteSyncableOrPurchasable = true;
                 }
             }
-        }
 
-        return hasIncompleteSyncableOrPurchasable;
+            // 2. 道具目标：所有未集齐的道具必须全是可购买材料（普通怪物材料或原生商店道具）
+            Map<Integer, Integer> reqItems = q.getRequiredItems();
+            if (reqItems != null) {
+                for (Map.Entry<Integer, Integer> entry : reqItems.entrySet()) {
+                    int itemId = entry.getKey();
+                    int reqCount = entry.getValue();
+                    InventoryType iType = ItemConstants.getInventoryType(itemId);
+                    int currentCount = 0;
+                    if (iType != null && !iType.equals(InventoryType.UNDEFINED) && player.getInventory(iType) != null) {
+                        currentCount = player.getInventory(iType).countById(itemId);
+                    }
+                    if (currentCount < reqCount) {
+                        if (reqCount <= 1) {
+                            return false;
+                        }
+                        boolean deliverableItem = isPurchasableMaterial(itemId) || (isQuestExclusiveItem(itemId) && currentCount >= 1);
+                        if (!deliverableItem) {
+                            return false; // 有未达成的不可购买道具
+                        }
+                        hasIncompleteSyncableOrPurchasable = true;
+                    }
+                }
+            }
+
+            return hasIncompleteSyncableOrPurchasable;
+        } catch (Throwable t) {
+            log.warn("Error checking isQuestPurchasableCompletable for quest {} player {}: {}", q.getId(), (player != null ? player.getName() : "null"), t.toString());
+            return false;
+        }
     }
 
     public List<QuestSummary> getStartedQuestSummaries(Character player) {
@@ -1469,28 +1479,48 @@ public final class QuestHelpService {
             return Collections.emptyList();
         }
         List<QuestSummary> list = new ArrayList<>();
-        for (QuestStatus qs : player.getStartedQuests()) {
-            Quest q = qs.getQuest();
-            if (q == null) continue;
-            // 过滤无效任务与内部数据记录（ID <= 0，或未在 WZ QuestInfo 中有效命名）
-            if (q.getId() <= 0) {
-                continue;
-            }
-            String name = q.getName();
-            if (name == null || name.isBlank() || name.startsWith("任务 ")) {
-                continue;
-            }
-            int minLevel = q.getMinLevel();
-            boolean canComplete = isQuestCompletable(player, q);
-            boolean purchasableComplete = isQuestPurchasableCompletable(player, q);
-            long lastModifiedTime = qs.getLastModifiedTime();
-            list.add(new QuestSummary(q.getId(), name, minLevel, canComplete, purchasableComplete, lastModifiedTime));
+        List<QuestStatus> started;
+        try {
+            started = player.getStartedQuests();
+        } catch (Throwable t) {
+            log.warn("Failed to getStartedQuests for player {}: {}", player.getName(), t.toString());
+            return Collections.emptyList();
         }
-        list.sort((a, b) -> {
-            int cmp = Long.compare(b.getLastModifiedTime(), a.getLastModifiedTime());
-            if (cmp != 0) return cmp;
-            return Integer.compare(b.getQuestId(), a.getQuestId());
-        });
+        if (started == null || started.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        for (QuestStatus qs : started) {
+            if (qs == null) continue;
+            try {
+                Quest q = qs.getQuest();
+                if (q == null || q.getId() <= 0) {
+                    continue;
+                }
+                String name = q.getName();
+                if (name == null || name.isBlank() || name.startsWith("任务 ")) {
+                    continue;
+                }
+                int minLevel = 0;
+                try {
+                    minLevel = q.getMinLevel();
+                } catch (Throwable ignored) {}
+
+                boolean canComplete = isQuestCompletable(player, q);
+                boolean purchasableComplete = isQuestPurchasableCompletable(player, q);
+                long lastModifiedTime = qs.getLastModifiedTime();
+                list.add(new QuestSummary(q.getId(), name, minLevel, canComplete, purchasableComplete, lastModifiedTime));
+            } catch (Throwable t) {
+                log.warn("Error processing quest summary for player {}: {}", player.getName(), t.toString());
+            }
+        }
+        try {
+            list.sort((a, b) -> {
+                int cmp = Long.compare(b.getLastModifiedTime(), a.getLastModifiedTime());
+                if (cmp != 0) return cmp;
+                return Integer.compare(b.getQuestId(), a.getQuestId());
+            });
+        } catch (Throwable ignored) {}
         return Collections.unmodifiableList(list);
     }
 

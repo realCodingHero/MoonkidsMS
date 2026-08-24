@@ -23,6 +23,7 @@ var pendingConfirmAction = null; // { type: 'ALL' | 'MOB' | 'ITEM', id: number, 
 
 function start() {
     try {
+        java.lang.System.out.println("[NPC questHelper] start() entered");
         currentState = STATE_MAIN_MENU;
         selectedCategory = 1;
         selectedQuestId = 0;
@@ -33,6 +34,7 @@ function start() {
         pendingConfirmAction = null;
         showMainMenu();
     } catch (e) {
+        java.lang.System.out.println("[NPC questHelper] start() exception: " + e);
         cm.sendOk("任务辅助启动错误：" + e);
         cm.dispose();
     }
@@ -115,8 +117,18 @@ function showMainMenu() {
         }
 
         var player = cm.getPlayer();
-        var canCompleteQuests = service.getCanCompleteQuests(player);
-        var inProgressQuests = service.getInProgressQuests(player);
+        var canCompleteQuests = null;
+        var inProgressQuests = null;
+        try {
+            canCompleteQuests = service.getCanCompleteQuests(player);
+        } catch (e) {
+            java.lang.System.out.println("[NPC questHelper] getCanCompleteQuests error: " + e);
+        }
+        try {
+            inProgressQuests = service.getInProgressQuests(player);
+        } catch (e) {
+            java.lang.System.out.println("[NPC questHelper] getInProgressQuests error: " + e);
+        }
 
         var canCompleteCount = (canCompleteQuests && typeof canCompleteQuests.size === "function") ? canCompleteQuests.size() : 0;
         var inProgressCount = (inProgressQuests && typeof inProgressQuests.size === "function") ? inProgressQuests.size() : 0;
