@@ -37,7 +37,6 @@ function writeServerStaff_BeiDou() {
     addPerson("SleepNap", "Developer");
     addPerson("leevccc", "Developer");
     addPerson("BurgerKing", "Developer");
-    addPerson("TokyoEric", "Contributor");
     addPerson("yainse", "Contributor");
     addPerson("huash", "Contributor");
     addPerson("Tomddlee", "Contributor");
