@@ -4679,16 +4679,32 @@ public class Character extends AbstractCharacterObject {
     public float getLevelExpRate() {
         if (hasNoviceExpRate()) return 1; // 新手经验保护
 
-        return 1f + GameConfig.getWorldFloat(getWorld(), "level_exp_rate") * level;
+        float rate = GameConfig.getWorldFloat(getWorld(), "level_exp_rate");
+        if (rate <= 0) {
+            rate = GameConfig.getWorldFloat(getWorld(), "level_rate");
+        }
+        if (rate <= 0) {
+            return 1f;
+        }
+
+        return 1f + rate * level;
     }
 
     public float getQuickLevelExpRate() {
         if (hasNoviceExpRate()) return 1; // 新手经验保护
 
         int quickLv = GameConfig.getWorldInt(getWorld(), "quick_level");
-        if (level >= quickLv) return 1;
+        if (quickLv <= 0 || level >= quickLv) return 1f;
 
-        return 1f + (quickLv - level) * GameConfig.getWorldFloat(getWorld(), "quick_level_exp_rate");
+        float rate = GameConfig.getWorldFloat(getWorld(), "quick_level_exp_rate");
+        if (rate <= 0) {
+            rate = GameConfig.getWorldFloat(getWorld(), "quick_level_rate");
+        }
+        if (rate <= 0) {
+            return 1f;
+        }
+
+        return 1f + (quickLv - level) * rate;
     }
 
     public void updateMobExpRate() {
