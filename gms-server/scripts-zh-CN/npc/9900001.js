@@ -147,6 +147,9 @@ function doSelect(selection) {
 }
 
 function openNpc(scriptName) {
+    try {
+        java.lang.System.out.println("[NPC 9900001] openNpc called: " + scriptName);
+    } catch (ignored) {}
     cm.dispose();
     cm.openNpc(9900001, scriptName);
 }
