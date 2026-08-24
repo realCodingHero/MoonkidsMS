@@ -1509,16 +1509,25 @@ public final class QuestHelpService {
                 boolean canComplete = isQuestCompletable(player, q);
                 boolean purchasableComplete = isQuestPurchasableCompletable(player, q);
                 long lastModifiedTime = qs.getLastModifiedTime();
-                list.add(new QuestSummary(q.getId(), name, minLevel, canComplete, purchasableComplete, lastModifiedTime));
+                boolean isMedal = (q.getMedalRequirement() != -1) || (q.getId() >= 29000 && q.getId() < 30000) || (name != null && name.contains("勋章"));
+                list.add(new QuestSummary(q.getId(), name, minLevel, canComplete, purchasableComplete, lastModifiedTime, isMedal));
             } catch (Throwable t) {
                 log.warn("Error processing quest summary for player {}: {}", player.getName(), t.toString());
             }
         }
         try {
             list.sort((a, b) -> {
+                // 1. 普通任务始终排在勋章任务前面（勋章任务始终置底）
+                if (a.isMedalQuest() != b.isMedalQuest()) {
+                    return a.isMedalQuest() ? 1 : -1;
+                }
+                // 2. 同类别内，按最近状态更新/接取时间倒序排列（最新在前）
                 int cmp = Long.compare(b.getLastModifiedTime(), a.getLastModifiedTime());
                 if (cmp != 0) return cmp;
-                return Integer.compare(b.getQuestId(), a.getQuestId());
+                // 3. 时间相同时，按等级从高到低，再按任务 ID 升序
+                int lvlCmp = Integer.compare(b.getMinLevel(), a.getMinLevel());
+                if (lvlCmp != 0) return lvlCmp;
+                return Integer.compare(a.getQuestId(), b.getQuestId());
             });
         } catch (Throwable ignored) {}
         return Collections.unmodifiableList(list);
@@ -2264,14 +2273,20 @@ public final class QuestHelpService {
         private final boolean canComplete;
         private final boolean purchasableComplete;
         private final long lastModifiedTime;
+        private final boolean medalQuest;
 
-        public QuestSummary(int questId, String questName, int minLevel, boolean canComplete, boolean purchasableComplete, long lastModifiedTime) {
+        public QuestSummary(int questId, String questName, int minLevel, boolean canComplete, boolean purchasableComplete, long lastModifiedTime, boolean medalQuest) {
             this.questId = questId;
             this.questName = questName;
             this.minLevel = minLevel;
             this.canComplete = canComplete;
             this.purchasableComplete = purchasableComplete;
             this.lastModifiedTime = lastModifiedTime;
+            this.medalQuest = medalQuest;
+        }
+
+        public QuestSummary(int questId, String questName, int minLevel, boolean canComplete, boolean purchasableComplete, long lastModifiedTime) {
+            this(questId, questName, minLevel, canComplete, purchasableComplete, lastModifiedTime, false);
         }
 
         public int getQuestId() {
@@ -2296,6 +2311,10 @@ public final class QuestHelpService {
 
         public long getLastModifiedTime() {
             return lastModifiedTime;
+        }
+
+        public boolean isMedalQuest() {
+            return medalQuest;
         }
     }
 

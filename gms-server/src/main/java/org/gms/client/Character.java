@@ -7956,7 +7956,8 @@ public class Character extends AbstractCharacterObject {
                     for (QuestStatus qs : getQuestValues()) {
                         psStatus.setInt(2, qs.getQuest().getId());
                         psStatus.setInt(3, qs.getStatus().getId());
-                        psStatus.setInt(4, (int) (qs.getCompletionTime() / 1000));
+                        long savedTime = Math.max(qs.getCompletionTime(), qs.getLastModifiedTime());
+                        psStatus.setInt(4, (int) (savedTime / 1000));
                         psStatus.setLong(5, qs.getExpirationTime());
                         psStatus.setInt(6, qs.getForfeited());
                         psStatus.setInt(7, qs.getCompleted());

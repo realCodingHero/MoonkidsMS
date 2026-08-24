@@ -146,6 +146,7 @@ public class QuestStatus {
             return false;
         }
         medalProgress.add(mapid);
+        this.lastModifiedTime = System.currentTimeMillis();
         //this.setUpdated();
         return true;
     }
