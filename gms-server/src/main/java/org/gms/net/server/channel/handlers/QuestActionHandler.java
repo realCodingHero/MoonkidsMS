@@ -60,7 +60,7 @@ public final class QuestActionHandler extends AbstractPacketHandler {
             playerP = pos;
         }
 
-        if (!quest.isAutoStart() && !quest.isAutoComplete()) {
+        if (!quest.isAutoStart() && !quest.isAutoComplete() && npcId != org.gms.constants.id.NpcId.MAPLE_ADMINISTRATOR && npcId != 9900000 && npcId != 9000000 && npcId != 9000020 && npcId != 9010010) {
             NPC npc = player.getMap().getNPCById(npcId);
             if (npc == null) {
                 return false;
@@ -103,7 +103,7 @@ public final class QuestActionHandler extends AbstractPacketHandler {
                 if (quest.canStart(player, npc)) {
                     boolean success = QuestScriptManager.getInstance().checkFunctionExists(c, questid, npc, "start");
                     boolean hasScriptRequirement = quest.hasScriptRequirement(false);
-                    if (hasScriptRequirement && success) {
+                    if ((hasScriptRequirement || success) && success) {
                         QuestScriptManager.getInstance().start(c, questid, npc);
                     } else {
                         quest.start(player, npc);
@@ -123,7 +123,7 @@ public final class QuestActionHandler extends AbstractPacketHandler {
                 if (quest.canComplete(player, npc)) {
                     boolean success = QuestScriptManager.getInstance().checkFunctionExists(c, questid, npc, "end");
                     boolean hasScriptRequirement = quest.hasScriptRequirement(true);
-                    if (hasScriptRequirement && success) {
+                    if ((hasScriptRequirement || success) && success) {
                         QuestScriptManager.getInstance().end(c, questid, npc);
                     } else {
                         if (p.available() >= 2) {

@@ -108,7 +108,7 @@ public class QuestScriptManager extends AbstractScriptManager {
 
     public void end(Client c, short questid, int npc) {
         Quest quest = Quest.getInstance(questid);
-        if (!c.getPlayer().getQuest(quest).getStatus().equals(QuestStatus.Status.STARTED) || (!c.getPlayer().getMap().containsNPC(npc) && !quest.isAutoComplete())) {
+        if (!c.getPlayer().getQuest(quest).getStatus().equals(QuestStatus.Status.STARTED) || (!c.getPlayer().getMap().containsNPC(npc) && !quest.isAutoComplete() && npc != org.gms.constants.id.NpcId.MAPLE_ADMINISTRATOR && npc != 9900000 && npc != 9000000 && npc != 9000020 && npc != 9010010)) {
             dispose(c);
             return;
         }
