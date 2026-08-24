@@ -22,15 +22,20 @@ var pendingNotice = null;
 var pendingConfirmAction = null; // { type: 'ALL' | 'MOB' | 'ITEM', id: number, cost: number }
 
 function start() {
-    currentState = STATE_MAIN_MENU;
-    selectedCategory = 1;
-    selectedQuestId = 0;
-    currentDetail = null;
-    selectedItem = null;
-    currentMapList = null;
-    pendingNotice = null;
-    pendingConfirmAction = null;
-    showMainMenu();
+    try {
+        currentState = STATE_MAIN_MENU;
+        selectedCategory = 1;
+        selectedQuestId = 0;
+        currentDetail = null;
+        selectedItem = null;
+        currentMapList = null;
+        pendingNotice = null;
+        pendingConfirmAction = null;
+        showMainMenu();
+    } catch (e) {
+        cm.sendOk("任务辅助启动错误：" + e);
+        cm.dispose();
+    }
 }
 
 function action(mode, type, selection) {
@@ -101,29 +106,38 @@ function action(mode, type, selection) {
  * 界面 0：主菜单（可交付任务 vs 进行中任务）
  */
 function showMainMenu() {
-    currentState = STATE_MAIN_MENU;
-    var service = cm.getQuestHelp();
-    if (!service) {
-        cm.sendOk("任务辅助服务暂不可用。");
-        return;
+    try {
+        currentState = STATE_MAIN_MENU;
+        var service = cm.getQuestHelp();
+        if (!service) {
+            cm.sendOk("任务辅助服务暂不可用。");
+            return;
+        }
+
+        var player = cm.getPlayer();
+        var canCompleteQuests = service.getCanCompleteQuests(player);
+        var inProgressQuests = service.getInProgressQuests(player);
+
+        var canCompleteCount = (canCompleteQuests && typeof canCompleteQuests.size === "function") ? canCompleteQuests.size() : 0;
+        var inProgressCount = (inProgressQuests && typeof inProgressQuests.size === "function") ? inProgressQuests.size() : 0;
+
+        var text = "\t\t\t\t#e#r★ BeiDou 任务辅助助手 ★#k#n\r\n\r\n";
+        text += "在这里您可以查看当前所有已接取的任务进度、一键导航至起止 NPC、快捷传送至怪物地图，以及一键补齐普通任务材料。\r\n\r\n";
+
+        if (canCompleteCount > 0) {
+            text += "#L1##b★ 查看当前可直接交付的任务#k #r(" + canCompleteCount + " 个已达成)#k#l\r\n";
+        } else {
+            text += "#L1##d★ 查看当前可交付的任务 (暂无可交付任务)#k#l\r\n";
+        }
+
+        text += "#L2##b★ 查看当前进行中的任务列表#k #d(" + inProgressCount + " 个进行中)#k#l\r\n\r\n";
+        text += "#L999999##b[返回枫叶助手主菜单]#k#l";
+
+        cm.sendSimple(text);
+    } catch (e) {
+        cm.sendOk("主菜单加载失败：" + e);
+        cm.dispose();
     }
-
-    var canCompleteQuests = service.getCanCompleteQuests(cm.getPlayer());
-    var inProgressQuests = service.getInProgressQuests(cm.getPlayer());
-
-    var text = "\t\t\t\t#e#r★ BeiDou 任务辅助助手 ★#k#n\r\n\r\n";
-    text += "在这里您可以查看当前所有已接取的任务进度、一键导航至起止 NPC、快捷传送至怪物地图，以及一键补齐普通任务材料。\r\n\r\n";
-
-    if (canCompleteQuests.size() > 0) {
-        text += "#L1##b★ 查看当前可直接交付的任务#k #r(" + canCompleteQuests.size() + " 个已达成)#k#l\r\n";
-    } else {
-        text += "#L1##d★ 查看当前可交付的任务 (暂无可交付任务)#k#l\r\n";
-    }
-
-    text += "#L2##b★ 查看当前进行中的任务列表#k #d(" + inProgressQuests.size() + " 个进行中)#k#l\r\n\r\n";
-    text += "#L999999##b[返回枫叶助手主菜单]#k#l";
-
-    cm.sendSimple(text);
 }
 
 function handleMainMenuSelection(selection) {
@@ -141,33 +155,39 @@ function handleMainMenuSelection(selection) {
  * 界面 1：展示任务列表（分类 1: 可交付, 分类 2: 进行中）
  */
 function showQuestList(category) {
-    currentState = STATE_QUEST_LIST;
-    var service = cm.getQuestHelp();
-    var list = (category === 1) ? service.getCanCompleteQuests(cm.getPlayer()) : service.getInProgressQuests(cm.getPlayer());
+    try {
+        currentState = STATE_QUEST_LIST;
+        var service = cm.getQuestHelp();
+        var list = (category === 1) ? service.getCanCompleteQuests(cm.getPlayer()) : service.getInProgressQuests(cm.getPlayer());
+        var listSize = (list && typeof list.size === "function") ? list.size() : 0;
 
-    var categoryTitle = (category === 1) ? "可直接交付的任务" : "进行中的任务";
-    var text = "#e#b【 " + categoryTitle + " 】 (共 " + list.size() + " 个)#k#n\r\n\r\n";
+        var categoryTitle = (category === 1) ? "可直接交付的任务" : "进行中的任务";
+        var text = "#e#b【 " + categoryTitle + " 】 (共 " + listSize + " 个)#k#n\r\n\r\n";
 
-    if (list.size() === 0) {
-        text += (category === 1) ? "当前没有任何已达成全部条件的任务。\r\n" : "您当前尚未接取任何任务。\r\n";
+        if (listSize === 0) {
+            text += (category === 1) ? "当前没有任何已达成全部条件的任务。\r\n" : "您当前尚未接取任何任务。\r\n";
+            text += "\r\n#L999999##b[返回主菜单]#k#l";
+            cm.sendSimple(text);
+            return;
+        }
+
+        for (var i = 0; i < listSize; i++) {
+            var item = list.get(i);
+            var tag = "";
+            if (item.isCanComplete()) {
+                tag = " #r[可交付]#k";
+            } else if (item.isPurchasableComplete()) {
+                tag = " #d[可一键补齐]#k";
+            }
+            text += "#L" + item.getQuestId() + "# [Lv." + item.getMinLevel() + "] #b" + item.getQuestName() + "#k" + tag + "#l\r\n";
+        }
+
         text += "\r\n#L999999##b[返回主菜单]#k#l";
         cm.sendSimple(text);
-        return;
+    } catch (e) {
+        cm.sendOk("任务列表加载失败：" + e);
+        cm.dispose();
     }
-
-    for (var i = 0; i < list.size(); i++) {
-        var item = list.get(i);
-        var tag = "";
-        if (item.isCanComplete()) {
-            tag = " #r[可交付]#k";
-        } else if (item.isPurchasableComplete()) {
-            tag = " #d[可一键补齐]#k";
-        }
-        text += "#L" + item.getQuestId() + "# [Lv." + item.getMinLevel() + "] #b" + item.getQuestName() + "#k" + tag + "#l\r\n";
-    }
-
-    text += "\r\n#L999999##b[返回主菜单]#k#l";
-    cm.sendSimple(text);
 }
 
 function handleQuestListSelection(selection) {
@@ -187,10 +207,11 @@ function getUnlockedMapsList(mapList) {
     var result = [];
     if (!mapList) return result;
     var service = cm.getQuestHelp();
+    var player = cm.getPlayer();
     var size = (typeof mapList.size === "function") ? mapList.size() : mapList.length;
     for (var i = 0; i < size; i++) {
         var map = (typeof mapList.get === "function") ? mapList.get(i) : mapList[i];
-        if (map && service && service.isMapWarpUnlocked(cm.getPlayer(), map.getMapId())) {
+        if (map && service && service.isMapWarpUnlocked(player, map.getMapId())) {
             result.push(map);
         }
     }
@@ -209,167 +230,172 @@ function getTargetMapFromList(mapList, index) {
  * 界面 2：展示指定任务的详细进度与各项操作
  */
 function showQuestDetail(questId) {
-    currentState = STATE_QUEST_DETAIL;
-    selectedQuestId = questId;
-    var service = cm.getQuestHelp();
-    currentDetail = service.getQuestDetailInfo(cm.getPlayer(), questId);
+    try {
+        currentState = STATE_QUEST_DETAIL;
+        selectedQuestId = questId;
+        var service = cm.getQuestHelp();
+        currentDetail = service.getQuestDetailInfo(cm.getPlayer(), questId);
 
-    if (!currentDetail) {
-        cm.sendOk("未获取到任务详细信息，可能任务已被放弃或已完成。");
-        currentState = STATE_MAIN_MENU;
-        return;
-    }
-
-    var text = "#e#b【 任务详情 】 " + currentDetail.getQuestName() + " (ID: " + questId + ")#k#n\r\n";
-
-    if (pendingNotice) {
-        text += "\r\n" + pendingNotice + "\r\n\r\n";
-        pendingNotice = null;
-    } else {
-        text += "\r\n";
-    }
-
-    var mobObjs = currentDetail.getMobObjectives();
-    var itemObjs = currentDetail.getItemObjectives();
-    var startNpc = currentDetail.getStartNpc();
-    var compNpc = currentDetail.getCompleteNpc();
-
-    // 检查是否有可同步的怪物击杀与可补齐的普通材料
-    var hasSyncableMobs = currentDetail.hasSyncableMobKills();
-    var hasDeliverableIncomplete = currentDetail.hasDeliverableIncompleteItems();
-    var totalMobCost = currentDetail.getTotalSyncableMobsCost();
-    var totalMatCost = currentDetail.getTotalRegularMaterialsCost();
-    var combinedCost = currentDetail.getTotalCostWithMobsAndMaterials();
-
-    if (hasSyncableMobs && hasDeliverableIncomplete) {
-        text += "#L10000##k【 #d★ 一键同步账号击杀并购买全部普通材料#k 】 #d(" + combinedCost + " 金币)#k#l\r\n\r\n";
-    } else if (hasSyncableMobs) {
-        text += "#L10000##k【 #d★ 一键同步本任务全部满足条件的账号怪物击杀#k 】 #d(" + totalMobCost + " 金币)#k#l\r\n\r\n";
-    } else if (hasDeliverableIncomplete) {
-        text += "#L10000##k【 #d★ 一键购买补齐本任务全部普通/商店材料#k 】 #d(" + totalMatCost + " 金币)#k#l\r\n\r\n";
-    }
-
-    var hasContent = false;
-
-    // 1. 击杀目标
-    if (mobObjs && mobObjs.size() > 0) {
-        hasContent = true;
-        text += "#e【 击杀怪物目标 】#n\r\n";
-        for (var i = 0; i < mobObjs.size(); i++) {
-            var mob = mobObjs.get(i);
-            var isDone = mob.isCompleted();
-            var progTag = isDone ? "#b(" + mob.getCurrentKills() + "/" + mob.getRequiredKills() + ") [已达成]#k" : "#r(" + mob.getCurrentKills() + "/" + mob.getRequiredKills() + ") [未完成]#k";
-
-            if (mob.isBoss()) {
-                if (isDone) {
-                    text += " 消灭 【#rBoss - " + mob.getMobName() + "#k】 " + progTag + "\r\n\r\n";
-                } else {
-                    text += " 消灭 【#rBoss - " + mob.getMobName() + "#k】 " + progTag + " #r[Boss需亲自消灭]#k\r\n\r\n";
-                }
-            } else if (isDone) {
-                text += " 消灭 【#b" + mob.getMobName() + " (Lv." + mob.getMobLevel() + ")#k】 " + progTag + "\r\n\r\n";
-            } else {
-                var mobUnlockedMaps = getUnlockedMapsList(mob.getMaps());
-                if (mobUnlockedMaps.length > 0) {
-                    text += "#L" + (100000 + i) + "# 消灭 【#b" + mob.getMobName() + " (Lv." + mob.getMobLevel() + ")#k】 (#r" + mob.getCurrentKills() + "/" + mob.getRequiredKills() + "#k) -> #d[传送]#k#l\r\n";
-                } else {
-                    text += " 消灭 【#b" + mob.getMobName() + " (Lv." + mob.getMobLevel() + ")#k】 (#r" + mob.getCurrentKills() + "/" + mob.getRequiredKills() + "#k) #r[分布地图未探索解锁]#k\r\n";
-                }
-
-                if (mob.isPurchasable()) {
-                    var needed = mob.getRequiredKills() - mob.getCurrentKills();
-                    if (mob.getPurchasableKills() >= needed) {
-                        text += "#L" + (150000 + i) + "#   └─ #d[可用/历史总击杀数:" + mob.getAvailableKills() + "/" + mob.getTotalAccountKills() + " ,消耗 " + mob.getTotalCost() + "金币补齐余下全部" + mob.getPurchasableKills() + "只]#k#l\r\n";
-                    } else {
-                        text += "#L" + (150000 + i) + "#   └─ #d[可用/历史总击杀数:" + mob.getAvailableKills() + "/" + mob.getTotalAccountKills() + " ,消耗 " + mob.getTotalCost() + "金币获得" + mob.getPurchasableKills() + "只击杀]#k#l\r\n";
-                    }
-                } else if (mobUnlockedMaps.length > 0) {
-                    var needed = mob.getRequiredKills() - mob.getCurrentKills();
-                    text += "#L" + (100000 + i) + "#   └─ #d(可用/历史总击杀数:0/" + mob.getTotalAccountKills() + " ,需手动消灭剩余 " + needed + "只)#k#l\r\n";
-                } else {
-                    var needed = mob.getRequiredKills() - mob.getCurrentKills();
-                    text += "   └─ #d(可用/历史总击杀数:0/" + mob.getTotalAccountKills() + " ,需手动消灭剩余 " + needed + "只)#k\r\n";
-                }
-                text += "\r\n";
-            }
+        if (!currentDetail) {
+            cm.sendOk("未获取到任务详细信息，可能任务已被放弃或已完成。");
+            currentState = STATE_MAIN_MENU;
+            return;
         }
-    }
 
-    // 2. 收集道具目标
-    if (itemObjs && itemObjs.size() > 0) {
-        hasContent = true;
-        text += "#e【 收集道具目标 】#n\r\n";
-        for (var i = 0; i < itemObjs.size(); i++) {
-            var item = itemObjs.get(i);
-            var isDone = item.isCompleted();
-            var progTag = isDone ? "#b(" + item.getCurrentCount() + "/" + item.getRequiredCount() + ") [已达成]#k" : "#r(" + item.getCurrentCount() + "/" + item.getRequiredCount() + ") [未完成]#k";
-            var diff = item.getRequiredCount() - item.getCurrentCount();
+        var text = "#e#b【 任务详情 】 " + currentDetail.getQuestName() + " (ID: " + questId + ")#k#n\r\n";
 
-            if (isDone) {
-                text += " 收集 #v" + item.getItemId() + "# 【#b" + item.getItemName() + "#k】 " + progTag + "\r\n\r\n";
-            } else {
-                text += "#L" + (200000 + i) + "# 收集 #v" + item.getItemId() + "# 【#b" + item.getItemName() + "#k】 (#r" + item.getCurrentCount() + "/" + item.getRequiredCount() + "#k) -> #d[出处/掉落]#k#l\r\n";
-                if (item.getRequiredCount() > 1) {
-                    if (item.isDeliverable()) {
-                        if (item.isQuestExclusive()) {
-                            text += "#L" + (250000 + i) + "#   └─ #d[★ 样本已解锁购买: 缺 " + diff + "个 -> 消耗 " + item.getTotalPrice() + " 金币]#k#l\r\n";
+        if (pendingNotice) {
+            text += "\r\n" + pendingNotice + "\r\n\r\n";
+            pendingNotice = null;
+        } else {
+            text += "\r\n";
+        }
+
+        var mobObjs = currentDetail.getMobObjectives();
+        var itemObjs = currentDetail.getItemObjectives();
+        var startNpc = currentDetail.getStartNpc();
+        var compNpc = currentDetail.getCompleteNpc();
+
+        // 检查是否有可同步的怪物击杀与可补齐的普通材料
+        var hasSyncableMobs = currentDetail.hasSyncableMobKills();
+        var hasDeliverableIncomplete = currentDetail.hasDeliverableIncompleteItems();
+        var totalMobCost = currentDetail.getTotalSyncableMobsCost();
+        var totalMatCost = currentDetail.getTotalRegularMaterialsCost();
+        var combinedCost = currentDetail.getTotalCostWithMobsAndMaterials();
+
+        if (hasSyncableMobs && hasDeliverableIncomplete) {
+            text += "#L10000##k【 #d★ 一键同步账号击杀并购买全部普通材料#k 】 #d(" + combinedCost + " 金币)#k#l\r\n\r\n";
+        } else if (hasSyncableMobs) {
+            text += "#L10000##k【 #d★ 一键同步本任务全部满足条件的账号怪物击杀#k 】 #d(" + totalMobCost + " 金币)#k#l\r\n\r\n";
+        } else if (hasDeliverableIncomplete) {
+            text += "#L10000##k【 #d★ 一键购买补齐本任务全部普通/商店材料#k 】 #d(" + totalMatCost + " 金币)#k#l\r\n\r\n";
+        }
+
+        var hasContent = false;
+
+        // 1. 击杀目标
+        if (mobObjs && mobObjs.size() > 0) {
+            hasContent = true;
+            text += "#e【 击杀怪物目标 】#n\r\n";
+            for (var i = 0; i < mobObjs.size(); i++) {
+                var mob = mobObjs.get(i);
+                var isDone = mob.isCompleted();
+                var progTag = isDone ? "#b(" + mob.getCurrentKills() + "/" + mob.getRequiredKills() + ") [已达成]#k" : "#r(" + mob.getCurrentKills() + "/" + mob.getRequiredKills() + ") [未完成]#k";
+
+                if (mob.isBoss()) {
+                    if (isDone) {
+                        text += " 消灭 【#rBoss - " + mob.getMobName() + "#k】 " + progTag + "\r\n\r\n";
+                    } else {
+                        text += " 消灭 【#rBoss - " + mob.getMobName() + "#k】 " + progTag + " #r[Boss需亲自消灭]#k\r\n\r\n";
+                    }
+                } else if (isDone) {
+                    text += " 消灭 【#b" + mob.getMobName() + " (Lv." + mob.getMobLevel() + ")#k】 " + progTag + "\r\n\r\n";
+                } else {
+                    var mobUnlockedMaps = getUnlockedMapsList(mob.getMaps());
+                    if (mobUnlockedMaps.length > 0) {
+                        text += "#L" + (100000 + i) + "# 消灭 【#b" + mob.getMobName() + " (Lv." + mob.getMobLevel() + ")#k】 (#r" + mob.getCurrentKills() + "/" + mob.getRequiredKills() + "#k) -> #d[传送]#k#l\r\n";
+                    } else {
+                        text += " 消灭 【#b" + mob.getMobName() + " (Lv." + mob.getMobLevel() + ")#k】 (#r" + mob.getCurrentKills() + "/" + mob.getRequiredKills() + "#k) #r[分布地图未探索解锁]#k\r\n";
+                    }
+
+                    if (mob.isPurchasable()) {
+                        var needed = mob.getRequiredKills() - mob.getCurrentKills();
+                        if (mob.getPurchasableKills() >= needed) {
+                            text += "#L" + (150000 + i) + "#   └─ #d[可用/历史总击杀数:" + mob.getAvailableKills() + "/" + mob.getTotalAccountKills() + " ,消耗 " + mob.getTotalCost() + "金币补齐余下全部" + mob.getPurchasableKills() + "只]#k#l\r\n";
                         } else {
-                            text += "#L" + (250000 + i) + "#   └─ #d[购买补齐: 缺 " + diff + "个 -> 消耗 " + item.getTotalPrice() + " 金币]#k#l\r\n";
+                            text += "#L" + (150000 + i) + "#   └─ #d[可用/历史总击杀数:" + mob.getAvailableKills() + "/" + mob.getTotalAccountKills() + " ,消耗 " + mob.getTotalCost() + "金币获得" + mob.getPurchasableKills() + "只击杀]#k#l\r\n";
                         }
-                    } else if (item.isQuestExclusive() && item.getCurrentCount() === 0) {
-                        text += "#L" + (200000 + i) + "#   └─ #r(专属任务道具: 需背包至少持有1个样本以解锁购买)#k#l\r\n";
-                    } else if ((!item.getDropMobs() || item.getDropMobs().isEmpty()) && (!item.getDropReactors() || item.getDropReactors().isEmpty())) {
-                        text += "#L" + (200000 + i) + "#   └─ #r[无怪物/野外掉落,不可购买]#k#l\r\n";
-                    } else if (!item.getDropMobs() || item.getDropMobs().isEmpty()) {
-                        text += "#L" + (200000 + i) + "#   └─ #d(野外花草/宝箱采集,点击查看地图)#k#l\r\n";
+                    } else if (mobUnlockedMaps.length > 0) {
+                        var needed = mob.getRequiredKills() - mob.getCurrentKills();
+                        text += "#L" + (100000 + i) + "#   └─ #d(可用/历史总击杀数:0/" + mob.getTotalAccountKills() + " ,需手动消灭剩余 " + needed + "只)#k#l\r\n";
                     } else {
-                        text += "#L" + (200000 + i) + "#   └─ #r(剧情/特殊道具需手动获取)#k#l\r\n";
+                        var needed = mob.getRequiredKills() - mob.getCurrentKills();
+                        text += "   └─ #d(可用/历史总击杀数:0/" + mob.getTotalAccountKills() + " ,需手动消灭剩余 " + needed + "只)#k\r\n";
                     }
+                    text += "\r\n";
                 }
-                text += "\r\n";
             }
         }
-    }
 
-    // 3. NPC 导航
-    if (startNpc || compNpc) {
-        hasContent = true;
-        text += "#e【 NPC 导航传送 】#n\r\n";
-        if (startNpc) {
-            var startUnlockedMaps = getUnlockedMapsList(startNpc.getMaps());
-            if (startUnlockedMaps.length > 0) {
-                var startMap = startUnlockedMaps[0];
-                var locStr = formatLocationName(startMap);
-                var costStr = startMap && startMap.getWarpCost() > 0 ? " [费用: " + startMap.getWarpCost() + "金币]" : "";
-                text += "#L300001# 接取NPC：#b" + startNpc.getNpcName() + "#k (" + locStr + ")" + costStr + "#l\r\n";
-            } else {
-                var startMapRaw = (startNpc.getMaps() && startNpc.getMaps().size() > 0) ? startNpc.getMaps().get(0) : null;
-                var locStr = formatLocationName(startMapRaw);
-                text += " 接取NPC：#b" + startNpc.getNpcName() + "#k (" + locStr + ") #r[所在地图未探索解锁]#k\r\n";
+        // 2. 收集道具目标
+        if (itemObjs && itemObjs.size() > 0) {
+            hasContent = true;
+            text += "#e【 收集道具目标 】#n\r\n";
+            for (var i = 0; i < itemObjs.size(); i++) {
+                var item = itemObjs.get(i);
+                var isDone = item.isCompleted();
+                var progTag = isDone ? "#b(" + item.getCurrentCount() + "/" + item.getRequiredCount() + ") [已达成]#k" : "#r(" + item.getCurrentCount() + "/" + item.getRequiredCount() + ") [未完成]#k";
+                var diff = item.getRequiredCount() - item.getCurrentCount();
+
+                if (isDone) {
+                    text += " 收集 #v" + item.getItemId() + "# 【#b" + item.getItemName() + "#k】 " + progTag + "\r\n\r\n";
+                } else {
+                    text += "#L" + (200000 + i) + "# 收集 #v" + item.getItemId() + "# 【#b" + item.getItemName() + "#k】 (#r" + item.getCurrentCount() + "/" + item.getRequiredCount() + "#k) -> #d[出处/掉落]#k#l\r\n";
+                    if (item.getRequiredCount() > 1) {
+                        if (item.isDeliverable()) {
+                            if (item.isQuestExclusive()) {
+                                text += "#L" + (250000 + i) + "#   └─ #d[★ 样本已解锁购买: 缺 " + diff + "个 -> 消耗 " + item.getTotalPrice() + " 金币]#k#l\r\n";
+                            } else {
+                                text += "#L" + (250000 + i) + "#   └─ #d[购买补齐: 缺 " + diff + "个 -> 消耗 " + item.getTotalPrice() + " 金币]#k#l\r\n";
+                            }
+                        } else if (item.isQuestExclusive() && item.getCurrentCount() === 0) {
+                            text += "#L" + (200000 + i) + "#   └─ #r(专属任务道具: 需背包至少持有1个样本以解锁购买)#k#l\r\n";
+                        } else if ((!item.getDropMobs() || item.getDropMobs().isEmpty()) && (!item.getDropReactors() || item.getDropReactors().isEmpty())) {
+                            text += "#L" + (200000 + i) + "#   └─ #r[无怪物/野外掉落,不可购买]#k#l\r\n";
+                        } else if (!item.getDropMobs() || item.getDropMobs().isEmpty()) {
+                            text += "#L" + (200000 + i) + "#   └─ #d(野外花草/宝箱采集,点击查看地图)#k#l\r\n";
+                        } else {
+                            text += "#L" + (200000 + i) + "#   └─ #r(剧情/特殊道具需手动获取)#k#l\r\n";
+                        }
+                    }
+                    text += "\r\n";
+                }
             }
         }
-        if (compNpc) {
-            var compUnlockedMaps = getUnlockedMapsList(compNpc.getMaps());
-            if (compUnlockedMaps.length > 0) {
-                var compMap = compUnlockedMaps[0];
-                var locStr = formatLocationName(compMap);
-                var costStr = compMap && compMap.getWarpCost() > 0 ? " [费用: " + compMap.getWarpCost() + "金币]" : "";
-                text += "#L300002# 交付NPC：#b" + compNpc.getNpcName() + "#k (" + locStr + ")" + costStr + "#l\r\n";
-            } else {
-                var compMapRaw = (compNpc.getMaps() && compNpc.getMaps().size() > 0) ? compNpc.getMaps().get(0) : null;
-                var locStr = formatLocationName(compMapRaw);
-                text += " 交付NPC：#b" + compNpc.getNpcName() + "#k (" + locStr + ") #r[所在地图未探索解锁]#k\r\n";
+
+        // 3. NPC 导航
+        if (startNpc || compNpc) {
+            hasContent = true;
+            text += "#e【 NPC 导航传送 】#n\r\n";
+            if (startNpc) {
+                var startUnlockedMaps = getUnlockedMapsList(startNpc.getMaps());
+                if (startUnlockedMaps.length > 0) {
+                    var startMap = startUnlockedMaps[0];
+                    var locStr = formatLocationName(startMap);
+                    var costStr = startMap && startMap.getWarpCost() > 0 ? " [费用: " + startMap.getWarpCost() + "金币]" : "";
+                    text += "#L300001# 接取NPC：#b" + startNpc.getNpcName() + "#k (" + locStr + ")" + costStr + "#l\r\n";
+                } else {
+                    var startMapRaw = (startNpc.getMaps() && startNpc.getMaps().size() > 0) ? startNpc.getMaps().get(0) : null;
+                    var locStr = formatLocationName(startMapRaw);
+                    text += " 接取NPC：#b" + startNpc.getNpcName() + "#k (" + locStr + ") #r[所在地图未探索解锁]#k\r\n";
+                }
             }
+            if (compNpc) {
+                var compUnlockedMaps = getUnlockedMapsList(compNpc.getMaps());
+                if (compUnlockedMaps.length > 0) {
+                    var compMap = compUnlockedMaps[0];
+                    var locStr = formatLocationName(compMap);
+                    var costStr = compMap && compMap.getWarpCost() > 0 ? " [费用: " + compMap.getWarpCost() + "金币]" : "";
+                    text += "#L300002# 交付NPC：#b" + compNpc.getNpcName() + "#k (" + locStr + ")" + costStr + "#l\r\n";
+                } else {
+                    var compMapRaw = (compNpc.getMaps() && compNpc.getMaps().size() > 0) ? compNpc.getMaps().get(0) : null;
+                    var locStr = formatLocationName(compMapRaw);
+                    text += " 交付NPC：#b" + compNpc.getNpcName() + "#k (" + locStr + ") #r[所在地图未探索解锁]#k\r\n";
+                }
+            }
+            text += "\r\n";
         }
-        text += "\r\n";
-    }
 
-    if (!hasContent) {
-        text += "该任务为纯对话/探索类任务，无需特定击杀或物品收集。\r\n\r\n";
-    }
+        if (!hasContent) {
+            text += "该任务为纯对话/探索类任务，无需特定击杀或物品收集。\r\n\r\n";
+        }
 
-    text += "#L999999##b[返回任务列表]#k#l";
-    cm.sendSimple(text);
+        text += "#L999999##b[返回任务列表]#k#l";
+        cm.sendSimple(text);
+    } catch (e) {
+        cm.sendOk("任务详情加载失败：" + e);
+        cm.dispose();
+    }
 }
 
 function handleDetailSelection(selection) {
@@ -482,116 +508,131 @@ function handleDetailSelection(selection) {
  * 界面 3-A：展示怪物的野外分布地图（仅显示已解锁探索的地图）
  */
 function showMobMapList(mob) {
-    if (!mob) {
-        showQuestDetail(selectedQuestId);
-        return;
-    }
-    if (mob.isBoss()) {
-        cm.sendOk("怪物 【" + mob.getMobName() + "】 为 Boss 怪物，为了游戏平衡与挑战流程，已关闭直接传送至 Boss 房间的功能，请自行前往挑战！");
-        return;
-    }
-    var unlockedMaps = getUnlockedMapsList(mob.getMaps());
-    currentMapList = unlockedMaps;
+    try {
+        if (!mob) {
+            showQuestDetail(selectedQuestId);
+            return;
+        }
+        if (mob.isBoss()) {
+            cm.sendOk("怪物 【" + mob.getMobName() + "】 为 Boss 怪物，为了游戏平衡与挑战流程，已关闭直接传送至 Boss 房间的功能，请自行前往挑战！");
+            return;
+        }
+        var unlockedMaps = getUnlockedMapsList(mob.getMaps());
+        currentMapList = unlockedMaps;
 
-    if (unlockedMaps.length === 0) {
-        cm.sendOk("怪物 【" + mob.getMobName() + "】 所在的分布地图尚未探索解锁（需先探索并访问对应主城）。");
-        return;
-    }
+        if (unlockedMaps.length === 0) {
+            cm.sendOk("怪物 【" + mob.getMobName() + "】 所在的分布地图尚未探索解锁（需先探索并访问对应主城）。");
+            return;
+        }
 
-    currentState = STATE_SUB_MENU;
-    var text = "#e#b怪物 【" + mob.getMobName() + "】 出现在以下已解锁地图：#k#n\r\n请选择传送目的地：\r\n\r\n";
-    for (var i = 0; i < unlockedMaps.length; i++) {
-        var map = unlockedMaps[i];
-        text += "#L" + (500000 + i) + "# " + map.getDisplayName() + "#l\r\n";
+        currentState = STATE_SUB_MENU;
+        var text = "#e#b怪物 【" + mob.getMobName() + "】 出现在以下已解锁地图：#k#n\r\n请选择传送目的地：\r\n\r\n";
+        for (var i = 0; i < unlockedMaps.length; i++) {
+            var map = unlockedMaps[i];
+            text += "#L" + (500000 + i) + "# " + map.getDisplayName() + "#l\r\n";
+        }
+        text += "\r\n#L999998##b[返回任务详情]#k#l";
+        cm.sendSimple(text);
+    } catch (e) {
+        cm.sendOk("怪物分布地图加载失败：" + e);
+        cm.dispose();
     }
-    text += "\r\n#L999998##b[返回任务详情]#k#l";
-    cm.sendSimple(text);
 }
 
 /**
  * 界面 3-B：展示道具的掉落怪物与反应堆（花草/宝箱）来源列表
  */
 function showDropMobList(item) {
-    if (!item) {
-        showQuestDetail(selectedQuestId);
-        return;
-    }
-    var dropMobs = item.getDropMobs();
-    var dropReactors = item.getDropReactors();
-    var hasMobs = dropMobs && !dropMobs.isEmpty();
-    var hasReactors = dropReactors && !dropReactors.isEmpty();
-
-    if (!hasMobs && !hasReactors) {
-        cm.sendOk("道具 【#b" + item.getItemName() + "#k】 暂无野外怪物或反应堆直接掉落数据（可能为任务剧情专有道具、商店购买或任务NPC直接赠送）。");
-        return;
-    }
-
-    currentState = STATE_SUB_MENU;
-    var text = "#e#b道具 【" + item.getItemName() + "】 的出处与掉落来源列表：#k#n\r\n点击怪物或采集物查看分布地图并传送：\r\n\r\n";
-
-    if (hasMobs) {
-        text += "#e【 野外怪物掉落 】#n\r\n";
-        for (var i = 0; i < dropMobs.size(); i++) {
-            var dropMob = dropMobs.get(i);
-            var mUnlocked = getUnlockedMapsList(dropMob.getMaps());
-            if (dropMob.isBoss()) {
-                text += " " + dropMob.getMobName() + " #r[Boss]#k (掉率: " + dropMob.getChanceText() + ") #r[Boss怪物，已关闭直达传送]#k\r\n";
-            } else if (mUnlocked.length > 0) {
-                text += "#L" + (400000 + i) + "# " + dropMob.getMobName() + " (掉率: " + dropMob.getChanceText() + ", 已解锁地图: " + mUnlocked.length + ")#l\r\n";
-            } else {
-                text += " " + dropMob.getMobName() + " (掉率: " + dropMob.getChanceText() + ") #r[分布地图未探索解锁]#k\r\n";
-            }
+    try {
+        if (!item) {
+            showQuestDetail(selectedQuestId);
+            return;
         }
-        text += "\r\n";
-    }
+        var dropMobs = item.getDropMobs();
+        var dropReactors = item.getDropReactors();
+        var hasMobs = dropMobs && !dropMobs.isEmpty();
+        var hasReactors = dropReactors && !dropReactors.isEmpty();
 
-    if (hasReactors) {
-        text += "#e【 野外反应堆 / 花草 / 宝箱采集 】#n\r\n";
-        for (var j = 0; j < dropReactors.size(); j++) {
-            var dropReactor = dropReactors.get(j);
-            var rUnlocked = getUnlockedMapsList(dropReactor.getMaps());
-            if (rUnlocked.length > 0) {
-                text += "#L" + (450000 + j) + "# 【采集】 " + dropReactor.getReactorName() + " (掉率: " + dropReactor.getChanceText() + ", 已解锁地图: " + rUnlocked.length + ")#l\r\n";
-            } else {
-                text += " 【采集】 " + dropReactor.getReactorName() + " (掉率: " + dropReactor.getChanceText() + ") #r[分布地图未探索解锁]#k\r\n";
-            }
+        if (!hasMobs && !hasReactors) {
+            cm.sendOk("道具 【#b" + item.getItemName() + "#k】 暂无野外怪物或反应堆直接掉落数据（可能为任务剧情专有道具、商店购买或任务NPC直接赠送）。");
+            return;
         }
-        text += "\r\n";
-    }
 
-    text += "#L999998##b[返回任务详情]#k#l";
-    cm.sendSimple(text);
+        currentState = STATE_SUB_MENU;
+        var text = "#e#b道具 【" + item.getItemName() + "】 的出处与掉落来源列表：#k#n\r\n点击怪物或采集物查看分布地图并传送：\r\n\r\n";
+
+        if (hasMobs) {
+            text += "#e【 野外怪物掉落 】#n\r\n";
+            for (var i = 0; i < dropMobs.size(); i++) {
+                var dropMob = dropMobs.get(i);
+                var mUnlocked = getUnlockedMapsList(dropMob.getMaps());
+                if (dropMob.isBoss()) {
+                    text += " " + dropMob.getMobName() + " #r[Boss]#k (掉率: " + dropMob.getChanceText() + ") #r[Boss怪物，已关闭直达传送]#k\r\n";
+                } else if (mUnlocked.length > 0) {
+                    text += "#L" + (400000 + i) + "# " + dropMob.getMobName() + " (掉率: " + dropMob.getChanceText() + ", 已解锁地图: " + mUnlocked.length + ")#l\r\n";
+                } else {
+                    text += " " + dropMob.getMobName() + " (掉率: " + dropMob.getChanceText() + ") #r[分布地图未探索解锁]#k\r\n";
+                }
+            }
+            text += "\r\n";
+        }
+
+        if (hasReactors) {
+            text += "#e【 野外反应堆 / 花草 / 宝箱采集 】#n\r\n";
+            for (var j = 0; j < dropReactors.size(); j++) {
+                var dropReactor = dropReactors.get(j);
+                var rUnlocked = getUnlockedMapsList(dropReactor.getMaps());
+                if (rUnlocked.length > 0) {
+                    text += "#L" + (450000 + j) + "# 【采集】 " + dropReactor.getReactorName() + " (掉率: " + dropReactor.getChanceText() + ", 已解锁地图: " + rUnlocked.length + ")#l\r\n";
+                } else {
+                    text += " 【采集】 " + dropReactor.getReactorName() + " (掉率: " + dropReactor.getChanceText() + ") #r[分布地图未探索解锁]#k\r\n";
+                }
+            }
+            text += "\r\n";
+        }
+
+        text += "#L999998##b[返回任务详情]#k#l";
+        cm.sendSimple(text);
+    } catch (e) {
+        cm.sendOk("掉落来源加载失败：" + e);
+        cm.dispose();
+    }
 }
 
 /**
  * 界面 3-C：展示 NPC 的所在地图列表（仅显示已解锁探索的地图）
  */
 function showNpcMapList(npc, npcType) {
-    if (!npc) {
-        showQuestDetail(selectedQuestId);
-        return;
-    }
-    var unlockedMaps = getUnlockedMapsList(npc.getMaps());
-    if (unlockedMaps.length === 0) {
-        cm.sendOk(npcType + " NPC 【" + npc.getNpcName() + "】 所在的地图尚未探索解锁（需先探索对应主城或地图）。");
-        return;
-    }
-    if (unlockedMaps.length === 1) {
-        var targetMap = unlockedMaps[0];
-        tryWarpPlayer(targetMap, "已传送至" + npcType + " NPC 【" + npc.getNpcName() + "】 所在地图：");
-        cm.dispose();
-        return;
-    }
+    try {
+        if (!npc) {
+            showQuestDetail(selectedQuestId);
+            return;
+        }
+        var unlockedMaps = getUnlockedMapsList(npc.getMaps());
+        if (unlockedMaps.length === 0) {
+            cm.sendOk(npcType + " NPC 【" + npc.getNpcName() + "】 所在的地图尚未探索解锁（需先探索对应主城或地图）。");
+            return;
+        }
+        if (unlockedMaps.length === 1) {
+            var targetMap = unlockedMaps[0];
+            tryWarpPlayer(targetMap, "已传送至" + npcType + " NPC 【" + npc.getNpcName() + "】 所在地图：");
+            cm.dispose();
+            return;
+        }
 
-    currentMapList = unlockedMaps;
-    currentState = STATE_SUB_MENU;
-    var text = "#e#b" + npcType + " NPC 【" + npc.getNpcName() + "】 所在地图：#k#n\r\n请选择目的地：\r\n\r\n";
-    for (var i = 0; i < unlockedMaps.length; i++) {
-        var map = unlockedMaps[i];
-        text += "#L" + (500000 + i) + "# " + map.getDisplayName() + "#l\r\n";
+        currentMapList = unlockedMaps;
+        currentState = STATE_SUB_MENU;
+        var text = "#e#b" + npcType + " NPC 【" + npc.getNpcName() + "】 所在地图：#k#n\r\n请选择目的地：\r\n\r\n";
+        for (var i = 0; i < unlockedMaps.length; i++) {
+            var map = unlockedMaps[i];
+            text += "#L" + (500000 + i) + "# " + map.getDisplayName() + "#l\r\n";
+        }
+        text += "\r\n#L999998##b[返回任务详情]#k#l";
+        cm.sendSimple(text);
+    } catch (e) {
+        cm.sendOk("NPC地图加载失败：" + e);
+        cm.dispose();
     }
-    text += "\r\n#L999998##b[返回任务详情]#k#l";
-    cm.sendSimple(text);
 }
 
 function handleSubSelection(selection) {
@@ -642,58 +683,68 @@ function handleSubSelection(selection) {
  * 界面 4：展示具体掉落怪物的分布地图列表（仅显示已解锁探索的地图）
  */
 function showDropMobMapList(dropMob) {
-    if (!dropMob) {
-        showDropMobList(selectedItem);
-        return;
-    }
-    if (dropMob.isBoss()) {
-        cm.sendOk("怪物 【" + dropMob.getMobName() + "】 为 Boss 怪物，为了游戏平衡与挑战流程，已关闭直接传送至 Boss 房间的功能，请自行前往挑战！");
-        return;
-    }
-    var unlockedMaps = getUnlockedMapsList(dropMob.getMaps());
-    currentMapList = unlockedMaps;
+    try {
+        if (!dropMob) {
+            showDropMobList(selectedItem);
+            return;
+        }
+        if (dropMob.isBoss()) {
+            cm.sendOk("怪物 【" + dropMob.getMobName() + "】 为 Boss 怪物，为了游戏平衡与挑战流程，已关闭直接传送至 Boss 房间的功能，请自行前往挑战！");
+            return;
+        }
+        var unlockedMaps = getUnlockedMapsList(dropMob.getMaps());
+        currentMapList = unlockedMaps;
 
-    if (unlockedMaps.length === 0) {
-        cm.sendOk("怪物 【" + dropMob.getMobName() + "】 所在的野外分布地图尚未探索解锁（需先探索对应主城）。");
-        return;
-    }
+        if (unlockedMaps.length === 0) {
+            cm.sendOk("怪物 【" + dropMob.getMobName() + "】 所在的野外分布地图尚未探索解锁（需先探索对应主城）。");
+            return;
+        }
 
-    currentState = STATE_MAP_LIST;
-    var itemName = selectedItem ? selectedItem.getItemName() : "";
-    var text = "#e#b怪物 【" + dropMob.getMobName() + "】 (掉落: " + itemName + ") 分布地图：#k#n\r\n请选择传送目的地：\r\n\r\n";
-    for (var i = 0; i < unlockedMaps.length; i++) {
-        var map = unlockedMaps[i];
-        text += "#L" + (500000 + i) + "# " + map.getDisplayName() + "#l\r\n";
+        currentState = STATE_MAP_LIST;
+        var itemName = selectedItem ? selectedItem.getItemName() : "";
+        var text = "#e#b怪物 【" + dropMob.getMobName() + "】 (掉落: " + itemName + ") 分布地图：#k#n\r\n请选择传送目的地：\r\n\r\n";
+        for (var i = 0; i < unlockedMaps.length; i++) {
+            var map = unlockedMaps[i];
+            text += "#L" + (500000 + i) + "# " + map.getDisplayName() + "#l\r\n";
+        }
+        text += "\r\n#L999997##b[返回出处来源列表]#k#l";
+        cm.sendSimple(text);
+    } catch (e) {
+        cm.sendOk("掉落怪物地图加载失败：" + e);
+        cm.dispose();
     }
-    text += "\r\n#L999997##b[返回出处来源列表]#k#l";
-    cm.sendSimple(text);
 }
 
 /**
  * 界面 4-B：展示具体反应堆（花草/宝箱/采集物）的分布地图列表（仅显示已解锁探索的地图）
  */
 function showDropReactorMapList(dropReactor) {
-    if (!dropReactor) {
-        showDropMobList(selectedItem);
-        return;
-    }
-    var unlockedMaps = getUnlockedMapsList(dropReactor.getMaps());
-    currentMapList = unlockedMaps;
+    try {
+        if (!dropReactor) {
+            showDropMobList(selectedItem);
+            return;
+        }
+        var unlockedMaps = getUnlockedMapsList(dropReactor.getMaps());
+        currentMapList = unlockedMaps;
 
-    if (unlockedMaps.length === 0) {
-        cm.sendOk("【" + dropReactor.getReactorName() + "】 所在的分布地图尚未探索解锁（需先探索对应主城）。");
-        return;
-    }
+        if (unlockedMaps.length === 0) {
+            cm.sendOk("【" + dropReactor.getReactorName() + "】 所在的分布地图尚未探索解锁（需先探索对应主城）。");
+            return;
+        }
 
-    currentState = STATE_MAP_LIST;
-    var itemName = selectedItem ? selectedItem.getItemName() : "";
-    var text = "#e#b【" + dropReactor.getReactorName() + "】 (产出: " + itemName + ") 分布地图：#k#n\r\n请选择传送目的地：\r\n\r\n";
-    for (var i = 0; i < unlockedMaps.length; i++) {
-        var map = unlockedMaps[i];
-        text += "#L" + (500000 + i) + "# " + map.getDisplayName() + "#l\r\n";
+        currentState = STATE_MAP_LIST;
+        var itemName = selectedItem ? selectedItem.getItemName() : "";
+        var text = "#e#b【" + dropReactor.getReactorName() + "】 (产出: " + itemName + ") 分布地图：#k#n\r\n请选择传送目的地：\r\n\r\n";
+        for (var i = 0; i < unlockedMaps.length; i++) {
+            var map = unlockedMaps[i];
+            text += "#L" + (500000 + i) + "# " + map.getDisplayName() + "#l\r\n";
+        }
+        text += "\r\n#L999997##b[返回出处来源列表]#k#l";
+        cm.sendSimple(text);
+    } catch (e) {
+        cm.sendOk("采集物分布地图加载失败：" + e);
+        cm.dispose();
     }
-    text += "\r\n#L999997##b[返回出处来源列表]#k#l";
-    cm.sendSimple(text);
 }
 
 function handleMapListSelection(selection) {
