@@ -84,7 +84,7 @@ var townmaps = Array(
 		Array(130000200,10000,"圣地岔路#r             （消耗1万金币）#b"),
 		Array(925020000,1000,"武陵道场入口#r         （消耗1千金币）#b"),
 		Array(930000000,5000,"毒雾森林#r             （消耗5千金币）#b"),
-		Array(930000010,1000,"森林入口#r             （消耗1千金币）#b"),	
+		Array(930000010,1000,"森林入口#r             （消耗1千金币）#b")	
 		//Array(702090101,1000,"英语村#r               （消耗1千金币）#b"),  
 		//Array(700000000,10000,"红鸾宫#r               （消耗1万金币）#b")
 		//Array(749020000,0,"国庆蛋糕地图")
@@ -134,18 +134,6 @@ function level9999() {
     cm.openNpc(9900001);
 }
 
-function getMapWarpTag(mapId) {
-    var service = cm.getQuestHelp();
-    if (!service) {
-        return "";
-    }
-    if (service.isMapWarpUnlocked(cm.getPlayer(), mapId)) {
-        return "";
-    }
-    var reason = service.getWarpLockReason(cm.getPlayer(), mapId);
-    return " #r[" + (reason ? reason : "未解锁") + "]#k";
-}
-
 function checkAndWarp(mapId, cost) {
     var service = cm.getQuestHelp();
     if (service && !service.isMapWarpUnlocked(cm.getPlayer(), mapId)) {
@@ -169,36 +157,76 @@ function checkAndWarp(mapId, cost) {
 
 function level0() {
 	let text = "#b";
-    for (let i = 0; i < bossmaps.length; i++) {  
-       text += "#L" + i + "#" + bossmaps[i][2] + getMapWarpTag(bossmaps[i][0]) + "#l\r\n";
-    }	
+    var service = cm.getQuestHelp();
+    var count = 0;
+    for (let i = 0; i < bossmaps.length; i++) {
+        var mapId = bossmaps[i][0];
+        if (service && !service.isMapWarpUnlocked(cm.getPlayer(), mapId)) {
+            continue;
+        }
+        text += "#L" + i + "#" + bossmaps[i][2] + "#l\r\n";
+        count++;
+    }
+    if (count === 0) {
+        text += "#r当前暂无已探索解锁的 BOSS 地图，请先前往探索对应主城或地图。#k\r\n";
+    }
     text += "\r\n#L9999##b[返回传送主菜单]#k#l\r\n";
 	cm.sendNextSelectLevel("Boss", text);
 }
 
 function level1() {
 	let text = "#b";
-    for (let i = 0; i < monstermaps.length; i++) {  
-       text += "#L" + i + "#" + monstermaps[i][2] + getMapWarpTag(monstermaps[i][0]) + "#l\r\n";
-    }	
+    var service = cm.getQuestHelp();
+    var count = 0;
+    for (let i = 0; i < monstermaps.length; i++) {
+        var mapId = monstermaps[i][0];
+        if (service && !service.isMapWarpUnlocked(cm.getPlayer(), mapId)) {
+            continue;
+        }
+        text += "#L" + i + "#" + monstermaps[i][2] + "#l\r\n";
+        count++;
+    }
+    if (count === 0) {
+        text += "#r当前暂无已探索解锁的练级地图，请先前往探索对应主城。#k\r\n";
+    }
     text += "\r\n#L9999##b[返回传送主菜单]#k#l\r\n";
 	cm.sendNextSelectLevel("LevelUp", text);
 }
 
 function level2() {
 	let text = "#b";
-    for (let i = 0; i < townmaps.length; i++) {  
-       text += "#L" + i + "#" + townmaps[i][2] + getMapWarpTag(townmaps[i][0]) + "#l\r\n";
-    }	
+    var service = cm.getQuestHelp();
+    var count = 0;
+    for (let i = 0; i < townmaps.length; i++) {
+        var mapId = townmaps[i][0];
+        if (service && !service.isMapWarpUnlocked(cm.getPlayer(), mapId)) {
+            continue;
+        }
+        text += "#L" + i + "#" + townmaps[i][2] + "#l\r\n";
+        count++;
+    }
+    if (count === 0) {
+        text += "#r当前暂无已探索解锁的城镇地图，请先前往探索对应城镇。#k\r\n";
+    }
     text += "\r\n#L9999##b[返回传送主菜单]#k#l\r\n";
 	cm.sendNextSelectLevel("Town", text);
 }
 
 function level3() {
 	let text = "#r注意：活动地图还有bug，请谨慎前往！#k\r\n#b";
-    for (let i = 0; i < fubenmaps.length; i++) {  
-       text += "#L" + i + "#" + fubenmaps[i][2] + getMapWarpTag(fubenmaps[i][0]) + "#l\r\n";
-    }	
+    var service = cm.getQuestHelp();
+    var count = 0;
+    for (let i = 0; i < fubenmaps.length; i++) {
+        var mapId = fubenmaps[i][0];
+        if (service && !service.isMapWarpUnlocked(cm.getPlayer(), mapId)) {
+            continue;
+        }
+        text += "#L" + i + "#" + fubenmaps[i][2] + "#l\r\n";
+        count++;
+    }
+    if (count === 0) {
+        text += "#r当前暂无已探索解锁的活动地图。#k\r\n";
+    }
     text += "\r\n#L9999##b[返回传送主菜单]#k#l\r\n";
 	cm.sendNextSelectLevel("Fuben", text);
 }
