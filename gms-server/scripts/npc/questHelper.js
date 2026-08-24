@@ -552,7 +552,7 @@ function showMobMapList(mob) {
 }
 
 /**
- * 界面 3-B：展示道具的掉落怪物与反应堆（花草/宝箱）来源列表
+ * 界面 3-B：展示道具的掉落怪物与反应堆（花草/宝箱）来源列表（仅展示已探索解锁地图的来源）
  */
 function showDropMobList(item) {
     try {
@@ -562,11 +562,34 @@ function showDropMobList(item) {
         }
         var dropMobs = item.getDropMobs();
         var dropReactors = item.getDropReactors();
-        var hasMobs = dropMobs && !dropMobs.isEmpty();
-        var hasReactors = dropReactors && !dropReactors.isEmpty();
+
+        var unlockedDropMobs = [];
+        if (dropMobs) {
+            for (var i = 0; i < dropMobs.size(); i++) {
+                var dropMob = dropMobs.get(i);
+                var mUnlocked = getUnlockedMapsList(dropMob.getMaps());
+                if (mUnlocked.length > 0) {
+                    unlockedDropMobs.push({ index: i, mob: dropMob, maps: mUnlocked });
+                }
+            }
+        }
+
+        var unlockedDropReactors = [];
+        if (dropReactors) {
+            for (var j = 0; j < dropReactors.size(); j++) {
+                var dropReactor = dropReactors.get(j);
+                var rUnlocked = getUnlockedMapsList(dropReactor.getMaps());
+                if (rUnlocked.length > 0) {
+                    unlockedDropReactors.push({ index: j, reactor: dropReactor, maps: rUnlocked });
+                }
+            }
+        }
+
+        var hasMobs = unlockedDropMobs.length > 0;
+        var hasReactors = unlockedDropReactors.length > 0;
 
         if (!hasMobs && !hasReactors) {
-            cm.sendOk("道具 【#b" + item.getItemName() + "#k】 暂无野外怪物或反应堆直接掉落数据（可能为任务剧情专有道具、商店购买或任务NPC直接赠送）。");
+            cm.sendOk("道具 【#b" + item.getItemName() + "#k】 的所有掉落怪物与采集物所在地图#r尚未探索解锁#k（或暂无野外直接掉落数据）。\r\n\r\n请先前往探索相应区域主城后再来查看与传送！");
             return;
         }
 
@@ -575,15 +598,14 @@ function showDropMobList(item) {
 
         if (hasMobs) {
             text += "#e【 野外怪物掉落 】#n\r\n";
-            for (var i = 0; i < dropMobs.size(); i++) {
-                var dropMob = dropMobs.get(i);
-                var mUnlocked = getUnlockedMapsList(dropMob.getMaps());
+            for (var i = 0; i < unlockedDropMobs.length; i++) {
+                var entry = unlockedDropMobs[i];
+                var dropMob = entry.mob;
+                var mUnlocked = entry.maps;
                 if (dropMob.isBoss()) {
-                    text += " " + dropMob.getMobName() + " #r[Boss]#k (掉率: " + dropMob.getChanceText() + ") #r[Boss怪物，已关闭直达传送]#k\r\n";
-                } else if (mUnlocked.length > 0) {
-                    text += "#L" + (400000 + i) + "# " + dropMob.getMobName() + " (掉率: " + dropMob.getChanceText() + ", 已解锁地图: " + mUnlocked.length + ")#l\r\n";
+                    text += "#L" + (400000 + entry.index) + "# " + dropMob.getMobName() + " #r[Boss]#k (掉率: " + dropMob.getChanceText() + ") #r[Boss需自行前往]#k#l\r\n";
                 } else {
-                    text += " " + dropMob.getMobName() + " (掉率: " + dropMob.getChanceText() + ") #r[分布地图未探索解锁]#k\r\n";
+                    text += "#L" + (400000 + entry.index) + "# " + dropMob.getMobName() + " (掉率: " + dropMob.getChanceText() + ", 已解锁地图: " + mUnlocked.length + ")#l\r\n";
                 }
             }
             text += "\r\n";
@@ -591,14 +613,11 @@ function showDropMobList(item) {
 
         if (hasReactors) {
             text += "#e【 野外反应堆 / 花草 / 宝箱采集 】#n\r\n";
-            for (var j = 0; j < dropReactors.size(); j++) {
-                var dropReactor = dropReactors.get(j);
-                var rUnlocked = getUnlockedMapsList(dropReactor.getMaps());
-                if (rUnlocked.length > 0) {
-                    text += "#L" + (450000 + j) + "# 【采集】 " + dropReactor.getReactorName() + " (掉率: " + dropReactor.getChanceText() + ", 已解锁地图: " + rUnlocked.length + ")#l\r\n";
-                } else {
-                    text += " 【采集】 " + dropReactor.getReactorName() + " (掉率: " + dropReactor.getChanceText() + ") #r[分布地图未探索解锁]#k\r\n";
-                }
+            for (var j = 0; j < unlockedDropReactors.length; j++) {
+                var rEntry = unlockedDropReactors[j];
+                var dropReactor = rEntry.reactor;
+                var rUnlocked = rEntry.maps;
+                text += "#L" + (450000 + rEntry.index) + "# 【采集】 " + dropReactor.getReactorName() + " (掉率: " + dropReactor.getChanceText() + ", 已解锁地图: " + rUnlocked.length + ")#l\r\n";
             }
             text += "\r\n";
         }
@@ -669,6 +688,10 @@ function handleSubSelection(selection) {
         var index = selection - 400000;
         if (selectedItem && selectedItem.getDropMobs() && index < selectedItem.getDropMobs().size()) {
             var dropMob = selectedItem.getDropMobs().get(index);
+            if (dropMob.isBoss()) {
+                cm.sendOk("怪物 【" + dropMob.getMobName() + "】 为 Boss 怪物，为了游戏平衡与挑战流程，已关闭直接传送至 Boss 房间的功能，请自行前往挑战！");
+                return;
+            }
             showDropMobMapList(dropMob);
         } else {
             showQuestDetail(selectedQuestId);
