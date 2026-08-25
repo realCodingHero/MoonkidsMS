@@ -635,11 +635,20 @@ public final class QuestHelpService {
     }
 
     /**
-     * 判断地图是否为隐藏地图（仅根据街名/地名中包含隐藏地图/Hidden Street判定）
+     * 判断地图是否为隐藏地图（通过 9xxxxxxx 特殊号段、非世界地图收录、以及街名/地名中包含隐藏地图/Hidden Street判定）
      */
     public boolean isHiddenMap(int mapId) {
         return hiddenMapCache.computeIfAbsent(mapId, id -> {
             ensureInitialized();
+            // 1. 9字头特殊/副本/隐藏/任务专属地图 (如 910100000 被诅咒的丛林, 920000000 组队任务等，除自由市场 910000000 以外)
+            if (id >= 900000000 && id < 1000000000 && id != 910000000) {
+                return true;
+            }
+            // 2. 非世界地图收录的野外/隐藏副本地图 (主城除外)
+            if (!TOWN_PRICES.containsKey(id) && !worldMapMaps.contains(id)) {
+                return true;
+            }
+            // 3. 街名/地名中显式包含“隐藏地图/Hidden Street”
             String street = MapFactory.loadStreetName(id);
             if (street != null && !street.isBlank()) {
                 if (street.contains("隐藏地图") || street.contains("隐藏街道") || street.contains("隐藏") || street.equalsIgnoreCase("Hidden Street")) {
