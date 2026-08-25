@@ -1,8 +1,8 @@
 /*
-	This file is part of the OdinMS Maple Story Server
+    This file is part of the OdinMS Maple Story Server
     Copyright (C) 2008 Patrick Huy <patrick.huy@frz.cc>
-		       Matthias Butz <matze@odinms.de>
-		       Jan Christian Meyer <vimes@odinms.de>
+               Matthias Butz <matze@odinms.de>
+               Jan Christian Meyer <vimes@odinms.de>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as
@@ -51,15 +51,15 @@ function action(mode, type, selection) {
         text += "当前信用券：" + cm.getPlayer().getCashShop().getCash(4) + "\r\n";
         text += "当前金币：" + cm.getPlayer().getMeso() + "\r\n";
         text += " \r\n\r\n";
-        text += "#b#L71#超级传送#l \t #L80#任务辅助#l\r\n";
-        text += "#L81#装备商店#l \t #L82#宠物杂物设置#l\r\n";
+        text += "#b#L71#超级传送#l \t #L81#装备商店#l\r\n";
+        text += "#L80#任务辅助#l \t #L82#宠物杂物设置#l\r\n";
         text += "#L100#更多...#l#k\r\n";
 
         if (cm.getPlayer().isGM()) {
             text += "\r\n";
             text += "\t\t\t\t#r=====以下内容仅GM可见=====\r\n";
             text += "#L62#超级商店#l \t #L63#整容集合#l\r\n";
-            text += "#L200#更多 (GM)#l\r\n";
+            text += "#L200#更多#l\r\n";
         }
         cm.sendSimple(text);
     } else if (status === 1) {
@@ -172,7 +172,7 @@ function doSelect(selection) {
 function openNpc(scriptName) {
     try {
         java.lang.System.out.println("[NPC 9900001] openNpc called: " + scriptName);
-    } catch (ignored) {}
+    } catch (ignored) { }
     cm.dispose();
     cm.openNpc(9900001, scriptName);
 }
