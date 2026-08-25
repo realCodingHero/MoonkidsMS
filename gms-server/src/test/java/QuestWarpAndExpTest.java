@@ -268,6 +268,12 @@ public class QuestWarpAndExpTest {
         assertEquals(true, service.isMapVisited(999, 101000000));
         assertEquals(false, service.isMapVisited(999, 211000000)); // 冰峰雪域未访问
         assertEquals(false, service.isMapVisited(999, 102000000)); // 勇士部落未访问
+
+        // 验证 9xxxxxxx 隐藏地图判定 (如 910100000 被诅咒的丛林)
+        assertEquals(true, service.isHiddenMap(910100000));
+        assertEquals(true, service.isHiddenMap(910100001));
+        assertEquals(true, service.isHiddenMap(920000000));
+        assertEquals(false, service.isHiddenMap(910000000)); // 自由市场除外
     }
 
     @Test
@@ -280,3 +286,4 @@ public class QuestWarpAndExpTest {
         assertNull(service.getQuestDetailInfo(null, 0));
     }
 }
+
