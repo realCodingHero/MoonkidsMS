@@ -41,10 +41,11 @@ function showSettingMenu() {
 
     var text = "#e#b【 宠物杂物拾取与自动出售设置 】#k#n\r\n\r\n";
     text += "当前生效策略：" + modeDesc + "\r\n\r\n";
-    text += "#d[安全保护说明]#k\r\n";
-    text += "#k• 任务道具(403xxxx/任务标记) #r无论任何模式均正常拾取#k，不影响做任务。\r\n";
-    text += "• 矿石/母矿/宝石/魔法石/召唤石等珍贵材料 #r始终正常拾取#k。\r\n";
-    text += "• 本设置仅针对普通怪物掉落杂物(蜗牛壳/绿水灵珠等)生效。\r\n\r\n";
+    text += "#d[Safety Notes]#k\r\n";
+    text += "#k• Quest exclusive items (403xxxx / quest flags) #rare always picked up#k.\r\n";
+    text += "• ETC monster drops required for your active in-progress quests (e.g. snail shells, slimes) #rare preserved and picked up into inventory#k until needed amount is reached.\r\n";
+    text += "• Ores, crystals, magic stones, summoning rocks #rare always picked up#k.\r\n";
+    text += "• This filter only applies to excess monster trash drops after quest needs are met.\r\n\r\n";
     text += "请选择您希望设置的宠物杂物策略：\r\n\r\n";
 
     text += "#L0##b模式 0：正常拾取#k (默认行为，所有杂物正常放入背包)#l\r\n";
