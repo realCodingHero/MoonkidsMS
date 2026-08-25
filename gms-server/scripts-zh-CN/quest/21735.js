@@ -39,7 +39,7 @@ function start(mode, type, selection) {
             qm.sendNext("金银岛封印石我已经找到了。你看，呵呵呵。");
         } else if (status == 1) {
             if (!qm.canHold(4032323, 1)) {
-                qm.sendNext("Please free a slot on your ETC inventory before receiving the item.");
+                qm.sendNext("在领取道具之前，请先清理出足够的其他栏背包空间。");
                 qm.dispose();
                 return;
             }

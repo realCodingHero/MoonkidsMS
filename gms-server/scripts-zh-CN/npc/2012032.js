@@ -61,7 +61,7 @@ function action(mode, type, selection) {
                         cm.getPlayer().sendPacket(PacketCreator.showEffect("quest/party/wrong_kor"));
                         cm.getPlayer().sendPacket(PacketCreator.playSound("Party1/Failed"));
 
-                        cm.message("You've missed the note... Start over again.");
+                        cm.message("你弹错了音符……请重新开始。");
                     } else {
                         nextNote = harpSong[idx + 1];
 
@@ -69,7 +69,7 @@ function action(mode, type, selection) {
                             idx++;
 
                             if (idx == 45) {     // finished lullaby
-                                cm.message("Twinkle, twinkle, little star, how I wonder what you are.");
+                                cm.message("一闪一闪亮晶晶，满天都是小星星。");
                                 cm.setQuestProgress(3114, 42);
 
                                 cm.getPlayer().sendPacket(PacketCreator.showEffect("quest/party/clear"));

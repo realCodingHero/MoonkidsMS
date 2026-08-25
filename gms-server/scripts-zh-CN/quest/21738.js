@@ -38,19 +38,19 @@ function start(mode, type, selection) {
         if (status == 0) {  // thanks ZERO傑洛 for noticing this quest shouldn't need a pw -- GMS-like string data thanks to skycombat
             qm.sendGetText("嗯，你有什么事？");
         } else if (status == 1) {
-            qm.sendNext("(You tell her about Giant Nependeath.)", 3);
+            qm.sendNext("（你向她说明了关于巨大食人花的情况。）", 3);
         } else if (status == 2) {
-            qm.sendNext("Giant Nependeath? It's definitely a big problem, but I don't think it's enough to really affect Orbis. Wait, where did you say the Giant Nependeath was, again?", 9);
+            qm.sendNext("巨大食人花？那确实是个大麻烦，但我认为还不至于真正危及天空之城。等等，你刚才说巨大食人花出现在哪里来着？", 9);
         } else if (status == 3) {
-            qm.sendNext("Neglected Strolling Path.", 3);
+            qm.sendNext("散步路。", 3);
         } else if (status == 4) {
-            qm.sendNext("...Neglected Strolling Path? If Giant Nependeath is there, someone is trying to enter Sealed Garden! But why? And more importantly, who?", 9);
+            qm.sendNext("……散步路？如果巨大食人花出现在那里，说明有人正试图闯入被封印的花园！可是为什么？更重要的是，到底是谁干的？", 9);
         } else if (status == 5) {
             qm.sendNext("Sealed Garden?", 3);
         } else if (status == 6) {
-            qm.sendAcceptDecline("I can't tell you about Sealed Garden. If you want to find out, I must first see whether you are worthy of the information. Do you mind if I look into your fate?", 9);
+            qm.sendAcceptDecline("我现在还不能向你透露关于被封印花园的秘密。如果你想知道，我必须先确认你是否具备知晓这一切的资格。你介意我为你占卜一下命运吗？", 9);
         } else if (status == 7) {
-            qm.sendOk("Well, now let's look into your fate. Give me a second.");
+            qm.sendOk("好，现在让我们来看看你的命运吧。请稍等片刻。");
         } else if (status == 8) {
             qm.forceStartQuest();
             qm.dispose();

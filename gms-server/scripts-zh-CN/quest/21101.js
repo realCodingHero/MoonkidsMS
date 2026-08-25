@@ -57,7 +57,7 @@ function start(mode, type, selection) {
 
             //qm.getPlayer().changeSkillLevel(SkillFactory.getSkill(20009000), 0, -1);
             //qm.getPlayer().changeSkillLevel(SkillFactory.getSkill(20009000), 1, 0);
-            //qm.showInfo("You have acquired the Pig's Weakness skill.");
+            //qm.showInfo("你已成功习得“野猪的弱点”技能。");
             qm.sendNextPrev("#b(你可能开始记起某些事了……)#k", 3);
         }
     } else if (status == 2) {

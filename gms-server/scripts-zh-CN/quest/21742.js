@@ -56,7 +56,7 @@ function start(mode, type, selection) {
         } else {
             if (!qm.haveItem(4220151, 1)) {
                 if (!qm.canHold(4220151, 1)) {
-                    qm.sendOk("Please free a room on your ETC inventory.", 9);
+                    qm.sendOk("在领取道具之前，请先清理出足够的其他栏背包空间。", 9);
                     qm.dispose();
                     return;
                 }
