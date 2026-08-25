@@ -2047,24 +2047,26 @@ public class Character extends AbstractCharacterObject {
                 Item mItem = mapitem.getItem();
                 ItemInformationProvider ii = ItemInformationProvider.getInstance();
 
-                // 宠物其他栏杂物过滤与自动出售逻辑
+                // 宠物其他栏杂物过滤与自动出售逻辑（若为进行中任务所需道具且未集齐则保留正常拾取入包）
                 if (isPet && mItem != null && mapitem.getMeso() == 0 && mapitem.getQuest() <= 0 && ItemConstants.isEtcTrashItem(mItem.getItemId()) && !ii.isQuestItem(mItem.getItemId())) {
-                    int lootMode = getPetEtcLootMode();
-                    if (lootMode == 1) { // 模式1：忽略模式（跳过不捡）
-                        enableActions();
-                        return;
-                    } else if (lootMode == 2) { // 模式2：自动折算金币（不占背包）
-                        int unitPrice = ii.getWholePrice(mItem.getItemId());
-                        if (unitPrice < 0) {
-                            unitPrice = 0;
+                    if (!isItemNeededForActiveQuest(mItem.getItemId())) {
+                        int lootMode = getPetEtcLootMode();
+                        if (lootMode == 1) { // 模式1：忽略模式（跳过不捡）
+                            enableActions();
+                            return;
+                        } else if (lootMode == 2) { // 模式2：自动折算金币（不占背包）
+                            int unitPrice = ii.getWholePrice(mItem.getItemId());
+                            if (unitPrice < 0) {
+                                unitPrice = 0;
+                            }
+                            int totalMeso = unitPrice * mItem.getQuantity();
+                            if (totalMeso > 0) {
+                                this.gainMeso(totalMeso, true, false, false);
+                            }
+                            this.getMap().pickItemDrop(pickupPacket, mapitem);
+                            enableActions();
+                            return;
                         }
-                        int totalMeso = unitPrice * mItem.getQuantity();
-                        if (totalMeso > 0) {
-                            this.gainMeso(totalMeso, true, false, false);
-                        }
-                        this.getMap().pickItemDrop(pickupPacket, mapitem);
-                        enableActions();
-                        return;
                     }
                 }
 
@@ -6166,6 +6168,27 @@ public class Character extends AbstractCharacterObject {
                 "PET_ETC_LOOT_MODE",
                 String.valueOf(mode)
         );
+    }
+
+    /**
+     * 检查指定道具是否为当前玩家正在进行中的任务所需道具（且当前背包持有数量尚未达到任务所需上限）
+     */
+    public boolean isItemNeededForActiveQuest(int itemId) {
+        for (QuestStatus qs : getStartedQuests()) {
+            org.gms.server.quest.Quest quest = qs.getQuest();
+            if (quest == null) {
+                continue;
+            }
+            java.util.Map<Integer, Integer> reqItems = quest.getRequiredItems();
+            if (reqItems != null && reqItems.containsKey(itemId)) {
+                int neededCount = reqItems.get(itemId);
+                int currentCount = getItemQuantity(itemId, false);
+                if (neededCount > 0 && currentCount < neededCount) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private void applySavedRateOrElse(String type, Runnable runnable) {
