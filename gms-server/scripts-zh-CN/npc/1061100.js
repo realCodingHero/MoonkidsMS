@@ -46,7 +46,7 @@ function action(mode, type, selection) {
         cm.dispose();
     } else {
         if (mode == 0 && status == 2) {
-"We offer other kinds of services, too, so please think carefully and then make your decision."
+"我们也提供其他规格的客房服务，请仔细考虑后再做决定。"
             cm.dispose();
             return;
         }

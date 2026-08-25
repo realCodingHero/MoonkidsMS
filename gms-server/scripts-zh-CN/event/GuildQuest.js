@@ -72,7 +72,7 @@ function setEventRequirements() {
         reqStr += minLevel;
     }
 
-    reqStr += "\r\n    All members of the same guild";
+    reqStr += "\r\n    同一家族的所有成员";
 
     reqStr += "\r\n   时间限制: ";
     reqStr += eventTime + " 分钟";

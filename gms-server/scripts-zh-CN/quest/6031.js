@@ -41,13 +41,13 @@ function end(mode, type, selection) {
         if (status == 0) {
             qm.sendNext("我将教你有关科学理论的基础知识。");
         } else if (status == 1) {
-            qm.sendNextPrev("科学阶段是炼金术无法满足要求的地方。所有物品都有分子构成。物品的#r排列方式和每个内在物质单位#k定义了物品将具有的许多属性。");
+            qm.sendNextPrev("科学阶段是炼金术无法企及的领域。所有物质都由分子构成，物品的#r分子排列结构与内在物质单位#k决定了该物品所具备的诸多属性。");
         } else if (status == 2) {
-            qm.sendNextPrev("这也适用于#r制造者#k的情况。一个人必须能够研究正在用来形成物品的每个组件的痕迹，才能判断实验是否会最终成功或失败。");
+            qm.sendNextPrev("这也完全适用于#r锻造技能#k。工匠必须能够深入洞察构成道具的每一种材料成分，才能准确预判实验最终是成功还是失败。");
         } else if (status == 3) {
-            qm.sendNextPrev("记住这一点：科学的主要视角，使其流畅运转的那一台引擎，无论是什么情况，都是#b理解产生结果的过程#k，而不是随意地尝试。");
+            qm.sendNextPrev("记住这一点：科学的核心视角与驱动力，永远在于#b理解事物演化与产出结果的过程#k，而不是盲目地胡乱尝试。");
         } else if (status == 4) {
-            qm.sendNextPrev("这清楚了吗？很好，那么课程结束。下课。");
+            qm.sendNextPrev("听明白了吗？很好，那么今天的课程就到此为止。下课。");
         } else if (status == 5) {
             qm.gainMeso(-10000);
 

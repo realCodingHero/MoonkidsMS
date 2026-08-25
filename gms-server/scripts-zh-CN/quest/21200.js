@@ -78,7 +78,7 @@ function end(mode, type, selection) {
     } else if (status == 12) {
         qm.completeQuest();
         qm.sendNext("#b(自称是#p1201002#这个#p1201001#在沮丧中大叫, 你不认为这次谈话会有任何进展。你最好去和我谈谈#p1201000#.)", 2);
-        //qm.sendNoExit("#b(The voice that claims to be #p1201002# the #p1201001# is yelling in frustration. You don't think this conversation is going anywhere. You better go talk to #p1201000# first.)", true);
+        //qm.sendNoExit("#b（自称是#p1201001#之灵的#p1201002#正在烦躁地大喊大叫。你觉得这样对话下去不会有任何进展，还是先回去找#p1201000#谈谈吧。）", true);
     } else if (status == 13) {
         //qm.showVideo("Maha");
         qm.dispose();

@@ -31,7 +31,7 @@ function start(mode, type, selection) {
             qm.gainItem(2022337, 1);
             qm.gainMeso(-1000000);
 
-            //qm.sendOk("Nice doing business with you~~.");
+            //qm.sendOk("合作愉快，欢迎下次光临~~");
             qm.startQuest(3514);
         } else {
             qm.sendOk("保你的消耗栏有空位.");
