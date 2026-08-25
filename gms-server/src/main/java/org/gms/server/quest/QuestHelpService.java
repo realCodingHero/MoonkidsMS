@@ -649,17 +649,20 @@ public final class QuestHelpService {
                 return true;
             }
             // 3. 街名/地名中显式包含“隐藏地图/Hidden Street”
-            String street = MapFactory.loadStreetName(id);
-            if (street != null && !street.isBlank()) {
-                if (street.contains("隐藏地图") || street.contains("隐藏街道") || street.contains("隐藏") || street.equalsIgnoreCase("Hidden Street")) {
-                    return true;
+            try {
+                String street = MapFactory.loadStreetName(id);
+                if (street != null && !street.isBlank()) {
+                    if (street.contains("隐藏地图") || street.contains("隐藏街道") || street.contains("隐藏") || street.equalsIgnoreCase("Hidden Street")) {
+                        return true;
+                    }
                 }
-            }
-            String place = MapFactory.loadPlaceName(id);
-            if (place != null && !place.isBlank()) {
-                if (place.contains("隐藏地图") || place.contains("隐藏街道") || place.contains("隐藏") || place.equalsIgnoreCase("Hidden Street")) {
-                    return true;
+                String place = MapFactory.loadPlaceName(id);
+                if (place != null && !place.isBlank()) {
+                    if (place.contains("隐藏地图") || place.contains("隐藏街道") || place.contains("隐藏") || place.equalsIgnoreCase("Hidden Street")) {
+                        return true;
+                    }
                 }
+            } catch (Throwable ignored) {
             }
             return false;
         });
