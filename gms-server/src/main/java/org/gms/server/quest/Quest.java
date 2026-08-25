@@ -111,6 +111,7 @@ public class Quest {
     protected Map<QuestActionType, AbstractQuestAction> completeActs = new EnumMap<>(QuestActionType.class);
     protected List<Integer> relevantMobs = new LinkedList<>();
     private boolean autoStart;
+    private boolean normalAutoStart;
     private boolean autoPreComplete, autoComplete;
     private boolean repeatable = false;
     private String name = "", parent = "";
@@ -136,6 +137,7 @@ public class Quest {
                 timeLimit = DataTool.getInt("timeLimit", reqInfo, 0);
                 timeLimit2 = DataTool.getInt("timeLimit2", reqInfo, 0);
                 autoStart = DataTool.getInt("autoStart", reqInfo, 0) == 1;
+                normalAutoStart = DataTool.getInt("normalAutoStart", reqInfo, 0) == 1 || DataTool.getInt("autoAccept", reqInfo, 0) == 1;
                 autoPreComplete = DataTool.getInt("autoPreComplete", reqInfo, 0) == 1;
                 autoComplete = DataTool.getInt("autoComplete", reqInfo, 0) == 1;
 
@@ -150,6 +152,9 @@ public class Quest {
 
         Data startReqData = reqData.getChildByPath("0");
         if (startReqData != null) {
+            if (DataTool.getInt("normalAutoStart", startReqData, 0) == 1 || DataTool.getInt("autoAccept", startReqData, 0) == 1) {
+                normalAutoStart = true;
+            }
             for (Data startReq : startReqData.getChildren()) {
                 QuestRequirementType type = QuestRequirementType.getByWZName(startReq.getName());
                 switch (type) {
@@ -190,16 +195,12 @@ public class Quest {
                 completeReqs.put(type, req);
             }
         }
-        Data actData = questAct.getChildByPath(String.valueOf(id));
-        if (actData == null) {
-            return;
-        }
-        final Data startActData = actData.getChildByPath("0");
+        Data startActData = questAct.getChildByPath(String.valueOf(id) + "/0");
         if (startActData != null) {
             for (Data startAct : startActData.getChildren()) {
                 QuestActionType questActionType = QuestActionType.getByWZName(startAct.getName());
-                AbstractQuestAction act = this.getAction(questActionType, startAct);
 
+                AbstractQuestAction act = this.getAction(questActionType, startAct);
                 if (act == null) {
                     continue;
                 }
@@ -207,12 +208,12 @@ public class Quest {
                 startActs.put(questActionType, act);
             }
         }
-        Data completeActData = actData.getChildByPath("1");
+        Data completeActData = questAct.getChildByPath(String.valueOf(id) + "/1");
         if (completeActData != null) {
             for (Data completeAct : completeActData.getChildren()) {
                 QuestActionType questActionType = QuestActionType.getByWZName(completeAct.getName());
-                AbstractQuestAction act = this.getAction(questActionType, completeAct);
 
+                AbstractQuestAction act = this.getAction(questActionType, completeAct);
                 if (act == null) {
                     continue;
                 }
@@ -228,6 +229,18 @@ public class Quest {
 
     public boolean isAutoStart() {
         return autoStart;
+    }
+
+    public boolean isNormalAutoStart() {
+        return normalAutoStart;
+    }
+
+    public boolean isMedal() {
+        return getMedalRequirement() != -1;
+    }
+
+    public boolean isRemoteStartable() {
+        return autoStart || normalAutoStart || isMedal();
     }
 
     public static Quest getInstance(int id) {
@@ -664,6 +677,10 @@ public class Quest {
         }
 
         return false;
+    }
+
+    public static Map<Short, Integer> getAllMedals() {
+        return Collections.unmodifiableMap(medals);
     }
 
     public int getMedalRequirement() {

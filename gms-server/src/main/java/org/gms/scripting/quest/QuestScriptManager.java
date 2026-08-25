@@ -108,7 +108,11 @@ public class QuestScriptManager extends AbstractScriptManager {
 
     public void end(Client c, short questid, int npc) {
         Quest quest = Quest.getInstance(questid);
-        if (!c.getPlayer().getQuest(quest).getStatus().equals(QuestStatus.Status.STARTED) || (!c.getPlayer().getMap().containsNPC(npc) && !quest.isAutoComplete() && npc != org.gms.constants.id.NpcId.MAPLE_ADMINISTRATOR && npc != 9900000 && npc != 9000000 && npc != 9000020 && npc != 9010010)) {
+        boolean isRemoteQuest = quest.isAutoComplete() || quest.isAutoStart() || quest.isNormalAutoStart() || GameConstants.isMedalQuest(questid);
+        boolean isRemoteNpc = (npc == org.gms.constants.id.NpcId.MAPLE_ADMINISTRATOR
+                || npc == 9900000 || npc == 9000000 || npc == 9000020 || npc == 9010010
+                || npc == 9000040 || npc == 9000066 || npc == 9000057 || npc == 9000058 || npc == 9000059);
+        if (!c.getPlayer().getQuest(quest).getStatus().equals(QuestStatus.Status.STARTED) || (!c.getPlayer().getMap().containsNPC(npc) && !isRemoteQuest && !isRemoteNpc)) {
             dispose(c);
             return;
         }

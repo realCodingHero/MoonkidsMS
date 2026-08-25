@@ -23,6 +23,7 @@ package org.gms.net.server.channel.handlers;
 
 import org.gms.client.Character;
 import org.gms.client.Client;
+import org.gms.constants.game.GameConstants;
 import org.gms.constants.id.MapId;
 import org.gms.net.AbstractPacketHandler;
 import org.gms.net.packet.InPacket;
@@ -46,6 +47,15 @@ public final class QuestActionHandler extends AbstractPacketHandler {
         c.sendPacket(PacketCreator.getNPCTalk(npc, (byte) 0, message, "00 00", (byte) 0));
     }
 
+    public static boolean isRemoteQuest(Quest quest, int npcId) {
+        if (quest != null && (quest.isRemoteStartable() || quest.isAutoComplete() || GameConstants.isMedalQuest(quest.getId()))) {
+            return true;
+        }
+        return npcId == org.gms.constants.id.NpcId.MAPLE_ADMINISTRATOR
+                || npcId == 9900000 || npcId == 9000000 || npcId == 9000020 || npcId == 9010010
+                || npcId == 9000040 || npcId == 9000066 || npcId == 9000057 || npcId == 9000058 || npcId == 9000059;
+    }
+
     // isNpcNearby thanks to GabrielSin
     private static boolean isNpcNearby(InPacket p, Character player, Quest quest, int npcId) {
         Point playerP;
@@ -60,7 +70,7 @@ public final class QuestActionHandler extends AbstractPacketHandler {
             playerP = pos;
         }
 
-        if (!quest.isAutoStart() && !quest.isAutoComplete() && npcId != org.gms.constants.id.NpcId.MAPLE_ADMINISTRATOR && npcId != 9900000 && npcId != 9000000 && npcId != 9000020 && npcId != 9010010) {
+        if (!isRemoteQuest(quest, npcId)) {
             NPC npc = player.getMap().getNPCById(npcId);
             if (npc == null) {
                 return false;
