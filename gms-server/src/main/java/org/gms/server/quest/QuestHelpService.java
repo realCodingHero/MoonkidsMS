@@ -640,8 +640,8 @@ public final class QuestHelpService {
     public boolean isHiddenMap(int mapId) {
         return hiddenMapCache.computeIfAbsent(mapId, id -> {
             ensureInitialized();
-            // 1. 9字头特殊/副本/隐藏/任务专属地图 (如 910100000 被诅咒的丛林, 920000000 组队任务等，除自由市场 910000000 以外)
-            if (id >= 900000000 && id < 1000000000 && id != 910000000) {
+            // 1. 9字头特殊/副本/隐藏/任务专属地图 (如 910100000 被诅咒的丛林, 920000000 组队任务等)
+            if (id >= 900000000 && id < 1000000000) {
                 return true;
             }
             // 2. 非世界地图收录的野外/隐藏副本地图 (主城除外)

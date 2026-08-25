@@ -269,11 +269,18 @@ public class QuestWarpAndExpTest {
         assertEquals(false, service.isMapVisited(999, 211000000)); // 冰峰雪域未访问
         assertEquals(false, service.isMapVisited(999, 102000000)); // 勇士部落未访问
 
-        // 验证 9xxxxxxx 隐藏地图判定 (如 910100000 被诅咒的丛林)
+        // 验证 9xxxxxxx 隐藏地图判定 (如 910100000 被诅咒的丛林, 920000000 组队任务等)
         assertEquals(true, service.isHiddenMap(910100000));
         assertEquals(true, service.isHiddenMap(910100001));
         assertEquals(true, service.isHiddenMap(920000000));
-        assertEquals(false, service.isHiddenMap(910000000)); // 自由市场除外
+
+        // 验证世界地图已收录的常规地图判定
+        Field wmField = QuestHelpService.class.getDeclaredField("worldMapMaps");
+        wmField.setAccessible(true);
+        @SuppressWarnings("unchecked")
+        Set<Integer> wmSet = (Set<Integer>) wmField.get(service);
+        wmSet.add(100000200); // 射手村训练场1
+        assertEquals(false, service.isHiddenMap(100000200));
     }
 
     @Test
