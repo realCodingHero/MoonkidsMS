@@ -49,7 +49,8 @@ public enum QuestRequirementType {
     DAY_BY_DAY(20),
     MESO(21),
     BUFF(22),
-    EXCEPT_BUFF(23);
+    EXCEPT_BUFF(23),
+    MONSTER_BOOK_CARD(24);
 
     final byte type;
 
@@ -93,6 +94,8 @@ public enum QuestRequirementType {
             return MIN_PET_TAMENESS;
         case "mbmin":
             return MONSTER_BOOK;
+        case "mbcard":
+            return MONSTER_BOOK_CARD;
         case "normalAutoStart":
             return NORMAL_AUTO_START;
         case "infoNumber":
