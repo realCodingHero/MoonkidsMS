@@ -487,6 +487,16 @@ public final class QuestHelpService {
         });
     }
 
+    public String getMapName(int mapId) {
+        MapLocation loc = getMapLocation(mapId);
+        return loc != null ? loc.getDisplayName() : ("地图 (" + mapId + ")");
+    }
+
+    public int getWarpCost(int mapId) {
+        MapLocation loc = getMapLocation(mapId);
+        return loc != null ? loc.getWarpCost() : 0;
+    }
+
     /**
      * 计算目标地图的传送费用
      * 规则：

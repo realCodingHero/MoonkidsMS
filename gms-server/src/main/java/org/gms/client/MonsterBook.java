@@ -57,6 +57,15 @@ public final class MonsterBook {
         }
     }
 
+    public int getLevelByCard(int cardId) {
+        lock.lock();
+        try {
+            return cards.getOrDefault(cardId, 0);
+        } finally {
+            lock.unlock();
+        }
+    }
+
     public void addCard(final Client c, final int cardid) {
         c.getPlayer().getMap().broadcastMessage(c.getPlayer(), PacketCreator.showForeignCardEffect(c.getPlayer().getId()), false);
 
