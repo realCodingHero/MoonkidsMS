@@ -1143,7 +1143,7 @@ public final class QuestHelpService {
             int foundPrice = -1;
             try (Connection con = DatabaseConnection.getConnection();
                  PreparedStatement ps = con.prepareStatement(
-                         "SELECT itemid FROM drop_data WHERE dropperid = ? AND itemid >= 4000000 AND itemid < 4010000 AND questid = 0 LIMIT 20")) {
+                         "SELECT itemid FROM drop_data WHERE dropperid = ? AND itemid >= 4000000 AND itemid < 4001000 AND questid = 0 LIMIT 20")) {
                 ps.setInt(1, id);
                 try (ResultSet rs = ps.executeQuery()) {
                     while (rs.next()) {
@@ -1683,7 +1683,117 @@ public final class QuestHelpService {
         }
         itemObjectives.sort(Comparator.comparingInt(ItemObjective::getItemId));
 
-        return new QuestDetailInfo(questId, questName, canComplete, purchasableComplete, startNpc, completeNpc, mobObjectives, itemObjectives);
+        List<CardObjective> cardObjectives = new ArrayList<>();
+        Map<Integer, Integer> reqCards = q.getRequiredMonsterBookCards();
+        if (reqCards != null && !reqCards.isEmpty()) {
+            for (Map.Entry<Integer, Integer> entry : reqCards.entrySet()) {
+                int cardId = entry.getKey();
+                int reqLevel = entry.getValue();
+                int curLevel = (player != null && player.getMonsterBook() != null) ? player.getMonsterBook().getLevelByCard(cardId) : 0;
+                String cardName = getItemName(cardId);
+                List<DropMobInfo> dropMobs = getDropMobsForItem(cardId);
+                int mobId = 0;
+                String mobName = "";
+                if (dropMobs != null && !dropMobs.isEmpty()) {
+                    mobId = dropMobs.get(0).getMobId();
+                    mobName = dropMobs.get(0).getMobName();
+                }
+                cardObjectives.add(new CardObjective(cardId, cardName, mobId, mobName, curLevel, reqLevel, dropMobs));
+            }
+            cardObjectives.sort(Comparator.comparingInt(CardObjective::getCardId));
+        }
+
+        List<ExplorationObjective> explorationObjectives = getExplorationObjectives(player, q);
+
+        return new QuestDetailInfo(questId, questName, canComplete, purchasableComplete, startNpc, completeNpc, mobObjectives, itemObjectives, cardObjectives, explorationObjectives);
+    }
+
+    public List<ExplorationObjective> getExplorationObjectives(Character player, Quest q) {
+        if (player == null || q == null) {
+            return Collections.emptyList();
+        }
+        int questId = q.getId();
+        List<ExplorationObjective> result = new ArrayList<>();
+        QuestStatus qs = player.getQuest(q);
+        String progress = "";
+        if (qs != null) {
+            String p1 = qs.getProgress(1);
+            if (p1 != null && !p1.isEmpty()) {
+                progress = p1;
+            } else if (qs.getCustomData() != null) {
+                progress = qs.getCustomData();
+            } else if (qs.getProgress(0) != null) {
+                progress = qs.getProgress(0);
+            }
+        }
+
+        if (questId == 2236) { // 赶走恶魔的方法 (6 处灵验石)
+            int[] maps = new int[]{105050200, 105060000, 105070000, 105090000, 105090000, 105090100};
+            String[] names = new String[]{
+                "灵验石1：蚂蚁洞Ⅲ",
+                "灵验石2：蝙蝠洞",
+                "灵验石3：幽深蚂蚁洞Ⅱ",
+                "灵验石4：冰独眼兽洞穴Ⅰ 下层",
+                "灵验石5：冰独眼兽洞穴Ⅰ 上层",
+                "灵验石6：冰独眼兽洞穴Ⅱ"
+            };
+            for (int i = 0; i < maps.length; i++) {
+                boolean done = i < progress.length() && progress.charAt(i) == '1';
+                int mapId = maps[i];
+                String mapName = getMapName(mapId);
+                int warpCost = getWarpCost(mapId);
+                result.add(new ExplorationObjective(i, names[i], mapId, mapName, done, warpCost));
+            }
+        } else if (questId == 29004) { // 一个触碰天空的人 (5 大制高点)
+            int[] maps = new int[]{102000000, 103000000, 100000000, 101000000, 104000000};
+            String[] names = new String[]{
+                "勇士部落最高建筑顶端",
+                "废弃都市起重机顶端",
+                "射手村弓箭手培训中心屋顶",
+                "魔法密林参天大树顶端",
+                "明珠港巨轮桅杆顶端"
+            };
+            for (int i = 0; i < maps.length; i++) {
+                boolean done = i < progress.length() && progress.charAt(i) == '1';
+                int mapId = maps[i];
+                String mapName = getMapName(mapId);
+                int warpCost = getWarpCost(mapId);
+                result.add(new ExplorationObjective(i, names[i], mapId, mapName, done, warpCost));
+            }
+        } else if (questId == 21734) { // 人偶师的痕迹 (6 处调查点)
+            int[] maps = new int[]{100000000, 101000000, 102000000, 103000000, 104000000, 105000000};
+            String[] names = new String[]{
+                "射手村调查点",
+                "魔法密林调查点",
+                "勇士部落调查点",
+                "废弃都市调查点",
+                "明珠港调查点",
+                "林中之城调查点"
+            };
+            for (int i = 0; i < maps.length; i++) {
+                boolean done = i < progress.length() && progress.charAt(i) == '1';
+                int mapId = maps[i];
+                String mapName = getMapName(mapId);
+                int warpCost = getWarpCost(mapId);
+                result.add(new ExplorationObjective(i, names[i], mapId, mapName, done, warpCost));
+            }
+        } else if (questId == 3929) { // 携詹的考验 (4 处沙漠民房)
+            int[] maps = new int[]{260000201, 260000202, 260000203, 260000204};
+            String[] names = new String[]{
+                "阿里安特民房 住宅1",
+                "阿里安特民房 住宅2",
+                "阿里安特民房 住宅3",
+                "阿里安特民房 住宅4"
+            };
+            for (int i = 0; i < maps.length; i++) {
+                boolean done = i < progress.length() && progress.charAt(i) == '1';
+                int mapId = maps[i];
+                String mapName = getMapName(mapId);
+                int warpCost = getWarpCost(mapId);
+                result.add(new ExplorationObjective(i, names[i], mapId, mapName, done, warpCost));
+            }
+        }
+        return result;
     }
 
     public int getMaterialUnitPrice(int itemId) {
@@ -2200,7 +2310,7 @@ public final class QuestHelpService {
 
         StringBuilder sb = new StringBuilder();
         if (syncedMobCount > 0) {
-            sb.append("★ 已扣除 #r").append(totalMobCost).append("#k 金币，成功为您同步注入 #b").append(syncedMobCount).append("#k 只账号历史怪物击杀！\r\n\r\n");
+            sb.append("已扣除 #r").append(totalMobCost).append("#k 金币，成功为您同步注入 #b").append(syncedMobCount).append("#k 只账号历史怪物击杀！\r\n\r\n");
         }
         if (itemResult != null) {
             sb.append(itemResult.getMessage());
@@ -2704,7 +2814,14 @@ public final class QuestHelpService {
         }
 
         public boolean isCompleted() {
+            if (requiredCount <= 0) {
+                return false;
+            }
             return currentCount >= requiredCount;
+        }
+
+        public boolean isUsageItem() {
+            return requiredCount <= 0;
         }
 
         public List<DropMobInfo> getDropMobs() {
@@ -2713,6 +2830,102 @@ public final class QuestHelpService {
 
         public List<DropReactorInfo> getDropReactors() {
             return dropReactors;
+        }
+    }
+
+    public static class CardObjective {
+        private final int cardId;
+        private final String cardName;
+        private final int mobId;
+        private final String mobName;
+        private final int currentLevel;
+        private final int requiredLevel;
+        private final boolean completed;
+        private final List<DropMobInfo> dropMobs;
+
+        public CardObjective(int cardId, String cardName, int mobId, String mobName, int currentLevel, int requiredLevel, List<DropMobInfo> dropMobs) {
+            this.cardId = cardId;
+            this.cardName = cardName;
+            this.mobId = mobId;
+            this.mobName = mobName;
+            this.currentLevel = currentLevel;
+            this.requiredLevel = requiredLevel;
+            this.completed = currentLevel >= requiredLevel;
+            this.dropMobs = dropMobs != null ? dropMobs : Collections.emptyList();
+        }
+
+        public int getCardId() {
+            return cardId;
+        }
+
+        public String getCardName() {
+            return cardName;
+        }
+
+        public int getMobId() {
+            return mobId;
+        }
+
+        public String getMobName() {
+            return mobName;
+        }
+
+        public int getCurrentLevel() {
+            return currentLevel;
+        }
+
+        public int getRequiredLevel() {
+            return requiredLevel;
+        }
+
+        public boolean isCompleted() {
+            return completed;
+        }
+
+        public List<DropMobInfo> getDropMobs() {
+            return dropMobs;
+        }
+    }
+
+    public static class ExplorationObjective {
+        private final int id;
+        private final String targetName;
+        private final int mapId;
+        private final String mapName;
+        private final boolean completed;
+        private final int warpCost;
+
+        public ExplorationObjective(int id, String targetName, int mapId, String mapName, boolean completed, int warpCost) {
+            this.id = id;
+            this.targetName = targetName;
+            this.mapId = mapId;
+            this.mapName = mapName;
+            this.completed = completed;
+            this.warpCost = warpCost;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public String getTargetName() {
+            return targetName;
+        }
+
+        public int getMapId() {
+            return mapId;
+        }
+
+        public String getMapName() {
+            return mapName;
+        }
+
+        public boolean isCompleted() {
+            return completed;
+        }
+
+        public int getWarpCost() {
+            return warpCost;
         }
     }
 
@@ -2755,10 +2968,19 @@ public final class QuestHelpService {
         private final NpcLocationInfo completeNpc;
         private final List<MobObjective> mobObjectives;
         private final List<ItemObjective> itemObjectives;
+        private final List<CardObjective> cardObjectives;
+        private final List<ExplorationObjective> explorationObjectives;
 
         public QuestDetailInfo(int questId, String questName, boolean canComplete, boolean purchasableComplete,
                                NpcLocationInfo startNpc, NpcLocationInfo completeNpc,
                                List<MobObjective> mobObjectives, List<ItemObjective> itemObjectives) {
+            this(questId, questName, canComplete, purchasableComplete, startNpc, completeNpc, mobObjectives, itemObjectives, Collections.emptyList(), Collections.emptyList());
+        }
+
+        public QuestDetailInfo(int questId, String questName, boolean canComplete, boolean purchasableComplete,
+                               NpcLocationInfo startNpc, NpcLocationInfo completeNpc,
+                               List<MobObjective> mobObjectives, List<ItemObjective> itemObjectives,
+                               List<CardObjective> cardObjectives, List<ExplorationObjective> explorationObjectives) {
             this.questId = questId;
             this.questName = questName;
             this.canComplete = canComplete;
@@ -2767,6 +2989,8 @@ public final class QuestHelpService {
             this.completeNpc = completeNpc;
             this.mobObjectives = mobObjectives != null ? mobObjectives : Collections.emptyList();
             this.itemObjectives = itemObjectives != null ? itemObjectives : Collections.emptyList();
+            this.cardObjectives = cardObjectives != null ? cardObjectives : Collections.emptyList();
+            this.explorationObjectives = explorationObjectives != null ? explorationObjectives : Collections.emptyList();
         }
 
         public int getQuestId() {
@@ -2799,6 +3023,14 @@ public final class QuestHelpService {
 
         public List<ItemObjective> getItemObjectives() {
             return itemObjectives;
+        }
+
+        public List<CardObjective> getCardObjectives() {
+            return cardObjectives;
+        }
+
+        public List<ExplorationObjective> getExplorationObjectives() {
+            return explorationObjectives;
         }
 
         public boolean hasSyncableMobKills() {

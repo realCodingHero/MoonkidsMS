@@ -292,5 +292,76 @@ public class QuestWarpAndExpTest {
         assertNull(service.getQuestDetailInfo(null, -31063));
         assertNull(service.getQuestDetailInfo(null, 0));
     }
+
+    @Test
+    public void testExplorationObjectivesAndBitParsing() {
+        // 模拟 Quest 2236（赶走恶魔的方法: 6 处灵验石）
+        int[] maps2236 = new int[]{105050200, 105060000, 105070000, 105090000, 105090000, 105090100};
+        String[] names2236 = new String[]{
+                "灵验石1：蚂蚁洞Ⅲ",
+                "灵验石2：蝙蝠洞",
+                "灵验石3：幽深蚂蚁洞Ⅱ",
+                "灵验石4：冰独眼兽洞穴Ⅰ 下层",
+                "灵验石5：冰独眼兽洞穴Ⅰ 上层",
+                "灵验石6：冰独眼兽洞穴Ⅱ"
+        };
+        String progress = "101000"; // 第1、3处已封印，其余未封印
+
+        java.util.List<QuestHelpService.ExplorationObjective> objs = new java.util.ArrayList<>();
+        for (int i = 0; i < maps2236.length; i++) {
+            boolean done = i < progress.length() && progress.charAt(i) == '1';
+            objs.add(new QuestHelpService.ExplorationObjective(i, names2236[i], maps2236[i], "地图-" + maps2236[i], done, 1200));
+        }
+
+        assertEquals(6, objs.size());
+        assertEquals(true, objs.get(0).isCompleted());
+        assertEquals(false, objs.get(1).isCompleted());
+        assertEquals(true, objs.get(2).isCompleted());
+        assertEquals(false, objs.get(3).isCompleted());
+        assertEquals(false, objs.get(4).isCompleted());
+        assertEquals(false, objs.get(5).isCompleted());
+
+        assertEquals(105050200, objs.get(0).getMapId());
+        assertEquals("灵验石1：蚂蚁洞Ⅲ", objs.get(0).getTargetName());
+        assertEquals(1200, objs.get(0).getWarpCost());
+    }
+
+    @Test
+    public void testZeroCountItemObjectiveBehavior() {
+        // 模拟任务 2236 道具 4032263（赶走恶魔的道符，持有 5 张，需求 0 张）
+        QuestHelpService.ItemObjective usageItem = new QuestHelpService.ItemObjective(
+                4032263, "驱逐恶魔的道符", 5, 0, false, false, true, false, 0, java.util.Collections.emptyList()
+        );
+
+        // 验证：即使 currentCount(5) >= requiredCount(0)，由于 reqCount <= 0，不应判定为已达成
+        assertEquals(false, usageItem.isCompleted());
+        assertEquals(true, usageItem.isUsageItem());
+        assertEquals(false, usageItem.isDeliverable());
+        assertEquals(0L, usageItem.getTotalPrice());
+
+        // 常规收集道具（持有 10 个，需求 10 个）
+        QuestHelpService.ItemObjective normalItem = new QuestHelpService.ItemObjective(
+                4000000, "蓝色蜗牛壳", 10, 10, true, false, false, false, 15, java.util.Collections.emptyList()
+        );
+        assertEquals(true, normalItem.isCompleted());
+        assertEquals(false, normalItem.isUsageItem());
+    }
+
+    @Test
+    public void testCardObjectiveBehavior() {
+        // 模拟任务 29016 怪物图鉴卡片目标
+        QuestHelpService.CardObjective card1 = new QuestHelpService.CardObjective(
+                2382049, "恶魔之父卡片", 4230114, "恶魔之父", 0, 1, java.util.Collections.emptyList()
+        );
+        assertEquals(false, card1.isCompleted());
+        assertEquals(2382049, card1.getCardId());
+        assertEquals("恶魔之父卡片", card1.getCardName());
+        assertEquals(4230114, card1.getMobId());
+
+        QuestHelpService.CardObjective card2 = new QuestHelpService.CardObjective(
+                2383008, "大幽灵卡片", 4230100, "大幽灵", 1, 1, java.util.Collections.emptyList()
+        );
+        assertEquals(true, card2.isCompleted());
+    }
 }
 

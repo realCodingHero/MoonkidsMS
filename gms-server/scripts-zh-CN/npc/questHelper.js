@@ -133,16 +133,16 @@ function showMainMenu() {
         var canCompleteCount = (canCompleteQuests && typeof canCompleteQuests.size === "function") ? canCompleteQuests.size() : 0;
         var inProgressCount = (inProgressQuests && typeof inProgressQuests.size === "function") ? inProgressQuests.size() : 0;
 
-        var text = "\t\t\t\t#e#r★ BeiDou 任务辅助助手 ★#k#n\r\n\r\n";
+        var text = "\t\t\t\t#e#r【 BeiDou 任务辅助助手 】#k#n\r\n\r\n";
         text += "在这里您可以查看当前所有已接取的任务进度、一键导航至起止 NPC、快捷传送至怪物地图，以及一键补齐普通任务材料。\r\n\r\n";
 
         if (canCompleteCount > 0) {
-            text += "#L1##b★ 查看当前可直接交付的任务#k #r(" + canCompleteCount + " 个已达成)#k#l\r\n";
+            text += "#L1##b>> 查看当前可直接交付的任务#k #r(" + canCompleteCount + " 个已达成)#k#l\r\n";
         } else {
-            text += "#L1##d★ 查看当前可交付的任务 (暂无可交付任务)#k#l\r\n";
+            text += "#L1##d>> 查看当前可交付的任务 (暂无可交付任务)#k#l\r\n";
         }
 
-        text += "#L2##b★ 查看当前进行中的任务列表#k #d(" + inProgressCount + " 个进行中)#k#l\r\n\r\n";
+        text += "#L2##b>> 查看当前进行中的任务列表#k #d(" + inProgressCount + " 个进行中)#k#l\r\n\r\n";
         text += "#L999999##b[返回枫叶助手主菜单]#k#l";
 
         cm.sendSimple(text);
@@ -301,6 +301,8 @@ function showQuestDetail(questId) {
 
         var mobObjs = currentDetail.getMobObjectives();
         var itemObjs = currentDetail.getItemObjectives();
+        var cardObjs = currentDetail.getCardObjectives();
+        var expObjs = currentDetail.getExplorationObjectives();
         var startNpc = currentDetail.getStartNpc();
         var compNpc = currentDetail.getCompleteNpc();
 
@@ -312,11 +314,11 @@ function showQuestDetail(questId) {
         var combinedCost = currentDetail.getTotalCostWithMobsAndMaterials();
 
         if (hasSyncableMobs && hasDeliverableIncomplete) {
-            text += "#L10000##k【 #d★ 一键同步账号击杀并购买全部普通材料#k 】 #d(" + combinedCost + " 金币)#k#l\r\n\r\n";
+            text += "#L10000##k【 #d[一键同步账号击杀并购买全部普通材料]#k 】 #d(" + combinedCost + " 金币)#k#l\r\n\r\n";
         } else if (hasSyncableMobs) {
-            text += "#L10000##k【 #d★ 一键同步本任务全部满足条件的账号怪物击杀#k 】 #d(" + totalMobCost + " 金币)#k#l\r\n\r\n";
+            text += "#L10000##k【 #d[一键同步本任务全部满足条件的账号怪物击杀]#k 】 #d(" + totalMobCost + " 金币)#k#l\r\n\r\n";
         } else if (hasDeliverableIncomplete) {
-            text += "#L10000##k【 #d★ 一键购买补齐本任务全部普通/商店材料#k 】 #d(" + totalMatCost + " 金币)#k#l\r\n\r\n";
+            text += "#L10000##k【 #d[一键购买补齐本任务全部普通/商店材料]#k 】 #d(" + totalMatCost + " 金币)#k#l\r\n\r\n";
         }
 
         var hasContent = false;
@@ -371,6 +373,15 @@ function showQuestDetail(questId) {
             text += "#e【 收集道具目标 】#n\r\n";
             for (var i = 0; i < itemObjs.size(); i++) {
                 var item = itemObjs.get(i);
+                if (item.getRequiredCount() <= 0) {
+                    if (currentDetail.isCanComplete()) {
+                        text += " 道具 #v" + item.getItemId() + "# 【#b" + item.getItemName() + "#k】 (已在指定地点使用完毕) #b[已达成]#k\r\n\r\n";
+                    } else {
+                        text += " 道具 #v" + item.getItemId() + "# 【#b" + item.getItemName() + "#k】 (持有 " + item.getCurrentCount() + " 张 - 需在指定地点使用) #r[进行中]#k\r\n\r\n";
+                    }
+                    continue;
+                }
+
                 var isDone = item.isCompleted();
                 var progTag = isDone ? "#b(" + item.getCurrentCount() + "/" + item.getRequiredCount() + ") [已达成]#k" : "#r(" + item.getCurrentCount() + "/" + item.getRequiredCount() + ") [未完成]#k";
                 var diff = item.getRequiredCount() - item.getCurrentCount();
@@ -382,7 +393,7 @@ function showQuestDetail(questId) {
                     if (item.getRequiredCount() > 1) {
                         if (item.isDeliverable()) {
                             if (item.isQuestExclusive()) {
-                                text += "#L" + (250000 + i) + "#   └─ #d[★ 样本已解锁购买: 缺 " + diff + "个 -> 消耗 " + item.getTotalPrice() + " 金币]#k#l\r\n";
+                                text += "#L" + (250000 + i) + "#   └─ #d[样本已解锁购买: 缺 " + diff + "个 -> 消耗 " + item.getTotalPrice() + " 金币]#k#l\r\n";
                             } else {
                                 text += "#L" + (250000 + i) + "#   └─ #d[购买补齐: 缺 " + diff + "个 -> 消耗 " + item.getTotalPrice() + " 金币]#k#l\r\n";
                             }
@@ -401,7 +412,45 @@ function showQuestDetail(questId) {
             }
         }
 
-        // 3. NPC 导航
+        // 3. 怪物图鉴卡片目标
+        if (cardObjs && cardObjs.size() > 0) {
+            hasContent = true;
+            text += "#e【 怪物图鉴卡片目标 】#n\r\n";
+            for (var i = 0; i < cardObjs.size(); i++) {
+                var card = cardObjs.get(i);
+                var isDone = card.isCompleted();
+                var progTag = isDone ? "#b(已点亮)#k" : "#r(未收集)#k";
+                if (isDone) {
+                    text += " 收集 #v" + card.getCardId() + "# 【#b" + card.getCardName() + "#k】 " + progTag + "\r\n\r\n";
+                } else {
+                    text += "#L" + (350000 + i) + "# 收集 #v" + card.getCardId() + "# 【#b" + card.getCardName() + "#k】 " + progTag + " -> #d[掉落出处]#k#l\r\n\r\n";
+                }
+            }
+        }
+
+        // 4. 探索 / 封印 / 调查目标
+        if (expObjs && expObjs.size() > 0) {
+            hasContent = true;
+            text += "#e【 探索 / 封印 / 调查目标 】#n\r\n";
+            for (var i = 0; i < expObjs.size(); i++) {
+                var obj = expObjs.get(i);
+                var isDone = obj.isCompleted();
+                var progTag = isDone ? "#b[已达成]#k" : "#r[未完成]#k";
+                if (isDone) {
+                    text += " 目标 " + (i + 1) + "：【#b" + obj.getTargetName() + "#k】 " + progTag + "\r\n\r\n";
+                } else {
+                    var warpUnlocked = service.isMapWarpUnlocked(cm.getPlayer(), obj.getMapId());
+                    var costStr = obj.getWarpCost() > 0 ? " [费用: " + obj.getWarpCost() + "金币]" : "";
+                    if (warpUnlocked) {
+                        text += "#L" + (600000 + i) + "# 目标 " + (i + 1) + "：【#b" + obj.getTargetName() + "#k】 " + progTag + costStr + " -> #d[传送]#k#l\r\n\r\n";
+                    } else {
+                        text += " 目标 " + (i + 1) + "：【#b" + obj.getTargetName() + "#k】 " + progTag + " #r[地图未探索解锁]#k\r\n\r\n";
+                    }
+                }
+            }
+        }
+
+        // 5. NPC 导航
         if (startNpc || compNpc) {
             hasContent = true;
             text += "#e【 NPC 导航传送 】#n\r\n";
@@ -546,6 +595,25 @@ function handleDetailSelection(selection) {
     if (selection === 300002) {
         var compNpc = currentDetail.getCompleteNpc();
         showNpcMapList(compNpc, "交付");
+        return;
+    }
+
+    // 怪物图鉴卡片出处 -> 显示掉落怪物列表
+    if (selection >= 350000 && selection < 400000) {
+        var index = selection - 350000;
+        var card = currentDetail.getCardObjectives().get(index);
+        showCardDropList(card);
+        return;
+    }
+
+    // 探索 / 封印 / 调查目标 -> 直接传送
+    if (selection >= 600000 && selection < 700000) {
+        var index = selection - 600000;
+        var obj = currentDetail.getExplorationObjectives().get(index);
+        if (obj) {
+            tryWarpPlayerById(obj.getMapId(), "已传送至目标 【" + obj.getTargetName() + "】 所在地图：");
+        }
+        cm.dispose();
         return;
     }
 
@@ -877,5 +945,89 @@ function tryWarpPlayer(targetMap, noticePrefix) {
     var costMsg = cost > 0 ? "，扣除传送费用 " + cost + " 金币" : "";
     var prefix = noticePrefix ? noticePrefix : "已传送至 ";
     cm.playerMessage(5, prefix + targetMap.getDisplayName() + costMsg + "！祝你任务顺利！");
+    return true;
+}
+
+/**
+ * 界面 3-D：展示怪物图鉴卡片的掉落怪物列表（仅展示已探索解锁地图的怪物）
+ */
+function showCardDropList(card) {
+    try {
+        if (!card) {
+            showQuestDetail(selectedQuestId);
+            return;
+        }
+        var dropMobs = card.getDropMobs();
+        var unlockedDropMobs = [];
+        if (dropMobs) {
+            for (var i = 0; i < dropMobs.size(); i++) {
+                var dropMob = dropMobs.get(i);
+                var mUnlocked = getUnlockedMapsList(dropMob.getMaps());
+                if (mUnlocked.length > 0) {
+                    unlockedDropMobs.push({ index: i, mob: dropMob, maps: mUnlocked });
+                }
+            }
+        }
+
+        if (unlockedDropMobs.length === 0) {
+            cm.sendOk("卡片 【#b" + card.getCardName() + "#k】 的所有掉落怪物所在地图#r尚未探索解锁#k。\r\n\r\n请先前往探索相应区域主城后再来查看与传送！");
+            return;
+        }
+
+        currentState = STATE_SUB_MENU;
+        selectedItem = {
+            getItemName: function() { return card.getCardName(); },
+            getDropMobs: function() { return card.getDropMobs(); },
+            getDropReactors: function() { return null; }
+        };
+
+        var text = "#e#b卡片 【" + card.getCardName() + "】 的掉落怪物列表：#k#n\r\n点击怪物查看分布地图并传送：\r\n\r\n";
+        for (var i = 0; i < unlockedDropMobs.length; i++) {
+            var entry = unlockedDropMobs[i];
+            var dropMob = entry.mob;
+            if (dropMob.isBoss()) {
+                text += "#L" + (400000 + entry.index) + "# " + dropMob.getMobName() + " #r[Boss]#k (掉率: " + dropMob.getChanceText() + ") #r[Boss需自行前往]#k#l\r\n";
+            } else {
+                text += "#L" + (400000 + entry.index) + "# " + dropMob.getMobName() + " (掉率: " + dropMob.getChanceText() + ", 可传送)#l\r\n";
+            }
+        }
+        text += "\r\n#L999998##b[返回任务详情]#k#l";
+        cm.sendSimple(text);
+    } catch (e) {
+        cm.sendOk("卡片掉落来源加载失败：" + e);
+        cm.dispose();
+    }
+}
+
+/**
+ * 按地图ID直接传送玩家并进行探索/费用校验
+ */
+function tryWarpPlayerById(mapId, noticePrefix) {
+    var service = cm.getQuestHelp();
+    var mapName = service ? service.getMapName(mapId) : ("地图 (" + mapId + ")");
+    if (service && !service.isMapWarpUnlocked(cm.getPlayer(), mapId)) {
+        if (service.isHiddenMap(mapId) || service.getTownIdForMap(mapId) <= 0) {
+            cm.sendOk("目的地 【#b" + mapName + "#k】 为隐藏/特殊区域，您尚未亲自探索过！\r\n必须先亲自找到并前往该地图一次后，方可使用直达传送。");
+        } else {
+            var townName = service.getTownNameForMap(mapId);
+            var townStr = (townName && townName !== "未知主城") ? "【#b" + townName + "#k】" : "该区域的主城";
+            cm.sendOk("您尚未探索并访问过 " + townStr + "！\r\n请先亲自前往探索该主城后，方可解锁直达传送。");
+        }
+        return false;
+    }
+
+    var cost = service ? service.getWarpCost(mapId) : 0;
+    if (cost > 0 && cm.getPlayer().getMeso() < cost) {
+        cm.sendOk("您的金币不足，无法进行传送！\r\n\r\n目的地：#b" + mapName + "#k\r\n需要费用：#r" + cost + " 金币#k\r\n当前持有：#d" + cm.getPlayer().getMeso() + " 金币#k\r\n\r\n请准备好足够的金币后再来使用传送功能！");
+        return false;
+    }
+
+    if (cost > 0) {
+        cm.gainMeso(-cost);
+    }
+    cm.warp(mapId);
+    var costMsg = cost > 0 ? "，扣除传送费用 " + cost + " 金币" : "";
+    var prefix = noticePrefix ? noticePrefix : "已传送至 ";
+    cm.playerMessage(5, prefix + mapName + costMsg + "！祝你任务顺利！");
     return true;
 }

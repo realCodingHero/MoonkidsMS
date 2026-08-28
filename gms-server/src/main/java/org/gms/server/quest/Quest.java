@@ -498,6 +498,14 @@ public class Quest {
         return Collections.emptyMap();
     }
 
+    public Map<Integer, Integer> getRequiredMonsterBookCards() {
+        AbstractQuestRequirement req = completeReqs.get(QuestRequirementType.MONSTER_BOOK_CARD);
+        if (req instanceof org.gms.server.quest.requirements.MonsterBookCardRequirement cardReq) {
+            return cardReq.getCards();
+        }
+        return Collections.emptyMap();
+    }
+
 
     public short getInfoNumber(Status qs) {
         boolean checkEnd = qs.equals(Status.STARTED);
@@ -595,6 +603,9 @@ public class Quest {
                 break;
             case MONSTER_BOOK:
                 ret = new MonsterBookCountRequirement(this, data);
+                break;
+            case MONSTER_BOOK_CARD:
+                ret = new org.gms.server.quest.requirements.MonsterBookCardRequirement(this, data);
                 break;
             case NPC:
                 ret = new NpcRequirement(this, data);
