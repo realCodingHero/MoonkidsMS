@@ -27,14 +27,17 @@ import java.awt.*;
 
 public class DataTool {
     public static String getString(Data data) {
-        return ((String) data.getData());
+        if (data == null || data.getData() == null) {
+            return null;
+        }
+        return String.valueOf(data.getData());
     }
 
     public static String getString(Data data, String def) {
         if (data == null || data.getData() == null) {
             return def;
         } else {
-            return ((String) data.getData());
+            return String.valueOf(data.getData());
         }
     }
 

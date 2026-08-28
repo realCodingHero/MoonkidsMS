@@ -22140,7 +22140,7 @@
         <imgdir name="1">
             <int name="npc" value="1061019" />
             <string name="endscript" value="q21728e" />
-        <imgdir name="infoex"><imgdir name="0"><int name="value" value="0" /></imgdir></imgdir><int name="infoNumber" value="21761" />
+        <imgdir name="infoex"><imgdir name="0"><string name="value" value="0" /></imgdir></imgdir><int name="infoNumber" value="21761" />
       </imgdir>
     </imgdir>
     <imgdir name="21729">
