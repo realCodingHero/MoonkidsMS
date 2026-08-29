@@ -333,11 +333,18 @@ public class QuestWarpAndExpTest {
                 4032263, "驱逐恶魔的道符", 5, 0, false, false, true, false, 0, java.util.Collections.emptyList()
         );
 
-        // 验证：即使 currentCount(5) >= requiredCount(0)，由于 reqCount <= 0，不应判定为已达成
+        // 验证：当 reqCount <= 0 时，持有 5 张（未贴完）判定为未完成
         assertEquals(false, usageItem.isCompleted());
         assertEquals(true, usageItem.isUsageItem());
         assertEquals(false, usageItem.isDeliverable());
         assertEquals(0L, usageItem.getTotalPrice());
+
+        // 验证：当全部使用完毕（持有 0 张）时，判定为已达成
+        QuestHelpService.ItemObjective usageItemDone = new QuestHelpService.ItemObjective(
+                4032263, "驱逐恶魔的道符", 0, 0, false, false, true, false, 0, java.util.Collections.emptyList()
+        );
+        assertEquals(true, usageItemDone.isCompleted());
+        assertEquals(true, usageItemDone.isUsageItem());
 
         // 常规收集道具（持有 10 个，需求 10 个）
         QuestHelpService.ItemObjective normalItem = new QuestHelpService.ItemObjective(

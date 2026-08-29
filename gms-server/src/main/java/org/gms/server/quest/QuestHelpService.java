@@ -2825,7 +2825,7 @@ public final class QuestHelpService {
 
         public boolean isCompleted() {
             if (requiredCount <= 0) {
-                return false;
+                return currentCount == 0;
             }
             return currentCount >= requiredCount;
         }
