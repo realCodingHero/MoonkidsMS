@@ -291,6 +291,21 @@ public class Quest {
                 String ixProgress = ix.get(i);
 
                 if (!progress.contentEquals(ixProgress)) {
+                    String progress1 = chr.getAbstractPlayerInteraction().getQuestProgress(infoNumber, i + 1);
+                    if (progress1 != null && progress1.contentEquals(ixProgress)) {
+                        continue;
+                    }
+                    String directProg0 = mqs.getProgress(i);
+                    if (directProg0 != null && directProg0.contentEquals(ixProgress)) {
+                        continue;
+                    }
+                    String directProg1 = mqs.getProgress(i + 1);
+                    if (directProg1 != null && directProg1.contentEquals(ixProgress)) {
+                        continue;
+                    }
+                    if (mqs.getCustomData() != null && mqs.getCustomData().contentEquals(ixProgress)) {
+                        continue;
+                    }
                     return false;
                 }
             }

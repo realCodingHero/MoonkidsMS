@@ -374,7 +374,7 @@ function showQuestDetail(questId) {
             for (var i = 0; i < itemObjs.size(); i++) {
                 var item = itemObjs.get(i);
                 if (item.getRequiredCount() <= 0) {
-                    if (currentDetail.isCanComplete()) {
+                    if (item.isCompleted()) {
                         text += " 道具 #v" + item.getItemId() + "# 【#b" + item.getItemName() + "#k】 (已在指定地点使用完毕) #b[已达成]#k\r\n\r\n";
                     } else {
                         text += " 道具 #v" + item.getItemId() + "# 【#b" + item.getItemName() + "#k】 (持有 " + item.getCurrentCount() + " 张 - 需在指定地点使用) #r[进行中]#k\r\n\r\n";
