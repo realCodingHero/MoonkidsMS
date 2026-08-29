@@ -373,7 +373,7 @@ public class QuestWarpAndExpTest {
 
     @Test
     public void testMedalQuestAccurateCompletion() {
-        QuestHelpService service = new QuestHelpService();
+        QuestHelpService service = QuestHelpService.getInstance();
 
         // 验证勋章判定辅助方法
         assertEquals(true, service.isMedalOrChallengeQuest(29508));
