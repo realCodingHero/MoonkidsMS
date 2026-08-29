@@ -23,6 +23,11 @@ public final class DynamicHairMedal {
         }
     }
 
+    public static boolean isEligible(Character player) {
+        QuestStatus status = player.getQuestNoAdd(Quest.getInstance(QUEST_ID));
+        return status != null && status.getStatus() == QuestStatus.Status.STARTED && getProgress(status) >= REQUIRED_CHANGES;
+    }
+
     private static int getProgress(QuestStatus status) {
         try {
             return Integer.parseInt(status.getProgress(0));

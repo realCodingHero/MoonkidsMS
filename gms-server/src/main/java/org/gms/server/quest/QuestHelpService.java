@@ -1506,7 +1506,7 @@ public final class QuestHelpService {
 
             case 29933: case 29934: case 29935: case 29936: case 29937: case 29938: // 各爱心使者
                 int reqMedal = 1142030;
-                return player.haveItem(reqMedal, 1, true, true);
+                return player.haveItemWithId(reqMedal, true);
 
             default:
                 int npc = q.getNpcRequirement(true);
