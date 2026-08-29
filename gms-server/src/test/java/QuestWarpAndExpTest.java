@@ -370,5 +370,21 @@ public class QuestWarpAndExpTest {
         );
         assertEquals(true, card2.isCompleted());
     }
+
+    @Test
+    public void testMedalQuestAccurateCompletion() {
+        QuestHelpService service = new QuestHelpService();
+
+        // 验证勋章判定辅助方法
+        assertEquals(true, service.isMedalOrChallengeQuest(29508));
+        assertEquals(true, service.isMedalOrChallengeQuest(29000));
+        assertEquals(true, service.isMedalOrChallengeQuest(29001));
+        assertEquals(false, service.isMedalOrChallengeQuest(2236));
+        assertEquals(false, service.isMedalOrChallengeQuest(1000));
+
+        // 验证 PARTY_QUEST_S 类型注册
+        assertEquals(org.gms.server.quest.QuestRequirementType.PARTY_QUEST_S,
+                org.gms.server.quest.QuestRequirementType.getByWZName("partyQuest_S"));
+    }
 }
 

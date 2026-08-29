@@ -637,6 +637,9 @@ public class Quest {
             case SCRIPT:
                 ret = new ScriptRequirement(this, data);
                 break;
+            case PARTY_QUEST_S:
+                ret = new org.gms.server.quest.requirements.PartyQuestSRequirement(this, data);
+                break;
             case NORMAL_AUTO_START:
             case START:
             case END:

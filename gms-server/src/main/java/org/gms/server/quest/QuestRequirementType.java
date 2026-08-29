@@ -50,7 +50,8 @@ public enum QuestRequirementType {
     MESO(21),
     BUFF(22),
     EXCEPT_BUFF(23),
-    MONSTER_BOOK_CARD(24);
+    MONSTER_BOOK_CARD(24),
+    PARTY_QUEST_S(25);
 
     final byte type;
 
@@ -60,6 +61,15 @@ public enum QuestRequirementType {
 
     public byte getType() {
         return type;
+    }
+
+    public static QuestRequirementType getByType(byte type) {
+        for (QuestRequirementType l : QuestRequirementType.values()) {
+            if (l.getType() == type) {
+                return l;
+            }
+        }
+        return null;
     }
 
     public static QuestRequirementType getByWZName(String name) {
@@ -74,8 +84,8 @@ public enum QuestRequirementType {
             return MIN_LEVEL;
         case "lvmax":
             return MAX_LEVEL;
-        case "end":
-            return END_DATE;
+        case "endscript":
+            return SCRIPT;
         case "mob":
             return MOB;
         case "npc":
@@ -86,8 +96,6 @@ public enum QuestRequirementType {
             return INTERVAL;
         case "startscript":
             return SCRIPT;
-        case "endscript":
-            return SCRIPT;
         case "pet":
             return PET;
         case "pettamenessmin":
@@ -96,6 +104,8 @@ public enum QuestRequirementType {
             return MONSTER_BOOK;
         case "mbcard":
             return MONSTER_BOOK_CARD;
+        case "partyQuest_S":
+            return PARTY_QUEST_S;
         case "normalAutoStart":
             return NORMAL_AUTO_START;
         case "infoNumber":
