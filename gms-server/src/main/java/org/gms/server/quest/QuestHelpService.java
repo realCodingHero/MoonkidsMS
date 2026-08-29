@@ -1406,12 +1406,111 @@ public final class QuestHelpService {
             return false;
         }
         try {
+            int qid = q.getId();
+            if (isMedalOrChallengeQuest(qid)) {
+                return checkMedalQuestCompletable(player, qid, q);
+            }
+
             int completeNpcId = q.getNpcRequirement(true);
             Integer npcId = completeNpcId > 0 ? completeNpcId : null;
             return q.canComplete(player, npcId);
         } catch (Throwable t) {
             log.warn("Error checking isQuestCompletable for quest {} player {}: {}", q.getId(), (player != null ? player.getName() : "null"), t.toString());
             return false;
+        }
+    }
+
+    public boolean isMedalOrChallengeQuest(int qid) {
+        return (qid >= 29000 && qid <= 29999);
+    }
+
+    public boolean checkMedalQuestCompletable(Character player, int qid, Quest q) {
+        QuestStatus qs = player.getQuest(q);
+        if (qs == null || qs.getStatus() != QuestStatus.Status.STARTED) {
+            return false;
+        }
+
+        switch (qid) {
+            case 29508: // 挑战 - 最佳公民 (需结婚、入公会、有后辈)
+                return org.gms.server.quest.medal.OutstandingCitizenMedal.isEligible(player);
+
+            case 29000: // 挑战 - 组队任务狂人 (需5个组队任务达到S级)
+                return false;
+
+            case 29001: // 挑战 - 任务狂人 (需完成800个任务)
+                return player.getCompletedQuests().size() >= 800;
+
+            case 29002: // 挑战 - 超人气王 (30天内提升1000人气)
+                try {
+                    String progress = qs.getProgress(0);
+                    if (progress == null || progress.isBlank()) return false;
+                    int startFame = Integer.parseInt(progress);
+                    return (player.getFame() - startFame) >= 1000;
+                } catch (Exception e) {
+                    return false;
+                }
+
+            case 29003: // 挑战 - 诚实的冒险家 (连续登录30天)
+                return false;
+
+            case 29016: // 勋章 - 安灵师 (3张鬼怪图鉴卡片)
+                int completeNpcId = q.getNpcRequirement(true);
+                return q.canComplete(player, completeNpcId > 0 ? completeNpcId : null);
+
+            case 29020: // 称号挑战 - 发型变换达人 (变换发型50次)
+                return org.gms.server.quest.medal.DynamicHairMedal.isEligible(player);
+
+            case 29400: // 挑战 - 勤奋冒险家 (30天消灭100000只怪)
+                return org.gms.server.quest.medal.VeteranHunterMedal.isComplete(player);
+
+            case 29500: // 挑战 - 冒险岛偶像明星 (人气1000)
+                return player.getFame() >= org.gms.server.quest.medal.SpecialChallengeMedal.MAPLE_IDOL_REQUIRED_FAME;
+
+            case 29501: // 挑战 - 暗黑龙王杀手
+                return org.gms.server.quest.medal.SpecialChallengeMedal.getProgress(player, 29501, 0) >= org.gms.server.quest.medal.SpecialChallengeMedal.HORNTAIL_REQUIRED_KILLS;
+
+            case 29502: // 挑战 - 品克缤杀手
+                return org.gms.server.quest.medal.SpecialChallengeMedal.getProgress(player, 29502, 0) >= org.gms.server.quest.medal.SpecialChallengeMedal.PINK_BEAN_REQUIRED_KILLS;
+
+            case 29503: // 称号挑战 - 爱心使者 (捐赠1000万金币)
+                return player.getMeso() >= org.gms.server.quest.medal.SpecialChallengeMedal.DONATION_REQUIRED_MESO;
+
+            case 29505: // 勋章 - 嘉年华绝对霸主 (胜场100)
+                return org.gms.server.quest.medal.SpecialChallengeMedal.hasCarnivalVictoryMedalProgress(player);
+
+            case 29506: // 勋章 - 嘉年华奇才 (50场+70%胜率)
+                return org.gms.server.quest.medal.SpecialChallengeMedal.hasCarnivalGeniusMedalProgress(player);
+
+            case 29507: // 称号挑战 - 可爱宠物主人 (亲密度1400)
+                return org.gms.server.quest.medal.SpecialChallengeMedal.getMaxPetTameness(player) >= org.gms.server.quest.medal.SpecialChallengeMedal.PET_REQUIRED_TAMENESS;
+
+            case 29509: // 称号挑战 - 坚强的挑战者 (完成2111, 2112, 2113)
+                return player.getQuest(Quest.getInstance(2111)).getStatus() == QuestStatus.Status.COMPLETED
+                        && player.getQuest(Quest.getInstance(2112)).getStatus() == QuestStatus.Status.COMPLETED
+                        && player.getQuest(Quest.getInstance(2113)).getStatus() == QuestStatus.Status.COMPLETED;
+
+            case 29512: // 挑战勋章 - 怪物博士勋章 (30张怪物卡)
+                return org.gms.server.quest.medal.SpecialChallengeMedal.getMonsterBookCards(player) >= org.gms.server.quest.medal.SpecialChallengeMedal.MONSTER_BOOK_REQUIRED_CARDS;
+
+            case 29929: // 2010冬季霸主 (男, Lv >= 13)
+                return player.getLevel() >= 13 && player.getGender() == 0;
+
+            case 29930: // 2010冬季女王 (女, Lv >= 13)
+                return player.getLevel() >= 13 && player.getGender() == 1;
+
+            case 29931: // 荣誉乘务员 (地铁消灭10000怪)
+                return org.gms.server.quest.medal.SpecialChallengeMedal.getProgress(player, 29931, 7662) >= 10000;
+
+            case 29932: // 法老守护者 (金字塔消灭50000怪)
+                return org.gms.server.quest.medal.SpecialChallengeMedal.getProgress(player, 29932, 7760) >= 50000;
+
+            case 29933: case 29934: case 29935: case 29936: case 29937: case 29938: // 各爱心使者
+                int reqMedal = 1142030;
+                return player.haveItem(reqMedal, 1, true, true);
+
+            default:
+                int npc = q.getNpcRequirement(true);
+                return q.canComplete(player, npc > 0 ? npc : null);
         }
     }
 
