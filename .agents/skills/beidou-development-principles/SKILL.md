@@ -53,6 +53,10 @@ description: Mandatory development principles, strict requirement compliance rul
    - **本项目如无特殊情况，不要直接执行类似 `npx yarn build` 或 `yarn build` 这样的命令，如有必要必须事先和用户确认**；
    - 前端代码日常验证默认统一使用 `npx yarn type:check` 执行纯静态类型检查；
    - 生产镜像与发布产物统一通过 Docker 容器环境（`docker/build/frontend.Dockerfile`）构建流承接，避免在本地工作树残留未跟踪或冗余的 `dist/` 与依赖文件；若特殊情况下在本地执行了构建命令，验证完成后必须第一时间彻底清理相关生成文件。
+4. **NAS 端构建与部署必须使用 GitHub Workflow（严禁占用本机资源）**：
+   - **构建 NAS 端服务或部署时，必须使用 GitHub Workflow（Actions CI / CD）在云端执行构建与打包，严禁在本地消耗本机 CPU/内存/磁盘资源执行耗时的完整构建**；
+   - `BeiDou.jar`：由 GitHub Actions（`.github/workflows/ci.yml`）在云端自动构建并生成 artifact，本地或部署时直接使用 `gh run download` 获取云端构建好的 jar 产物；
+   - 前端与容器镜像：由 `BeiDou-docker` 的 GitHub Actions（`nightly.yaml` / `release.yaml`）在云端自动构建并推送至 GHCR（`ghcr.io/beidoums/beidou-ui:nightly` 等），NAS 端通过 `docker compose pull` 或工作流触发拉取最新镜像即可，严禁在本地执行 `docker build` 并打包传输占用本机资源。
 
 ---
 

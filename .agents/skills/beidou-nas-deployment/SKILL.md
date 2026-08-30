@@ -13,7 +13,8 @@ Use this skill when deploying or updating the BeiDou server, NPC/event scripts, 
 
 | 节点 / 角色 | 职能定义 | 绝对禁止事项 |
 | :--- | :--- | :--- |
-| **本地开发机 (Windows)** | **唯一的研发、编译与产物构建中心**<br>- 编写 Java / 脚本 / 配置代码<br>- 本地 Docker Maven 容器打包 `BeiDou.jar`<br>- 管理 GitHub 仓库、PR 及分支 | 严禁在未经本地编译与 Research 环境验证前盲目部署到 NAS |
+| **本地开发机 (Windows)** | **研发中心与部署控制台**<br>- 编写 Java / 脚本 / 前端代码<br>- 管理 GitHub 仓库、分支与 PR<br>- 触发 / 下载 GitHub Actions 云端产物并分发部署 | 严禁在本地执行耗时且占用本机 CPU/内存的完整构建（生产构建统一走 GitHub Workflow） |
+| **GitHub Actions (云端 CI/CD)** | **唯一的标准产物与镜像构建中心**<br>- 云端自动化运行 Maven 测试与 `BeiDou.jar` 打包（产出 artifact）<br>- 云端多架构自动化构建 `beidou-ui` 及 Docker 镜像并推送 GHCR | 严禁在本地开发机或 NAS 机器上直接执行大型镜像编译或完整打包 |
 | **Synology NAS (`192.168.1.57`)** | **纯运行节点 (Runtime Host)**<br>- 运行 `beidou-server-all`, `beidou-ui`, `beidou-db`<br>- 通过 `/volume3/docker/BeiDou-docker` (Git) 维护 Compose 配置<br>- 挂载 `/volume3/docker/BeiDou-docker/beidou-server-release` 运行服务端 | **严禁在 NAS 上克隆 `BeiDou-Server` 源码仓库**<br>**严禁在 NAS 上运行 Maven 编译容器** |
 
 ---
@@ -51,10 +52,12 @@ Use this skill when deploying or updating the BeiDou server, NPC/event scripts, 
 
 1. **本地研发与 PR 合并**：
    在 `c:\Game\BeiDou-Server` 中开发，通过特性分支、PR 及 Rebase 合并至 `master`。
-2. **本地编译打包产物**：
-   使用本地 Docker Maven 容器打包生成完整嵌入依赖的 `BeiDou.jar`：
+2. **GitHub Actions 云端自动构建产物（不占本机资源）**：
+   PR 合并入 `master` 后，GitHub Actions (`.github/workflows/ci.yml`) 自动在云端执行构建与打包。
+   在本地直接通过 `gh` 命令下载最新的构建产物：
    ```powershell
-   docker run --rm -v "c:/Game/BeiDou-Server:/app" -v "c:/Game/BeiDou-docker/maven-repo:/root/.m2/repository" -w /app/gms-server maven:3.9.6-eclipse-temurin-21 mvn package -DskipTests
+   # 获取最新一次 master 构建的 BeiDou.jar 产物
+   gh run download -n BeiDou-Server-jar --dir "c:\Game\BeiDou-Server\gms-server\target"
    ```
 3. **同步本地 Release 副本**：
    ```powershell
@@ -96,3 +99,6 @@ Use this skill when deploying or updating the BeiDou server, NPC/event scripts, 
    NAS 设备侧重稳定性和存储，切忌在 NAS 上克隆几十万行 Java 源码并执行 Maven 依赖下载与编译。
 5. **Git 分支安全规范**：
    任何涉及 `BeiDou-docker` 或 `BeiDou-Server` 的代码修改，严禁在 `main`/`master` 直接提交，必须遵循 `Feature Branch -> Push -> PR -> Rebase Merge` 规则。
+6. **NAS 端构建产物必须使用 GitHub Workflow（严禁占用本地机器资源）**：
+   - 构建 `BeiDou.jar`、`beidou-ui` 前端镜像等 NAS 部署产物时，必须统一使用 GitHub Workflow 云端自动化构建；
+   - 严禁在本地开发机执行高负载的 `docker build` 或耗时的全量打包，通过 `gh run download` 直接获取云端构建产物快速分发。
