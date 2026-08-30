@@ -106,7 +106,7 @@
             size="small"
             class="section-card h-100"
           >
-            <a-descriptions :column="2" layout="horizontal" bordered size="small">
+            <a-descriptions :column="1" layout="horizontal" bordered size="small">
               <a-descriptions-item :label="$t('account.player.detail.meso')">
                 <span class="currency-meso">{{ formatNumber(detailData?.meso) }}</span>
               </a-descriptions-item>
@@ -119,7 +119,7 @@
               <a-descriptions-item :label="$t('account.player.detail.maplePoint')">
                 <span class="currency-point">{{ formatNumber(detailData?.maplePoint) }}</span>
               </a-descriptions-item>
-              <a-descriptions-item :label="$t('account.player.detail.nxPrepaid')" :span="2">
+              <a-descriptions-item :label="$t('account.player.detail.nxPrepaid')">
                 <span>{{ formatNumber(detailData?.nxPrepaid) }}</span>
               </a-descriptions-item>
             </a-descriptions>
@@ -421,5 +421,20 @@
 
   .matk-text {
     color: #13c2c2;
+  }
+
+  :deep(.arco-descriptions-item-label) {
+    white-space: nowrap !important;
+    word-break: keep-all !important;
+  }
+
+  :deep(.arco-descriptions-item-value) {
+    white-space: nowrap !important;
+    word-break: keep-all !important;
+    font-variant-numeric: tabular-nums;
+  }
+
+  :deep(.arco-descriptions-table) {
+    table-layout: auto !important;
   }
 </style>
