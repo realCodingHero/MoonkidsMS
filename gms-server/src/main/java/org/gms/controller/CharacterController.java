@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.gms.constants.api.ApiConstant;
 import org.gms.dao.entity.ExtendValueDO;
 import org.gms.model.dto.CharacterListItemDTO;
+import org.gms.model.dto.ChrDetailRtnDTO;
 import org.gms.model.dto.ChrOnlineListReqDTO;
 import org.gms.model.dto.ChrOnlineListRtnDTO;
 import org.gms.model.dto.ResultBody;
@@ -59,6 +60,13 @@ public class CharacterController {
     @GetMapping("/" + ApiConstant.LATEST + "/account/{accountId}")
     public ResultBody<List<CharacterListItemDTO>> getAccountCharacters(@PathVariable("accountId") int accountId) {
         return ResultBody.success(characterService.getCharacterListByAccountId(accountId));
+    }
+
+    @Tag(name = "/character/" + ApiConstant.LATEST)
+    @Operation(summary = "查询角色详情状态")
+    @GetMapping("/" + ApiConstant.LATEST + "/detail/{cid}")
+    public ResultBody<ChrDetailRtnDTO> getCharacterDetail(@PathVariable("cid") int cid) {
+        return ResultBody.success(characterService.getCharacterDetail(cid));
     }
 
     @Tag(name = "/character/" + ApiConstant.LATEST)

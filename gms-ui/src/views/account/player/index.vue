@@ -111,10 +111,17 @@
             :width="70"
             align="center"
           />
-          <a-table-column :title="$t('account.list.column.operate')">
+          <a-table-column
+            :title="$t('account.list.column.operate')"
+            :width="150"
+            align="center"
+          >
             <template #cell="{ record }">
               <a-button type="text" size="mini" @click="giveClick(record)">
                 {{ $t('account.player.button.give') }}
+              </a-button>
+              <a-button type="text" size="mini" @click="detailClick(record)">
+                {{ $t('account.player.button.more') }}
               </a-button>
             </template>
           </a-table-column>
@@ -299,6 +306,7 @@
         </a-form-item>
       </a-form>
     </a-modal>
+    <DetailModal ref="detailModalRef" />
   </div>
 </template>
 
@@ -314,6 +322,7 @@
     GiveForm,
     givePlayerSrc,
   } from '@/api/player';
+  import DetailModal from './detailModal.vue';
 
   const { t } = useI18n();
   const { loading, setLoading } = useLoading(false);
@@ -321,6 +330,7 @@
   const total = ref(0);
   const page = ref(1);
   const size = ref(14);
+  const detailModalRef = ref<InstanceType<typeof DetailModal>>();
   const filterForm = ref<{
     id?: number;
     name?: string;
@@ -466,6 +476,10 @@
       expire: undefined,
     };
     giveFormVisible.value = true;
+  };
+
+  const detailClick = (record: any) => {
+    detailModalRef.value?.init(record.id, record.name);
   };
 
   const submitClick = async () => {

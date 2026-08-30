@@ -14,17 +14,21 @@ import org.gms.constants.string.ExtendType;
 import org.gms.dao.entity.*;
 import org.gms.dao.mapper.*;
 import org.gms.model.dto.CharacterListItemDTO;
+import org.gms.model.dto.ChrDetailRtnDTO;
 import org.gms.model.dto.ChrOnlineListReqDTO;
 import org.gms.model.dto.ChrOnlineListRtnDTO;
 import org.gms.exception.BizException;
 import org.gms.model.pojo.SkillEntry;
 import org.gms.net.server.Server;
 import org.gms.net.server.coordinator.session.SessionCoordinator;
+import org.gms.net.server.guild.Guild;
 import org.gms.net.server.guild.GuildCharacter;
 import org.gms.net.server.world.Messenger;
 import org.gms.net.server.world.Party;
 import org.gms.net.server.world.PartyCharacter;
 import org.gms.net.server.world.World;
+import org.gms.constants.game.ExpTable;
+import org.gms.server.CashShop;
 import org.gms.server.Storage;
 import org.gms.server.life.MobSkill;
 import org.gms.server.life.MobSkillFactory;
@@ -593,6 +597,186 @@ public class CharacterService {
         }
         CharactersDO cdo = findById(cid);
         return cdo == null ? 0 : cdo.getAccountid();
+    }
+
+    public ChrDetailRtnDTO getCharacterDetail(int cid) {
+        Character chr = findOnlineCharacter(cid);
+        if (chr != null) {
+            int level = chr.getLevel();
+            int curExp = Math.max(0, chr.getExp());
+            int nextExp = ExpTable.getExpNeededForLevel(level);
+            double percent = 0.0;
+            if (level >= 200) {
+                percent = 100.0;
+            } else if (nextExp > 0) {
+                percent = Math.min(100.0, Math.max(0.0, (double) curExp / nextExp * 100.0));
+            }
+
+            int nxCredit = 0;
+            int maplePoint = 0;
+            int nxPrepaid = 0;
+            if (chr.getCashShop() != null) {
+                nxCredit = chr.getCashShop().getCash(CashShop.NX_CREDIT);
+                maplePoint = chr.getCashShop().getCash(CashShop.MAPLE_POINT);
+                nxPrepaid = chr.getCashShop().getCash(CashShop.NX_PREPAID);
+            } else {
+                AccountsDO acc = accountsMapper.selectOneById(chr.getAccountId());
+                if (acc != null) {
+                    nxCredit = Optional.ofNullable(acc.getNxCredit()).orElse(0);
+                    maplePoint = Optional.ofNullable(acc.getMaplePoint()).orElse(0);
+                    nxPrepaid = Optional.ofNullable(acc.getNxPrepaid()).orElse(0);
+                }
+            }
+
+            int worldId = chr.getWorld();
+            String worldName = (worldId >= 0 && worldId < GameConstants.WORLD_NAMES.length)
+                    ? GameConstants.WORLD_NAMES[worldId] : String.valueOf(worldId);
+
+            int channel = chr.getClient() != null ? chr.getClient().getChannel() : -1;
+            String guildName = "";
+            if (chr.getGuildId() > 0) {
+                Guild guild = Server.getInstance().getGuild(chr.getGuildId(), chr.getWorld());
+                if (guild != null) {
+                    guildName = guild.getName();
+                }
+            }
+
+            return ChrDetailRtnDTO.builder()
+                    .id(chr.getId())
+                    .accountId(chr.getAccountId())
+                    .name(chr.getName())
+                    .level(level)
+                    .job(chr.getJob().getId())
+                    .jobName(chr.getJob().getName())
+                    .world(worldId)
+                    .worldName(worldName)
+                    .channel(channel)
+                    .map(chr.getMapId())
+                    .gm(chr.gmLevel())
+                    .fame(chr.getFame())
+                    .gender(chr.getGender())
+                    .online(true)
+                    .guildId(chr.getGuildId())
+                    .guildName(guildName)
+                    .partyId(chr.getParty() != null ? chr.getParty().getId() : 0)
+                    .str(chr.getStr())
+                    .dex(chr.getDex())
+                    .intStat(chr.getInt())
+                    .luk(chr.getLuk())
+                    .hp(chr.getHp())
+                    .maxHp(chr.getMaxHp())
+                    .mp(chr.getMp())
+                    .maxMp(chr.getMaxMp())
+                    .ap(chr.getRemainingAp())
+                    .sp(chr.getRemainingSps())
+                    .totalHp(chr.getCurrentMaxHp())
+                    .totalMp(chr.getCurrentMaxMp())
+                    .totalStr(chr.getTotalStr())
+                    .totalDex(chr.getTotalDex())
+                    .totalInt(chr.getTotalInt())
+                    .totalLuk(chr.getTotalLuk())
+                    .totalWatk(chr.getTotalWatk())
+                    .totalMagic(chr.getTotalMagic())
+                    .expRate(chr.getExpRate())
+                    .mesoRate(chr.getMesoRate())
+                    .dropRate(chr.getDropRate())
+                    .exp(curExp)
+                    .nextLevelExp(nextExp)
+                    .expPercent(Double.parseDouble(String.format(Locale.US, "%.2f", percent)))
+                    .gachaExp(chr.getGachaExp())
+                    .meso(chr.getMeso())
+                    .merchantMeso(chr.getMerchantMeso())
+                    .nxCredit(nxCredit)
+                    .maplePoint(maplePoint)
+                    .nxPrepaid(nxPrepaid)
+                    .build();
+        }
+
+        // 离线降级查询
+        CharactersDO cdo = findById(cid);
+        RequireUtil.requireNotNull(cdo, I18nUtil.getExceptionMessage("UNKNOWN_CHARACTER"));
+        AccountsDO acc = accountsMapper.selectOneById(cdo.getAccountid());
+
+        int level = Optional.ofNullable(cdo.getLevel()).orElse(1);
+        long curExp = Math.max(0, Optional.ofNullable(cdo.getExp()).orElse(0));
+        int nextExp = ExpTable.getExpNeededForLevel(level);
+        double percent = 0.0;
+        if (level >= 200) {
+            percent = 100.0;
+        } else if (nextExp > 0) {
+            percent = Math.min(100.0, Math.max(0.0, (double) curExp / nextExp * 100.0));
+        }
+
+        int worldId = Optional.ofNullable(cdo.getWorld()).orElse(0);
+        String worldName = (worldId >= 0 && worldId < GameConstants.WORLD_NAMES.length)
+                ? GameConstants.WORLD_NAMES[worldId] : String.valueOf(worldId);
+
+        Job job = Job.getById(Optional.ofNullable(cdo.getJob()).orElse(0));
+
+        int nxCredit = acc != null ? Optional.ofNullable(acc.getNxCredit()).orElse(0) : 0;
+        int maplePoint = acc != null ? Optional.ofNullable(acc.getMaplePoint()).orElse(0) : 0;
+        int nxPrepaid = acc != null ? Optional.ofNullable(acc.getNxPrepaid()).orElse(0) : 0;
+
+        int[] sps = new int[10];
+        if (cdo.getSp() != null) {
+            String[] parts = cdo.getSp().split(",");
+            for (int i = 0; i < Math.min(parts.length, 10); i++) {
+                try {
+                    sps[i] = Integer.parseInt(parts[i].trim());
+                } catch (NumberFormatException ignored) {
+                }
+            }
+        }
+
+        return ChrDetailRtnDTO.builder()
+                .id(cdo.getId())
+                .accountId(cdo.getAccountid())
+                .name(cdo.getName())
+                .level(level)
+                .job(cdo.getJob())
+                .jobName(job != null ? job.getName() : "")
+                .world(worldId)
+                .worldName(worldName)
+                .channel(-1)
+                .map(Optional.ofNullable(cdo.getMap()).orElse(0))
+                .gm(Optional.ofNullable(cdo.getGm()).orElse(0))
+                .fame(Optional.ofNullable(cdo.getFame()).orElse(0))
+                .gender(Optional.ofNullable(cdo.getGender()).orElse(0))
+                .online(false)
+                .guildId(Optional.ofNullable(cdo.getGuildid()).orElse(0))
+                .guildName("")
+                .partyId(Optional.ofNullable(cdo.getParty()).orElse(0))
+                .str(Optional.ofNullable(cdo.getAttrStr()).orElse(4))
+                .dex(Optional.ofNullable(cdo.getAttrDex()).orElse(4))
+                .intStat(Optional.ofNullable(cdo.getAttrInt()).orElse(4))
+                .luk(Optional.ofNullable(cdo.getAttrLuk()).orElse(4))
+                .hp(Optional.ofNullable(cdo.getHp()).orElse(50))
+                .maxHp(Optional.ofNullable(cdo.getMaxhp()).orElse(50))
+                .mp(Optional.ofNullable(cdo.getMp()).orElse(5))
+                .maxMp(Optional.ofNullable(cdo.getMaxmp()).orElse(5))
+                .ap(Optional.ofNullable(cdo.getAp()).orElse(0))
+                .sp(sps)
+                .totalHp(Optional.ofNullable(cdo.getMaxhp()).orElse(50))
+                .totalMp(Optional.ofNullable(cdo.getMaxmp()).orElse(5))
+                .totalStr(Optional.ofNullable(cdo.getAttrStr()).orElse(4))
+                .totalDex(Optional.ofNullable(cdo.getAttrDex()).orElse(4))
+                .totalInt(Optional.ofNullable(cdo.getAttrInt()).orElse(4))
+                .totalLuk(Optional.ofNullable(cdo.getAttrLuk()).orElse(4))
+                .totalWatk(0)
+                .totalMagic(Optional.ofNullable(cdo.getAttrInt()).orElse(4))
+                .expRate(1.0f)
+                .mesoRate(1.0f)
+                .dropRate(1.0f)
+                .exp(curExp)
+                .nextLevelExp(nextExp)
+                .expPercent(Double.parseDouble(String.format(Locale.US, "%.2f", percent)))
+                .gachaExp(Optional.ofNullable(cdo.getGachaexp()).orElse(0))
+                .meso(Optional.ofNullable(cdo.getMeso()).orElse(0))
+                .merchantMeso(Optional.ofNullable(cdo.getMerchantmesos()).orElse(0))
+                .nxCredit(nxCredit)
+                .maplePoint(maplePoint)
+                .nxPrepaid(nxPrepaid)
+                .build();
     }
 
     private Character findOnlineCharacter(int cid) {
