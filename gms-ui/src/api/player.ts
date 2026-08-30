@@ -50,3 +50,6 @@ export function givePlayerSrc(data: GiveForm) {
 export function getEquInitialInfo(id: number) {
   return axios.post(`/common/v1/getEquipmentInfoByItemId`, { id });
 }
+
+export { CharacterDetail, getCharacterDetail } from './character';
+

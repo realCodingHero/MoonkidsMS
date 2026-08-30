@@ -15,6 +15,17 @@ export function getIconUrl(
   return `https://maplestory.io/api/${location}/${version}/${category}/${id}/icon`;
 }
 
+export function getResourceInfoUrl(
+  category: string,
+  id: string | number,
+  location = 'GMS',
+  version = '83'
+): string {
+  if (!id || id <= 0) return '';
+  return `https://maplestory.io/api/${location}/${version}/${category}/${id}`;
+}
+
 export function nothing() {
   return '占位用';
 }
+
