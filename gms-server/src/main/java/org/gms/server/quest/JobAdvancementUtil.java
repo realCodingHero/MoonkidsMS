@@ -47,13 +47,13 @@ public final class JobAdvancementUtil {
 
     /**
      * 判断当前角色是否正在进行 2转、3转、4转 任务
-     * GM 管理员永久豁免限制。
+     * GM 管理员在游戏内道具/NPC交互时与普通玩家一致，仅在直接执行管理指令时豁免。
      *
      * @param chr 角色实例
-     * @return 若角色正处于转职任务中且非 GM 则返回 true，否则返回 false
+     * @return 若角色正处于转职任务中则返回 true，否则返回 false
      */
     public static boolean isUndergoingJobAdvancement(Character chr) {
-        if (chr == null || chr.isGM()) {
+        if (chr == null) {
             return false;
         }
 
