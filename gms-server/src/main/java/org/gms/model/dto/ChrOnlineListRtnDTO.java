@@ -17,5 +17,5 @@ public class ChrOnlineListRtnDTO {
     private String jobName;
     private int level;
     private int gm;
-
+    private boolean online;
 }

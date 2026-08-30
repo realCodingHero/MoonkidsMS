@@ -88,6 +88,11 @@ export default {
   'account.player.jobName': 'Job Name',
   'account.player.level': 'Lv.',
   'account.player.gm.level': 'GM Lv.',
+  'account.player.status': 'Status',
+  'account.player.status.online': 'Online',
+  'account.player.status.offline': 'Offline',
+  'account.player.includeOffline': 'Include Offline',
+  'account.player.give.offlineTip': 'Player is currently offline, cannot give online resources directly',
 
   'account.player.button.globalGive': 'Global Give',
   'account.player.button.give': 'Give',

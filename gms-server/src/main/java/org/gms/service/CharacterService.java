@@ -122,20 +122,62 @@ public class CharacterService {
     }
 
     public Page<ChrOnlineListRtnDTO> getChrOnlineList(ChrOnlineListReqDTO request) {
-        Collection<Character> chrList = Server.getInstance().getWorld(request.getWorld()).getPlayerStorage().getAllCharacters();
-        return BasePageUtil.create(chrList, request)
-                .filter(chr -> (Objects.isNull(request.getId()) || Objects.equals(chr.getId(), request.getId()))
-                        && (RequireUtil.isEmpty(request.getName()) || chr.getName().contains(request.getName()))
-                        && (Objects.isNull(request.getMap()) || Objects.equals(chr.getMap().getId(), request.getMap())))
-                .page(chr -> ChrOnlineListRtnDTO.builder()
-                        .id(chr.getId())
-                        .name(chr.getName())
-                        .map(chr.getMap().getId())
-                        .job(chr.getJob().getId())
-                        .jobName(chr.getJob().getName())
-                        .level(chr.getLevel())
-                        .gm(chr.gmLevel())
-                        .build());
+        boolean hasFilter = Objects.nonNull(request.getId())
+                || RequireUtil.isNotEmpty(request.getName())
+                || Objects.nonNull(request.getMap())
+                || Boolean.TRUE.equals(request.getIncludeOffline());
+
+        if (!hasFilter) {
+            World world = Server.getInstance().getWorld(request.getWorld());
+            Collection<Character> chrList = world != null ? world.getPlayerStorage().getAllCharacters() : Collections.emptyList();
+            return BasePageUtil.create(chrList, request)
+                    .page(chr -> ChrOnlineListRtnDTO.builder()
+                            .id(chr.getId())
+                            .name(chr.getName())
+                            .world(chr.getWorld())
+                            .map(chr.getMap() != null ? chr.getMap().getId() : chr.getMapId())
+                            .job(chr.getJob().getId())
+                            .jobName(chr.getJob().getName())
+                            .level(chr.getLevel())
+                            .gm(chr.gmLevel())
+                            .online(true)
+                            .build());
+        }
+
+        // 有搜索条件或开启包含离线角色时，从数据库全量分页检索
+        QueryWrapper qw = QueryWrapper.create()
+                .where(CHARACTERS_D_O.ID.eq(request.getId(), Objects.nonNull(request.getId())))
+                .and(CHARACTERS_D_O.NAME.like(request.getName(), RequireUtil.isNotEmpty(request.getName())))
+                .and(CHARACTERS_D_O.MAP.eq(request.getMap(), Objects.nonNull(request.getMap())));
+        if (request.getWorld() >= 0) {
+            qw.and(CHARACTERS_D_O.WORLD.eq(request.getWorld()));
+        }
+        qw.orderBy(CHARACTERS_D_O.ID.desc());
+
+        Page<CharactersDO> page = charactersMapper.paginate(request.getPageNo(), request.getPageSize(), qw);
+        List<ChrOnlineListRtnDTO> list = page.getRecords().stream().map(cdo -> {
+            Character onlineChr = findOnlineCharacter(cdo.getId());
+            boolean isOnline = onlineChr != null;
+            Job job = Job.getById(cdo.getJob());
+            int mapId = isOnline && onlineChr.getMap() != null ? onlineChr.getMap().getId() : Optional.ofNullable(cdo.getMap()).orElse(0);
+            int level = isOnline ? onlineChr.getLevel() : Optional.ofNullable(cdo.getLevel()).orElse(1);
+            int gm = isOnline ? onlineChr.gmLevel() : Optional.ofNullable(cdo.getGm()).orElse(0);
+            int worldId = isOnline ? onlineChr.getWorld() : Optional.ofNullable(cdo.getWorld()).orElse(0);
+
+            return ChrOnlineListRtnDTO.builder()
+                    .id(cdo.getId())
+                    .name(cdo.getName())
+                    .world(worldId)
+                    .map(mapId)
+                    .job(cdo.getJob())
+                    .jobName(job != null ? job.getName() : "")
+                    .level(level)
+                    .gm(gm)
+                    .online(isOnline)
+                    .build();
+        }).toList();
+
+        return new Page<>(list, page.getPageNumber(), page.getPageSize(), page.getTotalRow());
     }
 
     public void updateRate(ExtendValueDO data) {
