@@ -49,6 +49,10 @@ description: Mandatory development principles, strict requirement compliance rul
    - 必须通过 SSH 在 NAS 上先完成历史 jar 的带时间戳备份；
    - 必须使用 `scp -O` 参数向 NAS 传输构建产物与脚本，杜绝 SFTP 协议兼容问题；
    - 重启容器（`beidou-server-all`）后，必须通过 `docker logs` 追踪确认大区启动就绪、登录端口 `8484` 及所有频道端口（7575~7577）正常开放监听。
+3. **前端本地构建命令执行约束（严禁擅自直接 build）**：
+   - **本项目如无特殊情况，不要直接执行类似 `npx yarn build` 或 `yarn build` 这样的命令，如有必要必须事先和用户确认**；
+   - 前端代码日常验证默认统一使用 `npx yarn type:check` 执行纯静态类型检查；
+   - 生产镜像与发布产物统一通过 Docker 容器环境（`docker/build/frontend.Dockerfile`）构建流承接，避免在本地工作树残留未跟踪或冗余的 `dist/` 与依赖文件；若特殊情况下在本地执行了构建命令，验证完成后必须第一时间彻底清理相关生成文件。
 
 ---
 
