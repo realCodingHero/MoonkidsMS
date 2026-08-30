@@ -55,18 +55,8 @@ public final class FamilyUseHandler extends AbstractPacketHandler {
         c.sendPacket(PacketCreator.getFamilyInfo(entry));
         Character victim;
         if (type == FamilyEntitlement.FAMILY_REUINION || type == FamilyEntitlement.SUMMON_FAMILY) {
-            if (org.gms.server.quest.JobAdvancementUtil.isUndergoingJobAdvancement(c.getPlayer())) {
-                c.getPlayer().dropMessage(1, "转职考验进行中，为了感受真实的冒险旅程，当前禁止使用家族传送与召唤！");
-                c.sendPacket(PacketCreator.enableActions());
-                return;
-            }
             victim = c.getChannelServer().getPlayerStorage().getCharacterByName(p.readString());
             if (victim != null && victim != c.getPlayer()) {
-                if (org.gms.server.quest.JobAdvancementUtil.isUndergoingJobAdvancement(victim)) {
-                    c.getPlayer().dropMessage(1, "对方正在进行转职考验，当前无法被传送或召唤！");
-                    c.sendPacket(PacketCreator.enableActions());
-                    return;
-                }
                 if (victim.getFamily() == c.getPlayer().getFamily()) {
                     MapleMap targetMap = victim.getMap();
                     MapleMap ownMap = c.getPlayer().getMap();
