@@ -44,6 +44,12 @@ public final class DoorHandler extends AbstractPacketHandler {
             return;
         }
 
+        if (org.gms.server.quest.JobAdvancementUtil.isUndergoingJobAdvancement(chr)) {
+            chr.dropMessage(1, "转职考验进行中，为了感受真实的冒险旅程，当前禁止使用时空之门！");
+            c.sendPacket(PacketCreator.enableActions());
+            return;
+        }
+
         for (MapObject obj : chr.getMap().getMapObjects()) {
             if (obj instanceof DoorObject door) {
                 if (door.getOwnerId() == ownerid) {

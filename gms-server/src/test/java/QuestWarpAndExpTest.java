@@ -386,5 +386,40 @@ public class QuestWarpAndExpTest {
         assertEquals(org.gms.server.quest.QuestRequirementType.PARTY_QUEST_S,
                 org.gms.server.quest.QuestRequirementType.getByWZName("partyQuest_S"));
     }
+
+    @Test
+    public void testJobAdvancementUtilRestrictions() {
+        // 验证转职任务 ID 集合完整性（包含 2转、3转、4转）
+        java.util.Set<Integer> jobQuestIds = org.gms.server.quest.JobAdvancementUtil.getJobAdvancementQuestIds();
+        // 战士/魔法师/飞侠 2转
+        assertEquals(true, jobQuestIds.contains(100003));
+        assertEquals(true, jobQuestIds.contains(100006));
+        assertEquals(true, jobQuestIds.contains(100009));
+        // 海盗 2转
+        assertEquals(true, jobQuestIds.contains(2191));
+        assertEquals(true, jobQuestIds.contains(2192));
+        // 骑士团 2转 / 战神 2转
+        assertEquals(true, jobQuestIds.contains(20200));
+        assertEquals(true, jobQuestIds.contains(21200));
+        // 3转任务
+        assertEquals(true, jobQuestIds.contains(100200));
+        assertEquals(true, jobQuestIds.contains(6904));
+        assertEquals(true, jobQuestIds.contains(20300));
+        assertEquals(true, jobQuestIds.contains(21300));
+        // 4转任务
+        assertEquals(true, jobQuestIds.contains(6900));
+        assertEquals(true, jobQuestIds.contains(6910));
+        assertEquals(true, jobQuestIds.contains(6920));
+        assertEquals(true, jobQuestIds.contains(6930));
+        assertEquals(true, jobQuestIds.contains(6940));
+        assertEquals(true, jobQuestIds.contains(21400));
+        // 普通任务不应包含在内
+        assertEquals(false, jobQuestIds.contains(1000));
+        assertEquals(false, jobQuestIds.contains(2236));
+        assertEquals(false, jobQuestIds.contains(3250));
+
+        // null 角色与 GM 角色测试
+        assertEquals(false, org.gms.server.quest.JobAdvancementUtil.isUndergoingJobAdvancement(null));
+    }
 }
 

@@ -130,6 +130,11 @@ public final class UseCashItemHandler extends AbstractPacketHandler {
         }
 
         if (itemType == 504) { // vip teleport rock//缩地石
+            if (org.gms.server.quest.JobAdvancementUtil.isUndergoingJobAdvancement(player)) {
+                player.dropMessage(1, "转职考验进行中，为了感受真实的冒险旅程，当前禁止使用瞬间移动道具！");
+                c.enableActions();
+                return;
+            }
             String error1 = I18nUtil.getMessage("UseCashItemHandler.handlePacket.error1");
             boolean vip = p.readByte() == 1 && itemId / 1000 >= 5041;
             remove(c, position, itemId);
