@@ -27,8 +27,9 @@ BeiDou-Server 是一个冒险岛（MapleStory v83，GMS 协议）私服服务端
 - Node 20.15.0 LTS + Yarn。
 - `cd gms-ui && yarn install`
 - 开发：`yarn dev`（Vite，端口 8787，自动打开浏览器）。
+- 类型检查：`yarn type:check`（**前端验证默认使用此命令**）。
 - 构建：`yarn build`（先 `vue-tsc --noEmit` 类型检查，再 `vite build --config ./config/vite.config.prod.ts`）。
-- 类型检查：`yarn type:check`。
+  - **重要约束**：**本项目如无特殊情况，不要直接在本地执行类似 `npx yarn build` 或 `yarn build` 这样的命令，如有必要必须事先和用户确认**。生产构建统一由 Docker 容器环境（`docker/build/frontend.Dockerfile`）构建流承接，避免污染本地工作区。
 - Lint：通过 `lint-staged` 在提交时触发 eslint（airbnb-base）+ stylelint + prettier；commitlint 强制 conventional 提交信息。
 
 ### 数据库准备
@@ -114,8 +115,9 @@ java -jar gms-server/target/BeiDou.jar     # 运行（需本地 MySQL 8 已启�
 
 # 前端
 cd gms-ui && yarn install && yarn dev      # 开发，端口 8787
-cd gms-ui && yarn build                    # 生产构建（产物 dist/，可拷入 server static/）
-cd gms-ui && yarn type:check               # 类型检查
+cd gms-ui && yarn type:check               # 类型检查（默认验证方式）
+# 注意：严禁未经确认直接在本地执行 yarn build，生产打包统一走 Docker 前端构建流
+cd gms-ui && yarn build                    # 生产构建（需事先经用户确认）
 
 # wz 补丁
 .claude/skills/wz-patch-java/xml-img-patcher.exe export --from=<hash或datetime> --repo=.
