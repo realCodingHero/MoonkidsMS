@@ -113,6 +113,11 @@ var status;
 //Start
 function start() 
 {
+    if (org.gms.server.quest.JobAdvancementUtil.isUndergoingJobAdvancement(cm.getPlayer())) {
+        cm.sendOk("转职考验进行中，为了感受真实的冒险旅程，当前禁止使用直接传送！\r\n\r\n请使用#b步行、坐船、打车或回城卷#k等固有移动手段前往目的地。");
+        cm.dispose();
+        return;
+    }
 	levelStart();
 }
 
@@ -135,6 +140,11 @@ function level9999() {
 }
 
 function checkAndWarp(mapId, cost) {
+    if (org.gms.server.quest.JobAdvancementUtil.isUndergoingJobAdvancement(cm.getPlayer())) {
+        cm.sendOk("转职考验进行中，为了感受真实的冒险旅程，当前禁止使用直接传送！\r\n\r\n请使用#b步行、坐船、打车或回城卷#k等固有移动手段前往目的地。");
+        cm.dispose();
+        return false;
+    }
     var service = cm.getQuestHelp();
     if (service && !service.isMapWarpUnlocked(cm.getPlayer(), mapId)) {
         if (service.isHiddenMap(mapId) || service.getTownIdForMap(mapId) <= 0) {

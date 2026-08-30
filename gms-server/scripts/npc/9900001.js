@@ -100,6 +100,11 @@ function doSelect(selection) {
     switch (selection) {
         // Player Features
         case 71:
+            if (org.gms.server.quest.JobAdvancementUtil.isUndergoingJobAdvancement(cm.getPlayer())) {
+                cm.sendOk("转职考验进行中，为了感受真实的冒险旅程，当前禁止使用直接传送！\r\n\r\n请使用#b步行、坐船、打车或回城卷#k等固有移动手段前往目的地。");
+                cm.dispose();
+                break;
+            }
             openNpc("万能传送");
             break;
         case 80:
@@ -112,6 +117,11 @@ function doSelect(selection) {
             openNpc("petLootSetting");
             break;
         case 3:
+            if (org.gms.server.quest.JobAdvancementUtil.isUndergoingJobAdvancement(cm.getPlayer())) {
+                cm.sendOk("转职考验进行中，为了感受真实的冒险旅程，当前禁止使用直接传送！\r\n\r\n请使用#b步行、坐船、打车或回城卷#k等固有移动手段前往目的地。");
+                cm.dispose();
+                break;
+            }
             cm.getPlayer().saveLocation("FREE_MARKET");
             cm.warp(910000000, "out00");
             cm.dispose();
