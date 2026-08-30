@@ -919,6 +919,10 @@ function formatLocationName(map) {
  * 统一传送扣费与金币校验方法
  */
 function tryWarpPlayer(targetMap, noticePrefix) {
+    if (org.gms.server.quest.JobAdvancementUtil.isUndergoingJobAdvancement(cm.getPlayer())) {
+        cm.sendOk("转职考验进行中，为了感受真实的冒险旅程，当前禁止使用直接传送！\r\n\r\n请使用#b步行、坐船、打车或回城卷#k等固有移动手段前往目的地。");
+        return false;
+    }
     var service = cm.getQuestHelp();
     var mapId = targetMap.getMapId();
     if (service && !service.isMapWarpUnlocked(cm.getPlayer(), mapId)) {
@@ -1002,7 +1006,11 @@ function showCardDropList(card) {
 /**
  * 按地图ID直接传送玩家并进行探索/费用校验
  */
-function tryWarpPlayerById(mapId, noticePrefix) {
+function tryWarpPlayerById(mapId, mapName, noticePrefix) {
+    if (org.gms.server.quest.JobAdvancementUtil.isUndergoingJobAdvancement(cm.getPlayer())) {
+        cm.sendOk("转职考验进行中，为了感受真实的冒险旅程，当前禁止使用直接传送！\r\n\r\n请使用#b步行、坐船、打车或回城卷#k等固有移动手段前往目的地。");
+        return false;
+    }
     var service = cm.getQuestHelp();
     var mapName = service ? service.getMapName(mapId) : ("地图 (" + mapId + ")");
     if (service && !service.isMapWarpUnlocked(cm.getPlayer(), mapId)) {
