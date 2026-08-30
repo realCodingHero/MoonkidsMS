@@ -32,7 +32,8 @@ export function getPlayerList(
   pageSize: number,
   id?: number,
   name?: string,
-  map?: number
+  map?: number,
+  includeOffline?: boolean
 ) {
   return axios.post('/character/v1/online/list', {
     pageNo,
@@ -40,6 +41,7 @@ export function getPlayerList(
     id,
     name,
     map,
+    includeOffline,
   });
 }
 

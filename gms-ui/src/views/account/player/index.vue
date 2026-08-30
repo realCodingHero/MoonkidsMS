@@ -25,6 +25,14 @@
               />
             </a-form-item>
           </a-col>
+          <a-col :span="6">
+            <a-form-item :label="$t('account.player.includeOffline')">
+              <a-switch
+                v-model="filterForm.includeOffline"
+                @change="loadData"
+              />
+            </a-form-item>
+          </a-col>
         </a-row>
       </a-form>
       <a-space>
@@ -82,6 +90,20 @@
             align="center"
           />
           <a-table-column
+            :title="$t('account.player.status')"
+            :width="80"
+            align="center"
+          >
+            <template #cell="{ record }">
+              <a-tag v-if="record.online" color="green">
+                {{ $t('account.player.status.online') }}
+              </a-tag>
+              <a-tag v-else color="gray">
+                {{ $t('account.player.status.offline') }}
+              </a-tag>
+            </template>
+          </a-table-column>
+          <a-table-column
             :title="$t('account.player.map')"
             data-index="map"
             :width="120"
@@ -117,7 +139,20 @@
             align="center"
           >
             <template #cell="{ record }">
-              <a-button type="text" size="mini" @click="giveClick(record)">
+              <a-tooltip
+                v-if="!record.online"
+                :content="$t('account.player.give.offlineTip')"
+              >
+                <a-button type="text" size="mini" disabled>
+                  {{ $t('account.player.button.give') }}
+                </a-button>
+              </a-tooltip>
+              <a-button
+                v-else
+                type="text"
+                size="mini"
+                @click="giveClick(record)"
+              >
                 {{ $t('account.player.button.give') }}
               </a-button>
               <a-button type="text" size="mini" @click="detailClick(record)">
@@ -335,10 +370,12 @@
     id?: number;
     name?: string;
     map?: number;
+    includeOffline: boolean;
   }>({
     id: undefined,
     name: undefined,
     map: undefined,
+    includeOffline: false,
   });
   const giveFormVisible = ref(false);
   const giveFormTitle = ref('');
@@ -380,7 +417,8 @@
         size.value,
         filterForm.value.id,
         filterForm.value.name,
-        filterForm.value.map
+        filterForm.value.map,
+        filterForm.value.includeOffline
       );
       tableData.value = data.records;
       total.value = data.totalRow;
@@ -410,6 +448,7 @@
     filterForm.value.id = undefined;
     filterForm.value.name = undefined;
     filterForm.value.map = undefined;
+    filterForm.value.includeOffline = false;
     page.value = 1;
     loadData();
   };

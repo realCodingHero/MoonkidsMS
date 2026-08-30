@@ -10,4 +10,5 @@ public class ChrOnlineListReqDTO extends BasePageDTO {
     private String name;
     private Integer map;
     private int world;
+    private Boolean includeOffline;
 }

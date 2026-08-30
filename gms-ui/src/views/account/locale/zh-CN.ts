@@ -85,6 +85,11 @@ export default {
   'account.player.jobName': '职业名称',
   'account.player.level': '等级',
   'account.player.gm.level': 'GM 等级',
+  'account.player.status': '状态',
+  'account.player.status.online': '在线',
+  'account.player.status.offline': '离线',
+  'account.player.includeOffline': '包含离线玩家',
+  'account.player.give.offlineTip': '该玩家当前离线，无法直接发放在线资源',
 
   'account.player.button.globalGive': '全服发放资源',
   'account.player.button.give': '发放资源',
