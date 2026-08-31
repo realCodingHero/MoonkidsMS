@@ -48,13 +48,13 @@ function action(mode, type, selection) {
 
         if (status == 0) {
             if (cm.getLevel() < 120 || Math.floor(cm.getJobId() / 100) != 1) {
-                cm.sendOk("请不要现在打扰我，我正在集中精力。");
+                cm.sendOk("请不要打扰我，我正在凝神冥想。");
                 cm.dispose();
             } else if (!cm.isQuestCompleted(6904)) {
-                cm.sendOk("你还没有通过我的考验。在你通过考验之前，我无法提升你的等级。");
+                cm.sendOk("你尚未完成英雄的试炼。唯有集齐英雄之星与英雄之羽证明你的资格后，我才能为你举行四转仪式。");
                 cm.dispose();
             } else if (cm.getJobId() % 100 % 10 != 2) {
-                cm.sendYesNo("你在通过我的测试时表现得非常出色。你准备好晋升到第四职业了吗？");
+                cm.sendYesNo("你以非凡的魄力与实力通过了终极试炼！你准备好觉醒远古英雄的力量，正式晋升为四转职业了吗？");
             } else {
                 cm.sendSimple("如果必要的话，我可以教你你职业的技能。\r\n#b#L0#教我我的职业技能。#l");
             }
@@ -77,7 +77,7 @@ function action(mode, type, selection) {
                     }
                     cm.gainItem(2280003, 1);
                 } else {
-                    cm.sendOk("请在#b使用#k的物品栏中留出一个空位，以便接收技能书。");
+                    cm.sendOk("请在【消耗】栏中留出至少1个空位，以便接收神秘的四转技能书。");
                 }
             } else if (mode >= 0 && cm.getJobId() % 100 % 10 == 2) {
                 // TEMP until I can get the quest fixed...
@@ -112,7 +112,7 @@ function action(mode, type, selection) {
                         cm.teachSkill(1320009, 0, 10, -1);
                     }
                 }
-                cm.sendOk("事情已经完成。现在离开我。");
+                cm.sendOk("高阶秘技已传授完毕。愿你秉持荣耀之心，守护冒险岛世界的和平！");
             }
 
             cm.dispose();

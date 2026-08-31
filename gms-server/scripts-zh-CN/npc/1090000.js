@@ -93,7 +93,7 @@ function start() {
             cm.dispose();
         } else if (cm.haveItem(4031059) && cm.getPlayer().gotPartyQuestItem("JBP")) {
             actionx["3thJobC"] = true;
-            cm.sendNext("干得好。你打败了我的分身，并安全地带回了#b#t4031059##k。你现在已经从物理角度证明了自己配得上进行第三次转职。现在你应该把这条项链交给在奥西里亚的#b#p2020013##k，以进行测试的第二部分。祝你好运。你会需要的。");
+            cm.sendNext("干得好。你打败了我的分身，并安全地带回了#b#t4031059##k。你现在已经从物理角度证明了自己配得上进行第三次转职。现在你应该把这条项链交给在冰峰雪域长老板屋的#b#p2020013##k，去开启智慧的试炼吧。祝你好运！");
         } else {
             cm.sendOk("你选择得很明智。");
             cm.dispose();

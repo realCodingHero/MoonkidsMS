@@ -1,43 +1,19 @@
 /*
-	This file is part of the OdinMS Maple Story Server
-    Copyright (C) 2008 Patrick Huy <patrick.huy@frz.cc>
-		       Matthias Butz <matze@odinms.de>
-		       Jan Christian Meyer <vimes@odinms.de>
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License as
-    published by the Free Software Foundation version 3 as published by
-    the Free Software Foundation. You may not use, modify or distribute
-    this program under any other version of the GNU Affero General Public
-    License.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    阿尔卡斯特 - 冰峰雪域市集 (211000100)
+    古代贤者道具商店 (CMS标准地道化重构)
 */
-/**
- -- Odin JavaScript --------------------------------------------------------------------------------
- Alcaster - El Nath Market (211000100)
- -- By ---------------------------------------------------------------------------------------------
- Unknown & Information & xQuasar
- -- Version Info -----------------------------------------------------------------------------------
- 1.3 - Fixed up completely [xQuasar]
- 1.2 - Add a missing text part [Information]
- 1.1 - Recoded to official [Information]
- 1.0 - First Version by Unknown
- ---------------------------------------------------------------------------------------------------
- **/
 
 var selected;
 var amount;
 var totalcost;
 var item = [2050003, 2050004, 4006000, 4006001];
 var cost = [300, 400, 5000, 5000];
-var msg = ["that cures the state of being sealed and cursed", "that cures all", ", possessing magical power, that is used for high-quality skills", ", possessing the power of summoning that is used for high-quality skills"];
+var msg = [
+    "能解除封印与诅咒状态的圣药",
+    "能解除所有异常状态的神奇万能药",
+    "蕴含强大魔力、用于施展高阶魔法技能的魔力之石",
+    "蕴含神秘召唤之力、用于施展高阶召唤技能的召唤之石"
+];
 var status;
 
 function start() {
@@ -47,12 +23,12 @@ function start() {
 
 function action(mode, type, selection) {
     if (!cm.isQuestCompleted(3035)) {
-        cm.sendNext("如果你决定帮助我，那么作为回报，我会让这件物品可以出售。");
+        cm.sendNext("如果你愿意帮我完成封印黑暗水晶的任务，作为回报，我将把我珍藏的古代秘药与魔法之石出售给你。");
         cm.dispose();
         return;
     }
     if (mode == 0 && status == 2) {
-        cm.sendNext("我明白了。知道我这里有很多不同的物品。随便看看吧。我只卖这些物品给你，所以不会以任何方式欺骗你。");
+        cm.sendNext("我明白了。我这里有许多外界罕见的特殊物品，请随意挑选。我只会以公道的价格出售给你，绝无虚假。");
         cm.dispose();
         return;
     }
@@ -65,26 +41,28 @@ function action(mode, type, selection) {
     if (status == 0) {
         var selStr = "";
         for (var i = 0; i < item.length; i++) {
-            selStr += "\r\n#L" + i + "# #b#t" + item[i] + "# (Price: " + cost[i] + " mesos)#k#l";
+            selStr += "\r\n#L" + i + "# #b#t" + item[i] + "# (单价: " + cost[i] + " 冒险币)#k#l";
         }
-        cm.sendSimple("多亏了你，#b#t4031056##k 已经安全封印了。当然，作为结果，我用掉了我在过去大约800年中积累的一半能量...但现在我可以安心地死去了。哦，顺便问一下... 你是不是在寻找稀有物品？作为对你辛勤工作的感激，我会向你出售一些我拥有的物品，而且只有你可以购买。挑选出你想要的吧！" + selStr);
+        cm.sendSimple("多亏了你的鼎力相助，#b#t4031056##k 已经成功被彻底封印了。虽然耗费了我近八百年积累的半数元气……但如今我终于能够安心了。对了，你是不是在寻找稀有的魔法材料？为了感谢你的功绩，我将向你提供我的珍藏秘药与魔法之石。挑选你需要的物品吧！" + selStr);
     } else if (status == 1) {
         selected = selection;
-        cm.sendGetNumber("Is #b#t" + item[selected] + "##k really the item that you need? It's the item " + msg[selected] + ". It may not be the easiest item to acquire, but I'll give you a good deal on it. It'll cost you #b" + cost[selected] + " mesos#k per item. How many would you like to purchase?", 0, 1, 100);
+        cm.sendGetNumber("你需要的确实是 #b#t" + item[selected] + "##k 吗？这可是" + msg[selected] + "。虽然平时在外界极难寻觅，但我会以特惠价格提供给你，每个仅需 #b" + cost[selected] + " 冒险币#k。你想购买多少个？", 0, 1, 100);
     } else if (status == 2) {
         amount = selection;
         totalcost = cost[selected] * amount;
-        if (amount == 0) {
-            cm.sendOk("如果你不打算买任何东西，那我也没有东西可以卖给你。");
+        if (amount <= 0) {
+            cm.sendOk("既然你不打算购买，那我们下次再见吧。");
             cm.dispose();
+            return;
         }
-        cm.sendYesNo("你确定要购买 #r" + amount + " #t" + item[selected] + "(s)##k 吗？每个 #t" + item[selected] + "# 的价格是 " + cost[selected] + " 冒险币，总共需要支付 #r" + totalcost + " 冒险币#k。");
+        cm.sendYesNo("你确定要购买 #r" + amount + " 个 #t" + item[selected] + "##k 吗？\r\n每个 #t" + item[selected] + "# 单价为 " + cost[selected] + " 冒险币，总计需要支付 #r" + totalcost + " 冒险币#k。");
     } else if (status == 3) {
-        if (cm.getMeso() < totalcost || !cm.canHold(item[selected])) {
-            cm.sendNext("你确定你有足够的金币吗？请检查一下你的杂项或使用的物品栏是否已满，或者你至少有 #r" + totalcost + "#k 金币。");
+        if (cm.getMeso() < totalcost || !cm.canHold(item[selected], amount)) {
+            cm.sendNext("你的冒险币不足，或者背包空间已满。请检查你的【消耗】或【其它】栏是否有足够空位，并确认是否拥有至少 #r" + totalcost + "#k 冒险币。");
             cm.dispose();
+            return;
         }
-        cm.sendNext("谢谢你。如果你将来需要物品的话，记得来这里找我。虽然我年纪大了，但我仍然可以轻松制作魔法物品。");
+        cm.sendNext("多谢惠顾。今后若是还需要古代秘药或魔法之石，随时来这里找我。老朽虽然年迈，但炼制这些魔法道具依然手到擒来。");
         cm.gainMeso(-totalcost);
         cm.gainItem(item[selected], amount);
         cm.dispose();
