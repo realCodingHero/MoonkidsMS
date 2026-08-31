@@ -4,7 +4,7 @@ var status = 0;
 function start() {
     arena = cm.getPlayer().getAriantColiseum();
     if (arena == null) {
-        cm.sendOk("嘿，我在竞技场的战斗中没看到你！你在这里做什么？");
+        cm.sendOk("嘿，刚才在竞技场里我怎么没看到你？你在这里做什么？");
         cm.dispose();
         return;
     }
@@ -28,24 +28,24 @@ function action(mode, type, selection) {
         }
         if (status == 0) {
             menuStr = generateSelectionMenu([
-                "我想查看或用点数兑换#t3010018#", 
-                "我想了解更多关于战斗竞技场点数的相关信息"
+                "我想查看点数或兑换#t3010018#", 
+                "我想了解竞技场点数的相关规则"
             ]);
             cm.sendSimple("你好，我能为你做些什么？\r\n" + menuStr);
         } else if (status == 1) {
             if (selection == 0) {
                 apqpoints = cm.getPlayer().getAriantPoints();
                 if (apqpoints >= 100) {
-                    cm.sendNext("哇，看起来你已经准备好要交易的#b100#k点数了，我们来交易吧！");
+                    cm.sendNext("哇，看来你已经积攒了 #b100#k 点竞技场点数，我们马上来兑换吧！");
                 } else if (apqpoints + arena.getAriantRewardTier(cm.getPlayer()) >= 100) {
-                    cm.sendOk("你的战斗竞技场分数：#b" + apqpoints + "#k 点，你几乎已经达到了这个分数！和我的妻子#p2101016#交谈，获取这些分数，然后再和我交谈！");
+                    cm.sendOk("你当前的竞技场点数：#b" + apqpoints + "#k 点，你马上就能达到了！先去找我妻子 #p2101016# 结算本局点数，然后再来找我吧！");
                     cm.dispose();
                 } else {
-                    cm.sendOk("你的战斗竞技场分数：#b" + apqpoints + "#k 点。你需要超过#b100点#k，这样我才能给你#b棕榈树沙滩椅#k。当你有足够的分数时再和我交谈。");
+                    cm.sendOk("你当前的竞技场点数：#b" + apqpoints + "#k 点。你需要累积达到 #b100点#k，我才能把 #b#t3010018##k 奖励给你。等你攒够点数后再来找我吧。");
                     cm.dispose();
                 }
             } else if (selection == 1) {
-                cm.sendOk("主要目标是让玩家在战斗竞技场中积累点数，以便兑换最高奖品：#b椰树沙滩椅#k。在战斗中积累点数，当时机成熟时与我交谈以获取奖品。在每场战斗中，玩家有机会根据最终拥有的珠宝数量来获得积分。但要小心！如果你的积分与其他玩家的差距#ris too high#k，那一切都将化为乌有，你只能获得微薄的#r1 point#k。");
+                cm.sendOk("竞技场的主要目标是让大家在比赛中积累竞技场点数，用来兑换终极大奖：#b#t3010018##k。只要在竞技场中累积足够的点数，就可以找我兑换奖励。\r\n在每场比赛中，玩家会根据最终持有的宝石数量获得对应点数。不过要注意！如果你与其他玩家的宝石差距#r过大#k，所有的努力都会白费，你最终只能得到可怜的 #r1点#k 积分。");
                 cm.dispose();
             }
         } else if (status == 2) {

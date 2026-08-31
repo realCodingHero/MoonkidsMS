@@ -50,7 +50,7 @@ function action(mode, type, selection) {
         if (status == 0) {
             em = cm.getEventManager("PiratePQ");
             if (em == null) {
-                cm.sendOk("海盗组队任务遇到了一个错误。");
+                cm.sendOk("海盗组队任务目前遇到异常，请稍后再试。");
                 cm.dispose();
                 return;
             } else if (cm.isUsingOldPqNpcStyle()) {
@@ -58,33 +58,33 @@ function action(mode, type, selection) {
                 return;
             }
 
-            cm.sendSimple("#e#b<组队任务：海盗船>\r\n#k#n" + em.getProperty("party") + "\r\n\r\n救命啊！我的儿子被绑在可怕的#r海盗领主#k手中。我需要你的帮助... 你能组建或加入一个队伍来救他吗？请让你的#b队伍领袖#k与我交谈或者组建一个队伍。#b\r\n#L0#我想参加这个组队任务。\r\n#L1#我想" + (cm.getPlayer().isRecvPartySearchInviteEnabled() ? "禁用" : "启用") + "组队搜索。\r\n#L2#我想了解更多详情。");
+            cm.sendSimple("#e#b<组队任务：海盗船之战>\r\n#k#n" + em.getProperty("party") + "\r\n\r\n救命啊！我的儿子被凶残的#r老海盗#k绑架了！我需要勇敢的冒险家伸出援手……你们能组队帮我救出儿子吗？请让你们的#b队长#k前来与我对话。#b\r\n#L0#我们想要挑战海盗船组队任务。\r\n#L1#我想" + (cm.getPlayer().isRecvPartySearchInviteEnabled() ? "关闭" : "开启") + "组队寻找邀请。\r\n#L2#我想了解海盗船任务详情。");
         } else if (status == 1) {
             if (selection == 0) {
                 if (cm.getParty() == null) {
-                    cm.sendOk("只有当你加入一个队伍时，你才能参加派对任务。");
+                    cm.sendOk("请先创建一个队伍后再来找我。");
                     cm.dispose();
                 } else if (!cm.isLeader()) {
-                    cm.sendOk("你的队长必须与我交谈才能开始这个组队任务。");
+                    cm.sendOk("请让你们的队长前来与我对话。");
                     cm.dispose();
                 } else {
                     var eli = em.getEligibleParty(cm.getParty());
                     if (eli.size() > 0) {
                         if (!em.startInstance(cm.getParty(), cm.getPlayer().getMap(), 1)) {
-                            cm.sendOk("另一个队伍已经进入了该频道的#r组队任务#k。请尝试其他频道，或者等待当前队伍完成。");
+                            cm.sendOk("当前频道已经有其他队伍正在挑战#r海盗船组队任务#k，请换线或者稍后再试。");
                         }
                     } else {
-                        cm.sendOk("你目前无法开始这个组队任务，因为你的队伍可能不符合人数要求，有些队员可能不符合尝试条件，或者他们不在这张地图上。如果你找不到队员，可以尝试使用组队搜索功能。");
+                        cm.sendOk("你的队伍目前不符合进入要求。请确保所有队员等级达标、在同一张地图内，且队伍人数符合任务规定。");
                     }
 
                     cm.dispose();
                 }
             } else if (selection == 1) {
                 var psState = cm.getPlayer().toggleRecvPartySearchInvite();
-                cm.sendOk("你的组队搜索状态现在是：#b" + (psState ? "enabled" : "disabled") + "#k。想要改变状态时随时找我。");
+                cm.sendOk("你的组队搜索邀请功能现已：#b" + (psState ? "开启" : "关闭") + "#k。");
                 cm.dispose();
             } else {
-                cm.sendOk("#e#b<组队任务：海盗船>#k#n\r\n在这个组队任务中，你的任务是逐步穿过船舱，与途中的所有海盗和坏蛋战斗。当你到达#r海盗领主#k时，根据之前阶段打开的宝箱数量，boss会变得更加强大，所以要保持警惕。如果打开了这些宝箱，将会给你的船员带来许多额外的奖励，值得一试！祝你好运。");
+                cm.sendOk("#e#b<组队任务：海盗船之战>#k#n\r\n在这场严酷的组队任务中，你们需要深入海盗船腹地，逐层肃清船舱内的凶恶海盗。最终你们将直面首领#r老海盗#k！如果在沿途开启了更多海盗宝箱，首领的实力将会被激怒增强，但通关后也将掉落更为丰厚珍贵的战利品！祝你们凯旋归来！");
                 cm.dispose();
             }
         }

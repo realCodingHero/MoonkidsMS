@@ -69,7 +69,7 @@ function setEventRequirements() {
         reqStr += minLevel;
     }
 
-    reqStr += "\r\n    For #rmagicians only#k.";
+    reqStr += "\r\n   职业要求: #r仅限魔法师#k";
 
     reqStr += "\r\n   时间限制: ";
     reqStr += eventTime + " 分钟";

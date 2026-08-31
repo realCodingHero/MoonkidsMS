@@ -52,14 +52,14 @@ function action(mode, type, selection) {
 
         if (status == 0) {
             if (!(cm.isQuestCompleted(6316) && (cm.isQuestStarted(6225) || cm.isQuestStarted(6315)))) {
-                cm.sendOk("你似乎没有理由去遇见基于元素的萨那托斯。");
+                cm.sendOk("你现在似乎还没有进入挑战元素塔纳托斯的理由。");
                 cm.dispose();
                 return;
             }
 
             em = cm.getEventManager("ElementalBattle");
             if (em == null) {
-                cm.sendOk("元素战斗遇到了一个错误。");
+                cm.sendOk("元素挑战副本出现了异常，请联系管理员。");
                 cm.dispose();
                 return;
             } else if (cm.isUsingOldPqNpcStyle()) {
@@ -67,11 +67,11 @@ function action(mode, type, selection) {
                 return;
             }
 
-            cm.sendSimple("#e#b<组队任务：元素塔纳托斯>\r\n#k#n" + em.getProperty("party") + "\r\n\r\n你正在寻找元素塔纳托斯，对吗？如果你和另一个法师组队，而且他的元素属性与你相反，你们就能够克服它们。作为队长，当你准备好出发时，和我交谈。#b\r\n#L0#我想参加组队任务。\r\n#L1#我想" + (cm.getPlayer().isRecvPartySearchInviteEnabled() ? "禁用" : "启用") + "组队搜索。\r\n#L2#我想了解更多细节。");
+            cm.sendSimple("#e#b<组队任务：元素塔纳托斯>\r\n#k#n" + em.getProperty("party") + "\r\n\r\n你正在寻找掌控元素之力的塔纳托斯，对吗？如果能与另一位属性相克的魔法师组队，你们就能克制里面的元素力量。准备好后请让队长来和我对话。#b\r\n#L0#我想参加组队任务。\r\n#L1#我想" + (cm.getPlayer().isRecvPartySearchInviteEnabled() ? "禁用" : "启用") + "组队搜索。\r\n#L2#我想了解更多细节。");
         } else if (status == 1) {
             if (selection == 0) {
                 if (cm.getParty() == null) {
-                    cm.sendOk("只有当你加入一个队伍时，你才能参加派对任务。");
+                    cm.sendOk("你必须先加入或组建一个队伍，才能参加组队任务。");
                     cm.dispose();
                 } else if (!cm.isLeader()) {
                     cm.sendOk("你的队长必须与我交谈才能开始这个组队任务。");
@@ -90,10 +90,10 @@ function action(mode, type, selection) {
                 }
             } else if (selection == 1) {
                 var psState = cm.getPlayer().toggleRecvPartySearchInvite();
-                cm.sendOk("你的组队搜索状态现在是：#b" + (psState ? "enabled" : "disabled") + "#k。想要改变状态时随时找我。");
+                cm.sendOk("你的组队搜索状态现在是：#b" + (psState ? "开启" : "关闭") + "#k。想要改变状态时随时来找我。");
                 cm.dispose();
             } else {
-                cm.sendOk("#e#b<组队任务：元素死神>#k#n\r\n在进入舞台之前，与另一位具有#rdifferent elemental affinity#k的法师组队。这个团队合作对于克服内部的元素非常关键。");
+                cm.sendOk("#e#b<组队任务：元素塔纳托斯>#k#n\r\n在进入该区域之前，请与另一位具有 #r不同元素属性#k 的魔法师组成队伍。不同属性法师之间的默契配合是攻克内部强大元素生物的核心关键！");
                 cm.dispose();
             }
         }

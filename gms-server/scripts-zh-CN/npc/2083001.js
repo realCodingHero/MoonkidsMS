@@ -57,7 +57,7 @@ function action(mode, type, selection) {
             if (status == 0) {
                 em = cm.getEventManager("HorntailPQ");
                 if (em == null) {
-                    cm.sendOk("霍恩尾巴洞窟遭遇了一个错误。");
+                    cm.sendOk("暗黑龙王洞穴发生了一个错误。");
                     cm.dispose();
                     return;
                 } else if (cm.isUsingOldPqNpcStyle()) {
@@ -65,14 +65,14 @@ function action(mode, type, selection) {
                     return;
                 }
 
-                cm.sendSimple("#e#b<组队任务：暴君蛋龙试炼场>\r\n#k#n" + em.getProperty("party") + "\r\n\r\n这是通往暴君蛋龙巢穴的路径。如果你想面对他，你和你的队伍将在前方的试炼场上接受考验。#b\r\n#L0#让我们通过试炼场。\r\n#L1#我想" + (cm.getPlayer().isRecvPartySearchInviteEnabled() ? "禁用" : "启用") + "组队搜索。\r\n#L2#我想听更多细节。");
+                cm.sendSimple("#e#b<组队任务：暗黑龙王试炼场>\r\n#k#n" + em.getProperty("party") + "\r\n\r\n这是通往暗黑龙王巢穴的必经之路。如果你想面对它，你和你的队伍必须先通过前方的试炼场。#b\r\n#L0#开始挑战试炼场。\r\n#L1#我想" + (cm.getPlayer().isRecvPartySearchInviteEnabled() ? "关闭" : "开启") + "组队寻找。\r\n#L2#我想了解详细信息。#l#k");
             } else if (status == 1) {
                 if (selection == 0) {
                     if (cm.getParty() == null) {
-                        cm.sendOk("只有当你加入一个队伍时，才能参加派对任务。");
+                        cm.sendOk("只有加入组队后，才能参加组队任务。");
                         cm.dispose();
                     } else if (!cm.isLeader()) {
-                        cm.sendOk("你的队长必须与我交谈才能开始这个组队任务。");
+                        cm.sendOk("只有队长与我交谈才能开始这个组队任务。");
                         cm.dispose();
                     } else {
                         var eli = em.getEligibleParty(cm.getParty());
@@ -81,23 +81,23 @@ function action(mode, type, selection) {
                                 cm.sendOk("另一个队伍已经进入了该频道的#r组队任务#k。请尝试其他频道，或者等待当前队伍完成。");
                             }
                         } else {
-                            cm.sendOk("要么我不能接受你队伍中的某些成员进入洞穴，要么你的队伍不够强大。解决这个问题然后再来找我谈话！");
+                            cm.sendOk("你队伍中的某些成员不符合进入条件，或者队伍人数不符。请调整后再来找我！");
                         }
 
                         cm.dispose();
                     }
                 } else if (selection == 1) {
                     var psState = cm.getPlayer().toggleRecvPartySearchInvite();
-                    cm.sendOk("你的组队搜索状态现在是：#b" + (psState ? "enabled" : "disabled") + "#k。想要改变状态时随时找我。");
+                    cm.sendOk("你的组队搜索状态现在是：#b" + (psState ? "已开启" : "已关闭") + "#k。想要更改状态时可以随时找我。");
                     cm.dispose();
                 } else {
-                    cm.sendOk("#e#b<组队任务：暴君之地>#k#n\r\n作为暴君巢穴的守门人，我只会允许值得的人进入。即使是对于那些人来说，内部的路径也像迷宫一样，充满了分支和考验。然而，那些擅长与团队BOSS战斗的人有更好的机会站在我们的领袖面前，尽管我们这种人也有机会。");
+                    cm.sendOk("#e#b<组队任务：暗黑龙王试炼场>#k#n\r\n作为暗黑龙王巢穴的守门人，我只允许具备资格的勇士进入。即使获得了进入资格，内部的道路也如同迷宫一般布满了重重考验与危险。只有默契配合的团队，才有可能最终站在暗黑龙王的面前！");
                     cm.dispose();
                 }
             }
         } else {
             if (!cm.isEventLeader()) {
-                cm.sendOk("只有你的队伍领袖才能与日程表进行交互。");
+                cm.sendOk("只有你的队长才能进行操作。");
             } else if (cm.getMapId() == 240050100) {
                 if (cm.haveItem(4001087) && cm.haveItem(4001088) && cm.haveItem(4001089) && cm.haveItem(4001090) && cm.haveItem(4001091)) {
                     cm.gainItem(4001087, -1);
@@ -108,7 +108,7 @@ function action(mode, type, selection) {
 
                     cm.getEventInstance().warpEventTeam(240050200);
                 } else {
-                    cm.sendOk("你没有所有需要的钥匙来继续前进。");
+                    cm.sendOk("你没有集齐所有进入下一阶段所需的钥匙。");
                 }
             } else if (cm.getMapId() == 240050300) {
                 if (cm.haveItem(4001092, 1) && cm.haveItem(4001093, 6)) {
@@ -116,7 +116,7 @@ function action(mode, type, selection) {
                     cm.gainItem(4001093, -6);
                     cm.getEventInstance().clearPQ();
                 } else {
-                    cm.sendOk("检查一下你是否带着6把红钥匙和1把蓝钥匙。");
+                    cm.sendOk("请检查一下是否已经收集齐了6把红色钥匙和1把蓝色钥匙。");
                 }
             } else if (cm.getMapId() == 240050310) {
                 if (cm.haveItem(4001092, 1) && cm.haveItem(4001093, 6)) {
@@ -124,7 +124,7 @@ function action(mode, type, selection) {
                     cm.gainItem(4001093, -6);
                     cm.getEventInstance().clearPQ();
                 } else {
-                    cm.sendOk("检查一下你是否带着所有6把红钥匙和1把蓝钥匙。");
+                    cm.sendOk("请检查一下是否已经收集齐了6把红色钥匙和1把蓝色钥匙。");
                 }
             }
 

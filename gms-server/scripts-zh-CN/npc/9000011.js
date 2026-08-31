@@ -30,15 +30,15 @@ function action(mode, type, selection) {
             status--;
         }
         if (status == 0) {
-            cm.sendNext("嘿，我是#p" + cm.getNpc() + "#k，如果你不忙的话……那我能跟你一起玩吗？我听说这附近有人聚集起来举办一个#revent#k，但我不想一个人去……嗯，你想和我一起去看看吗？");
+            cm.sendNext("嘿，我是#p" + cm.getNpc() + "#k。如果你现在有空的话……能和我一起玩吗？我听说这附近聚集了好多人准备参加#r活动#k，但我一个人有点不好意思去……嗯，你想和我一起去看看吗？");
         } else if (status == 1) {
-            cm.sendSimple("哦？是什么样的活动？那就是...\r\n#L0##e1.#n#b 这是什么样的活动？#k#l\r\n#L1##e2.#n#b 给我解释一下活动游戏吧。#k#l\r\n#L2##e3.#n#b 好的，我们走吧！#k#l\r\n#L3##e4.#n#b 请用胜利证书兑换奖励物品。#k#l");
+            cm.sendSimple("哦？是什么样的活动？那个嘛……\r\n#L0##e1.#n#b 这是什么样的活动？#k#l\r\n#L1##e2.#n#b 给我介绍一下活动项目吧。#k#l\r\n#L2##e3.#n#b 好啊，我们出发吧！#k#l\r\n#L3##e4.#n#b 使用连胜证书兑换奖励。#k#l");
         } else if (status == 2) {
             if (selection == 0) {
-                cm.sendNext("这个月，冒险岛全球版正在庆祝其三周年！GM们将在整个活动期间举行惊喜GM活动，所以保持警惕，并确保参加至少一个活动以赢取丰厚奖品！");
+                cm.sendNext("这个月，冒险岛正在举办特别庆典活动！管理员们将在活动期间举行各种惊喜活动，千万不要错过参与并赢取丰厚奖品的机会哦！");
                 cm.dispose();
             } else if (selection == 1) {
-                cm.sendSimple("这个活动有很多游戏。在玩游戏之前了解如何玩会对你有很大帮助。选择你想了解更多的游戏吧！#b\r\n#L0# 欧拉欧拉#l\r\n#L1# 冒险岛体能测试#l\r\n#L2# 雪球#l\r\n#L3# 椰子收获#l\r\n#L4# OX问答#l\r\n#L5# 寻宝#l#k");
+                cm.sendSimple("活动包含多种丰富的小游戏。在进入游戏前先熟悉一下规则会更有帮助哦。请选择你想了解的项目吧！#b\r\n#L0# 爬高高 (Ola Ola)#l\r\n#L1# 冒险岛体能测试#l\r\n#L2# 滚雪球#l\r\n#L3# 打椰子#l\r\n#L4# OX问答#l\r\n#L5# 寻宝活动#l#k");
             } else if (selection == 2) {
                 var marr = cm.getQuestRecord(100295);
                 if (marr.getCustomData() == null) {
@@ -46,44 +46,44 @@ function action(mode, type, selection) {
                 }
                 var dat = parseInt(marr.getCustomData());
                 if (dat + 3600000 >= cm.getCurrentTime()) {
-                    cm.sendNext("你在过去的一个小时内已经参加了这个活动。");
+                    cm.sendNext("你在过去的一小时内已经参加过活动了，请稍后再来。");
                 } else if (!cm.canHold(4031019)) {
-                    cm.sendNext("在你的背包里留点空间。");
+                    cm.sendNext("请清理出一些背包空间。");
                 } else if (cm.getChannelServer().getEvent() > -1 && !cm.haveItem(4031019)) {
                     cm.getPlayer().saveLocation("EVENT");
                     cm.getPlayer().setChalkboard(null);
                     marr.setCustomData("" + cm.getCurrentTime());
                     cm.warp(cm.getChannelServer().getEvent(), cm.getChannelServer().getEvent() == 109080000 || cm.getChannelServer().getEvent() == 109080010 ? 0 : "join00");
                 } else {
-                    cm.sendNext("要么活动还没有开始，你已经拥有了#b秘密卷轴#k，或者你在过去24小时内已经参与了这个活动。请稍后再试！");
+                    cm.sendNext("活动可能尚未开放，或者你已经持有#b神秘卷轴#k，亦或是你在过去24小时内已经参与过活动了。请稍后再试！");
                 }
                 cm.dispose();
             } else if (selection == 3) {
-                var selStr = "Which Certificate of straight Win do you wish to exchange?";
+                var selStr = "你想用哪种连胜证书兑换奖励呢？";
                 for (var i = 0; i < quantities.length; i++) {
-                    selStr += "\r\n#b#L" + i + "##t" + (4031332 + i) + "# Exchange(" + quantities[i] + ")#l";
+                    selStr += "\r\n#b#L" + i + "#使用 #t" + (4031332 + i) + "# 兑换 (" + quantities[i] + "个)#l";
                 }
                 cm.sendSimple(selStr);
                 status = 9;
             }
         } else if (status == 3) {
             if (selection == 0) {
-                cm.sendNext("#b[Ola Ola]#k 是一个游戏，参与者需要爬梯子到达顶部。通过选择正确的传送门，爬上去并移动到下一个级别。\r\n\r\n游戏包括三个级别，时间限制为#b6分钟#k。在[Ola Ola]期间，你#b无法跳跃、传送、加速，或使用药水或物品提高速度#k。还有一些欺诈性的传送门会把你带到一个奇怪的地方，所以请注意。");
+                cm.sendNext("#b[爬高高]#k 是一项需要顺着梯子不断向上攀爬到达顶部的游戏。选择正确的传送门不断向上，进入下一个关卡。\r\n\r\n游戏共分为三个阶段，限时 #b6分钟#k。在 [爬高高] 中，你 #b无法跳跃、使用瞬间移动、加速术，也无法使用药水或道具提高移动速度#k。此外还有一些陷阱传送门会把你送回原点，请格外小心！");
                 cm.dispose();
             } else if (selection == 1) {
-                cm.sendNext("#b[冒险岛体能测试]是一个类似于耐心之森的障碍赛跑#k。你可以通过克服各种障碍，在规定时间内到达最终目的地来赢得比赛。\r\n游戏包括四个关卡，时间限制为#b15分钟#k。在[冒险岛体能测试]期间，你将无法使用传送或加速技能。");
+                cm.sendNext("#b[冒险岛体能测试]#k 是一项类似于忍耐之林/森林障碍的耐力赛跑。克服各种障碍，在规定时间内到达终点即可获胜。\r\n\r\n游戏共分为四个阶段，限时 #b15分钟#k。在 [冒险岛体能测试] 期间，你将无法使用瞬间移动或加速技能。");
                 cm.dispose();
             } else if (selection == 2) {
-                cm.sendNext("#b[雪球]#k 由两个队伍组成，枫叶队和故事队，两个队伍在有限的时间内争夺看哪个队伍将雪球滚得更远更大。如果比赛在规定时间内无法决定胜负，那么滚得更远的队伍获胜。\r\n要滚动雪球，按下#bCtrl#k进行攻击。所有远程攻击和技能攻击在这里都不起作用，#b只有近距离攻击才有效#k。\r\n如果角色触碰到雪球，他/她将被送回起点。攻击起点前面的雪人，以阻止对方队伍将雪球滚向前方。这是一个精心策划的战略，因为队伍将决定是攻击雪球还是雪人。");
+                cm.sendNext("#b[滚雪球]#k 由红队（枫叶队）与蓝队（故事队）两队进行比拼，看哪一队在规定时间内能将雪球推得更远更大。若在规定时间内未分胜负，则由雪球推得更远的一方获胜。\r\n\r\n要推动雪球，请按 #bCtrl#k 键进行普通攻击。所有远程攻击和技能攻击在此均无效，#b只有近身普通攻击才起作用#k。\r\n如果角色触碰到滚动的雪球，将被送回起点。攻击对方起点前的雪人可以阻碍对方推动雪球。合理分配进攻雪球与干扰雪人的策略至关重要！");
                 cm.dispose();
             } else if (selection == 3) {
-                cm.sendNext("“#b[椰子收获]#k 由两个队伍组成，枫叶队和故事队，两个队伍将争夺看谁能收集到最多的椰子。时间限制为#b5分钟#k。如果比赛打成平局，将额外奖励2分钟来决定胜者。如果由于某种原因比分保持平局，比赛将以平局结束。\r\n所有远程攻击和技能攻击在这里都不起作用，#b只有近身攻击才有效#k。如果你没有近身攻击的武器，你可以通过活动地图内的NPC购买。无论角色的等级、武器或技能如何，所有造成的伤害都是相同的。\r\n小心地图内的障碍和陷阱。如果角色在游戏中死亡，角色将被淘汰。最后一击椰子掉落之前的玩家获胜。只有掉落在地面上的椰子才计数，这意味着没有掉落的树上的椰子，或者偶尔的椰子爆炸都不计数。地图底部的贝壳中有一个隐藏的传送门，所以明智地使用它！”");
+                cm.sendNext("#b[打椰子]#k 由两队互相竞争，看哪队能在限定时间内收集到更多的椰子。限时为 #b5分钟#k。如果打平，将额外增加2分钟加时赛。加时赛依然打平则判定为平局。\r\n\r\n所有远程攻击与技能在此均无效，#b只有近身普通攻击才起作用#k。若未携带近战武器，可在活动地图内的NPC处购买。无论角色等级、装备或技能如何，造成的打击判定均一致。\r\n小心地图内的各种陷阱与障碍。若在游戏中阵亡将被淘汰出局。只有击落并掉在地上的椰子才计入得分，树上未落下的或偶尔爆炸的椰子不计分。地图底部贝壳中藏有隐藏传送门，请善加利用！");
                 cm.dispose();
             } else if (selection == 4) {
-                cm.sendNext("#b[OX Quiz]#k 是冒险岛中通过X和O来展示智慧的游戏。一旦你加入游戏，按下 #bM#k 打开小地图，看看X和O的位置。一共会有 #r10个问题#k，回答所有问题正确的角色将赢得游戏。\r\n\r\n问题给出后，使用梯子进入可能包含正确答案的区域，无论是X还是O。如果角色没有选择答案或者在时间限制内挂在梯子上，角色将被淘汰。请等到屏幕上的 [CORRECT] 消失后再继续前进。为了防止任何形式的作弊，OX Quiz期间所有聊天功能将被关闭。");
+                cm.sendNext("#b[OX问答]#k 是在冒险岛中通过判断O与X展示智慧的智力竞赛。进入游戏后，按 #bM#k 键打开小地图确认O和X的区域位置。一共会有 #r10道题目#k，全部回答正确的角色将赢得比赛。\r\n\r\n题目公布后，请利用梯子移动到你认为正确的区域（O或X）。如果未在限时内做出选择或依然停留在梯子上，将被直接淘汰。在屏幕上的 [CORRECT] 提示消失之前，请务必保持站立不动。为了防止任何形式的作弊，在OX问答期间所有聊天功能将被关闭。");
                 cm.dispose();
             } else if (selection == 5) {
-                cm.sendNext("#b[寻宝]#k 是一个游戏，你的目标是在地图上的各个角落找到 #b宝藏卷轴#k，在 #r10分钟#k 内。会有许多神秘的宝箱隐藏起来，一旦你打开它们，会有许多物品从宝箱里浮出来。你的任务是从这些物品中挑选出宝藏卷轴。\r\n宝箱可以用 #b普通攻击#k 打开，一旦你拿到了宝藏卷轴，你可以通过负责交易物品的NPC将其交换成秘密卷轴。交易NPC可以在寻宝地图上找到，但你也可以通过立石港的 #bVikin#k 进行交易。\r\n\r\n这个游戏有许多隐藏的传送门和隐藏的传送点。要使用它们，只需在特定位置按下 #b上箭头#k，你就会被传送到另一个地方。试着跳来跳去，也许你会碰到隐藏的楼梯或绳索。还会有一个能带你到隐藏地点的宝箱，以及一个只能通过隐藏传送门找到的隐藏宝箱，所以试着四处寻找。\r\n\r\n在寻宝游戏中，所有攻击技能都将被 #r禁用#k，请使用普通攻击打开宝箱。");
+                cm.sendNext("#b[寻宝活动]#k 的目标是在 #r10分钟内#k 搜寻隐藏在地图各处的 #b宝藏卷轴#k。地图各处散落着许多神秘宝箱，打碎宝箱后会掉落各种物品，你需要从中找到宝藏卷轴。\r\n\r\n宝箱只能通过 #b普通攻击#k 破坏。拿到宝藏卷轴后，可以与活动地图内的兑换NPC交换为神秘卷轴，也可以在明珠港找 #b维京#k 兑换。\r\n\r\n地图中暗藏着许多隐藏传送点与捷径。在特定位置按下 #b向上方向键（↑）#k 即可传送到其他区域。多尝试跳跃与探索，或许就能发现隐藏的绳索或宝箱。\r\n\r\n注意：寻宝活动中所有攻击技能均被 #r禁用#k，请使用普通攻击开启宝箱。");
                 cm.dispose();
             }
         } else if (status == 10) {
@@ -130,9 +130,9 @@ function action(mode, type, selection) {
             }
             var rand = Math.floor(Math.random() * pri.length);
             if (!cm.haveItem(ite, quan)) {
-                cm.sendOk("你需要 #b" + quan + " #t" + ite + "##k 与物品交换。");
+                cm.sendOk("你需要 #b" + quan + " 个 #t" + ite + "##k 才能兑换奖励。");
             } else if (cm.getInventory(1).getNextFreeSlot() <= -1 || cm.getInventory(2).getNextFreeSlot() <= -1 || cm.getInventory(3).getNextFreeSlot() <= -1 || cm.getInventory(4).getNextFreeSlot() <= -1) {
-                cm.sendOk("你需要为这个物品腾出空间。");
+                cm.sendOk("请在背包各栏中至少留出一格空位。");
             } else {
                 cm.gainItem(pri[rand], 1);
                 cm.gainItem(ite, -quan);

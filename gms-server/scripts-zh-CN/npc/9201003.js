@@ -61,26 +61,26 @@ function action(mode, type, selection) {
 
         if (status == 0) {
             if (!cm.isQuestStarted(100400)) {
-                cm.sendOk("你好，我们是爸爸和妈妈...");
+                cm.sendOk("你好，我们是罗宾和拉尔……");
                 cm.dispose();
             } else {
                 if (cm.getQuestProgressInt(100400, 1) == 0) {
-                    cm.sendNext("妈妈，爸爸，我有一个请求要向你们两个提出……我想更多地了解你们一直走过的道路，那条爱和关心我所珍爱的人的道路。");
+                    cm.sendNext("爸爸、妈妈，我有一个请求想向你们请教……我想向我心爱的人求婚，请指引我如何像你们一样，走过充满爱与关怀的相伴之路。");
                 } else {
                     if (!hasProofOfLoves(cm.getPlayer())) {
-                        cm.sendOk("亲爱的，我们需要确保你真的准备好爱上你选择的伴侣，请带来 #b4 #t4031367#'s#k。");
+                        cm.sendOk("孩子，我们需要确认你是否真正做好了全心全意去爱伴侣的准备。请为我们带回 #b4 个 #t4031367##k。");
                         cm.dispose();
                     } else {
-                        cm.sendNext("#b#h0##k，你今天让我们感到骄傲。你现在可以选择任何人作为你的未婚夫，接受我们的祝福。你现在可以咨询#p9201000#，婚礼珠宝商。祝你前程坦途，充满爱和关怀~~");
+                        cm.sendNext("#b#h0##k，你今天真让我们感到无比骄傲！你已经获得了我们的真爱祝福，可以去向你心仪的伴侣求婚了。现在去阿莫利亚找订婚戒指工匠 #p9201000# 吧。愿你们的未来充满爱与幸福~~");
                         state = 1;
                     }
                 }
             }
         } else if (status == 1) {
             if (state == 0) {
-                cm.sendNextPrev("亲爱的！你真体贴，向我们求助。我们一定会帮助你的！");
+                cm.sendNextPrev("好孩子！你能来向我们征求祝福，真是太懂事了。我们一定会全力支持你！");
             } else {
-                cm.sendOk("妈妈...爸爸...非常感谢你们的温柔支持！！！");
+                cm.sendOk("爸爸……妈妈……非常感谢你们的理解与祝福！！！");
 
                 cm.completeQuest(100400);
                 cm.gainExp(20000 * cm.getPlayer().getExpRate());
@@ -91,7 +91,7 @@ function action(mode, type, selection) {
                 cm.dispose();
             }
         } else if (status == 2) {
-            cm.sendNextPrev("当然，你一定已经在冒险岛世界中见过爱之仙子#rNanas#k了。从她们那里收集#b4个#t4031367#，然后带到这里来。这次旅程将解答你对爱情的一些疑问……");
+            cm.sendNextPrev("在枫之谷世界各大城镇中，住着负责守护爱情的爱之仙子#r娜娜#k。去拜访她们并收集 #b4 个 #t4031367##k 带回来给我们吧。这段旅程会让你明白爱情的真正意义……");
         } else if (status == 3) {
             cm.setQuestProgress(100400, 1, 1);
             cm.dispose();

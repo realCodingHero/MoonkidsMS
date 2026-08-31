@@ -187,7 +187,7 @@ function clearPQ(eim) {
     if (eim.getIntProperty("playerDied") == 0) {
         var mob = eim.getMonster(9400114);
         eim.getMapInstance(801040101).spawnMonsterOnGroundBelow(mob, new java.awt.Point(500, -50));
-        eim.dropMessage(5, "康培：Boss已被击败且无人员伤亡，干得漂亮！我们在里面发现了一台可疑的机器，正在将它移出。");
+        eim.dropMessage(5, "绀平：头目已被击败且无人员伤亡，干得漂亮！我们在里面发现了一台可疑的机器，正在将它运出去。");
     }
 }
 

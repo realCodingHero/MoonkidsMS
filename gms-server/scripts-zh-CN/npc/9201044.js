@@ -154,18 +154,18 @@ function action(mode, type, selection) {
         var eim = cm.getPlayer().getEventInstance();
 
         if (eim.getProperty(stage.toString() + "stageclear") != null) {
-            cm.sendNext("传送门已经打开，前进去迎接等待你的考验。");
+            cm.sendNext("通往下一阶段的传送门已经开启，请勇往直前，迎接接下来的考验吧！");
         } else {
             if (eim.isEventLeader(cm.getPlayer())) {
                 var state = eim.getIntProperty("statusStg" + stage);
 
                 if (state == -1) {           // preamble
                     if (stage == 1) {
-                        cm.sendOk("嗨。欢迎来到阿莫利亚挑战的#b舞台#k。在这个阶段，与#p9201047#交谈，他会向你传达任务的进一步细节。在打碎下面的魔镜后，将碎片交给#p9201047#，然后来这里获得进入下一个阶段的权限。");
+                        cm.sendOk("你好！欢迎来到阿莫利亚挑战的第 #b" + stage + " 阶段#k。请先与 #p9201047# 对话了解此阶段的规则。打碎下方的魔镜收集碎片后交给 #p9201047#，再来找我开启下一阶段的大门。");
                     } else if (stage == 2) {
-                        cm.sendOk("嗨。欢迎来到阿莫利亚挑战的#b舞台#k。在这个阶段，让你的5名队员以某种方式爬上平台，尝试组合解锁通往下一级的传送门。当你感觉准备好了，和我交谈，我会告诉你情况。然而，请做好准备，如果传送门在几次尝试后没有解锁，怪物将会生成。");
+                        cm.sendOk("你好！欢迎来到阿莫利亚挑战的第 #b" + stage + " 阶段#k。请让队伍中的 5 名成员分别站上不同的绳子/平台，尝试出能够解锁大门的正确站位组合。站好后由队长与我对话确认。注意：如果多次尝试错误，将会召唤出怪物！");
                     } else if (stage == 3) {
-                        cm.sendOk("嗨。欢迎来到阿莫利亚挑战的#b舞台#k。在这个阶段，让你的5名队员分别爬上平台，尝试组合以解锁通往下一级的传送门。当你准备好时，和我交谈，我会告诉你情况。提示：失败时，数一下场景中出现的史莱姆数量，这将告诉你有多少人的位置是正确的。");
+                        cm.sendOk("你好！欢迎来到阿莫利亚挑战的第 #b" + stage + " 阶段#k。请让队伍中的 5 名成员分别站上 9 个平台中的 5 个，解出通往下一关的正确组合。站好后由队长与我对话确认。提示：尝试失败时，观察出现的绿水灵数量，那代表站对位置的人数！");
                     }
 
                     var st = (autopass) ? 2 : 0;
@@ -183,7 +183,7 @@ function action(mode, type, selection) {
                         if (eim.getIntProperty("statusStg" + stage) == 1) {
                             clearStage(stage, eim, curMap);
                         } else {
-                            cm.sendOk("与#p9201047#交谈，了解更多关于这个阶段的信息。");
+                            cm.sendOk("请先与 #p9201047# 对话，了解该阶段的具体任务目标。");
                         }
                     } else if (stage == 2 || stage == 3) {
                         if (map.countMonsters() == 0) {
@@ -259,11 +259,11 @@ function action(mode, type, selection) {
                                         eim.setIntProperty("missCount", miss);
 
                                         if (guessedRight == 6) { //6 unused slots on this stage
-                                            cm.sendNext("所有的绳子重量都不同。考虑你接下来的行动，然后再试一次。");
-                                            cm.mapMessage(5, "Amos: Hmm... All ropes weigh differently.");
+                                            cm.sendNext("所有绳子的重量与要求均不匹配。请重新调整站位后再试一次。");
+                                            cm.mapMessage(5, "艾莫斯：嗯……所有绳子的重量都不正确。");
                                         } else {
-                                            cm.sendNext("一根绳子重量相同。考虑你接下来的行动，然后再试一次。");
-                                            cm.mapMessage(5, "Amos: Hmm... One rope weigh the same.");
+                                            cm.sendNext("有一根绳子的重量是正确的！请分析目前的站位后再试一次。");
+                                            cm.mapMessage(5, "艾莫斯：嗯……其中一根绳子的重量正确。");
                                         }
                                     } else {
                                         spawnMobs(playersRight);
@@ -271,8 +271,8 @@ function action(mode, type, selection) {
                                         if (stage == 2) {
                                             eim.setProperty("stage2combo", "");
 
-                                            cm.sendNext("你已经未能发现正确的组合，现在将被重置。重新开始吧！");
-                                            cm.mapMessage(5, "Amos: You have failed to discover the right combination, now it shall be reset. Start over again!");
+                                            cm.sendNext("很遗憾，尝试次数已达上限，正确的站位组合已被重置。请清理怪物后重新开始解谜！");
+                                            cm.mapMessage(5, "艾莫斯：未能解出正确组合，谜题已重置！请重新开始！");
                                         }
                                     }
 
@@ -281,20 +281,20 @@ function action(mode, type, selection) {
                                 }
                             } else {
                                 if (stage == 2) {
-                                    cm.sendNext("看起来你们还没有找到这个试炼的方法。考虑一下在平台上安排5名成员。记住，只允许有5人站在平台上，如果你移动了，可能就不算作答案了，所以请记住这一点。继续努力！");
+                                    cm.sendNext("看来你们还没准备好。请让队伍中的 5 名成员分别站上绳子或平台。请确保正好有 5 个人站位，并且在确认时不要随意移动。继续加油！");
                                 } else {
-                                    cm.sendNext("看起来你们还没有找到这个试炼的方法。考虑一下在不同平台上安排队伍成员的方式。记住，只允许有5个人站在平台上，如果你移动了，可能就不算作答案了，所以请记住这一点。继续努力！");
+                                    cm.sendNext("看来你们还没准备好。请让队伍中的 5 名成员分别站上 9 个平台中的 5 个。请确保正好有 5 个人站位，并且在确认时不要随意移动。继续加油！");
                                 }
 
                                 cm.dispose();
                             }
                         } else {
-                            cm.sendNext("在尝试组合之前先击败所有的怪物。");
+                            cm.sendNext("在尝试解谜组合前，请先消灭地图中所有的怪物！");
                         }
                     }
                 }
             } else {
-                cm.sendNext("请告诉你的#b队伍领袖#k来找我谈话。");
+                cm.sendNext("请让你们的 #b队长#k 前来与我对话。");
             }
         }
 

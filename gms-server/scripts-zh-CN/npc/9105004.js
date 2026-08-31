@@ -75,7 +75,7 @@ function recruitPqAction(mode, type, selection) {
     } else if (status == 1) {
         if (selection == 0) {
             if (cm.getParty() == null) {
-                cm.sendOk("只有当你加入一个队伍时，你才能参加派对任务。");
+                cm.sendOk("只有当你加入一个队伍时，你才能参加组队任务。");
                 cm.dispose();
             } else if (!cm.isLeader()) {
                 cm.sendOk("你的队长必须与我交谈才能开始这个组队任务。");

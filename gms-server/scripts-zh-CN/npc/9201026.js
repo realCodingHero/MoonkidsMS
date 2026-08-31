@@ -67,13 +67,13 @@ function processNanaQuest() {
             cm.gainItem(questItems[nanaLoc], -50);
             cm.gainItem(4031367 + nanaLoc, 1);
 
-            cm.sendOk("咿呀~ 非常感谢，这里拿着 #b#t4031367##k。");
+            cm.sendOk("哇~ 太感谢你了！请收下这枚 #b#t" + (4031367 + nanaLoc) + "##k。");
             return true;
         } else {
-            cm.sendOk("请确保有一个空余的杂项栏位来存放爱之令。");
+            cm.sendOk("请确保你的其它栏至少有 1 个空位来存放爱心信物。");
         }
     } else {
-        cm.sendOk("请聚集到我这里，带着 #b50 #t" + questItems[nanaLoc] + "##k。");
+        cm.sendOk("请帮我收集 #b50 个 #t" + questItems[nanaLoc] + "##k 拿来给我吧。");
     }
 
     return false;
@@ -115,7 +115,7 @@ function action(mode, type, selection) {
             if (!cm.haveItem(4031367 + nanaLoc, 1)) {
                 if (cm.isQuestCompleted(100401 + nanaLoc)) {
                     state = 1;
-                    cm.sendAcceptDecline("Did you lost the #k#t4031367##k I gave to you? Well, I can share another one with you, but you will need to redo the favor I asked last time, is that ok? I need you to bring me #r50 #t" + questItems[nanaLoc] + "#'s.#k");
+                    cm.sendAcceptDecline("你把你之前得到的 #k#t" + (4031367 + nanaLoc) + "##k 弄丢了吗？好吧，我可以再给你补发一枚，不过你需要再帮我一个小忙，可以吗？请帮我收集 #r50 个 #t" + questItems[nanaLoc] + "##k。");
                 } else if (cm.isQuestStarted(100401 + nanaLoc)) {
                     if (processNanaQuest()) {
                         cm.gainExp(questExp[nanaLoc] * cm.getPlayer().getExpRate());
@@ -125,17 +125,17 @@ function action(mode, type, selection) {
                     cm.dispose();
                 } else {
                     state = 0;
-                    cm.sendAcceptDecline("Are you searching for #k#t4031367#'s#k? I can share one with you, but you must do a favor for me, is that ok?");
+                    cm.sendAcceptDecline("你正在寻找 #k#t" + (4031367 + nanaLoc) + "##k 吗？我可以赠送你一枚，不过你得先帮我一个小忙，愿意帮我吗？");
                 }
             } else {
-                cm.sendOk("嘿，你好。你已经从其他娜娜那里得到了#t4031367#了吗？");
+                cm.sendOk("你好呀！你已经拿到了我这里的信物了。你从其他地区的娜娜那里收集到足够的 #b#t4031367##k 了吗？");
                 cm.dispose();
             }
         } else if (status == 1) {
             if (state == 0) {
                 cm.startQuest(100401 + nanaLoc);
 
-                cm.sendOk("我需要你收集 #r50 #t" + questItems[nanaLoc] + "##k.");
+                cm.sendOk("那就拜托你帮我收集 #r50 个 #t" + questItems[nanaLoc] + "##k 啦！");
                 cm.dispose();
             } else {
                 processNanaQuest();

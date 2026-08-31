@@ -5,7 +5,7 @@
                Jan Christian Meyer <vimes@odinms.de>
 
     This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License as
+    it under the terms of the GNU标识 Affero General Public License as
     published by the Free Software Foundation version 3 as published by
     the Free Software Foundation. You may not use, modify or distribute
     this program under any other version of the GNU Affero General Public
@@ -55,8 +55,8 @@ function action(mode, type, selection) {
                     cm.gainItem(4001131, -1);
                     eim.setIntProperty("npcShocked", 1);
 
-                    cm.sendNext("哦？你给我信？像这样的时候，应该是什么…… 哇！伙计们，有大事发生了。集合起来，从现在开始，事情会比以往更加艰难！");
-                    eim.dropMessage(6, "Romeo seemed very much in shock after reading Juliet's Letter.");
+                    cm.sendNext("咦？你递给我一封信？这种时候送来的会是什么……啊！天哪，出大事了！大家快集中过来，从现在开始，情况会变得极其严峻！");
+                    eim.dropMessage(6, "罗密欧读完朱丽叶的信后显得非常震惊。");
 
                     cm.dispose();
 
@@ -64,10 +64,10 @@ function action(mode, type, selection) {
                     var door = cm.getMap().getReactorByName("rnj3_out3");
 
                     if (door.getState() == 0) {
-                        cm.sendNext("让我为你开门。");
+                        cm.sendNext("让我为你打开大门。");
                         door.hitReactor(cm.getClient());
                     } else {
-                        cm.sendNext("请快点，朱丽叶有麻烦了。");
+                        cm.sendNext("请快一点，朱丽叶现在很危险！");
                     }
 
                     cm.dispose();
@@ -76,7 +76,7 @@ function action(mode, type, selection) {
                     if (cm.isEventLeader()) {
                         cm.gainItem(4001134, -1);
                         cm.gainItem(4001135, -1);
-                        cm.sendNext("太好了！你手头上有艾尔卡德诺和泽尼玛斯特的文件。现在我们可以继续了。");
+                        cm.sendNext("太好了！你找到了蒙特鸠与卡帕莱特的研究文件。现在我们可以继续前进了。");
 
                         eim.showClearEffect();
                         eim.giveEventPlayersStageReward(4);
@@ -85,13 +85,13 @@ function action(mode, type, selection) {
                         cm.getMap().killAllMonsters();
                         cm.getMap().getReactorByName("rnj3_out3").hitReactor(cm.getClient());
                     } else {
-                        cm.sendOk("请让你们的领导把文件传给我。");
+                        cm.sendOk("请让你们的队长把文件交给我。");
                     }
 
                     cm.dispose();
 
                 } else {
-                    cm.sendYesNo("我们必须继续战斗，拯救朱丽叶，请保持你的速度。如果你感觉不太好，无法继续，你的同伴和我都会理解……那么，你打算撤退吗？");
+                    cm.sendYesNo("为了拯救朱丽叶，我们必须继续前进。如果你感觉状态不佳无法继续，大家都能理解……那么，你现在打算离开吗？");
                 }
             } else {
                 cm.warp(926100700, 0);
@@ -100,13 +100,13 @@ function action(mode, type, selection) {
         } else {
             if (status == 0) {
                 if (eim.getIntProperty("escortFail") == 0) {
-                    cm.sendNext("最终，朱丽叶安全了！多亏了你的努力，我们成功将她从尤利特的魔掌中解救出来，尤利特现在将因为反抗马加提亚而受到审判。从现在开始，他将开始接受康复治疗，我们将密切关注他的努力，确保他将不再在未来制造麻烦。");
+                    cm.sendNext("太好了，朱丽叶终于安全了！多亏了大家的英勇奋战，我们才成功将她从尤莱特的魔爪中解救出来。尤莱特将为他背叛玛加提亚的罪行接受审判。之后他会接受看管与治疗，我们会密切监视他，确保他以后不再惹事生非。");
                 } else {
-                    cm.sendNext("朱丽叶现在安全了，尽管战斗对她造成了一定的伤害……多亏了你们的努力，我们才能将她从尤利特的魔爪中解救出来，尤利特现在将因其反抗马加提亚而受到审判。谢谢你。");
+                    cm.sendNext("朱丽叶现在安全了，虽然在战斗中受了些伤……多亏了大家的奋力救援，我们才能将她从尤莱特的魔爪中解救出来。尤莱特将因背叛玛加提亚而接受审判。真诚地感谢大家。");
                     status = 2;
                 }
             } else if (status == 1) {
-                cm.sendNext("现在，请将这份礼物视为我们对你的感激之情的接受表示。");
+                cm.sendNext("请收下这份礼物，作为我们对你的由衷感谢。");
             } else if (status == 2) {
                 if (cm.canHold(4001159)) {
                     cm.gainItem(4001159, 1);
@@ -117,7 +117,7 @@ function action(mode, type, selection) {
                         cm.warp(926100500, 0);
                     }
                 } else {
-                    cm.sendOk("确保你的杂项物品栏有空间。");
+                    cm.sendOk("请检查背包的其它栏是否有足够的空位。");
                 }
 
                 cm.dispose();

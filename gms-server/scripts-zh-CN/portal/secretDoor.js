@@ -34,7 +34,7 @@ function enter(pi) {
              pi.openNpc(2111024, "MagatiaPassword");
              return false;
          } else {
-         pi.message("门锁住了.");
-         return false;
+          pi.message("门被锁住了。");
+          return false;
      }
 }

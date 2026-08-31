@@ -175,46 +175,46 @@ function start() {
 
 function action(mode, type, selection) {
     if (mode <= 0) {
-        cm.sendOk("嗯...这对你来说不应该是个坏交易。在合适的时间来找我，你可能会得到一个更好的物品。无论如何，当你改变主意的时候告诉我。");
+        cm.sendOk("嗯……这对你来说应该不是笔亏本买卖。挑个好时机再来找我，说不定能换到更好的宝贝呢。要是改变主意了随时来找我。");
         cm.dispose();
         return;
     }
 
     status++;
     if (status == 0) { // first interaction with NPC
-        cm.sendNext("嘿，有点时间吗？嗯，我的工作是在这里收集物品然后在其他地方出售，但最近怪物变得更加敌对，所以很难得到好的物品…… 你觉得呢？想和我做点生意吗？");
+        cm.sendNext("嘿，有空吗？我的工作就是在这里收集各种物品然后拿到别处去卖，不过最近周围的怪物越来越凶暴，收集材料也变得困难重重……怎么样？想跟我做笔交易吗？");
     } else if (status == 1) {
-        cm.sendYesNo("这个交易很简单。你给我我需要的东西，我给你你需要的东西。问题是，我和很多人打交道，所以我能提供的物品可能每次见到我的时候都会改变。你觉得怎么样？还想做吗？");
+        cm.sendYesNo("交易很简单：你给我我需要的东西，我就给你你想要的好货。不过呢，我和很多人做生意，所以能提供的交换物品每次都可能会有变化。怎么样？准备好交易了吗？");
     } else if (status == 2) {
         var eQuestChoice = makeChoices(eQuestChoices);
         cm.sendSimple(eQuestChoice);
     } else if (status == 3) {
         lastSelection = selection;
         requiredItem = eQuestChoices[selection];
-        cm.sendYesNo("让我看看，你想用我的东西交换你的#b100#t" + requiredItem + "##k对吧？在交易之前，请确保你的消耗品或其他物品栏有空位。现在，你想和我交易吗？");
+        cm.sendYesNo("让我看看……你想用 #b100个 #t" + requiredItem + "##k 来和我交换，对吧？交易前请确认你的背包有足够的空位。现在开始交换吗？");
     } else if (status == 4) {
         itemSet = (Math.floor(Math.random() * eQuestPrizes[lastSelection].length));
         reward = eQuestPrizes[lastSelection];
         prizeItem = reward[itemSet][0];
         prizeQuantity = reward[itemSet][1];
         if (!cm.haveItem(requiredItem, 100)) {
-            cm.sendOk("嗯... 你确定你有 #b100 #t" + requiredItem + "##k 吗？如果是的话，请检查一下你的物品栏是否已满。");
+            cm.sendOk("嗯？你确定带齐了 #b100个 #t" + requiredItem + "##k 吗？如果确实带了，请检查一下背包空间是否已满。");
         } else if (prizeItem <= 0 || prizeQuantity <= 0) {
             cm.sendOk("奇怪……我这边的交易清单好像出了点问题。你先稍等一下，晚点再来找我交易吧。");
         } else if (!cm.canHold(prizeItem, prizeQuantity, requiredItem, 100)) {
-            cm.sendOk("你的使用等等物品栏似乎已经满了。你需要腾出空间才能和我交易！清理一下，然后找到我。");
+            cm.sendOk("你的消耗栏或其他栏空间不足。你需要整理出足够的空位才能和我交易！整理好后再来找我吧。");
         } else {
             cm.gainItem(requiredItem, -100);
             cm.gainExp(500 * cm.getPlayer().getExpRate());
             cm.gainItem(prizeItem, prizeQuantity);
-            cm.sendOk("对于你的#b100 #t" + requiredItem + "##k，这里是我的#b" + prizeQuantity + " #t" + prizeItem + "##k。你觉得怎么样？你喜欢我给你的物品吗？我打算在这里待一段时间，所以如果你收集到更多物品，我随时可以交易…");
+            cm.sendOk("这是用你的 #b100个 #t" + requiredItem + "##k 换来的 #b" + prizeQuantity + "个 #t" + prizeItem + "##k。怎么样？对换到的东西还满意吗？我还会在这里待上一阵子，如果你又收集到了材料，随时欢迎再来找我交换！");
         }
         cm.dispose();
     }
 }
 
 function makeChoices(a) {
-    var result = "Ok! First you need to choose the item that you'll trade with. The better the item, the more likely the chance that I'll give you something much nicer in return.\r\n";
+    var result = "好！首先请选择你想用来交易的物品。越稀有的物品，换到好东西的几率就越高哦！\r\n";
     for (var x = 0; x < a.length; x++) {
         result += " #L" + x + "##v" + a[x] + "#  #t" + a[x] + "##l\r\n";
     }

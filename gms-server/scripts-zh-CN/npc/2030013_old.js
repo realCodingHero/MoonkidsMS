@@ -32,7 +32,6 @@ var minLevel = 50;
 var state;
 var maxPlayers = 30;
 
-
 function start() {
     status = -1;
     action(1, 0, 0);
@@ -54,30 +53,29 @@ function action(mode, type, selection) {
         if (status == 0) {
             if ((cm.getPlayer().getLevel() < minLevel)) {
                 cm.warp(211042300);
-                cm.sendOk("请在你准备好战斗的时候再回来。你现在不应该在这里。");
+                cm.sendOk("请在你做好万全准备之后再来。以你现在的实力，这里还不是你该涉足的地方。");
                 cm.dispose();
                 return;
             }
-            cm.sendSimple("开始打败扎昆的战斗就在这里。你想做什么？#b\r\n#L0#开始新的扎昆战斗#l\r\n#L1#加入你的团队的扎昆战斗#l");
+            cm.sendSimple("挑战魔神扎昆的决战入口就在眼前。你想做什么？#b\r\n#L0#创建新的扎昆远征战局#l\r\n#L1#加入已创建的扎昆远征战局#l");
         } else if (status == 1) {
             state = selection;
             if (selection == 0) {
-                cm.sendGetText("为了开始挑战扎昆，你需要为队伍的战斗副本指定一个名称。  This is the password that lets your members join, so tell it to everybody who wants to participate in the battle.");
+                cm.sendGetText("为了开启扎昆挑战，请为本次战斗副本设置一个专属房间名称（或密码）。其他想要参与本次战斗的队员需要输入相同的名称才能进入，请将该名称告知你的队员们。");
             } else if (selection == 1) {
-                cm.sendGetText("In order to join a Zakum Battle, you need to enter the password.  If you don't know what it is, please ask the person leading the battle.");
+                cm.sendGetText("若要加入已创建的扎昆远征战局，请输入对应的房间名称（密码）。如果不清楚名称，请向带领本次战斗的队长询问。");
             }
 
         } else if (status == 2) {
             var em = cm.getEventManager("ZakumBattle");
             var passwd = cm.getText();
             if (em == null) {
-                cm.sendOk("这个试炼目前正在建设中。");
+                cm.sendOk("这个试炼目前正在维护中。");
             } else {
                 if (state == 0) { // Leader
                     if (getEimForString(em, passwd) != null) {
-                        cm.sendOk("你不能使用那个密码。");
+                        cm.sendOk("该房间名称（密码）已被占用，请换一个重试。");
                     } else { // start Zakum Battle
-                        //var em = cm.getEventManager("Zakum" + passwd);
                         if (!em.startInstance(cm.getPlayer())) {
                             cm.sendOk("该副本中已经有一个队伍注册了。");
                         }

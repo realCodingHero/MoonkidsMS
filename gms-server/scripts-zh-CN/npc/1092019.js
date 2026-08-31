@@ -38,7 +38,7 @@ var status;
 
 var seagullProgress;
 var seagullIdx = -1;
-var seagullQuestion = ["One day, I went to the ocean and caught 62 Octopi for dinner. But then some kid came by and gave me 10 Octopi as a gift! How many Octopi do I have then, in total?"];
+var seagullQuestion = ["有一天，我去海边抓了62只章鱼准备当晚餐。后来有个小孩跑过来送了我10只章鱼作为礼物！请问我现在一共有多少只章鱼？"];
 var seagullAnswer = ["72"];
 
 function start() {
@@ -71,34 +71,34 @@ function action(mode, type, selection) {
                     seagullIdx = Math.floor(Math.random() * seagullQuestion.length);
 
                     // string visibility thanks to ProXAIMeRx & Glvelturall
-                    cm.sendNext("好的！我现在就给你第一个问题！你最好准备好，因为这个问题很难。甚至这里的海鸥都觉得这个问题相当棘手。这是一个相当困难的问题。");
+                    cm.sendNext("很好！现在出第一道题！你最好做好心理准备，因为这道题非常难，连我们海鸥一族都觉得十分棘手！");
                 } else if (seagullProgress == 1) {
-                    cm.sendNext("现在~让我们继续下一个问题。这个问题真的很难。我要让巴特来帮我。你认识巴特，对吧？");
+                    cm.sendNext("很好~ 接下来进入下一个测试。这次的考验难度更高，我要请巴特来帮我。你认识巴特对吧？");
                 } else {
-                    cm.sendNext("哦！哇，这真是令人印象深刻！我认为我的考验相当困难，而你竟然通过了……你确实是海盗家族中不可或缺的一员，也是海鸥的朋友。我们现在因着持久的友谊而结为知己！最重要的是，朋友就是在你陷入困境时伸出援手的。如果你遇到紧急情况，就呼唤我们海鸥吧。");
+                    cm.sendNext("哇！太令人惊叹了！我的考验如此严苛，你竟然全部通过了……你确实是名副其实的优秀海盗，也是海鸥们最好的朋友！从今往后我们就是同生共死的伙伴了！朋友有难必定拔刀相助，若遇到紧急危机，随时呼唤我们海鸥吧！");
                 }
             }
         } else if (status == 1) {
             if (seagullProgress == 0) {
                 cm.sendGetText(seagullQuestion[seagullIdx]);
             } else if (seagullProgress == 1) {
-                cm.sendNextPrev("我要把你送到尼奥之舟的一个空房间里。你会在那里看到9个巴特。哈哈哈~他们是双胞胎吗？不，不，当然不是。我在这个意志测试中使用了一点魔法。");
+                cm.sendNextPrev("我会把你送到诺特勒斯号的一个独立房间里。在那里你会看到9个巴特。哈哈哈~ 难道他们是九胞胎吗？当然不是啦，这是我为了测试你的洞察力而施加的一点小魔法。");
             } else {
-                cm.sendNextPrev("使用技能空袭通知我们，我们会前来帮助你，因为这就是朋友之间的互助。 #s5221003# #b#q5221003##k");
+                cm.sendNextPrev("使用技能【#q5221003#】召唤我们，海鸥大队会立刻赶来支援你！这就是伙伴之间的羁绊！\r\n\r\n  #s5221003# #b#q5221003##k");
             }
         } else if (status == 2) {
             if (seagullIdx > -1) {
                 var answer = cm.getText();
                 if (answer == seagullAnswer[seagullIdx]) {
-                    cm.sendNext("什么！我简直不敢相信你有多聪明！不可思议！在海鸥世界里，这种智慧会让你获得博士学位，甚至更多。你真是太了不起了……我简直不敢相信……我简直不敢相信！");
+                    cm.sendNext("什么？！竟然答对了！天哪，你太聪明了！在海鸥的世界里，凭你的智商绝对能拿到博士学位！太不可思议了……你真是个天才！");
                     cm.setQuestProgress(6400, 1, 1);
                     cm.dispose();
                 } else {
-                    cm.sendOk("嗯，那不太符合我的记忆。再试一次吧！");
+                    cm.sendOk("嗯……答案好像不对哦，跟我记忆中的数字不符。重新算一下再来试试吧！");
                     cm.dispose();
                 }
             } else if (seagullProgress != 2) {
-                cm.sendNextPrev("无论如何，9个巴特斯中只有一个是真正的巴特。你知道海盗以他们与其他海盗的友谊和同伴关系而闻名。如果你是一个真正的海盗，你应该能够轻松地找到自己的伙伴。好了，那么我会把你送到巴特所在的房间。");
+                cm.sendNextPrev("在这9个巴特中，只有一个是真正的巴特。真正的海盗凭借敏锐的直觉和深厚的羁绊，一定能一眼认出自己的伙伴。如果你是真正的海盗，找出他应该轻而易举吧？准备好了吗，我现在就把你送过去！");
             } else {
                 //cm.gainExp(1000000);
                 //cm.teachSkill(5221003, 0, 10, -1);
@@ -110,7 +110,7 @@ function action(mode, type, selection) {
         } else if (status == 3) {
             var em = cm.getEventManager("4jaerial");
             if (!em.startInstance(cm.getPlayer())) {
-                cm.sendOk("另一个玩家已经在这个频道挑战测试了。请尝试其他频道，或者等待当前玩家完成。");
+                cm.sendOk("当前频道的测试考场已有其他玩家正在挑战，请更换频道或稍后再试。");
             }
 
             cm.dispose();

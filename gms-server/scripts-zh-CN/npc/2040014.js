@@ -45,7 +45,7 @@ var costSet = [10000, 25000, 25000, 25000, 25000, 25000, 25000];
 
 function start() {
     cm.getPlayer().setCS(true);
-    var selStr = "Hey there! My name is #p2040014#, and I am a specialist in mini-games. What kind of mini-game you want me to make? #b"
+    var selStr = "嗨！我是 #p2040014#，玩具城最棒的小游戏道具制作专家。你想要制作哪种小游戏道具呢？#b";
     var options = ["#i4080100# #t4080100#", "#i4080006# #t4080006#", "#i4080007# #t4080007#", "#i4080008# #t4080008#", "#i4080009# #t4080009#", "#i4080010# #t4080010#", "#i4080011# #t4080011#"];
     for (var i = 0; i < options.length; i++) {
         selStr += "\r\n#L" + i + "# " + options[i] + "#l";
@@ -68,13 +68,7 @@ function action(mode, type, selection) {
         cost = costSet[selectedItem];
         qty = 1;
 
-        var prompt = "So we are going for ";
-        if (qty == 1) {
-            prompt += "a #t" + item + "#";
-        } else {
-            prompt += qty + " #t" + item + "#";
-        }
-        prompt += ", right? In that case, I'm going to need specific items from you in order to make it. Make sure you have room in your inventory, though!#b";
+        var prompt = "你想制作 #b#t" + item + "##k 对吧？制作该小游戏道具需要以下材料。制作前请确保你的背包有足够的空位哦！#b";
         if (mats instanceof Array) {
             for (var i = 0; i < mats.length; i++) {
                 prompt += "\r\n#i" + mats[i] + "# " + (matQty[i] * qty) + " #t" + mats[i] + "#";
@@ -83,14 +77,14 @@ function action(mode, type, selection) {
             prompt += "\r\n#i" + mats + "# " + (matQty * qty) + " #t" + mats + "#";
         }
         if (cost > 0) {
-            prompt += "\r\n#i4031138# " + (cost * qty) + " meso";
+            prompt += "\r\n#i4031138# " + (cost * qty) + " 金币";
         }
         cm.sendYesNo(prompt);
     } else if (status == 1) {
         var complete = true;
 
         if (cm.getMeso() < (cost * qty)) {
-            cm.sendOk("看，我需要明确我的工资来支持我的职业生涯，这是不能绕过的。一旦你有了钱，我会很乐意帮助你。");
+            cm.sendOk("制作小游戏道具需要收取手工费。等你带够了金币，随时欢迎来找我。");
             cm.dispose();
             return;
         } else {
@@ -105,7 +99,7 @@ function action(mode, type, selection) {
             }
         }
         if (!complete) {
-            cm.sendOk("您缺少了一些用于制作套装的物品。请提供它们，以便我们可以组装游戏套装。");
+            cm.sendOk("你带来的制作材料好像不够呢。请收集齐所有材料后再来找我吧。");
         } else {
             if (cm.canHold(item, qty)) {
                 if (mats instanceof Array) {
@@ -118,9 +112,9 @@ function action(mode, type, selection) {
                 cm.gainMeso(-(cost * qty));
 
                 cm.gainItem(item, qty);
-                cm.sendOk("这是你的游戏设置。玩得开心！");
+                cm.sendOk("做好了！这是你的 #b#t" + item + "##k，祝你和小伙伴们玩得开心！");
             } else {
-                cm.sendOk("如果你的杂项物品栏没有空间，我就无法为你制作套装。请先腾出空间，然后再和我交谈。");
+                cm.sendOk("你的背包空间不足，无法放入新的游戏道具。请先清理出空位后再来和我交谈。");
             }
         }
 

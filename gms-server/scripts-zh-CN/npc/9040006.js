@@ -75,7 +75,7 @@ function start() {
                             //cm.playerMessage("Results - Correct: " + results[0] + " | Incorrect: " + results[1] + " | Unknown: " + results[2]);
                             if (correct != 0) {
                                 if (correct == 1) {
-                                    string += "1 vassal is pleased with their offering.\r\n";
+                                    string += "有 1 位封臣对供奉的祭品感到满意。\r\n";
                                 } else {
                                     string += correct + " vassals are pleased with their offerings.\r\n";
                                 }

@@ -4,7 +4,7 @@ var cost = [1000, 1000, 1000, 800, 1000];
 var selectedMap = -1;
 
 function start() {
-    cm.sendNext("你好，我是驾驶诺特勒斯中型出租车的司机。如果你想安全快速地从一个城镇到另一个城镇，那就乘坐我们的出租车吧。我们很乐意以实惠的价格带你到达目的地。");
+    cm.sendNext("你好！我是诺特勒斯中型出租车司机。如果你想快速安全地前往其他城镇，请乘坐我们的出租车吧！我们将以实惠的价格将你送达目的地。");
 }
 
 function action(mode, type, selection) {
@@ -15,7 +15,7 @@ function action(mode, type, selection) {
             cm.dispose();
             return;
         } else if (status >= 2 && mode == 0) {
-            cm.sendNext("这个城镇有很多值得一看的地方。当你需要去另一个城镇的时候，回来找我们吧。");
+            cm.sendNext("诺特勒斯还有很多值得探索的地方呢。如果你需要前往其他城镇，随时来找我吧！");
             cm.dispose();
             return;
         }
@@ -27,15 +27,15 @@ function action(mode, type, selection) {
         if (status == 1) {
             var selStr = "";
             if (cm.getJobId() == 0) {
-                selStr += "我们对新手冒险家提供1折特别优惠。";
+                selStr += "我们对新手玩家提供90%的特别折扣优惠。";
             }
-            selStr += "请选择你的目的地，不同地点的费用会有所不同。#b";
+            selStr += "请选择你想前往的目的地。根据路程远近，费用会有所不同。#b";
             for (var i = 0; i < maps.length; i++) {
-                selStr += "\r\n#L" + i + "##m" + maps[i] + "# (" + (cm.getJobId() == 0 ? cost[i] / 10 : cost[i]) + " mesos)#l";
+                selStr += "\r\n#L" + i + "##m" + maps[i] + "# (" + (cm.getJobId() == 0 ? cost[i] / 10 : cost[i]) + " 金币)#l";
             }
             cm.sendSimple(selStr);
         } else if (status == 2) {
-            cm.sendYesNo("你在这里没有其他事情要做了，是吗？你真的想去#b#m" + maps[selection] + "##k吗？这将花费你#b" + (cm.getJobId() == 0 ? cost[selection] / 10 : cost[selection]) + "金币#k。");
+            cm.sendYesNo("你确定要前往 #b#m" + maps[selection] + "##k 吗？本次车费为 #b" + (cm.getJobId() == 0 ? cost[selection] / 10 : cost[selection]) + " 金币#k。");
             selectedMap = selection;
         } else if (status == 3) {
             if (cm.getJobId() == 0) {
@@ -45,7 +45,7 @@ function action(mode, type, selection) {
             }
 
             if (cm.getMeso() < mesos) {
-                cm.sendNext("你没有足够的金币。很抱歉，但没有金币的话，你将无法搭乘出租车。");
+                cm.sendNext("看起来你的金币不够呢。很抱歉，金币不足无法乘坐出租车。");
                 cm.dispose();
                 return;
             }

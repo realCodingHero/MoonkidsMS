@@ -59,11 +59,11 @@ function action(mode, type, selection) {
         }
 
         if (status == 0) {
-            cm.sendSimple("嗨，我是#p1012117#，最迷人、最时尚的造型师。如果你正在寻找最漂亮的发型，那就不用再找了！\r\n#L0##i5150040##t5150040##l\r\n#L1##i5150044##t5150044##l");
+            cm.sendSimple("嗨！我是#p1012117#，最迷人、最时尚的发型设计师！如果你想换一个帅气亮丽的发型，找我就对了！\r\n#L0##i5150040##t5150040##l\r\n#L1##i5150044##t5150044##l");
         } else if (status == 1) {
             if (selection == 0) {
                 beauty = 1;
-                cm.sendYesNo("如果你使用这张普通优惠券，你的头发可能会变成一个随机的新造型……你还想用 #b#t5150040##k 来做吗？我会帮你做。但别忘了，结果会是随机的！");
+                cm.sendYesNo("如果使用普通会员卡，换出来的发型将是随机的……你确定要使用 #b#t5150040##k 吗？请记住，发型是随机生成的哦！");
             } else {
                 beauty = 2;
 
@@ -78,7 +78,7 @@ function action(mode, type, selection) {
                     }
                 }
 
-                cm.sendStyle("Using the SPECIAL coupon you can choose the style your hair will become. Pick the style that best provides you delight...", hairnew);
+                cm.sendStyle("使用高级美发卡，你可以自由挑选心仪的发型。请选择你最满意的一款吧……", hairnew);
             }
         } else if (status == 2) {
             if (beauty == 1) {
@@ -96,17 +96,17 @@ function action(mode, type, selection) {
 
                     cm.gainItem(5150040, -1);
                     cm.setHair(hairnew[Math.floor(Math.random() * hairnew.length)]);
-                    cm.sendOk("享受你的新发型吧！");
+                    cm.sendOk("新发型做好啦，感觉如何？非常适合你哦！");
                 } else {
-                    cm.sendOk("嗯...看起来你没有我们指定的优惠券...恐怕我不能给你理发。对不起...");
+                    cm.sendOk("嗯……看起来你没有我们指定的美发卡呢，恐怕我不能为你做头发。对不起……");
                 }
             } else if (beauty == 2) {
                 if (cm.haveItem(5150044) == true) {
                     cm.gainItem(5150044, -1);
                     cm.setHair(hairnew[selection]);
-                    cm.sendOk("享受你的新发型吧！");
+                    cm.sendOk("新发型做好啦，感觉如何？非常适合你哦！");
                 } else {
-                    cm.sendOk("嗯...看起来你没有我们指定的优惠券...恐怕我不能给你理发。对不起...");
+                    cm.sendOk("嗯……看起来你没有我们指定的美发卡呢，恐怕我不能为你做头发。对不起……");
                 }
             }
 

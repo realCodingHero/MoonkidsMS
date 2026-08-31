@@ -75,31 +75,31 @@ function action(mode, type, selection) {
         advance = true;
 
         if (status == 0) {
-            cm.sendNext("嗨，你好吗？既然你路过阿莫利亚，你听说过我哥哥阿莫斯主持的副本吗？这就是 #b阿莫利亚挑战#k，一个供40级以上玩家参与的副本。\r\n\r\n在那里，你可以找到 #i4031543# #i4031544# #i4031545# #b祝愿券#k，可以带到这里兑换奖品。");
+            cm.sendNext("嗨，你好啊！既然你来到了阿莫利亚，听说过我哥哥阿莫斯主持的组队任务吗？那就是 #b阿莫利亚组队任务（APQ）#k，专为40级以上的玩家准备的精彩挑战！\r\n\r\n在副本最后的奖励关卡中，你可以找到 #i4031543# #i4031544# #i4031545# #b许愿券#k，拿来我这里可以兑换各种丰厚的奖励哦！");
         } else if (status == 1) {
             var listStr = "";
             for (var i = 0; i < wishPrizes.length; i++) {
-                listStr += "#b#L" + i + "#" + wishPrizesQty[i] + " #z" + wishPrizes[i] + "##k";
-                listStr += " - " + wishPrizesCst[i] + " wish tickets";
+                listStr += "#b#L" + i + "#" + wishPrizesQty[i] + " 个 #z" + wishPrizes[i] + "##k";
+                listStr += " - " + wishPrizesCst[i] + " 张许愿券";
                 listStr += "#l\r\n";
             }
 
-            cm.sendSimple("您目前拥有#b" + amntTicket + " #i" + slctTicket + "# #t" + slctTicket + "##k。\r\n\r\n购买奖品：\r\n\r\n" + listStr);
+            cm.sendSimple("你当前拥有 #b" + amntTicket + " 张 #i" + slctTicket + "# #t" + slctTicket + "##k。\r\n\r\n请选择你想要兑换的奖励：\r\n\r\n" + listStr);
         } else if (status == 2) {
             sel = selection;
 
             if (amntTicket < wishPrizesCst[selection]) {
-                cm.sendPrev("You will need #b" + wishPrizesCst[selection] + " #t" + slctTicket + "##k to purchase that! If you want this, come back another time when you have all the tickets at hand.");
+                cm.sendPrev("兑换该奖励需要 #b" + wishPrizesCst[selection] + " 张 #t" + slctTicket + "##k！你手头的许愿券数量不够哦，等收集齐了再来找我吧。");
                 advance = false;
             } else {
-                cm.sendYesNo("您已选择#b" + wishPrizesQty[selection] + " #z" + wishPrizes[selection] + "##k，这将需要#b" + wishPrizesCst[selection] + " #t" + slctTicket + "##k。您要购买吗？");
+                cm.sendYesNo("你选择了兑换 #b#t" + wishPrizes[selection] + "# x" + wishPrizesQty[selection] + "#k，需要消耗 #b" + wishPrizesCst[selection] + " 张 #t" + slctTicket + "##k。确定要兑换吗？");
             }
         } else {
             if (cm.canHold(wishPrizes[sel], wishPrizesQty[sel])) {
                 cm.gainItem(wishPrizes[sel], wishPrizesQty[sel]);
                 cm.gainItem(slctTicket, -wishPrizesCst[sel]);
 
-                cm.sendOk("祝你一天愉快！");
+                cm.sendOk("兑换成功！祝你在枫之谷世界冒险愉快！");
             } else {
                 cm.sendOk("领取物品前，请确保您的背包有足够的空位。");
             }

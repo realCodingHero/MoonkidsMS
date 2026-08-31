@@ -38,7 +38,7 @@ function start() {
         return;
     }
 
-    cm.sendNext("嘿，你看起来好像想要继续前进，深入这个地方的更深处。不过，在那边，你会发现自己被攻击性强、危险的怪物包围，所以即使你觉得自己已经准备好了，也请小心。很久以前，我们镇上的一些勇敢的人进去想要消灭威胁镇上的任何人，但是从来没有回来过…");
+    cm.sendNext("嘿，你看起来似乎打算继续深入雪原更深处。不过我得提醒你，前面盘踞着异常凶猛危险的怪物，即使你觉得自己实力不俗，也千万不能掉以轻心。很久以前，我们村里的一些勇士为了消除对村庄的威胁进去了，但再也没有一个人能够活着回来……");
 }
 
 function action(mode, type, selection) {
@@ -46,7 +46,7 @@ function action(mode, type, selection) {
         cm.dispose();
     } else {
         if (status == 1 && mode == 0 && cm.getLevel() > 49) {
-            cm.sendNext("即使你的等级很高，实际上进去很难，但如果你改变主意了，请找我。毕竟，我的工作就是保护这个地方。");
+            cm.sendNext("即使你的实力很强，里面的危险也绝非儿戏。如果你改变主意做好了心理准备，随时再来找我。毕竟我的职责就是看守这里的关口。");
             cm.dispose();
             return;
         }
@@ -57,9 +57,9 @@ function action(mode, type, selection) {
         }
         if (status == 1) {
             if (cm.getLevel() > 49) {
-                cm.sendYesNo("如果你打算进去，我建议你改变主意。但如果你真的想进去……我只会让那些足够强大以在那里生存下来的人进去。我不希望看到其他人死去。让我看看……嗯……！你看起来相当强壮。好吧，你想进去吗？");
+                cm.sendYesNo("如果你打算进去，我劝你最好还是打消这个念头。但如果你执意要去……我只放那些有能力在里面活下来的真正勇士进去。我不希望再看到有人白白送命。让我瞧瞧……嗯！你看起来确实相当精悍强壮。怎么样，你真的下定决心要进去吗？");
             } else {
-                cm.sendPrev("If you are thinking of going in, I suggest you change your mind. But if you really want to go in... I'm only letting in the ones that are strong enough to stay alive in there. I do not wish to see anyone else die. Let's see... Hmmm... You haven't reached Level 50 yet. I can't let you in, then, so forget it.");
+                cm.sendPrev("如果你打算进去，我劝你最好还是打消这个念头。但我只放那些有能力在里面活下来的勇士进去。我不希望再看到有人白白送命。让我瞧瞧……嗯……你还没有达到 #b50级#k 呢。以你现在的实力进去必死无疑，我绝不能放你通行，快回去吧！");
             }
         } else if (status == 2) {
             if (cm.getLevel() >= 50) {

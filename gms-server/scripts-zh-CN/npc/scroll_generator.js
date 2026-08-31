@@ -74,9 +74,9 @@ function action(mode, type, selection) {
             //print("Book: " + sgBookBuckets + " Item: " + sgItemBuckets);
 
             if (sgItemBuckets > 0.0) {
-                sendStr = "With the items you have currently placed, you have #r" + sgBuckets + "#k buckets (#r" + (sgItemBuckets < 1.0 ? sgItemBuckets.toFixed(2) : Math.floor(sgItemBuckets)) + "#k supply buckets) for claiming a prize. Place supplies:";
+                sendStr = "根据您当前放置的材料，合成为目标卷轴的成功率为 #r" + sgBuckets + "#k buckets (#r" + (sgItemBuckets < 1.0 ? sgItemBuckets.toFixed(2) : Math.floor(sgItemBuckets)) + "#k supply buckets) for claiming a prize. Place supplies:";
             } else {
-                sendStr = "You have placed no supplies yet. Place supplies:";
+                sendStr = "您尚未放置任何合成材料。请放入材料：";
             }
 
             var listStr = "";
@@ -99,7 +99,7 @@ function action(mode, type, selection) {
         } else if (status == 2) {
             if (selection == (sgItems.length + 2)) {
                 if (sgItemBuckets < 1.0) {
-                    cm.sendPrev("You have set not enough supplies. Insert at least one bucket of #bsupplies#k to claim a prize.");
+                    cm.sendPrev("放置的材料数量不足。请至少投入1份 #b合成材料#k 以进行合成。 claim a prize.");
                 } else {
                     generateRandomScroll();
                     cm.dispose();
@@ -131,7 +131,7 @@ function action(mode, type, selection) {
                 }
 
                 if (placedQty > curItemQty) {
-                    cm.sendPrev("You cannot insert the given amount of #r" + (curItemSel < sgItems.length ? "#t" + sgItems[curItemSel] + "#" : "mesos") + "#k (#r" + curItemQty + "#k available). Click '#rBack#k' to return to the main interface.");
+                    cm.sendPrev("您无法投入指定数量的 #r" + (curItemSel < sgItems.length ? "#t" + sgItems[curItemSel] + "#" : "mesos") + "#k (#r" + curItemQty + "#k available). Click '#rBack#k' to return to the main interface.");
                 } else {
                     if (curItemSel < sgItems.length) {
                         sgApplyItem(curItemSel, placedQty);

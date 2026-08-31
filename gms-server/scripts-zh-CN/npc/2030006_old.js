@@ -1,5 +1,5 @@
 /*
-	This file is part of the OdinMS Maple Story Server
+	This file is part of the OdinMS MapleStory Server
     Copyright (C) 2008 Patrick Huy <patrick.huy@frz.cc>
 		       Matthias Butz <matze@odinms.de>
 		       Jan Christian Meyer <vimes@odinms.de>
@@ -20,8 +20,13 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 status = -1;
-//Need more questions.
-quest = ["Which of these NPC's will you NOT see at Ellinia of Victoria Island#b\r\n#L0#Shane\r\n#L1#Francois\r\n#L2#Grendel the Really Old\r\n#L3#Arwen the Fairy\r\n#L4#Roel", "Which of these monsters will you NOT be facing at Ossyria...?#b\r\n#L0#White Fang\r\n#L1#Croco\r\n#L2#Yeti\r\n#L3#Lycanthrope\r\n#L4#Luster Pixie", "Which of these monsters have the highest level...?#b\r\n#L0#Octopus\r\n#L1#Ribbon Pig\r\n#L2#Green Mushroom\r\n#L3#Axe Stump\r\n#L4#Bubbling", "In MapleStory, which of these pairings of potion/results doesn't match...?#b\r\n#L0#Holy Water - Recover from the state of being cursed or sealed up.\r\n#L1#Sunrise Dew - Recover MP 3000\r\n#L2#Hamburger - Recover HP 400\r\n#L3#Salad - Recover MP 200\r\n#L4#Blue Potion - Recover MP 100", "Which of these NPC's have NOTHING to do with pets...?#b\r\n#L0#Cloy\r\n#L1#Mar the Fairy\r\n#L2#Trainer Frod\r\n#L3#Vicious\r\n#L4#Doofus"];
+quest = [
+    "在金银岛魔法密林看不到的NPC是？#b\r\n#L0#赛恩\r\n#L1#妖精弗朗索瓦\r\n#L2#汉斯\r\n#L3#妖精艾温\r\n#L4#露尔",
+    "以下哪种怪物不会在神秘岛出现？#b\r\n#L0#白狼\r\n#L1#鳄鱼\r\n#L2#雪人\r\n#L3#狼人\r\n#L4#月光精灵",
+    "以下哪种怪物的等级最高？#b\r\n#L0#三眼章鱼\r\n#L1#漂漂猪\r\n#L2#绿蘑菇\r\n#L3#斧木妖\r\n#L4#蓝水灵",
+    "在冒险岛中，哪组药水与效果是不匹配的？#b\r\n#L0#圣水 - 解除诅咒和封印状态\r\n#L1#清晨之露 - 恢复 3000 MP\r\n#L2#汉堡包 - 恢复 400 HP\r\n#L3#沙拉 - 恢复 200 MP\r\n#L4#蓝色药水 - 恢复 100 MP",
+    "以下哪个NPC与宠物完全无关？#b\r\n#L0#科洛伊\r\n#L1#妖精玛尔\r\n#L2#训练师巴特斯\r\n#L3#比休斯\r\n#L4#杜布斯"
+];
 ans = [4, 1, 3, 1, 3];
 rand = parseInt(Math.random() * quest.length);
 
@@ -29,13 +34,13 @@ function start() {
     if (cm.getPlayer().gotPartyQuestItem("JBQ") && !cm.haveItem(4031058)) {
         if (cm.haveItem(4005004)) {
             if (!cm.canHold(4031058)) {
-                cm.sendNext("接受此试炼前，请确保有一个空闲的ETC槽位。");
+                cm.sendNext("接受此试炼前，请确保你的【其它】栏至少保留1个空位。");
             } else {
-                cm.sendNext("好的...我将在这里测试你的智慧。回答所有问题正确，你就会通过测试，但是，如果你有一次说谎，那么你就得重新开始，好吗，我们开始吧。");
+                cm.sendNext("很好……我将在此检验你的智慧。你必须连续答对全部5道问题才能通过试炼。只要答错任意一题，测试就会立即终止并需要重新开始。那么，我们现在开始吧。");
                 return;
             }
         } else {
-            cm.sendNext("给我一个 #b#t4005004##k 以便继续问题。");
+            cm.sendNext("请献上一颗 #b#t4005004##k 作为祭品，方可开启智慧的试炼。");
         }
     }
     cm.dispose();
@@ -52,7 +57,7 @@ function action(mode, type, selection) {
     }
     if (status > 0) {
         if (selection != ans[rand]) {
-            cm.sendNext("你已经失败了这个问题。");
+            cm.sendNext("回答错误！你的智慧尚不足以通过试炼。请重新准备好祭品后再来尝试吧。");
             cm.dispose();
             return;
         }
@@ -61,10 +66,10 @@ function action(mode, type, selection) {
         rand = parseInt(Math.random() * quest.length);
     }
     if (status <= 4) {
-        cm.sendSimple("这是第" + (status + 1) + (status == 0 ? "st" : status == 1 ? "nd" : status == 2 ? "rd" : "th") + "个问题。" + quest[rand]);
+        cm.sendSimple("这是第 #b" + (status + 1) + "#k 道问题：\r\n\r\n" + quest[rand]);
         quest[rand] = "";
     } else {
-        cm.sendOk("好的。你的所有答案都被证明是真实的。你的智慧得到了验证。拿着这条项链回去吧。");
+        cm.sendOk("精彩绝伦！你全部回答正确，你的渊博智慧与敏锐洞察力已经得到了神圣之石的完全认可。拿着这枚 #b#t4031058##k，回去找你的三转导师完成晋升吧！");
         cm.gainItem(4031058, 1);
         cm.dispose();
     }

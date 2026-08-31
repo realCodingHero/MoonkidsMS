@@ -47,7 +47,7 @@ function action(mode, type, selection) {
             if (cm.getMapId() != 925010400) {
                 em = cm.getEventManager("DelliBattle");
                 if (em == null) {
-                    cm.sendOk("德利战斗遇到了一个错误。");
+                    cm.sendOk("拯救戴利副本遇到错误。");
                     cm.dispose();
                     return;
                 } else if (cm.isUsingOldPqNpcStyle()) {
@@ -55,18 +55,18 @@ function action(mode, type, selection) {
                     return;
                 }
 
-                cm.sendSimple("#e#b<组队任务：拯救 Delli>\r\n#k#n" + em.getProperty("party") + "\r\n\r\n啊，#r#p1095000##k 让你来的？她担心我吗？... 很抱歉听到这个消息，但我现在真的不能回去，一些怪物受到黑魔法师的影响，我需要解救它们！... 你似乎也不会接受这个事实，对吗？你愿意和队友一起帮助我吗？如果愿意，请让你的 #b队长#k 和我交谈。#b\r\n#L0#我想参加组队任务。\r\n#L1#我想" + (cm.getPlayer().isRecvPartySearchInviteEnabled() ? "关闭" : "开启") + " 组队搜索。\r\n#L2#我想了解更多细节。");
+                cm.sendSimple("#e#b<组队任务：拯救戴利>\r\n#k#n" + em.getProperty("party") + "\r\n\r\n啊，是#r#p1095000##k让你来的吗？她很担心我？……很抱歉让她操心了，但我现在还不能回去，这里的怪物受到了黑魔法师邪恶力量的侵蚀，我必须解救它们！……看你的样子，应该不会袖手旁观吧？你愿意和你的队员们一起帮帮我吗？如果准备好了，请让你们的#b队长#k来和我对话。#b\r\n#L0#我想挑战组队任务。\r\n#L1#我想" + (cm.getPlayer().isRecvPartySearchInviteEnabled() ? "关闭" : "开启") + "组队寻找。\r\n#L2#我想了解详细信息。#l#k");
             } else {
-                cm.sendYesNo("任务成功了，感谢你的护送！我可以带你去#b#m120000104##k，你准备好了吗？");
+                cm.sendYesNo("任务成功了，非常感谢你的护送！我可以带你前往#b#m120000104##k，你准备好了吗？");
             }
         } else if (status == 1) {
             if (cm.getMapId() != 925010400) {
                 if (selection == 0) {
                     if (cm.getParty() == null) {
-                        cm.sendOk("只有当你加入一个队伍时，才能参加派对任务。");
+                        cm.sendOk("只有加入组队后，才能参加组队任务。");
                         cm.dispose();
                     } else if (!cm.isLeader()) {
-                        cm.sendOk("你的队长必须与我交谈才能开始这个组队任务。");
+                        cm.sendOk("只有队长与我交谈才能开始这个组队任务。");
                         cm.dispose();
                     } else {
                         var eli = em.getEligibleParty(cm.getParty());
@@ -75,17 +75,17 @@ function action(mode, type, selection) {
                                 cm.sendOk("另一个队伍已经进入了该频道的#r组队任务#k。请尝试其他频道，或者等待当前队伍完成。");
                             }
                         } else {
-                            cm.sendOk("你目前无法开始这个组队任务，因为你的队伍可能不符合人数要求，有些队员可能不符合尝试条件，或者他们不在这张地图上。如果你找不到队员，可以尝试使用组队搜索功能。");
+                            cm.sendOk("你目前无法开始这个组队任务，因为你的队伍可能不符合人数要求，或者某些队员不符合挑战条件，或者他们不在这张地图上。如果队伍人数不足，可以使用组队搜索功能寻找队友。");
                         }
 
                         cm.dispose();
                     }
                 } else if (selection == 1) {
                     var psState = cm.getPlayer().toggleRecvPartySearchInvite();
-                    cm.sendOk("你的组队搜索状态现在是：#b" + (psState ? "enabled" : "disabled") + "#k。想要改变状态时随时找我。");
+                    cm.sendOk("你的组队搜索状态现在是：#b" + (psState ? "已开启" : "已关闭") + "#k。想要更改状态时可以随时找我。");
                     cm.dispose();
                 } else {
-                    cm.sendOk("#e#b<组队任务：拯救戴利>#k#n\r\n 一场伏击正在进行中！我必须在战场上站立大约6分钟才能完成解放，请在此期间保护我，以便完成我的任务。");
+                    cm.sendOk("#e#b<组队任务：拯救戴利>#k#n\r\n怪物们正在不断发起袭击！我必须在战场上坚持大约6分钟来完成解救仪式，请在此期间保护好我，协助我完成任务！");
                     cm.dispose();
                 }
             } else {

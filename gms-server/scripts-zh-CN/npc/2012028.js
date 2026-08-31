@@ -79,11 +79,11 @@ function action(mode, type, selection) {
                                 return;
                             } else {
                                 if (idx == 14) {
-                                    cm.message("Twinkle, twinkle, little star, how I wonder what you are!");
+                                    cm.message("一闪一闪亮晶晶，满天都是小星星。");
                                 } else if (idx == 22) {
-                                    cm.message("Up above the world so high,");
+                                    cm.message("挂在天空放光明，");
                                 } else if (idx == 30) {
-                                    cm.message("like a diamond in the sky.");
+                                    cm.message("好像许多小眼睛。");
                                 }
                             }
                         }

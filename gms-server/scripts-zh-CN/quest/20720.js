@@ -16,7 +16,7 @@ function start(mode, type, selection) {
     }
 
     if (status == 0) {
-		qm.sendAcceptDecline("到目前为止情况如何？此时，您可能可以在 #m103000000# 参加派对任务。升级是很重要的，是的，但我们现在需要你以皇家骑士的身份执行任务。我们刚收到一个新消息，可能会有帮助.");
+		qm.sendAcceptDecline("到目前为止修行进展得如何了？这个阶段你大概正在 #m103000000# 参加组队任务吧。虽然提升等级很重要，但现在更需要你以圣骑士团成员的身份去执行新的任务。我们刚刚收到了一条新情报，或许会有所帮助。");
     } else if (status == 1) {
         qm.forceStartQuest();
         qm.dispose();

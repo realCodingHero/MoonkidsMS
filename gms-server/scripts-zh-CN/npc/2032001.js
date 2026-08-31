@@ -30,9 +30,9 @@ var status = 0;
 
 function start() {
     if (cm.isQuestCompleted(3034)) {
-        cm.sendYesNo("你对我帮助很大……如果你有任何黑暗水晶矿石，我可以为你精炼，每个只需#b500000金币#k。");
+        cm.sendYesNo("你之前帮了我很大的忙……如果你有 #b#t4004004##k，我可以帮你精炼成 #b#t4005004##k，每个只需收取 #b500,000 金币#k 的手续费。");
     } else {
-        cm.sendOk("走开，我在冥想。");
+        cm.sendOk("走开，别打扰我冥想。");
         cm.dispose();
     }
 }
@@ -44,28 +44,28 @@ function action(mode, type, selection) {
     }
     status++;
     if (status == 1) {
-        cm.sendGetNumber("Okay, so how many do you want me to make?", 1, 1, 100);
+        cm.sendGetNumber("好的，你想要我帮你制作多少个 #b#t4005004##k 呢？", 1, 1, 100);
     } else if (status == 2) {
         var complete = true;
 
         if (cm.getMeso() < 500000 * selection) {
-            cm.sendOk("对不起，但我不会免费做这件事。");
+            cm.sendOk("对不起，我可不会免费帮你精炼。带够金币再来吧。");
             cm.dispose();
             return;
         } else if (!cm.haveItem(4004004, 10 * selection)) {
             complete = false;
         } else if (!cm.canHold(4005004, selection)) {
-            cm.sendOk("你的库存没有空位吗？先解决这个问题！");
+            cm.sendOk("你的背包似乎没有足够的空位，先整理一下背包吧！");
             cm.dispose();
             return;
         }
         if (!complete) {
-            cm.sendOk("我需要那些矿石来提炼水晶。没有例外。");
+            cm.sendOk("我需要足够的黑暗水晶母矿才能进行精炼，少一个都不行。");
         } else {
             cm.gainItem(4004004, -10 * selection);
             cm.gainMeso(-500000 * selection);
             cm.gainItem(4005004, selection);
-            cm.sendOk("明智地使用它。");
+            cm.sendOk("精炼完成了，好好珍惜使用它吧。");
         }
         cm.dispose();
     }

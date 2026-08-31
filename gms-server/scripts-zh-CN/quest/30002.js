@@ -30,13 +30,13 @@ function start(mode, type, selection)
 	    if (status == 0)
 	    {
 			//第一层对话
-			qm.sendAcceptDecline("喂,你，新来的冒险家，你要不要了解一下这里？");
+			qm.sendAcceptDecline("喂，新来的冒险家，你要不要了解一下这里？");
 	    }
 		else if (status == 1 )
 		{
 			//第二层对话
-			var text = "明智的选择，这个地方是一个叫玩具城的地方，这里有很多乐高积木组成的村民和怪物。";
-			text += "当然，也有很多怪物，你瞧，右边的就是玩具城最常见的一种,#b#o9409001##k,你帮我狩猎5只，我会给你一些在冒险路上的报酬...";
+			var text = "明智的选择！这个地方叫做玩具城，这里到处都是由乐高积木组成的村民和积木建筑。";
+			text += "当然，这里也有很多危险的怪物。你瞧，右边就是玩具城最常见的一种：#b#o9409001##k。你帮我消灭5只，我会给你一些冒险路上的启动报酬……";
 			qm.sendOk(text);
 			qm.forceStartQuest();
             qm.dispose();	
@@ -56,7 +56,7 @@ function end(mode, type, selection)
 	    if (status == 0)
 	    {
 			//第一层对话
-            qm.sendNext("不错嘛，任务完成的还顺利吗，这是答应给你的报酬\r\n\r\n#fUI/CashShop.img/CSDiscount/bonus# 金币: 10000");
+            qm.sendNext("不错嘛，任务完成得还顺利吗？这是答应给你的报酬：\r\n\r\n#fUI/CashShop.img/CSDiscount/bonus# 金币: 10000");
             qm.gainMeso(10000);			
 			qm.forceCompleteQuest();
             qm.dispose();			

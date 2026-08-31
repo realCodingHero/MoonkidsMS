@@ -45,16 +45,16 @@ function start() {
 
     if (cm.getMapId() == 680000200) {
         if (eim.getIntProperty("weddingStage") == 0) {
-            cm.sendNext("客人们正在这里聚集。请稍等一会儿，仪式很快就会开始。");
+            cm.sendNext("宾客们正在此聚集。请稍候片刻，仪式很快就会开始。");
         } else {
             cm.warp(680000210, "sp");
-            cm.sendNext("选择你的座位在这里，祝你观影愉快！");
+            cm.sendNext("请入座观礼，祝您观礼愉快！");
         }
 
         cm.dispose();
     } else {
         if (cm.getPlayer().getId() != eim.getIntProperty("groomId") && cm.getPlayer().getId() != eim.getIntProperty("brideId")) {
-            cm.sendNext("抱歉，现在只有结婚的夫妇才能和我交谈。");
+            cm.sendNext("抱歉，当前只有新郎和新娘才能和我对话。");
             cm.dispose();
             return;
         }
@@ -95,17 +95,17 @@ function action(mode, type, selection) {
         var hasGoldenLeaf = cm.haveItem(4000313);
 
         if (hasGoldenLeaf && hasEngage) {
-            cm.sendOk("你还不能离开！你需要点击高阶祭司约翰并结婚，然后我才能让你离开。");
+            cm.sendOk("你还不能离开！你需要先让大祭司约翰主持婚礼仪式，完成后我才能为你开启传送。");
             cm.dispose();
         } else if (hasGoldenLeaf && hasRing) {
-            var choice = Array("Go to the Afterparty", "What should I be doing");
-            var msg = "What can I help you with?#b";
+            var choice = Array("前往婚后派对/拍照场地", "我现在应该做些什么？");
+            var msg = "请问有什么我可以为您效劳的吗？#b";
             for (i = 0; i < choice.length; i++) {
                 msg += "\r\n#L" + i + "#" + choice[i] + "#l";
             }
             cm.sendSimple(msg);
         } else {
-            cm.sendNext("你似乎没有金枫叶、订婚戒指或结婚戒指。你一定不属于这里，所以我会带你去阿莫利亚。");
+            cm.sendNext("你身上似乎没有金枫叶、订婚戒指或结婚戒指。看来你不小心走错了地方，让我送你回阿莫利亚吧。");
             selection = 20; // Random.
         }
     } else if (status == 1) {
@@ -120,15 +120,15 @@ function action(mode, type, selection) {
             case 0:
                 if (eim.getIntProperty("isPremium") == 1) {
                     eim.warpEventTeam(680000300);
-                    cm.sendOk("享受吧！永远珍惜你的照片！");
+                    cm.sendOk("祝你们新婚愉快！好好珍惜你们的合影留念吧！");
                     if (cmPartner != null) {
-                        cmPartner.npcTalk(cm.getNpc(), "Enjoy! Cherish your Photos Forever!");
+                        cmPartner.npcTalk(cm.getNpc(), "祝你们新婚愉快！好好珍惜你们的合影留念吧！");
                     }
                 } else {    // skip the party-time (premium only)
                     eim.warpEventTeam(680000500);
-                    cm.sendOk("恭喜新人！我会护送你们到出口。");
+                    cm.sendOk("恭喜新人结为连理！我来护送你们前往出口。");
                     if (cmPartner != null) {
-                        cmPartner.npcTalk(cm.getNpc(), "Congratulations for the newly-wed! I will escort you to the exit.");
+                        cmPartner.npcTalk(cm.getNpc(), "恭喜新人结为连理！我来护送你们前往出口。");
                     }
                 }
 
@@ -136,7 +136,7 @@ function action(mode, type, selection) {
                 break;
 
             case 1:
-                cm.sendOk("新郎新娘必须得到大主教约翰的祝福才能结婚。当你准备好了，你可以点击我去参加婚礼后的派对。");
+                cm.sendOk("新郎新娘必须先在大祭司约翰的主持下完成神圣誓言。仪式全部完成后，点击我即可前往婚后派对。");
                 cm.dispose();
                 break;
 

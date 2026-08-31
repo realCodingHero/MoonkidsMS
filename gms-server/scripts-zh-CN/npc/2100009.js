@@ -36,7 +36,7 @@ function start() {
 function action(mode, type, selection) {
     if (mode < 1) {  // disposing issue with stylishs found thanks to Vcoc
         if (type == 7) {
-            cm.sendNext("我明白了...慢慢考虑，看看你是否真的想要。当你下定决心时告诉我。");
+            cm.sendNext("我明白了……请仔细考虑清楚。当你下定决心后再来找我吧。");
         }
 
         cm.dispose();
@@ -48,7 +48,7 @@ function action(mode, type, selection) {
         }
 
         if (status == 0) {
-            cm.sendSimple("嗨，我是这里的整容助理医生。用一个#b#t5152029##k或者一个#b#t5152048##k，我可以让它变得完美，相信我。啊，别忘了，手术后的结果是随机的！那么，你要做哪个呢？\r\n#L1#整形手术：#i5152029##t5152029##l\r\n#L2#美瞳：#i5152048##t5152048##l");
+            cm.sendSimple("嗨，我是这里的整容助理医生。只要有#b#t5152029##k或#b#t5152048##k，我就可以为你进行美容，相信我的手艺！啊，别忘了，普通会员卡的手术结果是随机的哦！那么，你想做哪项服务呢？\r\n#b#L1#普通整容：#i5152029##t5152029##l\r\n#L2#普通美瞳：#i5152048##t5152048##l#k");
         } else if (status == 1) {
             if (selection == 1) {
                 beauty = 0;
@@ -68,7 +68,7 @@ function action(mode, type, selection) {
                                 % 100));
                     }
                 }
-                cm.sendYesNo("如果你使用普通的优惠券，你的脸可能会变成一个随机的新样子...你还想用#b#t5152029##k来做吗？");
+                cm.sendYesNo("如果使用普通整容会员卡，你的脸型将会随机变成一种新模样……你确定要使用#b#t5152029##k进行整容吗？");
             } else if (selection == 2) {
                 beauty = 1;
                 if (cm.getPlayer().getGender() == 0) {
@@ -81,7 +81,7 @@ function action(mode, type, selection) {
                 }
                 colors = Array();
                 pushIfItemsExists(colors, [current, current + 100, current + 300, current + 600, current + 700]);
-                cm.sendYesNo("如果你使用普通优惠券，你将获得一副随机的化妆隐形眼镜。你打算使用#b#t5152048##k，真的改变你的眼睛吗？");
+                cm.sendYesNo("如果使用普通美瞳会员卡，你的眼睛颜色将会随机改变。你确定要使用#b#t5152048##k改变瞳孔颜色吗？");
             }
         } else if (status == 2) {
             cm.dispose();
@@ -90,17 +90,17 @@ function action(mode, type, selection) {
                 if (cm.haveItem(5152029) == true) {
                     cm.gainItem(5152029, -1);
                     cm.setFace(facenew[Math.floor(Math.random() * facenew.length)]);
-                    cm.sendOk("享受你的新面容吧！");
+                    cm.sendOk("祝贺你！尽情享受你的全新面貌吧！");
                 } else {
-                    cm.sendNext("嗯...看起来你没有这个地方特定的优惠券...很抱歉要说这个，但没有优惠券的话，你就不能进行整形手术了。");
+                    cm.sendNext("嗯……看来你身上没有阿里安特适用的整容会员卡呢。很抱歉，没有会员卡的话，我无法为你进行手术。");
                 }
             } else if (beauty == 1) {
                 if (cm.haveItem(5152048)) {
                     cm.gainItem(5152048, -1);
                     cm.setFace(colors[Math.floor(Math.random() * colors.length)]);
-                    cm.sendOk("享受你的新款和升级版的隐形眼镜吧！");
+                    cm.sendOk("祝贺你！尽情享受你的全新美瞳色彩吧！");
                 } else {
-                    cm.sendOk("嗯...看起来你没有这个地方专门的优惠券。很抱歉要说这个，但没有优惠券，你就不能进行整形手术了...");
+                    cm.sendOk("嗯……看来你身上没有阿里安特适用的美瞳会员卡呢。很抱歉，没有会员卡的话，我无法为你更换美瞳。");
                 }
             }
         }

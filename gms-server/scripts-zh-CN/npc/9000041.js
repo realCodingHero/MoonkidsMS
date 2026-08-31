@@ -24,7 +24,7 @@
         * @author Ronan Lana
 */
 
-var options = ["EQUIP", "USE", "SET-UP", "ETC"];
+var options = ["装备栏", "消耗栏", "设置栏", "其它栏"];
 var name;
 var status;
 var selectedType = 0;
@@ -44,27 +44,27 @@ function action(mode, type, selection) {
     if (status == 0) {
         const GameConfig = Java.type('org.gms.config.GameConfig');
         if (!GameConfig.getServerBoolean("use_enable_custom_npc_script")) {
-            cm.sendOk("勋章排名系统目前不可用。");
+            cm.sendOk("快速出售功能目前未开启。");
             cm.dispose();
             return;
         }
 
-        var selStr = "Hello, I am the #bBazaar NPC#k! Sell to me any item on your inventory you don't need. #rWARNING#b: Make sure you have your items ready to sell at the slots #rAFTER#b the item you have selected to sell.#k Any items #bunder#k the item selected will be sold thoroughly.";
+        var selStr = "你好，我是#b快速出售 NPC#k！你可以把背包中不需要的批量道具出售给我。\r\n#r【警告】#b请注意：系统将从你输入的道具开始，向后批量出售该栏位中的所有后续物品。#k请务必确认好道具顺序！";
         for (var i = 0; i < options.length; i++) {
             selStr += "\r\n#L" + i + "# " + options[i] + "#l";
         }
         cm.sendSimple(selStr);
     } else if (status == 1) {
         selectedType = selection;
-        cm.sendGetText("From what item on your #r" + options[selectedType] + "#k inventory do you want to start the transaction?");
+        cm.sendGetText("请问你要从#r" + options[selectedType] + "#k中的哪一件道具开始批量出售？\r\n（请输入该起始道具的准确名称）");
     } else if (status == 2) {
         name = cm.getText();
         var res = cm.getPlayer().sellAllItemsFromName(selectedType + 1, name);
 
         if (res > -1) {
-            cm.sendOk("交易完成！你从这个行动中获得了#r" + cm.numberWithCommas(res) + "金币#k。");
+            cm.sendOk("批量出售完成！本次共获得 #r" + cm.numberWithCommas(res) + " 金币#k。");
         } else {
-            cm.sendOk("你的#b'" + name + "'#k物品栏中没有#b" + options[selectedType] + "#k！");
+            cm.sendOk("在你的#b" + options[selectedType] + "#k中没有找到名为 #r'" + name + "'#k 的道具！");
         }
 
         cm.dispose();
