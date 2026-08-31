@@ -40,7 +40,7 @@ var stimID = 4130001;
 function start() {
     cm.getPlayer().setCS(true);
     var selStr = "您好，欢迎光临玩具城鞋店。今天有什么可以帮您的吗？?#b"
-    var options = ["What's a stimulator?", "Create Warrior shoes", "Create Bowman shoes", "Create Magician shoes", "Create Thief shoes", "Create Warrior shoes with a Stimulator", "Create Bowman shoes with a Stimulator", "Create Magician shoes with a Stimulator", "Create Thief shoes with a Stimulator"];
+    var options = ["What's a stimulator?", "制作战士鞋子", "制作弓箭手鞋子", "制作魔法师鞋子", "制作飞侠鞋子", "使用辅助剂制作战士鞋子", "使用辅助剂制作弓箭手鞋子", "使用辅助剂制作魔法师鞋子", "使用辅助剂制作飞侠鞋子"];
     for (var i = 0; i < options.length; i++) {
         selStr += "\r\n#L" + i + "# " + options[i] + "#l";
     }
@@ -64,20 +64,20 @@ function action(mode, type, selection) {
             stimulator = false;
         }
         if (selectedType == 0) { // what is stim
-            cm.sendNext("A stimulator is a special potion that I can add into the process of creating certain items. It gives it stats as though it had dropped from a monster. However, it is possible to have no change, and it is also possible for the item to be below average. There's also a 10% chance of not getting any item when using a stimulator, so please choose wisely.")
+            cm.sendNext("辅助剂是一种特殊的催化剂，在制作装备时加入可以使装备拥有类似怪物掉落的随机浮动属性。不过，属性可能偏高也可能偏低，且使用辅助剂时有10%的概率会导致制作完全失败。请谨慎选择！")
             cm.dispose();
         } else if (selectedType == 1) { //warrior shoe
-            selStr = "Warrior shoes? Sure thing, which kind?#b";
+            selStr = "战士鞋子吗？好的，你想制作哪一款？#b";
             shoes = ["Emerald Battle Grieve#k - Warrior Lv. 30#b", "Mithril Battle Grieve#k - Warrior Lv. 30#b", "Silver Battle Grieve#k - Warrior Lv. 30#b", "Blood Battle Grieve#k - Warrior Lv. 30#b", "Steel Trigger#k - Warrior Lv. 35#b", "Mithril Trigger#k - Warrior Lv. 35#b", "Dark Trigger#k - Warrior Lv. 35#b", "Brown Jangoon Boots#k - Warrior Lv. 40#b", "Maroon Jangoon Boots#k - Warrior Lv. 40#b", "Blue Jangoon Boots#k - Warrior Lv. 40#b", "Emerald Hildon Boots#k - Warrior Lv. 50#b", "Mithril Hildon Boots#k - Warrior Lv. 50#b", "Orihalcon Hildon Boots#k - Warrior Lv. 50#b", "Gold Hildon Boots#k - Warrior Lv. 50#b"];
 
         } else if (selectedType == 2) { //bowman shoe
-            selStr = "Bowman shoes? Sure thing, which kind?#b";
+            selStr = "弓箭手鞋子吗？好的，你想制作哪一款？#b";
             shoes = ["Red Hunter Boots#k - Bowman Lv. 30#b", "Blue Hunter Boots#k - Bowman Lv. 30#b", "Green Hunter Boots#k - Bowman Lv. 30#b", "Black Hunter Boots#k - Bowman Lv. 30#b", "Brown Hunter Boots#k - Bowman Lv. 30#b", "Blue Silky Boots#k - Bowman Lv. 35#b", "Green Silky Boots#k - Bowman Lv. 35#b", "Red Silky Boots#k - Bowman Lv. 35#b", "Red Pierre Shoes#k - Bowman Lv. 40#b", "Yellow Pierre Shoes#k - Bowman Lv. 40#b", "Brown Pierre Shoes#k - Bowman Lv. 40#b", "Blue Pierre Shoes#k - Bowman Lv. 40#b", "Brown Steel-Tipped Boots#k - Bowman Lv. 50#b", "Green Steel-Tipped Boots#k - Bowman Lv. 50#b", "Blue Steel-Tipped Boots#k - Bowman Lv. 50#b", "Purple Steel-Tipped Boots#k - Bowman Lv. 50#b"];
         } else if (selectedType == 3) { //magician shoe
-            selStr = "Magician shoes? Sure thing, which kind?#b";
+            selStr = "魔法师鞋子吗？好的，你想制作哪一款？#b";
             shoes = ["Red Magicshoes#k - Magician Lv. 30#b", "Blue Magicshoes#k - Magician Lv. 30#b", "White Magicshoes#k - Magician Lv. 30#b", "Black Magicshoes#k - Magician Lv. 30#b", "Purple Salt Shoes#k - Magician Lv. 35#b", "Red Salt Shoes#k - Magician Lv. 35#b", "Black Salt Shoes#k - Magician Lv. 35#b", "Red Moon Shoes#k - Magician Lv. 40#b", "Blue Moon Shoes#k - Magician Lv. 40#b", "Gold Moon Shoes#k - Magician Lv. 40#b", "Dark Moon Shoes#k - Magician Lv. 40#b", "Pink Goldwind Shoes#k - Magician Lv. 50#b", "Blue Goldwind Shoes#k - Magician Lv. 50#b", "Purple Goldwind Shoes#k - Magician Lv. 50#b", "Green Goldwind Shoes#k - Magician Lv. 50#b"];
         } else if (selectedType == 4) { //thief shoe
-            selStr = "Thief shoes? Sure thing, which kind?#b";
+            selStr = "飞侠鞋子吗？好的，你想制作哪一款？#b";
             shoes = ["Bronze Chain Boots#k - Thief Lv. 30#b", "Iron Chain Boots#k - Thief Lv. 30#b", "Silver Chain Boots#k - Thief Lv. 30#b", "Gold Chain Boots#k - Thief Lv. 30#b", "Red White-Line Boots#k - Thief Lv. 35#b", "Green White-Line Boots#k - Thief Lv. 35#b", "Blue White-Line Boots#k - Thief Lv. 35#b", "Black Red-Lined Shoes#k - Thief Lv. 40#b", "Black Green-Lined Shoes#k - Thief Lv. 40#b", "Black Yellow-Lined Shoes#k - Thief Lv. 40#b", "Black Blue-Lined Shoes#k - Thief Lv. 40#b", "Blue Goni Shoes#k - Thief Lv. 50#b", "Red Goni Shoes#k - Thief Lv. 50#b", "Green Goni Shoes#k - Thief Lv. 50#b", "Purple Goni Shoes#k - Thief Lv. 50#b"];
         }
         if (selectedType != 0) {

@@ -47,8 +47,8 @@ function start() {
     }
 
     cm.getPlayer().setCS(true);
-    var selStr = "你好，我是 #b饰品锻造大师#k！ My works are widely recognized to be too fine, up to the point at which all my items mimic not only the appearance but too the attributes of them! Everything I charge is some 'ingredients' to make them and, of course, a fee for my services. On what kind of equipment are you interessed?#b";
-    var options = ["Pendants", "Face accessories", "Eye accessories", "Belts & medals", "Rings"/*,"#t4032496#"*/];
+    var selStr = "你好，我是 #b饰品锻造大师#k！ 我的手艺在全岛可是首屈一指，打造出的饰品不仅外形华丽，更能赋予佩戴者强大的属性！只要你备齐所需材料并支付少许手工费，我就能为你量身打造。你想制作哪种饰品？#b";
+    var options = ["Pendants", "脸部饰品", "Eye accessories", "Belts & medals", "Rings"/*,"#t4032496#"*/];
     for (var i = 0; i < options.length; i++) {
         selStr += "\r\n#L" + i + "# " + options[i] + "#l";
     }
@@ -63,25 +63,25 @@ function action(mode, type, selection) {
     }
     if (status == 0) {
         if (selection == 0) { //pendants
-            var selStr = "Well, I've got these pendants on my repertoire:#b";
+            var selStr = "没问题！我能打造以下几种强力吊坠：#b";
             items = [1122018, 1122007, 1122001, 1122003, 1122004, 1122006, 1122002, 1122005, 1122058];
             for (var i = 0; i < items.length; i++) {
                 selStr += "\r\n#L" + i + "##t" + items[i] + "##b";
             }
         } else if (selection == 1) { //face accessory
-            var selStr = "Hmm, face accessories? There you go: #b";
+            var selStr = "脸部饰品吗？请选择你想制作的款式：#b";
             items = [1012181, 1012182, 1012183, 1012184, 1012185, 1012186, 1012108, 1012109, 1012110, 1012111];
             for (var i = 0; i < items.length; i++) {
                 selStr += "\r\n#L" + i + "##t" + items[i] + "##b";
             }
         } else if (selection == 2) { //eye accessory
-            var selStr = "Got hard sight? Okay, so which glasses do you want me to make?#b";
+            var selStr = "想要副帅气的眼镜吗？请选择你想打造的款式：#b";
             items = [1022073, 1022088, 1022103, 1022089, 1022082];
             for (var i = 0; i < items.length; i++) {
                 selStr += "\r\n#L" + i + "##t" + items[i] + "##b";
             }
         } else if (selection == 3) { //belt & medal
-            var selStr = "Hmm... For these, things get a little tricky. Since these items are too short and too similar one another, I don't really know what item will emerge when I finish the synthesis. Still wanna try for something?";
+            var selStr = "嗯……制作这类饰品可得碰碰运气。因为它们的配方非常相似，合成出哪种款式带有一定的随机性。你还想尝试制作吗？";
             items = [];
             maxEqp = 0;
 
@@ -173,7 +173,7 @@ function action(mode, type, selection) {
             prompt += "a #bbelt#k or a #bmedal#k?";
         }
 
-        prompt += " Right! I will need some items to make that item. Make sure you have a #bfree slot#k in your inventory!#b";
+        prompt += " 太好了！制作该装备需要消耗以下材料。请确保背包装备栏保留 #b足够的空位#k！#b";
         if (mats instanceof Array) {
             for (var i = 0; i < mats.length; i++) {
                 prompt += "\r\n#i" + mats[i] + "# " + (matQty[i] * qty) + " #t" + mats[i] + "#";

@@ -48,7 +48,7 @@ function action(mode, type, selection) {
                         cm.sendNext("欢迎！我从小月兔那里听说了发生的事情，很高兴你来了，因为我正打算请求一些帮助。Gaga是我的朋友，以前帮过我，经常过来打个招呼。不幸的是，他被外星人绑架了。");
                     } else {
                         selected = 2;
-                        cm.sendYesNo("在太空矿场，你可以找到一种特殊的矿石，叫做#bKrypto Crystals#k，它含有太空的神秘力量。#bKrypto Crystals#l通常呈翡翠绿色，但如果被太空飞船的#bSpace Beam#k击中，就会变成褐色。记住，为了阻止外星人的阴谋，需要#b10个褐色Krypto Crystal#和10个翡翠Krypto Crystal#。但即使#b1个Krypto Crystal#也能帮上忙，尽可能多地带给我。哦，还有一件事！太空矿场受到太空Mateons的保护。由于#Krypto Crystals#k的力量，它们非常强大，所以不要试图打败它们。只需专注于迅速收集水晶。");
+                        cm.sendYesNo("在神秘的太空矿场中，蕴藏着蕴含强大宇宙能量的 #b氪星水晶#k。水晶通常呈现翡翠绿色，但当受到外星飞船的 #b能量光束#k 照射时便会转变为褐色。为了彻底粉碎外星人的阴谋，我们需要收集 #b10个褐色氪星水晶#k 和 #b10个翡翠氪星水晶#k。只要你收集到水晶，就请尽快交给我！另外请务必当心：矿场有强大的外星守卫巡逻，请避开它们并专心采集水晶！");
                     }
                 } else if (status == 2) {
                     if (selected == 1) {

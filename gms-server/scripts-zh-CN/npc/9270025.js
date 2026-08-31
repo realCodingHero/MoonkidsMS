@@ -50,7 +50,7 @@ function action(mode, type, selection) {
                 cm.dispose();
                 return;
             }
-            cm.sendStyle("With our specialized service, you can see the way you'll look after the treatment in advance. What kind of a skin-treatment would you like to do? Go ahead and choose the style of your liking...", skin);
+            cm.sendStyle("通过我们中心的高端专业护肤服务，您可以提前预览护肤后的全新肤色。请挑选您最中意的肤色款式……", skin);
         } else {
             cm.gainItem(5153010, -1);
             cm.setSkin(selection);

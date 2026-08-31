@@ -46,7 +46,7 @@ function action(mode, type, selection) {
             cm.sendNext("这里是Omok的规则，请仔细听。Omok是一种游戏，你和对手轮流在桌子上放置棋子，直到有人找到一种方法在一条线上放置5个连续的棋子，无论是水平、对角线还是垂直线。首先，只有拥有#bOmok Set#k的人才能开设游戏房间。");
         } else if (selection == 3) {
             current = 2;
-            cm.sendNext("这里是Match Cards的规则，请仔细听。顾名思义，Match Cards就是在桌子上找到一对匹配的牌。当所有匹配的对都被找到时，拥有更多匹配对的人将赢得游戏。就像五子棋一样，你需要一副Match Cards牌来开启游戏房间。");
+            cm.sendNext("这里是翻牌对决的规则，请仔细听。顾名思义，翻牌对决就是在桌子上找到一对匹配的牌。当所有匹配的对都被找到时，拥有更多匹配对的人将赢得游戏。就像五子棋一样，你需要一副翻牌对决牌来开启游戏房间。");
 
         } else if (selection == 4) {
             current = 3;

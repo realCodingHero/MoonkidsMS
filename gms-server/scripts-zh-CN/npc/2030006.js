@@ -1,84 +1,64 @@
 /*
-    This file is part of the HeavenMS MapleStory Server
-    Copyleft (L) 2016 - 2019 RonanLana
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License as
-    published by the Free Software Foundation version 3 as published by
-    the Free Software Foundation. You may not use, modify or distribute
-    this program under any other version of the GNU Affero General Public
-    License.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    神圣的石头 (Holy Stone)
+    雪原圣地 (211040401)
+    三转转职 - 智慧试炼
 */
-/* Holy Stone
-	Holy Ground at the Snowfield (211040401)
-	3rd job advancement - Question trial.
- */
 
 var questionTree = [
-    //Questions Related to CHARACTERS
+    // 角色属性相关
     ["在冒险岛中，从Lv1升到Lv2需要多少经验值？", ["20", "15", "4", "12", "16"], 1],
     ["各职业一转时，下列哪项要求是错误的？", ["魔法师 - 等级8级", "海盗 - 敏捷不低于20", "弓箭手 - 敏捷不低于25", "飞侠 - 敏捷不低于20", "战士 - 力量不低于35"], 3],
     ["被怪物攻击时特别的异常状态没有被正确说明的是哪一项？", ["封印 - 不能释放技能", "不死族 - 变成不死族 & 恢复效果减半", "虚弱 - 移动速度降低", "诅咒 - 经验减少", "昏迷 - 无法移动"], 2],
     ["各职业一转时，下列哪项要求是正确的？", ["海盗 - 25幸运", "魔法师 - 10级", "飞侠 - 25 幸运", "战士 - 30力量", "弓箭手 - 25敏捷"], 4],
 
-    //Questions Related to ITEMS
+    // 物品与掉落相关
     ["下列怪物中，哪组怪物与打倒他所能得到的战利品是正确的对应关系？", ["仙人掌宝宝 - 刺针", "钢甲猪 - 野猪牙", "红小丑 - 黄小丑的帽子", "松松 - 坚果", "蝙蝠 - 蝙蝠翅膀"], 4],
     ["下列怪物中，哪组怪物与打倒他所能得到的战利品是错误的对应关系？", ["大侠 - 大侠勋章", "食人花 - 食人花的叶子", "古木妖 - 苗木", "小海象 - 海象尖牙", "僵尸 - 僵尸丢失的臼齿"], 1],
     ["下列药品中，哪组药品与功能是正确的对应关系？", ["活力神水 - 攻击 +5 持续 3 分钟", "纯净水 - 回复 700 MP", "蛋糕 - 回复 150 HP & MP", "沙拉 - 回复 300 MP", "披萨饼 - 回复 400 HP"], 4],
     ["下列药品中，哪组药品与功能是错误的对应关系？", ["活力神水 - 回复 300 MP", "补药 - 恢复虚弱状态", "苹果 - 回复 30 HP", "清晨之露 - 回复 3000 MP", "拉面 - 回复 1000 HP"], 3],
 
-    //Questions Related to MONSTERS
+    // 怪物相关
     ["绿蘑菇，木妖，蓝水灵，斧木妖，三眼章鱼中级别最高的怪物是哪一个？", ["三眼章鱼", "蓝水灵", "斧木妖", "木妖", "绿蘑菇"], 2],
     ["往返于魔法密林/天空之城的船上会出现哪个怪物？", ["狼人", "绿水灵", "蝙蝠魔", "扎昆", "皮克西"], 2],
-    ["在彩虹岛没有出现的怪物是？", ["蘑菇仔", "蓝蜗牛", "绿水灵", "红蜗牛", "飘飘猪"], 4],
-    ["在金银岛没有出现的怪物是？", ["火独眼兽", "石球", "蝙蝠怪", "黑木妖", "绿蜗牛"], 1],
+    ["在彩虹岛没有出现的怪物是？", ["蘑菇仔", "蓝蜗牛", "绿水灵", "红蜗牛", "漂漂猪"], 4],
+    ["在金银岛没有出现的怪物是？", ["火独眼兽", "石球", "蝙蝠魔", "黑木妖", "绿蜗牛"], 1],
     ["在冰峰雪域没有出现的怪物是？", ["黑雪人", "黑鳄鱼", "法老王企鹅", "火焰猎犬", "僵尸"], 1],
     ["以下哪种怪物会飞？", ["巫婆", "鳄鱼", "冰独眼兽", "猫鼬", "阿丽莎乐"], 0],
     ["在神秘岛没有出现的怪物是？", ["星光精灵", "幼黄独角狮", "幼红独角狮", "鳄鱼", "野狼"], 3],
     ["在彩虹岛没有出现的怪物是？", ["绿蜗牛", "蘑菇仔", "火独眼兽", "花蘑菇", "蓝水灵"], 2],
 
-    //Questions Related to QUESTS
+    // 任务相关
     ["唤醒麦吉不需要的材料是哪一个？", ["火焰羽毛", "旧战剑", "冰块", "星石", "妖精之翼"], 4],
     ["以下哪项任务是可以重复完成的？", ["医院之谜", "正义的捐赠", "幽灵的行踪", "艾温的玻璃鞋", "玛雅和奇怪的药物"], 3],
-    ["以下哪项不是二转职业？", ["巫师", "牧师", "刺客", "枪手", "勇士"], 0],
+    ["以下哪项不是二转职业？", ["十字军", "牧师", "刺客", "枪手", "准骑士"], 0],
     ["以下哪项任务要求的等级最高？", ["丘比特信使", "迷失在海洋中", "阿尔卡斯特和黑暗水晶", "消灭兔子", "庞庞的战争"], 2],
 
-    //Questions Related to TOWN/NPC
-    ["金银岛没有的村落是？", ["金海滩", "彩虹村", "明珠港", "勇士部落", "魔法密林"], 1],
+    // 城镇与 NPC 相关
+    ["金银岛没有的村落是？", ["黄金海滩", "彩虹村", "明珠港", "勇士部落", "魔法密林"], 1],
     ["你在彩虹岛遇到的第一个NPC是谁？", ["塞拉", "希娜", "路卡斯", "罗杰", "尚克斯"], 1],
     ["在冰峰雪域看不到的NPC是？", ["伯坚", "索菲亚", "佩德罗", "珀斯上尉", "卢米"], 1],
-    ["在冰峰雪域看不到的NPC是？", ["魔法石", "格里巴", "杰夫", "神圣的石头", "保姆珥玛"], 4],
+    ["在冰峰雪域看不到的NPC是？", ["魔法石", "格里巴", "杰夫", "神圣的石头", "保姆艾尔玛"], 4],
     ["在勇士部落看不到的NPC是？", ["伊安", "索菲亚", "斯密斯", "易德", "麦吉"], 3],
     ["在射手村看不到的NPC是？", ["特奥", "赫丽娜", "玛亚", "皮亚", "莉娜"], 0],
-    ["在魔法密林看不到的NPC是？", ["汉斯", "易德", "露饵", "妖精路易", "赛恩"], 2],
+    ["在魔法密林看不到的NPC是？", ["汉斯", "易德", "露尔", "妖精路易", "赛恩"], 2],
     ["在废弃都市看不到的NPC是？", ["后街吉姆", "马龙", "休咪", "鲁克", "钱老板"], 3],
     ["哪个NPC与宠物无关？", ["科尔", "比休斯", "帕特里沙", "威巴", "科洛伊"], 1],
-    ["废弃都市中，离家出走的少年阿列克斯的父亲是谁？", ["长老斯坦", "后街吉姆", "铭仁", "比休斯", "卢克"], 0],
+    ["废弃都市中，离家出走的少年阿列克斯的父亲是谁？", ["长老斯坦", "后街吉姆", "明仁", "比休斯", "卢克"], 0],
     ["哪个NPC不属于天空之城阿尔法小队？", ["查理中士", "巴伯下士", "伊吉上等兵", "珀斯上尉", "彼特"], 4],
     ["在二转过程中，收集30个黑色珠子给转职教官后可以得到什么？", ["古老的戒指", "记忆粉", "仙尘", "英雄证书", "秘密卷轴"], 3],
     ["为了给射手村的玛雅治病，需要给她什么？", ["苹果", "强力灵药", "奇怪的药", "菊花", "橙汁"], 2],
-    ["以下与合成或冶炼工作没有关系的NPC是？", ["奈巴", "塞利尔", "塞恩", "易德", "后街吉姆"], 2],
+    ["以下与合成或冶炼工作没有关系的NPC是？", ["奈巴", "塞利尔", "赛恩", "易德", "后街吉姆"], 2],
     ["在彩虹岛看不到的NPC是？", ["巴里", "特奥", "皮奥", "赛德", "玛利亚"], 1],
-    ["在航海室的监视器里能看到谁和凯琳在一起？", ["路卡斯", "金博士", "长老斯坦", "斯卡德", "弗利维教授"], 1],
-    ["你知道射手村的赫丽娜吗？他的眼睛是什么颜色？", ["蓝色", "绿色", "棕色", "红色", "黑色"], 1],
+    ["在航海室的监视器里能看到谁和卡伊琳在一起？", ["路卡斯", "金博士", "长老斯坦", "斯卡德", "弗利维教授"], 1],
+    ["你知道射手村的赫丽娜吗？她的眼睛是什么颜色？", ["蓝色", "绿色", "棕色", "红色", "黑色"], 1],
     ["勇士部落武术教练的帽子上有多少根羽毛？", ["7", "8", "3", "13", "16"], 3],
     ["魔法密林汉斯持有的宝珠是什么颜色？", ["白色", "橙色", "蓝色", "紫色", "绿色"], 2]
 ];
 
 var status;
 var question;
-
 var questionPool;
 var questionPoolCursor;
-
 var questionAnswer;
 
 function start() {
@@ -104,13 +84,13 @@ function action(mode, type, selection) {
             if (cm.getPlayer().gotPartyQuestItem("JBQ") && !cm.haveItem(4031058, 1)) {
                 if (cm.haveItem(4005004, 1)) {
                     if (!cm.canHold(4031058)) {
-                        cm.sendNext("Have a free ETC slot available before accepting this trial.");
+                        cm.sendNext("在接受试炼之前，请确保你的【其它】栏保留至少1个空位。");
                         cm.dispose();
                     } else {
-                        cm.sendNext("Alright... I'll be testing out your wisdom here. Answer all the questions correctly, and you will pass the test BUT, if you even lie to me once, then you'll have to start over again ok, here we go.");
+                        cm.sendNext("好的……我将在这里测试你的智慧。全部回答正确，你就能通过试炼。但是，只要答错一次，你就必须重新开始。准备好了吗？我们开始吧！");
                     }
                 } else {
-                    cm.sendNext("Bring me a #b#t4005004##k to proceed with the trial.");
+                    cm.sendNext("请带来1颗 #b#t4005004##k 作为祭品，方可开启智慧的试炼。");
                     cm.dispose();
                 }
             } else {
@@ -131,7 +111,7 @@ function action(mode, type, selection) {
             cm.sendSimple(questionHead + questionEntry + "\r\n\r\n#b" + questionOptions + "#k");
         } else if (status >= 2 && status <= 5) {
             if (!evaluateAnswer(selection)) {
-                cm.sendNext("You have failed the question.");
+                cm.sendNext("回答错误！你的智慧尚不足以通过试炼。请重新准备好祭品后再来尝试吧。");
                 cm.dispose();
                 return;
             }
@@ -147,16 +127,16 @@ function action(mode, type, selection) {
             cm.sendSimple(questionHead + questionEntry + "\r\n\r\n#b" + questionOptions + "#k");
         } else if (status == 6) {
             if (!evaluateAnswer(selection)) {
-                cm.sendNext("You have failed the question.");
+                cm.sendNext("回答错误！你的智慧尚不足以通过试炼。请重新准备好祭品后再来尝试吧。");
                 cm.dispose();
                 return;
             }
 
-            cm.sendOk("Alright. All your answers have been proven as the truth. Your wisdom has been proven.\r\nTake this necklace and go back.");
+            cm.sendOk("精彩绝伦！你全部回答正确，你的渊博智慧已经得到了神圣之石的完全认可。\r\n拿着这枚 #b#t4031058##k，回去找你的三转导师完成晋升吧！");
             cm.gainItem(4031058, 1);
             cm.dispose();
         } else {
-            cm.sendOk("Unexpected branch.");
+            cm.sendOk("未知的流程分支。");
             cm.dispose();
         }
     }
@@ -167,7 +147,7 @@ function evaluateAnswer(selection) {
 }
 
 function generateQuestionHeading() {
-    return "Here's the " + (status) + (status == 1 ? "st" : status == 2 ? "nd" : status == 3 ? "rd" : "th") + " question. ";
+    return "这是第 #b" + (status == 1 ? "一" : status == 2 ? "二" : status == 3 ? "三" : status == 4 ? "四" : "五") + "#k 道智慧试炼问题：\r\n\r\n";
 }
 
 function shuffleArray(array) {
@@ -200,14 +180,10 @@ function fetchNextQuestion() {
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
-    // While there remain elements to shuffle...
     while (0 !== currentIndex) {
-
-        // Pick a remaining element...
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
 
-        // And swap it with the current element.
         temporaryValue = array[currentIndex];
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;

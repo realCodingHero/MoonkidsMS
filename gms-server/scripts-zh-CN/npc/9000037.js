@@ -119,7 +119,7 @@ function action(mode, type, selection) {
             } else {
                 em = cm.getEventManager("BossRushPQ");
                 if (em == null) {
-                    cm.sendOk("Boss Rush PQ遇到了一个错误。");
+                    cm.sendOk("首领连战组队任务遇到了一个错误。");
                     cm.dispose();
                     return;
                 } else if (cm.isUsingOldPqNpcStyle()) {

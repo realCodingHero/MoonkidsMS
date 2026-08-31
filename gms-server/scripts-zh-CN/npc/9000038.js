@@ -67,7 +67,7 @@ function action(mode, type, selection) {
         }
 
         if (status == 0) {
-            var sendStr = "【#b首领连战组队任务#k】将为通关的勇士发放 accordingly to how far the team went on the boss huntings. Take note that each player #bcan only claim a reward if they leave through a portal inside a Resting Spot#k. Challenging stronger bosses will require the team to commit to more fightings until the next Resting Spot is reached, or until the final boss is defeated.\r\n\r\nThe possible rewards for those leaving in the selected Resting Spot are depicted here:\r\n\r\n#b";
+            var sendStr = "【#b首领连战组队任务#k】将为通关的勇士发放 accordingly to how far the team went on the boss huntings. Take note that each player #b只能在通过休息营地离开时领取奖励 through a portal inside a Resting Spot#k. Challenging stronger bosses will require the team to commit to more fightings until the next Resting Spot is reached, or until the final boss is defeated.\r\n\r\nThe possible rewards for those leaving in the selected Resting Spot are depicted here:\r\n\r\n#b";
             for (var i = 0; i < 6; i++) {
                 sendStr += "#L" + i + "#" + levels[i] + "#l\r\n";
             }
@@ -96,7 +96,7 @@ function action(mode, type, selection) {
                 lvQty = itemQty_lv6;
             }
 
-            var sendStr = "The following items are being awarded at #b" + levels[selection] + "#k:\r\n\r\n";
+            var sendStr = "在 #b" + levels[selection] + "#k:\r\n\r\n";
             for (var i = 0; i < lvTarget.length; i++) {
                 sendStr += "  #L" + i + "# #i" + lvTarget[i] + "#  #t" + lvTarget[i] + "#";
                 if (lvQty[i] > 1) {

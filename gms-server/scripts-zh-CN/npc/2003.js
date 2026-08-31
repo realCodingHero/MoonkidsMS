@@ -48,7 +48,7 @@ function action(mode, type, selection) {
             sel = selection;
         }
         if (sel == 0) {
-            cm.sendNext("好的，这是你移动的方法。使用#bleft, right arrow#k在平地和斜坡上移动，并按#bAlt#k跳跃。一些特定的鞋子可以提高你的速度和跳跃能力。");
+            cm.sendNext("好的，这是你移动的方法。使用#b左右方向键【←】【→】#k在平地和斜坡上移动，并按#bAlt#k跳跃。一些特定的鞋子可以提高你的速度和跳跃能力。");
         } else if (sel == 1) {
             cm.sendNext("这里是如何击败怪物的方法。每个怪物都有自己的生命值，你可以用武器或法术来攻击它们。当然，它们越强大，就越难击败。");
         } else if (sel == 2) {
