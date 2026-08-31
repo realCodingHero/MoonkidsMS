@@ -79,10 +79,10 @@ function action(mode, type, selection) {
                 cm.sendSimple(sendStr);
             } else if (skillbook.length > 0) {
                 selected = 1;
-                cm.sendNext(greeting + "New opportunities for skill improvement have been located for you to improve your skills! Only skill learns available for now.");
+                cm.sendNext(greeting + "我们为您找到了全新的技能修习途径！目前可供领悟全新技能。");
             } else {
                 selected = 2;
-                cm.sendNext(greeting + "New opportunities for skill improvement have been located for you to improve your skills! Only skill upgrades available.");
+                cm.sendNext(greeting + "我们为您找到了全新的技能进阶途径！目前可供提升现有技能等级上限。");
             }
 
         } else if (status == 1) {
@@ -120,9 +120,9 @@ function action(mode, type, selection) {
                 var mobList = cm.getNamesWhoDropsItem(table[selected]);
 
                 if (mobList.length == 0) {
-                    sendStr = "No mobs drop '#b#t" + table[selected] + "##k'.\r\n\r\n";
+                    sendStr = "当前没有怪物掉落 '#b#t" + table[selected] + "##k'.\r\n\r\n";
                 } else {
-                    sendStr = "The following mobs drop '#b#t" + table[selected] + "##k':\r\n\r\n";
+                    sendStr = "下列怪物会掉落 '#b#t" + table[selected] + "##k':\r\n\r\n";
 
                     for (var i = 0; i < mobList.length; i++) {
                         sendStr += "  #L" + i + "# " + mobList[i] + "#l\r\n";

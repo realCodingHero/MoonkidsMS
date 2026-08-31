@@ -53,11 +53,11 @@ function action(mode, type, selection) {
             status = 0;
         }
         if (status == 0) {
-            var prompt = "\r\n#b#L0# What's Sharenian?#l\r\n#b#L1# #t4001024#? What's that?#l\r\n#b#L2# Guild Quest?#l\r\n#b#L3# No, I'm fine now.#l";
+            var prompt = "\r\n#b#L0# 什么是沙里尼安？#l\r\n#b#L1# #t4001024#？那是什么？#l\r\n#b#L2# 公会任务是什么？#l\r\n#b#L3# 没问题了，谢谢。#l";
             if (selectedOption == -1) {
-                prompt = "We, the Union of Guilds, have been trying to decipher 'Emerald Tablet,' a treasured old relic, for a long time. As a result, we have found out that Sharenian, the mysterious country from the past, lay asleep here. We also found out that clues of #t4001024#, a legendary, mythical jewelry, may be here at the remains of Sharenian. This is why the Union of Guilds have opened Guild Quest to ultimately find #t4001024#." + prompt;
+                prompt = "我们公会联盟多年来一直在破译古老遗物【翡翠石板】的秘密。研究表明，神秘的古代王国沙里尼安就沉睡在此处。我们还发现传说中的秘宝 #t4001024# 的线索也隐藏在沙里尼安遗迹深处。为了寻得秘宝，公会联盟正式开启了公会遗迹探险任务！" + prompt;
             } else {
-                prompt = "Do you have any other questions?" + prompt;
+                prompt = "你还有其他想要了解的问题吗？" + prompt;
             }
             cm.sendSimple(prompt);
         } else if (status == 1) {

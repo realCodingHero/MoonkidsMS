@@ -74,7 +74,7 @@ function action(mode, type, selection) {
             //print("Book: " + sgBookBuckets + " Item: " + sgItemBuckets);
 
             if (sgItemBuckets > 0.0) {
-                sendStr = "根据您当前放置的材料，合成为目标卷轴的成功率为 #r" + sgBuckets + "#k buckets (#r" + (sgItemBuckets < 1.0 ? sgItemBuckets.toFixed(2) : Math.floor(sgItemBuckets)) + "#k supply buckets) for claiming a prize. Place supplies:";
+                sendStr = "根据您当前放置的材料，合成为目标卷轴的成功率为 #r" + sgBuckets + "#k buckets (#r" + (sgItemBuckets < 1.0 ? sgItemBuckets.toFixed(2) : Math.floor(sgItemBuckets)) + "#k 份合成材料）以生成目标卷轴。请放入材料：";
             } else {
                 sendStr = "您尚未放置任何合成材料。请放入材料：";
             }
@@ -118,7 +118,7 @@ function action(mode, type, selection) {
                 if (curItemQty > 0) {
                     cm.sendGetText("How many " + tickSel + " do you want to provide? (#r" + curItemQty + "#k available)#k");
                 } else {
-                    cm.sendPrev("You have got #rnone#k " + tickSel + " to provide for Scroll Generation. Click '#rBack#k' to return to the main interface.");
+                    cm.sendPrev("You have got #rnone#k " + tickSel + " 份材料以进行合成。点击【返回】重新调整。");
                 }
             }
         } else if (status == 3) {
@@ -131,7 +131,7 @@ function action(mode, type, selection) {
                 }
 
                 if (placedQty > curItemQty) {
-                    cm.sendPrev("您无法投入指定数量的 #r" + (curItemSel < sgItems.length ? "#t" + sgItems[curItemSel] + "#" : "mesos") + "#k (#r" + curItemQty + "#k available). Click '#rBack#k' to return to the main interface.");
+                    cm.sendPrev("您无法投入指定数量的 #r" + (curItemSel < sgItems.length ? "#t" + sgItems[curItemSel] + "#" : "mesos") + "#k (#r" + curItemQty + "#k 份）。点击【返回】重新调整。");
                 } else {
                     if (curItemSel < sgItems.length) {
                         sgApplyItem(curItemSel, placedQty);
@@ -139,7 +139,7 @@ function action(mode, type, selection) {
                         sgApplyMeso(placedQty);
                     }
 
-                    cm.sendPrev("Operation succeeded. Click '#rBack#k' to return to the main interface.");
+                    cm.sendPrev("合成操作成功！点击【返回】返回主界面。");
                 }
             } catch (err) {
                 cm.sendPrev("You must enter a positive number of supplies to insert. Click '#rBack#k' to return to the main interface.");

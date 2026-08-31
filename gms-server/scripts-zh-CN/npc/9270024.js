@@ -72,7 +72,7 @@ function action(mode, type, selection) {
                     pushIfItemExists(facenew, fface_v[i] + cm.getPlayer().getFace() % 1000 - (cm.getPlayer().getFace() % 100));
                 }
             }
-            cm.sendStyle("Let's see... I can totally transform your face into something new. Don't you want to try it? For #b#t5152038##k, you can get the face of your liking. Take your time in choosing the face of your preference...", facenew);
+            cm.sendStyle("让我瞧瞧……我可以为你打造全新的精致容貌！想尝试一下吗？只要持有 #b#t5152038##k，就能随心挑选你喜欢的脸型。请慢慢挑选吧……", facenew);
         } else if (status == 2) {
             cm.gainItem(5152038, -1);
             cm.setFace(facenew[selection]);

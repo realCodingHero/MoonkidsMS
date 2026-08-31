@@ -21,7 +21,7 @@ function action(mode, type, selection) {
         }
         if (status == 0) {
             if (cm.getLevel() < 20) {
-                cm.sendDimensionalMirror("#-1# There is no place for you to transport to from here.");
+                cm.sendDimensionalMirror("#-1# 当前位置没有可供传送的目的地。");
                 cm.dispose();
             } else {
                 var selStr = "";

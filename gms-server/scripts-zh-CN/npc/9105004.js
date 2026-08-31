@@ -143,7 +143,7 @@ function insidePqAction(mode, type, selection) {
             var snowman = LifeFactory.getMonster(9400317 + (5 * difficulty));
             mapobj.spawnMonsterOnGroundBelow(snowman, new Point(-180, 15));
             eim.setIntProperty("snowmanLevel", 1);
-            eim.dropMessage(5, "The snowman appeared on the field! Protect it using all means necessary!");
+            eim.dropMessage(5, "巨大的雪人已经降临！请不惜一切代价保护它免受怪物的侵袭！");
 
             eim.setIntProperty("statusStg1", 0);
             cm.dispose();
