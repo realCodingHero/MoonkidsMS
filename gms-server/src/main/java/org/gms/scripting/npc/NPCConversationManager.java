@@ -44,6 +44,7 @@ import org.gms.net.server.guild.Guild;
 import org.gms.net.server.guild.GuildPackets;
 import org.gms.net.server.world.Party;
 import org.gms.net.server.world.PartyCharacter;
+import org.gms.server.quest.actions.ExpAction;
 import org.gms.service.GachaponService;
 import org.gms.util.packets.WeddingPackets;
 import org.slf4j.Logger;
@@ -317,8 +318,9 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         getPlayer().gainMeso(gain.intValue());
     }
 
+    @Override
     public void gainExp(int gain) {
-        getPlayer().gainExp(gain, true, true);
+        ExpAction.runAction(getPlayer(), gain);
     }
 
     @Override
