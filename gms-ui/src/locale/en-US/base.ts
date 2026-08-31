@@ -1,5 +1,5 @@
 export default {
-  'title': 'BeiDou',
+  'title': 'MoonKidsMS',
   'operation': 'Operation',
 
   'button.load': 'Load',

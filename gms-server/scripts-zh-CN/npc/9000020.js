@@ -25,7 +25,7 @@
 var status = -1;
 var selected = -1;
 var travelStatus = -1;
-var travelAgency = "北斗航旅";
+var travelAgency = "月兒航旅";
 var feeMin = 5000;
 var feeMax = 50000;
 

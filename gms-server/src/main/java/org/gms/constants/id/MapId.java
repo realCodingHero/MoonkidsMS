@@ -19,7 +19,8 @@ public class MapId {
     public static final int FM_ENTRANCE = 910000000;
 
     // Beginner
-    public static final int BEIDOU_BEGINNER = 4;
+    public static final int MOONKIDS_BEGINNER = 4;
+    public static final int BEIDOU_BEGINNER = MOONKIDS_BEGINNER;
     public static final int MUSHROOM_TOWN = 10000;
     // Town
     public static final int SOUTHPERRY = 2000000;

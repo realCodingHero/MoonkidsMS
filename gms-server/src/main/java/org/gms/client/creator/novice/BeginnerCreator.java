@@ -46,9 +46,9 @@ public class BeginnerCreator extends CharacterFactory {
     public static int createCharacter(Client c, String name, int face, int hair, int skin, int top, int bottom, int shoes, int weapon, int gender) {
 
         int iMapID = MapId.MUSHROOM_TOWN;
-        if (GameConfig.getServerBoolean("use_beidou_beginner_map"))
+        if (GameConfig.getServerBoolean("use_moonkids_beginner_map") || GameConfig.getServerBoolean("use_beidou_beginner_map"))
         {
-            iMapID = MapId.BEIDOU_BEGINNER;
+            iMapID = MapId.MOONKIDS_BEGINNER;
         }
 
         return createNewCharacter(c, name, face, hair, skin, gender, createRecipe(Job.BEGINNER, 1, iMapID, top, bottom, shoes, weapon));

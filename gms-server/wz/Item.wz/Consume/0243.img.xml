@@ -433,7 +433,7 @@
             <int name="tradeBlock" value="1"/>
         </imgdir>
         <imgdir name="spec">
-            <string name="script" value="BeiDouSatelliteManual"/>
+            <string name="script" value="MoonKidsSatelliteManual"/>
             <int name="npc" value="9900001"/>
         </imgdir>
     </imgdir>

@@ -48,16 +48,16 @@ function action(mode, type, selection) {
         if (selection == 0) {
             cm.sendYesNo("门票的价格是5,000金币。你要购买门票吗？");
         } else if (selection == 1) {
-            cm.sendYesNo("您现在想要进去吗？一旦您进去，您的票就会作废！感谢您选择北斗航空。");
+            cm.sendYesNo("您现在想要进去吗？一旦您进去，您的票就会作废！感谢您选择月兒航空。");
         }
         oldSelection = selection;
     } else if (status == 1) {
         if (oldSelection == 0) {
-            if (cm.getPlayer().getMeso() > 4999 && !cm.getPlayer().haveItem(4031731)) {
-                if (cm.canHold(4031731, 1)) {
+            if (cm.getPlayer().getMeso() > 4999 && !cm.getPlayer().haveItem(4031733)) {
+                if (cm.getPlayer().canHold(4031733, 1)) {
                     cm.gainMeso(-5000);
-                    cm.gainItem(4031731);
-                    cm.sendOk("谢谢您选择北斗航空！祝您旅途愉快！");
+                    cm.gainItem(4031733);
+                    cm.sendOk("谢谢您选择月兒航空！祝您旅途愉快！");
                     cm.dispose();
                 } else {
                     cm.sendOk("你的ETC库存中没有空闲的插槽来放置这张票，请提前创建一个房间。");
