@@ -114,7 +114,7 @@ var status;
 function start() 
 {
     if (org.gms.server.quest.JobAdvancementUtil.isUndergoingJobAdvancement(cm.getPlayer())) {
-        cm.sendOk("转职考验进行中，为了感受真实的冒险旅程，当前禁止使用直接传送！\r\n\r\n请使用#b步行、坐船、打车或回城卷#k等固有移动手段前往目的地。");
+        cm.sendOk("接到#r转职教官#k通知,转职期间无法使用传送.");
         cm.dispose();
         return;
     }
@@ -141,7 +141,7 @@ function level9999() {
 
 function checkAndWarp(mapId, cost) {
     if (org.gms.server.quest.JobAdvancementUtil.isUndergoingJobAdvancement(cm.getPlayer())) {
-        cm.sendOk("转职考验进行中，为了感受真实的冒险旅程，当前禁止使用直接传送！\r\n\r\n请使用#b步行、坐船、打车或回城卷#k等固有移动手段前往目的地。");
+        cm.sendOk("接到#r转职教官#k通知,转职期间无法使用传送.");
         cm.dispose();
         return false;
     }

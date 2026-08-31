@@ -101,7 +101,7 @@ function doSelect(selection) {
         // 非GM功能
         case 71:
             if (org.gms.server.quest.JobAdvancementUtil.isUndergoingJobAdvancement(cm.getPlayer())) {
-                cm.sendOk("转职考验进行中，为了感受真实的冒险旅程，当前禁止使用直接传送！\r\n\r\n请使用#b步行、坐船、打车或回城卷#k等固有移动手段前往目的地。");
+                cm.sendOk("接到#r转职教官#k通知,转职期间无法使用传送.");
                 cm.dispose();
                 break;
             }
@@ -118,7 +118,7 @@ function doSelect(selection) {
             break;
         case 3:
             if (org.gms.server.quest.JobAdvancementUtil.isUndergoingJobAdvancement(cm.getPlayer())) {
-                cm.sendOk("转职考验进行中，为了感受真实的冒险旅程，当前禁止使用直接传送！\r\n\r\n请使用#b步行、坐船、打车或回城卷#k等固有移动手段前往目的地。");
+                cm.sendOk("接到转职教官通知,转职期间无法使用传送.");
                 cm.dispose();
                 break;
             }

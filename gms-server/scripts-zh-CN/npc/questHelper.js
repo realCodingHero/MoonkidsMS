@@ -630,7 +630,7 @@ function showMobMapList(mob) {
             return;
         }
         if (mob.isBoss()) {
-            cm.sendOk("怪物 【" + mob.getMobName() + "】 为 Boss 怪物，为了游戏平衡与挑战流程，已关闭直接传送至 Boss 房间的功能，请自行前往挑战！");
+            cm.sendOk("当前地图无法传送");
             return;
         }
         var unlockedMaps = getUnlockedMapsList(mob.getMaps());
@@ -792,7 +792,7 @@ function handleSubSelection(selection) {
         if (selectedItem && selectedItem.getDropMobs() && index < selectedItem.getDropMobs().size()) {
             var dropMob = selectedItem.getDropMobs().get(index);
             if (dropMob.isBoss()) {
-                cm.sendOk("怪物 【" + dropMob.getMobName() + "】 为 Boss 怪物，为了游戏平衡与挑战流程，已关闭直接传送至 Boss 房间的功能，请自行前往挑战！");
+                cm.sendOk("当前地图无法传送");
                 return;
             }
             showDropMobMapList(dropMob);
@@ -827,7 +827,7 @@ function showDropMobMapList(dropMob) {
             return;
         }
         if (dropMob.isBoss()) {
-            cm.sendOk("怪物 【" + dropMob.getMobName() + "】 为 Boss 怪物，为了游戏平衡与挑战流程，已关闭直接传送至 Boss 房间的功能，请自行前往挑战！");
+            cm.sendOk("当前地图无法传送");
             return;
         }
         var unlockedMaps = getUnlockedMapsList(dropMob.getMaps());
