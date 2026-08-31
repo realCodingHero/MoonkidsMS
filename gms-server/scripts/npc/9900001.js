@@ -1,8 +1,8 @@
 /*
-	This file is part of the OdinMS Maple Story Server
+    This file is part of the OdinMS Maple Story Server
     Copyright (C) 2008 Patrick Huy <patrick.huy@frz.cc>
-		       Matthias Butz <matze@odinms.de>
-		       Jan Christian Meyer <vimes@odinms.de>
+               Matthias Butz <matze@odinms.de>
+               Jan Christian Meyer <vimes@odinms.de>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as
@@ -101,7 +101,7 @@ function doSelect(selection) {
         // Player Features
         case 71:
             if (org.gms.server.quest.JobAdvancementUtil.isUndergoingJobAdvancement(cm.getPlayer())) {
-                cm.sendOk("转职考验进行中，为了感受真实的冒险旅程，当前禁止使用直接传送！\r\n\r\n请使用#b步行、坐船、打车或回城卷#k等固有移动手段前往目的地。");
+                cm.sendOk("接到#r转职教官#k通知,转职期间无法使用传送.");
                 cm.dispose();
                 break;
             }
@@ -118,7 +118,7 @@ function doSelect(selection) {
             break;
         case 3:
             if (org.gms.server.quest.JobAdvancementUtil.isUndergoingJobAdvancement(cm.getPlayer())) {
-                cm.sendOk("转职考验进行中，为了感受真实的冒险旅程，当前禁止使用直接传送！\r\n\r\n请使用#b步行、坐船、打车或回城卷#k等固有移动手段前往目的地。");
+                cm.sendOk("接到#r转职教官#k通知,转职期间无法使用传送.");
                 cm.dispose();
                 break;
             }
@@ -182,7 +182,7 @@ function doSelect(selection) {
 function openNpc(scriptName) {
     try {
         java.lang.System.out.println("[NPC 9900001] openNpc called: " + scriptName);
-    } catch (ignored) {}
+    } catch (ignored) { }
     cm.dispose();
     cm.openNpc(9900001, scriptName);
 }

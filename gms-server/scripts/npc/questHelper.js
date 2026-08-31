@@ -191,7 +191,7 @@ function showQuestList(category) {
             var isMedal = false;
             try {
                 isMedal = (typeof item.isMedalQuest === "function") ? item.isMedalQuest() : false;
-            } catch (ignored) {}
+            } catch (ignored) { }
             if (isMedal) {
                 medalQuests.push(item);
             } else {
@@ -630,7 +630,7 @@ function showMobMapList(mob) {
             return;
         }
         if (mob.isBoss()) {
-            cm.sendOk("怪物 【" + mob.getMobName() + "】 为 Boss 怪物，为了游戏平衡与挑战流程，已关闭直接传送至 Boss 房间的功能，请自行前往挑战！");
+            cm.sendOk("当前地图无法传送");
             return;
         }
         var unlockedMaps = getUnlockedMapsList(mob.getMaps());
@@ -792,7 +792,7 @@ function handleSubSelection(selection) {
         if (selectedItem && selectedItem.getDropMobs() && index < selectedItem.getDropMobs().size()) {
             var dropMob = selectedItem.getDropMobs().get(index);
             if (dropMob.isBoss()) {
-                cm.sendOk("怪物 【" + dropMob.getMobName() + "】 为 Boss 怪物，为了游戏平衡与挑战流程，已关闭直接传送至 Boss 房间的功能，请自行前往挑战！");
+                cm.sendOk("当前地图无法传送");
                 return;
             }
             showDropMobMapList(dropMob);
@@ -827,7 +827,7 @@ function showDropMobMapList(dropMob) {
             return;
         }
         if (dropMob.isBoss()) {
-            cm.sendOk("怪物 【" + dropMob.getMobName() + "】 为 Boss 怪物，为了游戏平衡与挑战流程，已关闭直接传送至 Boss 房间的功能，请自行前往挑战！");
+            cm.sendOk("当前地图无法传送");
             return;
         }
         var unlockedMaps = getUnlockedMapsList(dropMob.getMaps());
@@ -980,9 +980,9 @@ function showCardDropList(card) {
 
         currentState = STATE_SUB_MENU;
         selectedItem = {
-            getItemName: function() { return card.getCardName(); },
-            getDropMobs: function() { return card.getDropMobs(); },
-            getDropReactors: function() { return null; }
+            getItemName: function () { return card.getCardName(); },
+            getDropMobs: function () { return card.getDropMobs(); },
+            getDropReactors: function () { return null; }
         };
 
         var text = "#e#b卡片 【" + card.getCardName() + "】 的掉落怪物列表：#k#n\r\n点击怪物查看分布地图并传送：\r\n\r\n";
