@@ -16,19 +16,38 @@ public class JwtUtils {
     private String jwtSecret;
 
     @Value("${jwt.duration}")
-    private int jwtDuration;
+    private long jwtDuration;
 
     public String generateJwtToken(String username) {
         return Jwts.builder()
-                .setSubject((username))
+                .setSubject(username)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + jwtDuration))
+                .setExpiration(new Date(System.currentTimeMillis() + jwtDuration))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
 
+    public Claims getClaimsFromJwtToken(String token) {
+        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
+    }
+
     public String getUserNameFromJwtToken(String token) {
-        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+        return getClaimsFromJwtToken(token).getSubject();
+    }
+
+    public boolean shouldRenewToken(String token) {
+        try {
+            Claims claims = getClaimsFromJwtToken(token);
+            Date expiration = claims.getExpiration();
+            if (expiration == null) {
+                return false;
+            }
+            long remainingTime = expiration.getTime() - System.currentTimeMillis();
+            // 当 Token 剩余有效期低于 50%（如 7 天配置时剩余不足 3.5 天）时触发自动续期
+            return remainingTime > 0 && remainingTime < (jwtDuration / 2);
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public boolean validateJwtToken(String authToken) {

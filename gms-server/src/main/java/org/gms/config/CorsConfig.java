@@ -16,6 +16,7 @@ public class CorsConfig implements WebMvcConfigurer {
                 .allowedOriginPatterns(vue)// 所有地址都可以访问，也可以配置具体地址  
                 .allowCredentials(true)
                 .allowedMethods("*")//"GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"  
+                .exposedHeaders("Authorization")
                 .maxAge(3600);// 跨域允许时间  
     }
 }

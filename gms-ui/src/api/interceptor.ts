@@ -2,7 +2,7 @@ import axios from 'axios';
 import type { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Message } from '@arco-design/web-vue';
 import { useUserStore } from '@/store';
-import { getToken } from '@/utils/auth';
+import { getToken, setToken } from '@/utils/auth';
 
 /* eslint-disable no-bitwise */
 function generateUUID() {
@@ -54,6 +54,19 @@ axios.interceptors.request.use(
 // add response interceptors
 axios.interceptors.response.use(
   (response: AxiosResponse<HttpResponse | Blob>) => {
+    // 检查响应头是否携带自动续期的新 Token
+    const authHeader =
+      response.headers?.authorization || response.headers?.Authorization;
+    if (
+      authHeader &&
+      typeof authHeader === 'string' &&
+      authHeader.startsWith('Bearer ')
+    ) {
+      const newToken = authHeader.substring(7);
+      if (newToken) {
+        setToken(newToken);
+      }
+    }
     if (response.config.responseType === 'blob') {
       const res = response.data as Blob;
       if (response.status !== 200) {
