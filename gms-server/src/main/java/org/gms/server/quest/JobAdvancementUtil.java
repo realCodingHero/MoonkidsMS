@@ -11,112 +11,80 @@ import java.util.Set;
 /**
  * 转职任务状态判定工具类
  * 用于检测玩家是否正在进行 2转、3转、4转 任务，以便在转职考验期间提供沉浸式冒险体验（限制瞬移/快捷直达传送）。
- * 一旦转职完成（职业阶级晋升），传送限制自动解除。
  */
 public final class JobAdvancementUtil {
 
-    // === 2转道具 (教官推荐信、英雄证书、黑珠、海盗任务道具等) ===
-    private static final Set<Integer> SECOND_JOB_ITEM_IDS = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
-            4031008, 4031009, 4031010, 4031011, // 战士/魔法师/弓箭手/飞侠 转职教官信件
-            4031012, // 英雄证书 (Proof of Hero)
-            4031013, // 黑珠 (Dark Marble)
-            4031856, 4031857 // 海盗转职信件与能量证明
+    // 希纳斯骑士团 2转任务 ID
+    private static final Set<Integer> CYGNUS_2ND_QUESTS = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
+            20200, 20201, 20202, 20203, 20204, 20205
     )));
 
-    // === 2转任务 ID (海盗/骑士团/战神/自定义2转任务) ===
-    private static final Set<Integer> SECOND_JOB_QUEST_IDS = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
-            100000, 100001, 100002, 100003, 100004, 100005,
-            100006, 100007, 100008, 100009, 100010, 100011,
-            2191, 2192, 6330, 6370,
-            20200, 20201, 20202, 20203, 20204, 20205, // 骑士团 2转
-            21200, 21201, 21202, 21203 // 战神 2转
+    // 希纳斯骑士团 3转任务 ID
+    private static final Set<Integer> CYGNUS_3RD_QUESTS = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
+            20300, 20301, 20302, 20303, 20304, 20305
     )));
 
-    // === 3转道具 (黑符、力量/智慧项链) ===
-    private static final Set<Integer> THIRD_JOB_ITEM_IDS = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
-            4031057, // 黑符 (战士/弓箭手/飞侠/海盗 分身掉落)
-            4031058, // 力量项链 / 智慧项链 (神圣之石 答题奖励)
-            4031059  // 黑符 (魔法师 分身掉落)
+    // 战神 2转任务 ID
+    private static final Set<Integer> ARAN_2ND_QUESTS = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
+            21200, 21201, 21202, 21203
     )));
 
-    // === 3转任务 ID (骑士团/战神) ===
-    private static final Set<Integer> THIRD_JOB_QUEST_IDS = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
-            20300, 20301, 20302, 20303, 20304, 20305, // 骑士团 3转
-            21300, 21301, 21302, 21303 // 战神 3转
+    // 战神 3转任务 ID
+    private static final Set<Integer> ARAN_3RD_QUESTS = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
+            21300, 21301, 21302, 21303
     )));
 
-    // === 4转道具 (英雄之星、英雄之羽、秘密卷轴、推荐信) ===
-    private static final Set<Integer> FOURTH_JOB_ITEM_IDS = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
-            4031343, 4031344, 4031345, 4031346
+    // 战神 4转任务 ID
+    private static final Set<Integer> ARAN_4TH_QUESTS = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
+            21400, 21401, 21402, 21403
     )));
 
-    // === 4转任务 ID (冒险家 4转 6900~6945、战神 4转 21400~21403) ===
-    private static final Set<Integer> FOURTH_JOB_QUEST_IDS = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
-            6900, 6901, 6902, 6903, 6904, 6905, // 战士 4转
-            6910, 6911, 6912, 6913, 6914, 6915, // 魔法师 4转
-            6920, 6921, 6922, 6923, 6924, 6925, // 弓箭手 4转
-            6930, 6931, 6932, 6933, 6934, 6935, // 飞侠 4转
-            6940, 6941, 6942, 6943, 6944, 6945, // 海盗 4转
-            21400, 21401, 21402, 21403 // 战神 4转
+    // 冒险家 4转任务 ID (6900~6945)
+    private static final Set<Integer> ADVENTURER_4TH_QUESTS = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
+            6900, 6901, 6902, 6903, 6905, // 战士
+            6910, 6911, 6912, 6913, 6915, // 魔法师
+            6920, 6921, 6922, 6923, 6925, // 弓箭手
+            6930, 6931, 6932, 6933, 6935, // 飞侠
+            6940, 6941, 6942, 6943, 6945  // 海盗
     )));
 
-    private static final Set<Integer> ALL_JOB_ADVANCEMENT_QUEST_IDS;
-
+    // 汇总所有转职任务 ID
+    private static final Set<Integer> ALL_JOB_QUEST_IDS;
     static {
         Set<Integer> all = new HashSet<>();
-        all.addAll(SECOND_JOB_QUEST_IDS);
-        all.addAll(THIRD_JOB_QUEST_IDS);
-        all.addAll(FOURTH_JOB_QUEST_IDS);
-        ALL_JOB_ADVANCEMENT_QUEST_IDS = Collections.unmodifiableSet(all);
+        all.addAll(CYGNUS_2ND_QUESTS);
+        all.addAll(CYGNUS_3RD_QUESTS);
+        all.addAll(ARAN_2ND_QUESTS);
+        all.addAll(ARAN_3RD_QUESTS);
+        all.addAll(ARAN_4TH_QUESTS);
+        all.addAll(ADVENTURER_4TH_QUESTS);
+        all.addAll(Arrays.asList(2191, 2192, 6330, 6370, 6904, 6914, 6924, 6934, 6944));
+        ALL_JOB_QUEST_IDS = Collections.unmodifiableSet(all);
     }
 
     private JobAdvancementUtil() {
     }
 
-    /**
-     * 获取角色职业阶级 (0: 初心者, 1: 1转, 2: 2转, 3: 3转, 4: 4转, -1: GM/其他)
-     */
-    public static int getJobTier(int job) {
-        if (job == 0 || job == 1000 || job == 2000) {
-            return 0;
+    private static boolean isQuestStarted(Character chr, int qid) {
+        Quest quest = Quest.getInstance(qid);
+        if (quest != null) {
+            QuestStatus status = chr.getQuestNoAdd(quest);
+            return status != null && status.getStatus() == QuestStatus.Status.STARTED;
         }
-        if (job == 100 || job == 200 || job == 300 || job == 400 || job == 500
-                || job == 1100 || job == 1200 || job == 1300 || job == 1400 || job == 1500
-                || job == 2100) {
-            return 1;
+        return false;
+    }
+
+    private static boolean hasAnyQuestStarted(Character chr, Set<Integer> questIds) {
+        for (int qid : questIds) {
+            if (isQuestStarted(chr, qid)) {
+                return true;
+            }
         }
-        if ((job >= 110 && job <= 130 && job % 10 == 0)
-                || (job >= 210 && job <= 230 && job % 10 == 0)
-                || (job >= 310 && job <= 320 && job % 10 == 0)
-                || (job >= 410 && job <= 420 && job % 10 == 0)
-                || (job >= 510 && job <= 520 && job % 10 == 0)
-                || (job >= 1110 && job <= 1510 && job % 100 == 10)
-                || job == 2110) {
-            return 2;
-        }
-        if ((job >= 111 && job <= 131 && job % 10 == 1)
-                || (job >= 211 && job <= 231 && job % 10 == 1)
-                || (job >= 311 && job <= 321 && job % 10 == 1)
-                || (job >= 411 && job <= 421 && job % 10 == 1)
-                || (job >= 511 && job <= 521 && job % 10 == 1)
-                || (job >= 1111 && job <= 1511 && job % 100 == 11)
-                || job == 2111) {
-            return 3;
-        }
-        if ((job >= 112 && job <= 132 && job % 10 == 2)
-                || (job >= 212 && job <= 232 && job % 10 == 2)
-                || (job >= 312 && job <= 322 && job % 10 == 2)
-                || (job >= 412 && job <= 422 && job % 10 == 2)
-                || (job >= 512 && job <= 522 && job % 10 == 2)
-                || job == 2112) {
-            return 4;
-        }
-        return -1;
+        return false;
     }
 
     /**
      * 判断当前角色是否正在进行 2转、3转、4转 任务
-     * GM 管理员在游戏内道具/NPC交互时与普通玩家一致，仅在直接执行管理指令时豁免。
      *
      * @param chr 角色实例
      * @return 若角色正处于转职任务中则返回 true，否则返回 false
@@ -126,66 +94,82 @@ public final class JobAdvancementUtil {
             return false;
         }
 
-        int tier = getJobTier(chr.getJob());
+        int jobId = chr.getJobId();
         int level = chr.getLevel();
 
-        if (tier == 1 && level >= 30) {
-            // 1转玩家正在进行 2转考核
-            for (int itemId : SECOND_JOB_ITEM_IDS) {
-                if (chr.haveItem(itemId)) {
-                    return true;
-                }
+        // 1. 希纳斯骑士团 (1100~1512)
+        if (jobId >= 1100 && jobId <= 1512) {
+            if (level >= 30 && jobId % 100 == 0) { // 1100, 1200, 1300, 1400, 1500 (1转阶段，进行2转)
+                return hasAnyQuestStarted(chr, CYGNUS_2ND_QUESTS);
             }
-            for (int qid : SECOND_JOB_QUEST_IDS) {
-                if (isQuestStarted(chr, qid)) {
-                    return true;
-                }
+            if (level >= 70 && jobId % 100 == 10) { // 1110, 1210, 1310, 1410, 1510 (2转阶段，进行3转)
+                return hasAnyQuestStarted(chr, CYGNUS_3RD_QUESTS);
             }
-        } else if (tier == 2 && level >= 70) {
-            // 2转玩家正在进行 3转考核
+            return false;
+        }
+
+        // 2. 战神 (2000~2112)
+        if (jobId >= 2000 && jobId <= 2112) {
+            if (level >= 30 && jobId == 2100) { // 1转阶段，进行2转
+                return hasAnyQuestStarted(chr, ARAN_2ND_QUESTS);
+            }
+            if (level >= 70 && jobId == 2110) { // 2转阶段，进行3转
+                return hasAnyQuestStarted(chr, ARAN_3RD_QUESTS);
+            }
+            if (level >= 120 && jobId == 2111) { // 3转阶段，进行4转
+                return hasAnyQuestStarted(chr, ARAN_4TH_QUESTS);
+            }
+            return false;
+        }
+
+        // 3. 冒险家 (五大系)
+        // 二转阶段判定：1转职业 (100, 200, 300, 400, 500) 且 等级 >= 30
+        if (level >= 30 && (jobId == 100 || jobId == 200 || jobId == 300 || jobId == 400 || jobId == 500)) {
+            // 拥有导师信件、黑珠、英雄证书等转职道具
+            if (chr.haveItem(4031008) || chr.haveItem(4031009) || chr.haveItem(4031010) ||
+                chr.haveItem(4031011) || chr.haveItem(4031012) || chr.haveItem(4031013) ||
+                chr.haveItem(4031856) || chr.haveItem(4031857)) {
+                return true;
+            }
+            if (isQuestStarted(chr, 2191) || isQuestStarted(chr, 2192) ||
+                isQuestStarted(chr, 6330) || isQuestStarted(chr, 6370)) {
+                return true;
+            }
+        }
+
+        // 三转阶段判定：2转职业 (110..520, jobId % 10 == 0) 且 等级 >= 70
+        // (注：已完成三转的角色 jobId % 10 == 1，如祭司 231、勇士 111，不会被判定为三转中)
+        if (level >= 70 && jobId >= 110 && jobId <= 520 && (jobId % 10 == 0)) {
             if (chr.gotPartyQuestItem("JB3") || chr.gotPartyQuestItem("JBP") || chr.gotPartyQuestItem("JBQ")) {
                 return true;
             }
-            for (int itemId : THIRD_JOB_ITEM_IDS) {
-                if (chr.haveItem(itemId)) {
-                    return true;
-                }
+            if (chr.haveItem(4031057) || chr.haveItem(4031059) || chr.haveItem(4031058)) {
+                return true;
             }
-            for (int qid : THIRD_JOB_QUEST_IDS) {
-                if (isQuestStarted(chr, qid)) {
-                    return true;
-                }
+            if (isQuestStarted(chr, 6904) || isQuestStarted(chr, 6914) ||
+                isQuestStarted(chr, 6924) || isQuestStarted(chr, 6934) || isQuestStarted(chr, 6944)) {
+                return true;
             }
-        } else if (tier == 3 && level >= 120) {
-            // 3转玩家正在进行 4转考核
-            for (int itemId : FOURTH_JOB_ITEM_IDS) {
-                if (chr.haveItem(itemId)) {
-                    return true;
-                }
+        }
+
+        // 四转阶段判定：3转职业 (111..521, jobId % 10 == 1) 且 等级 >= 120
+        // (注：已完成四转的角色 jobId % 10 == 2，如主教 232、英雄 112，不会被判定为四转中)
+        if (level >= 120 && jobId >= 111 && jobId <= 521 && (jobId % 10 == 1)) {
+            if (hasAnyQuestStarted(chr, ADVENTURER_4TH_QUESTS)) {
+                return true;
             }
-            for (int qid : FOURTH_JOB_QUEST_IDS) {
-                if (isQuestStarted(chr, qid)) {
-                    return true;
-                }
+            if (chr.haveItem(4031343) || chr.haveItem(4031344) || chr.haveItem(4031531)) {
+                return true;
             }
         }
 
         return false;
     }
 
-    private static boolean isQuestStarted(Character chr, int questId) {
-        Quest quest = Quest.getInstance(questId);
-        if (quest == null) {
-            return false;
-        }
-        QuestStatus status = chr.getQuest(quest);
-        return status != null && status.getStatus() == QuestStatus.Status.STARTED;
-    }
-
     /**
      * 获取所有转职任务 ID 集合（只读）
      */
     public static Set<Integer> getJobAdvancementQuestIds() {
-        return ALL_JOB_ADVANCEMENT_QUEST_IDS;
+        return ALL_JOB_QUEST_IDS;
     }
 }

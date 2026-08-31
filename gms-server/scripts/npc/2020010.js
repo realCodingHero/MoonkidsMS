@@ -77,6 +77,8 @@ function action(mode, type, selection) {
                 cm.gainItem(4031058, -1);
                 cm.changeJobById(cm.getJobId() + 1);
                 cm.getPlayer().removePartyQuestItem("JBQ");
+                cm.getPlayer().removePartyQuestItem("JB3");
+                cm.getPlayer().removePartyQuestItem("JBP");
             }
 
             if (Math.floor(cm.getJobId() / 10) == 31) {
