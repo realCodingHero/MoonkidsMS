@@ -62,7 +62,7 @@ function action(mode, type, selection) {
         const GameConfig = Java.type('org.gms.config.GameConfig');
         if (cm.getPlayer().getMapId() == 980000010) {
             if (status == 0) {
-                cm.sendNext("希望你在怪物嘉年华上玩得开心！");
+                cm.sendNext("祝你在怪物嘉年华中玩得尽兴！");
             } else if (status > 0) {
                 cm.warp(980000000, 0);
                 cm.dispose();
@@ -73,20 +73,20 @@ function action(mode, type, selection) {
                     var shiu = "";
                     if (cm.getPlayer().getFestivalPoints() >= 300) {
                         shiu += "#rA#k";
-                        cm.sendOk("很遗憾，尽管你表现出色，但你要么平局要么输掉了这场战斗。下次胜利就属于你了！\r\n\r\n#b你的结果：" + shiu);
+                        cm.sendOk("真可惜！虽然你表现出色拿到了高分，但胜败乃兵家常事。吸取教训，下次胜利一定是你们的！\r\n\r\n#b本次评价：" + shiu);
                         rnk = 10;
                     } else if (cm.getPlayer().getFestivalPoints() >= 100) {
                         shiu += "#rB#k";
                         rnk = 20;
-                        cm.sendOk("很遗憾，即使你表现出色，你要么平局要么失败了。只差一点点，胜利就可能属于你了！\r\n\r\n#b你的结果：" + shiu);
+                        cm.sendOk("太遗憾了！你们只差一点点就能拿下胜利了，战斗非常激烈！下次继续加油！\r\n\r\n#b本次评价：" + shiu);
                     } else if (cm.getPlayer().getFestivalPoints() >= 50) {
                         shiu += "#rC#k";
                         rnk = 30;
-                        cm.sendOk("很遗憾，你要么平局要么失败了。胜利属于那些努力奋斗的人。我看到了你的努力，所以胜利离你并不遥远。继续努力吧！\r\n#b你的结果：" + shiu);
+                        cm.sendOk("胜负乃兵家常事，唯有不断磨炼方能登上顶峰。只要继续努力，胜利离你们并不遥远！\r\n\r\n#b本次评价：" + shiu);
                     } else {
                         shiu += "#rD#k";
                         rnk = 40;
-                        cm.sendOk("很遗憾，你要么打成了平局，要么输掉了战斗，你的表现清楚地反映了这一点。我希望你下次能做得更好。\r\n\r\n#b你的结果：" + shiu);
+                        cm.sendOk("很遗憾，你们输掉了这场战斗，本次表现也稍显欠缺。希望下次你能更加积极地投入战斗！\r\n\r\n#b本次评价：" + shiu);
                     }
                 } else {
                     cm.warp(980000000, 0);
@@ -127,19 +127,19 @@ function action(mode, type, selection) {
                     if (cm.getPlayer().getFestivalPoints() >= 300) {
                         shi += "#rA#k";
                         rnk = 1;
-                        cm.sendOk("恭喜你的胜利！表现太棒了！对方队伍毫无还手之力！希望下次也能有同样出色的表现！\r\n\r\n#b你的成绩：" + shi);
+                        cm.sendOk("恭喜你们大获全胜！太精彩了，简直是一场无可挑剔的压倒性胜利！希望下次也能看到你们如此精彩的表现！\r\n\r\n#b本次评价：" + shi);
                     } else if (cm.getPlayer().getFestivalPoints() >= 100) {
                         shi += "#rB#k";
                         rnk = 2;
-                        cm.sendOk("恭喜你的胜利！太棒了！你对抗对方团队做得很好！再坚持一会儿，下次你肯定能拿到A！\r\n\r\n#b你的成绩：" + shi);
+                        cm.sendOk("恭喜你们赢得了胜利！打得非常漂亮！再多积累一点点点数，下次一定能拿到顶级A级评价！\r\n\r\n#b本次评价：" + shi);
                     } else if (cm.getPlayer().getFestivalPoints() >= 50) {
                         shi += "#rC#k";
                         rnk = 3;
-                        cm.sendOk("恭喜你的胜利。你做了一些事情，但这不能算是一个好的胜利。我期待你下次能做得更好。\r\n\r\n#b你的结果：" + shi);
+                        cm.sendOk("恭喜获得胜利！虽然赢下了比赛，但表现还有很大提升空间哦，期待你们下次更出色的发挥！\r\n\r\n#b本次评价：" + shi);
                     } else {
                         shi += "#rD#k";
                         rnk = 4;
-                        cm.sendOk("恭喜你的胜利，尽管你的表现并没有完全体现出来。在下一次怪物嘉年华中更加积极参与吧！\r\n\r\n#b你的结果：" + shi);
+                        cm.sendOk("恭喜获胜！不过在比赛中似乎没有全力以赴哦。下次怪物嘉年华可要更加积极地获取点数呀！\r\n\r\n#b本次评价：" + shi);
                     }
                 } else {
                     cm.warp(980000000, 0);
@@ -177,10 +177,10 @@ function action(mode, type, selection) {
             if (status == 0) {
                 if (cm.getParty() == null) {
                     status = 10;
-                    cm.sendOk("在你加入战斗之前，你需要先创建一个队伍！");
+                    cm.sendOk("在开始挑战前，你必须先创建一个队伍！");
                 } else if (!cm.isLeader()) {
                     status = 10;
-                    cm.sendOk("如果你想开始战斗，让#b队长#k和我交谈。");
+                    cm.sendOk("只有队伍的#b队长#k才能与我对话开启挑战。");
                 } else {
                     var party = cm.getParty().getMembers();
                     var inMap = cm.partyMembersInMap();
@@ -196,18 +196,18 @@ function action(mode, type, selection) {
                         }
                     }
 
-                    if (party >= 1) {
+                    if (party.size() < 2) {
                         status = 10;
-                        cm.sendOk("你的队伍人数不够。你需要一个有 #b" + cpqMinAmt + "#k - #r" + cpqMaxAmt + "#k 名成员的队伍，并且他们应该和你在同一地图上。");
+                        cm.sendOk("你的队伍人数不足。队伍至少需要 #b" + cpqMinAmt + "#k 至 #r" + cpqMaxAmt + "#k 名成员，且大家必须在同一张地图内。");
                     } else if (lvlOk != inMap) {
                         status = 10;
-                        cm.sendOk("确保你的队伍中的每个人都处于正确的等级范围内（" + cpqMinLvl + "~" + cpqMaxLvl + "）！");
+                        cm.sendOk("请确保队伍中的所有成员等级均在符合要求的范围内（" + cpqMinLvl + " ~ " + cpqMaxLvl + "级）！");
                     } else if (isOutMap > 0) {
                         status = 10;
-                        cm.sendOk("有一些队伍成员不在地图上！");
+                        cm.sendOk("队伍中有部分成员不在当前地图内！");
                     } else {
                         if (!cm.sendCPQMapLists()) {
-                            cm.sendOk("所有的怪物嘉年华场地目前都在使用中！请稍后再试。");
+                            cm.sendOk("当前所有的怪物嘉年华场地均在使用中！请稍后再试。");
                             cm.dispose();
                         }
                     }
@@ -218,15 +218,15 @@ function action(mode, type, selection) {
                         cm.challengeParty(selection);
                         cm.dispose();
                     } else {
-                        cm.sendOk("房间目前已满。");
+                        cm.sendOk("该擂台房间目前正在对战中。");
                         cm.dispose();
                     }
                 } else {
                     var party = cm.getParty().getMembers();
                     if ((selection >= 0 && selection <= 3) && party.size() < (GameConfig.getServerBoolean("use_enable_solo_expeditions") ? 1 : 2)) {
-                        cm.sendOk("你至少需要2名玩家才能参与战斗！");
+                        cm.sendOk("该擂台至少需要 2 名队员才能发起挑战！");
                     } else if ((selection >= 4 && selection <= 5) && party.size() < (GameConfig.getServerBoolean("use_enable_solo_expeditions") ? 1 : 3)) {
-                        cm.sendOk("你至少需要3名玩家参与战斗！");
+                        cm.sendOk("该擂台至少需要 3 名队员才能发起挑战！");
                     } else {
                         cm.cpqLobby(selection);
                     }
@@ -237,9 +237,9 @@ function action(mode, type, selection) {
             }
         } else {
             if (status == 0) {
-                var talk = "你想做什么呢？ 如果你没有参加过怪物嘉年华, 在参加之前，你需要知道一些事情! \r\n#b#L0# 前往怪物嘉年华地图 1.#l \r\n#L3# 前往怪物嘉年华地图 2.#l \r\n#L1# 了解怪物嘉年华.#l\r\n#L2# 交易 #t4001129#.#l";
+                var talk = "你想了解或参与什么呢？如果你第一次听说怪物嘉年华，在入场前最好先了解一下规则！\r\n#b#L0# 前往怪物嘉年华擂台 1 (Lv.30~50)#l\r\n#L3# 前往怪物嘉年华擂台 2 (Lv.51~70)#l\r\n#L1# 了解怪物嘉年华规则#l\r\n#L2# 使用枫叶币兑换装备与卷轴#l";
                 if (GameConfig.getServerBoolean("use_enable_custom_npc_script")) {
-                    talk += "\r\n#L4# ... 我可以精炼我的矿石吗#l";
+                    talk += "\r\n#L4# 矿石精炼服务#l";
                 }
                 cm.sendSimple(talk);
             } else if (status == 1) {
@@ -250,19 +250,19 @@ function action(mode, type, selection) {
                         cm.dispose();
 
                     } else if (cm.getLevel() < 30) {
-                        cm.sendOk("你必须至少达到30级才能参加怪物嘉年华。当你足够强大时，和我交谈。");
+                        cm.sendOk("你的等级尚未达到 30 级，无法参加怪物嘉年华擂台 1。等变得更强大后再来吧！");
                         cm.dispose();
 
                     } else {
-                        cm.sendOk("很抱歉，只有等级在30到50级之间的玩家才能参加怪物嘉年华活动。");
+                        cm.sendOk("怪物嘉年华擂台 1 仅限 30 到 50 级的玩家入场。");
                         cm.dispose();
 
                     }
                 } else if (selection == 1) {
                     status = 60;
-                    cm.sendSimple("你想做什么？\r\n#b#L0# 什么是怪物嘉年华？#l\r\n#L1# 怪物嘉年华概述。#l\r\n#L2# 怪物嘉年华的详细信息。#l\r\n#L3# 其实什么都不想做了，我改变主意了。#l");
+                    cm.sendSimple("你想了解哪些内容？\r\n#b#L0# 什么是怪物嘉年华？#l\r\n#L1# 怪物嘉年华玩法概述#l\r\n#L2# 嘉年华点数(CP)与快捷键指南#l\r\n#L3# 算了，我不想了解了#l");
                 } else if (selection == 2) {
-                    cm.sendSimple("记住，如果你有#t4001129#，你可以用它来兑换物品。选择你想要兑换的物品！\r\n#b#L0# #t1122007#（" + n1 + " 纪念币）#l\r\n#L1# #t2041211#（" + n2 + " 纪念币）#l\r\n#L2# 战士武器#l\r\n#L3# 魔法师武器#l\r\n#L4# 弓箭手武器#l\r\n#L5# 盗贼武器#l\r\n#L6# 海盗武器#l");
+                    cm.sendSimple("只要你手头拥有 #b#t4001129##k（枫叶币），就能找我兑换各种专属饰品、稀有卷轴以及极品武器！\r\n#b#L0# #t1122007#（" + n1 + " 个枫叶币）#l\r\n#L1# #t2041211#（" + n2 + " 个枫叶币）#l\r\n#L2# 战士专属武器#l\r\n#L3# 魔法师专属武器#l\r\n#L4# 弓箭手专属武器#l\r\n#L5# 飞侠专属武器#l\r\n#L6# 海盗专属武器#l");
                 } else if (selection == 3) {
                     cm.getChar().saveLocation("MONSTER_CARNIVAL");
                     cm.warp(980030000, 0);
@@ -295,7 +295,7 @@ function action(mode, type, selection) {
                         cm.gainItem(4001129, -n1);
                         cm.dispose();
                     } else {
-                        cm.sendOk("检查一下你是否缺少#b#t4001129##k，或者你的装备栏是否已满。");
+                        cm.sendOk("请检查你身上是否有足够的 #b#t4001129##k，或者装备栏是否有空位。");
                         cm.dispose();
                     }
                 } else if (select == 1) {
@@ -304,28 +304,28 @@ function action(mode, type, selection) {
                         cm.gainItem(4001129, -n2);
                         cm.dispose();
                     } else {
-                        cm.sendOk("检查一下你是否缺少#b#t4001129##k，或者你的使用物品栏是否已满。");
+                        cm.sendOk("请检查你身上是否有足够的 #b#t4001129##k，或者消耗栏是否有空位。");
                         cm.dispose();
                     }
                 } else if (select == 2) {//S2 Warrior 26 S3 Magician 6 S4 Bowman 6 S5 Thief 8
                     status = 10;
-                    cm.sendSimple("请确保您拥有 # t4001129 # 用于您想要的武器。选择您想要交易的武器 # t4001129 #。我有的选择都非常好，而且我不是那些说话的人！\r\n#b#L0# #z1302004#（" + n3 + " 纪念币）#l\r\n#L1# #z1402006#（" + n3 + " 纪念币）#l\r\n#L2# #z1302009#（" + n4 + " 纪念币）#l\r\n#L3# #z1402007#（" + n4 + " 纪念币）#l\r\n#L4# #z1302010#（" + n5 + " 纪念币）#l\r\n#L5# #z1402003#（" + n5 + " 纪念币）#l\r\n#L6# #z1312006#（" + n3 + " 纪念币）#l\r\n#L7# #z1412004#（" + n3 + " 纪念币）#l\r\n#L8# #z1312007#（" + n4 + " 纪念币）#l\r\n#L9# #z1412005#（" + n4 + " 纪念币）#l\r\n#L10# #z1312008#（" + n5 + " 纪念币）#l\r\n#L11# #z1412003#（" + n5 + " 纪念币）#l\r\n#L12# 继续到下一页（1/2）#l");
+                    cm.sendSimple("请选择你想要兑换的战士武器。我这里的装备品质绝对是一等一的棒！\r\n#b#L0# #z1302004#（" + n3 + " 个枫叶币）#l\r\n#L1# #z1402006#（" + n3 + " 个枫叶币）#l\r\n#L2# #z1302009#（" + n4 + " 个枫叶币）#l\r\n#L3# #z1402007#（" + n4 + " 个枫叶币）#l\r\n#L4# #z1302010#（" + n5 + " 个枫叶币）#l\r\n#L5# #z1402003#（" + n5 + " 个枫叶币）#l\r\n#L6# #z1312006#（" + n3 + " 个枫叶币）#l\r\n#L7# #z1412004#（" + n3 + " 个枫叶币）#l\r\n#L8# #z1312007#（" + n4 + " 个枫叶币）#l\r\n#L9# #z1412005#（" + n4 + " 个枫叶币）#l\r\n#L10# #z1312008#（" + n5 + " 个枫叶币）#l\r\n#L11# #z1412003#（" + n5 + " 个枫叶币）#l\r\n#L12# 翻到下一页（1/2）#l");
                 } else if (select == 3) {
                     status = 20;
-                    cm.sendSimple("选择您想要交易的武器。我这里的武器非常吸引人。亲自看看吧！\r\n#b#L0# #z1372001#（" + n3 + " 纪念币）#l\r\n#L1# #z1382018#（" + n3 + " 纪念币）#l\r\n#L2# #z1372012#（" + n4 + " 纪念币）#l\r\n#L3# #z1382019#（" + n4 + " 纪念币）#l\r\n#L4# #z1382001#（" + n5 + " 纪念币）#l\r\n#L5# #z1372007#（" + n5 + " 纪念币）#l");
+                    cm.sendSimple("请选择你想要兑换的魔法师武器。每一把法杖都蕴含着强大的魔力！\r\n#b#L0# #z1372001#（" + n3 + " 个枫叶币）#l\r\n#L1# #z1382018#（" + n3 + " 个枫叶币）#l\r\n#L2# #z1372012#（" + n4 + " 个枫叶币）#l\r\n#L3# #z1382019#（" + n4 + " 个枫叶币）#l\r\n#L4# #z1382001#（" + n5 + " 个枫叶币）#l\r\n#L5# #z1372007#（" + n5 + " 个枫叶币）#l");
                 } else if (select == 4) {
                     status = 30;
-                    cm.sendSimple("选择您想要交易的武器。我这里的武器非常吸引人。亲自看看吧！\r\n#b#L0# #z1452006#（" + n3 + " 纪念币）#l\r\n#L1# #z1452007#（" + n4 + " 纪念币）#l\r\n#L2# #z1452008#（" + n5 + " 纪念币）#l\r\n#L3# #z1462005#（" + n3 + " 纪念币）#l\r\n#L4# #z1462006#（" + n4 + " 纪念币）#l\r\n#L5# #z1462007#（" + n5 + " 纪念币）#l");
+                    cm.sendSimple("请选择你想要兑换的弓箭手武器。手感绝佳，百步穿杨！\r\n#b#L0# #z1452006#（" + n3 + " 个枫叶币）#l\r\n#L1# #z1452007#（" + n4 + " 个枫叶币）#l\r\n#L2# #z1452008#（" + n5 + " 个枫叶币）#l\r\n#L3# #z1462005#（" + n3 + " 个枫叶币）#l\r\n#L4# #z1462006#（" + n4 + " 个枫叶币）#l\r\n#L5# #z1462007#（" + n5 + " 个枫叶币）#l");
                 } else if (select == 5) {
                     status = 40;
-                    cm.sendSimple("选择您想要交易的武器。我所拥有的武器质量最高。选择对您最有吸引力的那一件！\r\n#b#L0# #z1472013#（" + n3 + " 纪念币）#l\r\n#L1# #z1472017#（" + n4 + " 纪念币）#l\r\n#L2# #z1472021#（" + n5 + " 纪念币）#l\r\n#L3# #z1332014#（" + n3 + " 纪念币）#l\r\n#L4# #z1332031#（" + n4 + " 纪念币）#l\r\n#L5# #z1332011#（" + n4 + " 纪念币）#l\r\n#L6# #z1332016#（" + n5 + " 纪念币）#l\r\n#L7# #z1332003#（" + n5 + " 纪念币）#l");
+                    cm.sendSimple("请选择你想要兑换的飞侠武器。锋利无比，乃暗夜刺客之首选！\r\n#b#L0# #z1472013#（" + n3 + " 个枫叶币）#l\r\n#L1# #z1472017#（" + n4 + " 个枫叶币）#l\r\n#L2# #z1472021#（" + n5 + " 个枫叶币）#l\r\n#L3# #z1332014#（" + n3 + " 个枫叶币）#l\r\n#L4# #z1332031#（" + n4 + " 个枫叶币）#l\r\n#L5# #z1332011#（" + n4 + " 个枫叶币）#l\r\n#L6# #z1332016#（" + n5 + " 个枫叶币）#l\r\n#L7# #z1332003#（" + n5 + " 个枫叶币）#l");
                 } else if (select == 6) {
                     status = 50; //pirate rewards
-                    cm.sendSimple("选择您想要交易的武器。我所拥有的武器质量最高。选择对您最有吸引力的那一件吧！\r\n#b#L0# #z1482005#（" + n3 + " 纪念币）#l \r\n#b#L1# #z1482006#（" + n4 + " 纪念币）#l \r\n#b#L2# #z1482007#（" + n5 + " 纪念币）#l \r\n#b#L3# #z1492005#（" + n3 + " 纪念币）#l \r\n#b#L4# #z1492006#（" + n4 + " 纪念币）#l \r\n#b#L5# #z1492007#（" + n5 + " 纪念币）#l");
+                    cm.sendSimple("请选择你想要兑换的海盗武器。威力强大，横扫战场！\r\n#b#L0# #z1482005#（" + n3 + " 个枫叶币）#l \r\n#b#L1# #z1482006#（" + n4 + " 个枫叶币）#l \r\n#b#L2# #z1482007#（" + n5 + " 个枫叶币）#l \r\n#b#L3# #z1492005#（" + n3 + " 个枫叶币）#l \r\n#b#L4# #z1492006#（" + n4 + " 个枫叶币）#l \r\n#b#L5# #z1492007#（" + n5 + " 个枫叶币）#l");
                 }
             } else if (status == 11) {
                 if (selection == 12) {
-                    cm.sendSimple("选择您想要交易的武器。我这里的武器非常有用。看一看！\r\n#b#L0# #z1322015#（" + n3 + " 纪念币）#l\r\n#L1# #z1422008#（" + n3 + " 纪念币）#l\r\n#L2# #z1322016#（" + n4 + " 纪念币）#l\r\n#L3# #z1422007#（" + n4 + " 纪念币）#l\r\n#L4# #z1322017#（" + n5 + " 纪念币）#l\r\n#L5# #z1422005#（" + n5 + " 纪念币）#l\r\n#L6# #z1432003#（" + n3 + " 纪念币）#l\r\n#L7# #z1442003#（" + n3 + " 纪念币）#l\r\n#L8# #z1432005#（" + n4 + " 纪念币）#l\r\n#L9# #z1442009#（" + n4 + " 纪念币）#l\r\n#L10# #z1442005#（" + n5 + " 纪念币）#l\r\n#L11# #z1432004#（" + n5 + " 纪念币）#l\r\n#L12# 返回第一页（2/2）#l");
+                    cm.sendSimple("请选择你想要兑换的武器：\r\n#b#L0# #z1322015#（" + n3 + " 个枫叶币）#l\r\n#L1# #z1422008#（" + n3 + " 个枫叶币）#l\r\n#L2# #z1322016#（" + n4 + " 个枫叶币）#l\r\n#L3# #z1422007#（" + n4 + " 个枫叶币）#l\r\n#L4# #z1322017#（" + n5 + " 个枫叶币）#l\r\n#L5# #z1422005#（" + n5 + " 个枫叶币）#l\r\n#L6# #z1432003#（" + n3 + " 个枫叶币）#l\r\n#L7# #z1442003#（" + n3 + " 个枫叶币）#l\r\n#L8# #z1432005#（" + n4 + " 个枫叶币）#l\r\n#L9# #z1442009#（" + n4 + " 个枫叶币）#l\r\n#L10# #z1442005#（" + n5 + " 个枫叶币）#l\r\n#L11# #z1432004#（" + n5 + " 个枫叶币）#l\r\n#L12# 返回第一页（2/2）#l");
                 } else {
                     var item = [1302004, 1402006, 1302009, 1402007, 1302010, 1402003, 1312006, 1412004, 1312007, 1412005, 1312008, 1412003];
                     var cost = [n3, n3, n4, n4, n5, n5, n3, n3, n4, n4, n5];
@@ -334,14 +334,14 @@ function action(mode, type, selection) {
                         cm.gainItem(4001129, -cost[selection]);
                         cm.dispose();
                     } else {
-                        cm.sendOk("您没有足够的#b#t4001129##k，或者您的背包已满。请再次检查。");
+                        cm.sendOk("你的 #b#t4001129##k 数量不足，或者装备栏已满。请检查后再试。");
                         cm.dispose();
                     }
                 }
             } else if (status == 12) {
                 if (selection == 12) {
                     status = 10;
-                    cm.sendSimple("请确保你有#b#t4001129##k用于你想要的武器。选择你想要交换的武器#t4001129#。我这里的选择都非常不错，而且我不是那些说话空话的人！\r\n#b#L0# #z1302004#（" + n3 + " 纪念币）#l\r\n#L1# #z1402006#（" + n3 + " 纪念币）#l\r\n#L2# #z1302009#（" + n4 + " 纪念币）#l\r\n#L3# #z1402007#（" + n4 + " 纪念币）#l\r\n#L4# #z1302010#（" + n5 + " 纪念币）#l\r\n#L5# #z1402003#（" + n5 + " 纪念币）#l\r\n#L6# #z1312006#（" + n3 + " 纪念币）#l\r\n#L7# #z1412004#（" + n3 + " 纪念币）#l\r\n#L8# #z1312007#（" + n4 + " 纪念币）#l\r\n#L9# #z1412005#（" + n4 + " 纪念币）#l\r\n#L10# #z1312008#（" + n5 + " 纪念币）#l\r\n#L11# #z1412003#（" + n5 + " 纪念币）#l\r\n#L12# 继续到下一页（1/2）#l");
+                    cm.sendSimple("请选择你想要兑换的战士武器。我这里的装备品质绝对是一等一的棒！\r\n#b#L0# #z1302004#（" + n3 + " 个枫叶币）#l\r\n#L1# #z1402006#（" + n3 + " 个枫叶币）#l\r\n#L2# #z1302009#（" + n4 + " 个枫叶币）#l\r\n#L3# #z1402007#（" + n4 + " 个枫叶币）#l\r\n#L4# #z1302010#（" + n5 + " 个枫叶币）#l\r\n#L5# #z1402003#（" + n5 + " 个枫叶币）#l\r\n#L6# #z1312006#（" + n3 + " 个枫叶币）#l\r\n#L7# #z1412004#（" + n3 + " 个枫叶币）#l\r\n#L8# #z1312007#（" + n4 + " 个枫叶币）#l\r\n#L9# #z1412005#（" + n4 + " 个枫叶币）#l\r\n#L10# #z1312008#（" + n5 + " 个枫叶币）#l\r\n#L11# #z1412003#（" + n5 + " 个枫叶币）#l\r\n#L12# 翻到下一页（1/2）#l");
                 } else {
                     var item = [1322015, 1422008, 1322016, 1422007, 1322017, 1422005, 1432003, 1442003, 1432005, 1442009, 1442005, 1432004];
                     var cost = [n3, n3, n4, n4, n5, n5, n3, n3, n4, n4, n5, n5];
@@ -350,7 +350,7 @@ function action(mode, type, selection) {
                         cm.gainItem(4001129, -cost[selection]);
                         cm.dispose();
                     } else {
-                        cm.sendOk("您没有足够的#b#t4001129##k，或者您的背包已满。请再次检查。");
+                        cm.sendOk("你的 #b#t4001129##k 数量不足，或者装备栏已满。请检查后再试。");
                         cm.dispose();
                     }
                 }
@@ -362,7 +362,7 @@ function action(mode, type, selection) {
                     cm.gainItem(4001129, -cost[selection]);
                     cm.dispose();
                 } else {
-                    cm.sendOk("您没有足够的#b#t4001129##k，或者您的背包已满。请再次检查。");
+                    cm.sendOk("你的 #b#t4001129##k 数量不足，或者装备栏已满。请检查后再试。");
                     cm.dispose();
                 }
             } else if (status == 31) {
@@ -373,7 +373,7 @@ function action(mode, type, selection) {
                     cm.gainItem(4001129, -cost[selection]);
                     cm.dispose();
                 } else {
-                    cm.sendOk("您没有足够的#b#t4001129##k，或者您的背包已满。请再次检查。");
+                    cm.sendOk("你的 #b#t4001129##k 数量不足，或者装备栏已满。请检查后再试。");
                     cm.dispose();
                 }
             } else if (status == 41) {
@@ -384,7 +384,7 @@ function action(mode, type, selection) {
                     cm.gainItem(4001129, -cost[selection]);
                     cm.dispose();
                 } else {
-                    cm.sendOk("您没有足够的 #b#t4001129##k，或者您的背包已满。请再次检查。");
+                    cm.sendOk("你的 #b#t4001129##k 数量不足，或者装备栏已满。请检查后再试。");
                     cm.dispose();
                 }
             } else if (status == 51) {
@@ -395,54 +395,54 @@ function action(mode, type, selection) {
                     cm.gainItem(4001129, -cost[selection]);
                     cm.dispose();
                 } else {
-                    cm.sendOk("您没有足够的#b#t4001129##k，或者您的背包已满。请再次检查。");
+                    cm.sendOk("你的 #b#t4001129##k 数量不足，或者装备栏已满。请检查后再试。");
                     cm.dispose();
                 }
             } else if (status == 61) {
                 select = selection;
                 if (selection == 0) {
-                    cm.sendNext("哈哈！我是斯皮格曼，这个怪物嘉年华的领袖。我在这里举办了第一届#b怪物嘉年华#k，等待像你这样的旅行者参加这场盛会！");
+                    cm.sendNext("哈哈！我是斯皮格曼，怪物嘉年华的主办人！我在这里举办了盛大的#b怪物嘉年华#k，期待像你这样充满朝气的冒险家加入这场狂欢！");
                 } else if (selection == 1) {
-                    cm.sendNext("“#b怪物嘉年华#k 由两组玩家进入战场，并释放对方召唤的怪物。 #b通过获得的嘉年华点数（CP）来决定胜利者的战斗团队#k。”");
+                    cm.sendNext("#b怪物嘉年华#k 是由两支队伍进入专属擂台，通过击败怪物获取嘉年华点数（CP），并利用CP召唤怪物、施加负面技能或召唤守护者妨碍对手的精彩对战！最后#b以获得CP总分高的一方判定获胜#k。");
                 } else if (selection == 2) {
-                    cm.sendNext("当你进入嘉年华场地时，你会看到怪物列表窗口出现。你只需要#b选择你想要使用的东西，然后按下确定#k。非常简单，对吧？");
+                    cm.sendNext("进入嘉年华擂台后，你的界面上会出现对战控制面板。你只需要#b选择你想使用的战术功能，然后按下确定即可执行#k。非常简单直观！");
                 } else {
                     cm.dispose();
                 }
             } else if (status == 62) {
                 if (select == 0) {
-                    cm.sendNext("什么是#b怪物嘉年华#k？哈哈哈！可以说这是一次你永远不会忘记的经历！这是与其他像你一样的冒险者进行的战斗！#k");
+                    cm.sendNext("什么是#b怪物嘉年华#k？哈哈哈！可以说这是一场你终生难忘的刺激体验！在这里你可以与其他冒险家队伍展开斗智斗勇的精彩对抗！");
                 } else if (select == 1) {
-                    cm.sendNext("进入嘉年华场地时，你的任务是通过击败来自对立阵营的怪物来获得CP，并使用这些CP来分散对立阵营的注意，防止他们攻击怪物。");
+                    cm.sendNext("进入擂台后，你们的目标就是尽可能快地消灭怪物以赚取嘉年华点数(CP)，并巧妙消耗CP来给对方队伍施加干扰，阻止他们顺畅击杀怪物。");
                 } else if (select == 2) {
-                    cm.sendNext("一旦你熟悉了指令，试着使用 #bTAB 和 F1 ~ F12#k。#bTAB 可以在召唤怪物/使用技能/保护者之间切换#k，而 #bF1 ~ F12 可以直接访问窗口之一#k。");
+                    cm.sendNext("当你熟悉了界面操作后，推荐使用快捷键：#bTAB 键以及 F1 ~ F12 键#k。#bTAB 键可以在【召唤怪物 / 施加技能 / 召唤守护者】三类功能间快速切换#k，而 #bF1 ~ F12 可以一键触发对应编号的战术功能#k！");
                 }
             } else if (status == 63) {
                 if (select == 0) {
-                    cm.sendNext("我知道你们用真正的武器互相战斗太危险了；我不会建议这样野蛮的行为。我的朋友，我所提供的是竞争的乐趣。战斗的激动和与如此强大和有动力的人竞争的激动。我提议你们的团队和对立团队都召唤怪物，并打败对方团队召唤的怪物。这就是怪物嘉年华的精髓。此外，你可以使用在怪物嘉年华期间赚取的枫币来获得新物品和武器！");
+                    cm.sendNext("让冒险家们拿真刀真枪直接互砍太野蛮危险了，我可不推崇那种粗鲁的行为。在这里，我提供的是充满智谋与技巧的竞技乐趣！双方互相给对方场上召唤强力怪物并进行猎杀！此外，在嘉年华中斩获的枫叶币，还可以找我兑换各种专属神兵利器与极品卷轴！");
                 } else if (select == 1) {
-                    cm.sendNext("有三种方法可以分散对方的注意力：召唤怪物、能力和守护者。如果你想了解更多关于“详细说明”的内容，我可以给你更深入的了解！");
+                    cm.sendNext("干扰对方队伍主要有三种手段：#b召唤更强怪物#k、#b施加异常状态技能#k 以及 #b召唤强化守护者图腾#k。想了解更详细的战术，可以继续听我讲解！");
                 } else if (select == 2) {
-                    cm.sendNext("召唤怪物会召唤一个攻击对方队伍的怪物，并将其控制在其下。使用CP召唤一个怪物，它将出现在同一区域，攻击对方队伍。");
+                    cm.sendNext("#b召唤怪物#k：消耗一定的CP，在对方队伍的战场上立刻召唤出一批怪物。怪物越强力，对方清理起来就越吃力！");
                 }
-            } else if (status == 64) {
+            } else if (select == 64) {
                 if (select == 0) {
-                    cm.sendNext("当然，事情并不那么简单。还有其他方法可以阻止另一组放怪物，这取决于你如何解决。你觉得呢？对友好竞争感兴趣吗？");
+                    cm.sendNext("不仅如此，战局千变万化，合理搭配技能与守护者才是制胜之道。怎么样？是不是迫不及待想要来一场友谊对抗了？");
                     cm.dispose();
                 } else if (select == 1) {
-                    cm.sendNext("请记住，把你的CP留着从来都不是一个好主意。#b你使用的CP将决定怪物嘉年华的胜负。");
+                    cm.sendNext("请记住，把CP一直捏在手里可不是明智之举。#b积极运用CP打乱对手节奏，才是赢得怪物嘉年华的关键！#k");
                 } else if (select == 2) {
-                    cm.sendNext("#b能力#k 是一种选项，可以使用黑暗、虚弱等能力来阻止对方小组杀死其他怪物。不需要太多的CP，但是非常值得。唯一的问题是它们持续时间不长。明智地使用这种策略！");
+                    cm.sendNext("#b状态技能#k：消耗少量CP，给对方全队施加诸如黑暗、虚弱、眩晕、诅咒等负面状态。虽然持续时间有限，但在关键时刻往往能起到扭转战局的奇效！");
                 }
             } else if (status == 65) {
                 if (select == 1) {
-                    cm.sendNext("哦，不用担心变成幽灵。在怪物嘉年华中，你死后不会损失经验值。所以这真的是一种独特的体验！");
+                    cm.sendNext("对了，在嘉年华中完全不必担心阵亡受损。在怪物嘉年华对战中，即便角色阵亡也#r绝对不会扣除任何经验值#k！所以尽管放手一搏吧！");
                     cm.dispose();
                 } else if (select == 2) {
-                    cm.sendNext("“#b守护者#k基本上是一个被召唤的物品，可以大幅增加你的小队召唤的怪物的能力。守护者会一直起作用，直到被对方小队摧毁，所以我希望你先召唤几个怪物，然后再带上守护者。”");
+                    cm.sendNext("#b守护者图腾#k：召唤一个特殊的图腾柱，大幅提升本方召唤给对手的怪物的攻击力、防御力或回避率等属性！图腾会一直生效直到被对方击碎为止。建议先召唤一批怪物后再立起图腾！");
                 }
             } else if (status == 66) {
-                cm.sendNext("最后，在怪物嘉年华中，你不能使用随身携带的物品/恢复药水。与此同时，怪物会让这些物品掉落。当你拾取这些物品时，它们会立即激活。因此，知道何时获取这些物品非常重要。");
+                cm.sendNext("最后需要提醒的是：在怪物嘉年华内无法使用随身背包中的常规消耗药水。取而代之的是，战场怪物会掉落即时生效的恢复药水与状态符文，拾取瞬间立即生效。因此掌控药水掉落时机也是一门高超的学问！");
                 cm.dispose();
             } else if (status == 77) {
                 var allDone;

@@ -40,9 +40,9 @@ function start(mode, type, selection) {
         }
 
         if (status == 0) {
-            qm.sendNext("墙上有一张纸条：“诅咒的源头仍然不见了，但我想这里发现了一个奇怪的装置，我想是他们用过的。'", 3);
+            qm.sendNext("墙上贴着一张纸条：'诅咒的源头依然不见踪影，不过我在这里发现了一个奇怪的装置，推测是他们用过的。'", 3);
         } else if (status == 1) {
-            qm.sendNextPrev("'这台机器被送到雷夫克进行雪崩，我现在得继续我的任务。愿皇后保佑我.'", 3);
+            qm.sendNextPrev("'该装置已被送回圣地进行调查分析，我现在必须继续执行任务。愿女皇陛下保佑。'", 3);
         } else if (status == 2) {
             qm.forceCompleteQuest();
             qm.dispose();

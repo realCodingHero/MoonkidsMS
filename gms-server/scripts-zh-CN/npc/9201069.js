@@ -38,7 +38,7 @@ function pushIfItemExists(array, itemid) {
 }
 
 function start() {
-    cm.sendSimple("嗨，你好！欢迎来到新叶城整形外科！你想把你的脸变成全新的样子吗？使用 #b#t5152034##k，你可以让我们来照顾剩下的事情，拥有你一直想要的脸~！\r\n#L2#整形外科：#i5152034##t5152034##l");
+    cm.sendSimple("嗨，你好！欢迎来到新叶城整形医院！你想让自己的容貌焕然一新吗？只要使用 #b#t5152034##k，就能随心所欲定制你心仪的面容！\r\n#L2#使用高级脸型卡：#i5152034##t5152034##l");
 }
 
 function action(mode, type, selection) {
@@ -64,15 +64,15 @@ function action(mode, type, selection) {
                         pushIfItemExists(facenew, fface_v[i] + cm.getPlayer().getFace() % 1000 - (cm.getPlayer().getFace() % 100));
                     }
                 }
-                cm.sendStyle("Let's see... I can totally transform your face into something new. Don't you want to try it? For #b#t5152034##k, you can get the face of your liking. Take your time in choosing the face of your preference.", facenew);
+                cm.sendStyle("让我看看……我可以为你彻底改头换面！使用 #b#t5152034##k，你可以在下方挑选任何你喜欢的脸型。请慢慢挑选吧！", facenew);
             }
         } else if (status == 2) {
             if (cm.haveItem(5152034)) {
                 cm.gainItem(5152034, -1);
                 cm.setFace(facenew[selection]);
-                cm.sendOk("享受你的新面容吧！");
+                cm.sendOk("太棒了！快照照镜子，你的新面容是不是格外迷人？");
             } else {
-                cm.sendOk("嗯...看起来你没有这个地方专门的优惠券。很抱歉要说这个，但没有优惠券，你就不能进行整形手术了...");
+                cm.sendOk("嗯……看起来你背包里没有 #b#t5152034##k。非常抱歉，没有会员卡的话我无法为你进行面部整形手术哦……");
             }
 
             cm.dispose();

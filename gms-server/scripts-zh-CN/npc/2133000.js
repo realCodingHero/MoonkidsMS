@@ -50,7 +50,7 @@ function action(mode, type, selection) {
         if (status == 0) {
             em = cm.getEventManager("EllinPQ");
             if (em == null) {
-                cm.sendOk("艾琳组队任务遇到了一个错误。");
+                cm.sendOk("毒雾森林组队任务发生错误。");
                 cm.dispose();
                 return;
             } else if (cm.isUsingOldPqNpcStyle()) {
@@ -58,14 +58,14 @@ function action(mode, type, selection) {
                 return;
             }
 
-            cm.sendSimple("#e#b<组队任务：毒雾森林>\r\n#k#n" + em.getProperty("party") + "\r\n\r\n你想要组建或加入一个队伍来解决#b毒雾森林#k的谜题吗？让你的#b队伍领袖#k和我交谈或者自己组建一个队伍。#b\r\n#L0#我想参加组队任务。\r\n#L1#我想" + (cm.getPlayer().isRecvPartySearchInviteEnabled() ? "禁用" : "启用") + "组队搜索。\r\n#L2#我想了解更多细节。\r\n#L3#我想要领取奖励。");
+            cm.sendSimple("#e#b<组队任务：毒雾森林>\r\n#k#n" + em.getProperty("party") + "\r\n\r\n你想要和队员们一起探索并揭开#b毒雾森林#k的秘密吗？请让你的#b队长#k来和我交谈，或者自己组建一个队伍。#b\r\n#L0#我想挑战组队任务。\r\n#L1#我想" + (cm.getPlayer().isRecvPartySearchInviteEnabled() ? "关闭" : "开启") + "组队寻找。\r\n#L2#我想了解详细信息。\r\n#L3#我想用亚泰尔碎片兑换奖励。#l#k");
         } else if (status == 1) {
             if (selection == 0) {
                 if (cm.getParty() == null) {
-                    cm.sendOk("只有当你加入一个队伍时，才能参加派对任务。");
+                    cm.sendOk("只有加入组队后，才能参加组队任务。");
                     cm.dispose();
                 } else if (!cm.isLeader()) {
-                    cm.sendOk("你的队长必须与我交谈才能开始这个组队任务。");
+                    cm.sendOk("只有队长与我交谈才能开始这个组队任务。");
                     cm.dispose();
                 } else {
                     var eli = em.getEligibleParty(cm.getParty());
@@ -74,20 +74,20 @@ function action(mode, type, selection) {
                             cm.sendOk("另一个队伍已经进入了该频道的#r组队任务#k。请尝试其他频道，或者等待当前队伍完成。");
                         }
                     } else {
-                        cm.sendOk("你目前无法开始这个组队任务，因为你的队伍可能不符合人数要求，有些队员可能不符合尝试条件，或者他们不在这张地图上。如果你找不到队员，可以尝试使用组队搜索功能。");
+                        cm.sendOk("你目前无法开始这个组队任务，因为你的队伍可能不符合人数要求，或者某些队员不符合挑战条件，或者他们不在这张地图上。如果队伍人数不足，可以使用组队搜索功能寻找队友。");
                     }
 
                     cm.dispose();
                 }
             } else if (selection == 1) {
                 var psState = cm.getPlayer().toggleRecvPartySearchInvite();
-                cm.sendOk("你的组队搜索状态现在是：#b" + (psState ? "启用" : "禁用") + "#k。想要改变状态时随时找我谈谈。");
+                cm.sendOk("你的组队搜索状态现在是：#b" + (psState ? "已开启" : "已关闭") + "#k。想要更改状态时可以随时找我。");
                 cm.dispose();
             } else if (selection == 2) {
-                cm.sendOk("#e#b<组队任务：毒雾森林>#k#n\r\n在这个组队任务中，你的任务是逐步穿越森林，对抗路上的所有坏家伙，解决你遇到的许多谜题，并团结一致，充分发挥团队合作的优势，以克服时间限制和强大的生物。击败最终BOSS后，你的团队有机会获得一个大理石，#b当它被喷泉在出口地图上掉落时#k，将会确保团队获得额外的奖励。祝你好运。");
+                cm.sendOk("#e#b<组队任务：毒雾森林>#k#n\r\n在这个组队任务中，你们需要深入被剧毒笼罩的森林，击退变异的怪物，解开层层谜题，并充分发挥团队协作来克服险境。在击败最终首领后，如果获得净化之石并#b投掷到出口地图的清泉中#k，全队还能获得额外的丰厚奖励！祝你们好运！");
                 cm.dispose();
             } else {
-                cm.sendSimple("那么，你想要获得什么奖品？\r\n#b#L0##t1032060#\r\n#L1##t1032061#");
+                cm.sendSimple("你想兑换哪件奖励？\r\n#b#L0##t1032060##l\r\n#L1##t1032061##l#k");
             }
         } else if (status == 2) {
             if (selection == 0) {
@@ -96,7 +96,7 @@ function action(mode, type, selection) {
                     cm.gainItem(4001198, -10);
                     cm.dispose();
                 } else {
-                    cm.sendOk("你要么已经有了 #t1032060#，要么没有 10 个 #t4001198#。");
+                    cm.sendOk("你已经拥有了 #b#t1032060##k，或者你身上的 #b#t4001198##k 不足 10 个。");
                     cm.dispose();
                 }
             } else if (selection == 1) {
@@ -106,7 +106,7 @@ function action(mode, type, selection) {
                     cm.gainItem(4001198, -10);
                     cm.dispose();
                 } else {
-                    cm.sendOk("你要么还没有 #t1032060#，要么没有 10 个 #t4001198#。");
+                    cm.sendOk("你需要先拥有 #b#t1032060##k 并且集齐 10 个 #b#t4001198##k 才能升级。");
                     cm.dispose();
                 }
             }

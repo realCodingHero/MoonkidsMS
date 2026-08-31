@@ -51,11 +51,11 @@ function action(mode, type, selection) {
                 if (canBypassHTPQ()) {
                     cm.sendYesNo("你现在想要进入 #b#m240050400##k 吗？");
                 } else {
-                    cm.sendOk("那些没有#r#t4001086##k的人必须在挑战#b暴风龙#k之前证明他们的勇气。拿着证明你们有资格完成任务的#r3张证书#k来这里。");    // NPC picture is so long it goes through some section of text, || to fill up that space
+                    cm.sendOk("没有#r#t4001086##k的人，在挑战#b暗黑龙王#k之前必须先证明自己的勇气。请带着证明你们有资格的#r3张证书#k来这里。");
                     cm.dispose();
                 }
             } else {
-                cm.sendOk("那些没有#r#t4001086##k的人必须在挑战#b暴风龙#k之前证明他们的勇气。");
+                cm.sendOk("没有#r#t4001086##k的人，在挑战#b暗黑龙王#k之前必须先证明自己的勇气。");
                 cm.dispose();
             }
         } else {

@@ -76,7 +76,7 @@ function action(mode, type, selection) {
         var eim = cm.getPlayer().getEventInstance();
         if (eim.getProperty(stage.toString() + "stageclear") != null) {
             if (stage < 5) {
-                cm.sendNext("传送门已经打开，前往那里等待你的考验。");
+                cm.sendNext("传送门已经打开，前往那里迎接接下来的考验吧！");
             } else if (stage == 5) {
                 eim.warpEventTeamToMapSpawnPoint(670010700, 0);
             } else {
@@ -91,7 +91,7 @@ function action(mode, type, selection) {
                         eim.warpEventTeamToMapSpawnPoint(670010750, 1);
                     }
                 } else {
-                    cm.sendNext("等待队长的指令开始奖励阶段。");
+                    cm.sendNext("请等待队长与我对话以开启奖励关卡。");
                 }
             }
         } else {
@@ -101,9 +101,9 @@ function action(mode, type, selection) {
 
                     if (state == -1) {           // preamble
                         if (stage == 4) {
-                            cm.sendOk("嗨。欢迎来到阿莫利亚挑战的#b舞台#k。在这个阶段，从这里周围的怪物身上收集#b50个#t4031597##k。");
+                            cm.sendOk("你好！欢迎来到阿莫利亚挑战的第 #b" + stage + " 阶段#k。请击败这里的怪物，收集 #b50 个 #t4031597##k 交给我。");
                         } else if (stage == 5) {
-                            cm.sendOk("嗨。欢迎来到阿莫利亚挑战的#b舞台#k。要到达这里可是一场不小的奔跑，是吧？好吧，无论如何，这个阶段的任务就是生存！首先，确保有人活着聚集在这里，然后再挑战boss。");
+                            cm.sendOk("你好！欢迎来到阿莫利亚挑战的第 #b" + stage + " 阶段#k。一口气跑到这里可真不容易！这一关的目标是生存与集合！首先请确保所有存活的队员都安全抵达这里，然后再去挑战最终首领。");
                         }
 
                         var st = (debug) ? 2 : 0;
@@ -119,11 +119,11 @@ function action(mode, type, selection) {
                                     eim.restartEventTimer(4 * 60 * 1000);
                                 }
 
-                                cm.sendNext("干得好！现在让我为你打开大门。");
-                                cm.mapMessage(5, "Amos: The time runs short now. Your objective is to open the gates and gather together on the other side of the next map. Good luck!");
+                                cm.sendNext("干得漂亮！我现在就为你们打开通往下个区域的大门。");
+                                cm.mapMessage(5, "艾莫斯：时间紧迫！你们的目标是打开沿途的机关门，并在下一张地图的终点处全员集合。祝大家好运！");
                                 clearStage(stage, eim, curMap);
                             } else {
-                                cm.sendNext("嘿，你没听清楚吗？我要求 #r50 #t4031597##k 作为这次试炼的成功报酬。");
+                                cm.sendNext("嗯？你没听清楚吗？我需要 #r50 个 #t4031597##k 才能通过这次试炼。");
                             }
 
                         } else if (stage == 5) {
@@ -155,20 +155,20 @@ function action(mode, type, selection) {
                                         eim.restartEventTimer(tl - (4 * 60 * 1000 - tr));
                                     }
 
-                                    cm.sendNext("好的，你的团队已经集合好了。当你们感觉准备好与 #rGeist Balrog#k 战斗时，和我交谈。");
+                                    cm.sendNext("太棒了，所有队员都已安全集合！当你们做好与 #r幽灵巴洛古（Geist Balrog）#k 决一死战的准备时，再来和我对话。");
 
-                                    cm.mapMessage(5, "Amos: Now only the boss fight remains! Once inside, talk to me only if you want to join the boss fight, you will be transported to action immediately.");
+                                    cm.mapMessage(5, "艾莫斯：现在只剩下最后的首领战了！进入后，请在做好万全准备后再与我对话，届时将被立即传送到战斗区域！");
                                     clearStage(stage, eim, curMap);
                                 } else {
-                                    cm.sendNext("你们是通过传送到达这里的，是吗？我能感觉到。真是遗憾，所有的门都必须打开才能完成这个阶段。如果你们还有时间的话，回头走一遍你们的路，把那些门都关掉。");
+                                    cm.sendNext("你们是直接瞬移过来的吧？所有的机关门都必须依次开启才能通过这一阶段。如果时间还够，赶紧回头去把所有机关门打开吧！");
                                 }
                             } else {
-                                cm.sendNext("你的团队还没有聚集在附近。给他们一些时间到达这里。");
+                                cm.sendNext("你的队伍成员还没有全部在此集合。再给他们一点时间赶过来吧。");
                             }
                         }
                     }
                 } else {
-                    cm.sendNext("请告诉你的#b队长#k来找我谈话。");
+                    cm.sendNext("请让你们的 #b队长#k 前来与我对话。");
                 }
             } else {
                 var area = cm.getMap().getArea(0);
@@ -176,21 +176,21 @@ function action(mode, type, selection) {
                     if (cm.getPlayer().isAlive()) {
                         cm.warp(670010700, "st01");
                     } else {
-                        cm.sendNext("喂，退后一点……你已经死了。");
+                        cm.sendNext("喂喂……你已经阵亡了，无法进入战斗区域。");
                     }
                 } else {
                     if (cm.isEventLeader()) {
                         if (cm.haveItem(4031594, 1)) {
                             cm.gainItem(4031594, -1);
-                            cm.sendNext("恭喜！你的队伍打败了鬼魂巴尔洛格，因此#b完成了阿莫利亚挑战#k！再次与我交谈以开始奖励阶段。");
+                            cm.sendNext("恭喜你们！队伍成功击败了幽灵巴洛古，#b圆满通关了阿莫利亚挑战#k！再次与我对话即可进入奖励关卡！");
 
                             clearStage(stage, eim, curMap);
                             eim.clearPQ();
                         } else {
-                            cm.sendNext("How is it? Are you going to retrieve me the #b#t4031594##k? That's your last trial, hold on!")
+                            cm.sendNext("战况如何？你们拿到 #b#t4031594##k 了吗？这是最后的试炼，加油坚持住！");
                         }
                     } else {
-                        cm.sendNext("请告诉你的#b队长#k来找我谈话。");
+                        cm.sendNext("请让你们的 #b队长#k 前来与我对话。");
                     }
                 }
             }

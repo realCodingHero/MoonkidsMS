@@ -19,15 +19,15 @@ function action(mode, type, selection) {
         return;
     }
     if (status === 0) {
-        cm.sendNext("当你想要再次重生时，来找我吧。你目前总共有 #r" + cm.getChar().getReborns() + " #krebirths。");
+        cm.sendNext("当你想要再次转生时，就来找我吧。你目前总共转生了 #r" + cm.getChar().getReborns() + "#k 次。");
     } else if (status === 1) {
-        cm.sendSimple("你今天想让我做什么呢：\r\n\r\n#L0##b我想转生！#l\r\n#L1##b[返回枫叶助手主菜单]#k#l");
+        cm.sendSimple("你今天想做什么呢？\r\n\r\n#L0##b我想转生！#l\r\n#L1##b[返回枫叶助手主菜单]#k#l");
     } else if (status === 2) {
         if (selection === 0) {
             if (cm.getChar().getLevel() === cm.getChar().getMaxClassLevel()) {
-                cm.sendSimple("我明白了... 你想选择哪条路？\r\n\r\n#L0##b冒险家（新手）#l\r\n");//*#L1##b皇家骑士团（贵族）#l\r\n#L2##b阿兰（传说）#l
+                cm.sendSimple("我明白了……你想选择哪条转生之路？\r\n\r\n#L0##b冒险家（新手）#l\r\n");//*#L1##b圣地（贵族）#l\r\n#L2##b战神（传说）#l
             } else {
-                cm.sendOk("看起来你的冒险之旅还没有结束……当你达到等级 " + cm.getChar().getMaxClassLevel() +"时再回来吧。");
+                cm.sendOk("看起来你的修行还未圆满……当你达到等级 #b" + cm.getChar().getMaxClassLevel() + "#k 级时再来找我吧。");
                 cm.dispose();
             }
         } else if (selection === 1) {
@@ -44,11 +44,11 @@ function action(mode, type, selection) {
         if (selection === 0) job = "0";
         else if (selection === 1) job = "1000";
         else if (selection === 2) job = "2000";
-        cm.sendYesNo("你确定要转职成为冒险家吗？");
+        cm.sendYesNo("你确定要转生为冒险家吗？");
     }
     else if (status === 4 && type === 1) {
         cm.getChar().executeRebornAsId(jobId);
-        cm.dropMessage(0,"恭喜 " + cm.getPlayer() + "进行了第" + cm.getChar().getReborns() + " 次重生");
+        cm.dropMessage(0, "恭喜 " + cm.getPlayer().getName() + " 进行了第 " + cm.getChar().getReborns() + " 次转生！");
         cm.dispose();
     }
 }

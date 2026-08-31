@@ -318,9 +318,9 @@ function yuleteAction(eim) {
     if (eim.getIntProperty("yuleteTalked") == 1) {
         eim.setIntProperty("yuletePassed", 1);
 
-        eim.dropMessage(5, "犹泰：呃...你们真让我作呕。我想要的不过是让这个国家成为全世界最伟大的炼金术强国。如果他们不接受，我不惜一切代价也要独自实现这个目标！！！");
+        eim.dropMessage(5, "尤利特：呃……你们真让我恶心。我想要的不过是让这个国家成为全世界最伟大的炼金术强国！既然他们冥顽不灵，哪怕不惜一切代价我也要独自实现这个目标！！！");
     } else {
-        eim.dropMessage(5, "犹泰：哈哈哈...你们真以为我会毫无准备，不知道玛加提亚协会的走狗们会来追捕我吗？愚蠢！");
+        eim.dropMessage(5, "尤利特：哈哈哈……你们真以为我毫无防备，不知道玛加提亚协会的走狗们会来抓我吗？愚蠢透顶！");
     }
 
     eim.setIntProperty("yuleteTalked", -1);

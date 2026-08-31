@@ -62,33 +62,33 @@ function action(mode, type, selection) {
         }
 
         if (status == 0) {
-            options = ["我想做个戒指。", "我想扔掉我的戒指盒。"];
-            cm.sendSimple("我是#p9201000#，订婚戒指制造商。我能为您做些什么？\r\n\r\n#b" + generateSelectionMenu(options));
+            options = ["我想制作一枚订婚戒指。", "我想丢弃多余的戒指盒。"];
+            cm.sendSimple("我是#p9201000#，专业的订婚戒指工匠。请问有什么我可以效劳的吗？\r\n\r\n#b" + generateSelectionMenu(options));
         } else if (status == 1) {
             if (selection == 0) {
                 if (!cm.isQuestCompleted(100400)) {
                     if (!cm.isQuestStarted(100400)) {
                         state = 0;
-                        cm.sendNext("所以你想要制作订婚戒指，是吗？好的，当你从#b#p9201003##k那里得到#rblessings#k后，我可以提供一个。");
+                        cm.sendNext("你想制作订婚戒指是吗？好的，不过你必须先去获得#b#p9201003##k的#r真爱祝福#k，我才能为你打造。");
                     } else {
-                        cm.sendOk("在尝试制作订婚戒指之前，先从#b#p9201003#k那里得到祝福。他们一定在你家等着你，就在#r射手村狩猎场#k的那边。");
+                        cm.sendOk("在制作订婚戒指之前，请先去获得#b#p9201003##k的祝福。他就在#r射手村狩猎场#k的附近等你。");
                         cm.dispose();
                     }
                 } else {
                     if (hasEngagementBox(cm.getPlayer())) {
-                        cm.sendOk("抱歉，您已经有一个戒指盒了。我一次不能为您提供多个盒子。");
+                        cm.sendOk("抱歉，你身上已经有一个戒指盒了。一个人一次只能持有一个戒指盒。");
                         cm.dispose();
                         return;
                     }
                     if (cm.getPlayer().getGender() != 0) {
-                        cm.sendOk("抱歉，戒指盒目前只适用于男性。");
+                        cm.sendOk("抱歉，订婚戒指盒目前只能由男性角色申领。");
                         cm.dispose();
                         return;
                     }
 
                     state = 1;
-                    options = ["月光石", "星星宝石", "金心", "银天鹅"];
-                    var selStr = "那么，你想让我制作什么样的订婚戒指？\r\n\r\n#b" + generateSelectionMenu(options);
+                    options = ["月光石订婚戒指", "星石订婚戒指", "金心订婚戒指", "银天鹅订婚戒指"];
+                    var selStr = "那么，你想让我为你制作哪种订婚戒指？\r\n\r\n#b" + generateSelectionMenu(options);
                     cm.sendSimple(selStr);
                 }
             } else {
@@ -97,16 +97,16 @@ function action(mode, type, selection) {
                         cm.removeAll(i);
                     }
 
-                    cm.sendOk("你的戒指盒已被丢弃。");
+                    cm.sendOk("你的戒指盒已被销毁。");
                 } else {
-                    cm.sendOk("你没有戒指盒可以丢弃。");
+                    cm.sendOk("你身上没有可以销毁的戒指盒。");
                 }
 
                 cm.dispose();
             }
         } else if (status == 2) {
             if (state == 0) {
-                cm.sendOk("他们住在哪里，你问？哦，这可追溯很久了……你知道，我是他们的朋友，我是那个制作并亲自送交他们订婚戒指的人。他们住在#r林中之城狩猎场#k的后面，我相信你知道那是哪里。");
+                cm.sendOk("你问他们住在哪里？哦，这说来话长了……你知道的，我是他们的老朋友，当年也是我亲自打造并送去他们的订婚戒指。他们就住在#r林中之城狩猎场#k的深处，相信你一定能找到那里。");
                 cm.startQuest(100400);
                 cm.dispose();
             } else {
@@ -120,19 +120,19 @@ function action(mode, type, selection) {
                 matQty = matQtySet[selection];
                 cost = costSet[selection];
 
-                var prompt = "然后我会给你做一个 #b#t" + item + "##k, 那样对吗?";
-                prompt += " 在这种情况下，我需要你提供特定的物品才能完成。不过，请确保你的库存中有足够的空间！#b";
+                var prompt = "你确定要制作 #b#t" + item + "##k 吗？";
+                prompt += "\r\n制作这枚戒指需要准备以下材料与手续费，请确保你的背包有足够的空位：#b";
 
                 if (mats instanceof Array) {
                     for (var i = 0; i < mats.length; i++) {
-                        prompt += "\r\n#i" + mats[i] + "# " + matQty[i] + " #t" + mats[i] + "#";
+                        prompt += "\r\n#i" + mats[i] + "# " + matQty[i] + " 个 #t" + mats[i] + "#";
                     }
                 } else {
-                    prompt += "\r\n#i" + mats + "# " + matQty + " #t" + mats + "#";
+                    prompt += "\r\n#i" + mats + "# " + matQty + " 个 #t" + mats + "#";
                 }
 
                 if (cost > 0) {
-                    prompt += "\r\n#i4031138# " + cost + " meso";
+                    prompt += "\r\n#i4031138# " + cm.numberWithCommas(cost) + " 金币";
                 }
 
                 cm.sendYesNo(prompt);
@@ -142,11 +142,11 @@ function action(mode, type, selection) {
             var recvItem = item, recvQty = 1, qty = 1;
 
             if (!cm.canHold(recvItem, recvQty)) {
-                cm.sendOk("首先检查你的物品栏是否有空位。");
+                cm.sendOk("请先检查你的背包，留出足够的空位。");
                 cm.dispose();
                 return;
             } else if (cm.getMeso() < cost * qty) {
-                cm.sendOk("对不起，我的服务是需要收费的。在尝试锻造戒指之前，请在这里给我带来正确数量的黄金。");
+                cm.sendOk("对不起，制作戒指需要收取相应的手续费。请带够所需金币后再来吧。");
                 cm.dispose();
                 return;
             } else {
@@ -162,7 +162,7 @@ function action(mode, type, selection) {
             }
 
             if (!complete) {
-                cm.sendOk("“嗯，看来你缺少订婚戒指的一些材料。请先提供这些材料，好吗？”");
+                cm.sendOk("嗯……看来你还缺少制作订婚戒指所需的某些材料。请备齐材料后再来找我。");
             } else {
                 if (mats instanceof Array) {
                     for (var i = 0; i < mats.length; i++) {
@@ -177,7 +177,7 @@ function action(mode, type, selection) {
                 }
 
                 cm.gainItem(recvItem, recvQty);
-                cm.sendOk("一切都搞定了，订婚戒指做得非常完美。祝你们订婚快乐。");
+                cm.sendOk("大功告成！这枚订婚戒指打造得精致而完美。祝你们订婚快乐、幸福美满！");
             }
             cm.dispose();
         }

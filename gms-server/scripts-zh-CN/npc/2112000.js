@@ -68,18 +68,18 @@ function action(mode, type, selection) {
                 var state = eim.getIntProperty("yuleteTalked");
 
                 if (state == -1) {
-                    cm.sendOk("“嘿，看来你们有了新伙伴。祝你们和他们玩得开心，我先礼貌地告辞了。”");
+                    cm.sendOk("“嘿，看来你们又有了新玩伴。祝你们玩得开心，我先告辞了。”");
 
                 } else if (playersTooClose()) {
-                    cm.sendOk("哦，你好。自从你们进入这个范围以来，我一直在监视你们的行动。能够到达这里真是了不起，我对你们表示赞赏。现在看看时间，我现在有一个约会，恐怕我需要离开了。但不用担心，我的助手们会处理你们所有人。现在，如果你们允许的话，我就走了。");
+                    cm.sendOk("“哦，你们好啊。从你们踏入这里的那一刻起，我一直在注视着你们的一举一动。能来到这里确实很了不起，我由衷地赞赏你们。不过看看时间，我还有个重要的约会，恐怕必须先离开了。但别担心，我的助手们会好好招待你们所有人的。那么，恕我失陪了。”");
 
                     eim.setIntProperty("yuleteTalked", -1);
                 } else if (eim.getIntProperty("npcShocked") == 0) {
-                    cm.sendOk("嗯~ 你可真是个狡猾的家伙？不过，这并不重要。自从你们进入这个区域以来，我一直在#b监视你们的行动#k。能够到达这里真是了不起，我对你们都表示赞赏。现在，看看时间，我现在有个约会，恐怕我得离开了。但不用担心，我的#r助手们#k会处理你们所有人。现在，如果你允许的话，我就走了。");
+                    cm.sendOk("“哼哼~ 真是个狡猾的家伙。不过无所谓了，从你们进入这里开始，我就一直在#b暗中观察你们#k。能突破到这里确实有点本事，我对你们表示赞赏。不过看看时间，我手头还有要紧事，恕不奉陪了。别担心，我的#r助手们#k会好好‘招待’你们的。那么，拜拜咯！”");
 
                     eim.setIntProperty("yuleteTalked", -1);
                 } else {
-                    cm.sendOk("“哈哈！什么，怎么--你是怎么到这里来的？！我以为我已经封闭了所有的路径！不要紧，这种情况很快就会解决。伙计们：部署#rmaster武器#k！！你！是的，就是你。你难道不觉得这就此结束了吗，回头看看你的同伴，他们需要一些帮助！我现在就撤退。”");
+                    cm.sendOk("“哈哈！什、什么——你们是怎么跑到这里来的？！我明明封锁了所有的通道！不过没关系，很快就能解决掉你们。手下们：启动#r终极武器#k！！你！没错，就是你，别以为这就结束了，回头看看你的同伴们吧，他们正需要你的救援呢！我就先撤了！”");
 
                     eim.setIntProperty("yuleteTalked", 1);
                 }
@@ -89,34 +89,32 @@ function action(mode, type, selection) {
         } else {
             if (status == 0) {
                 if (eim.isEventCleared()) {
-                    cm.sendOk("不要啊... 我被打败了？但是为什么？我所做的一切都是为了更伟大的炼金术的发展！你们不能把我关起来，我所做的只是站在我这样的位置上的每个人都会做的事情！但是不，他们就决定阻碍科学的进步，只是因为它被认为是危险的？哦，得了吧！");
+                    cm.sendOk("“不……不可能！我怎么会被打败？为什么？！我所做的一切，全都是为了追求更伟大的炼金术啊！你们凭什么阻止我？站在我的位置上，任何一个炼金术士都会这么做！可他们倒好，仅仅因为所谓的‘危险’就扼杀科学的进步！真是不可理喻！”");
                 } else {
                     var state = eim.getIntProperty("yuletePassed");
 
                     const LifeFactory = Java.type('org.gms.server.life.LifeFactory');
                     const Point = Java.type('java.awt.Point');
                     if (state == -1) {
-                        cm.sendOk("瞧！这就是马加提亚炼金术研究的顶峰！哈哈哈哈哈哈……");
+                        cm.sendOk("睁大眼睛看好了！这就是玛加提亚炼金术登峰造极的最高杰作！哈哈哈哈哈哈……");
                     } else if (state == 0) {
-                        cm.sendOk("你们真是一群讨厌的家伙，哎。好吧，我向你们展示我的最新武器，由最优秀的炼金术带来，#r弗兰肯罗伊德#k。");
-                        eim.dropMessage(5, "Yulete: I present you my newest weapon, brought by the finest alchemy, Frankenroid!");
+                        cm.sendOk("你们这群碍事的家伙，真是阴魂不散。既然如此，就让你们见识一下我倾注最顶尖炼金术打造的最新武器——#r弗朗肯狂人#k吧！");
+                        eim.dropMessage(5, "尤莱特：让你们见识一下我用最顶尖炼金术打造的最新武器——弗朗肯狂人！");
 
                         var mapobj = eim.getMapInstance(926100401);
                         var bossobj = LifeFactory.getMonster(9300139);
 
-                        //mapobj.spawnMonsterWithEffect(bossobj, 13, new Packages.java.awt.Point(250, 100));
                         mapobj.spawnMonsterOnGroundBelow(bossobj, new Point(250, 100));
 
                         eim.setIntProperty("statusStg7", 1);
                         eim.setIntProperty("yuletePassed", -1);
                     } else {
-                        cm.sendOk("你们这些家伙真是让人头疼，哎。好吧，我向你们展示我的最新武器，由阿尔卡德诺和泽纳米斯最精湛的炼金术结合而成，那些令马加提亚社会中无聊的人们禁止携带的东西，#rmighty Frankenroid#k！");
-                        eim.dropMessage(5, "Yulete: I present you my newest weapon, brought by the finest combined alchemy of Alcadno's and Zenumist's, those that the boring people of Magatia societies have banned to bring along, the mighty Frankenroid!!");
+                        cm.sendOk("你们这群不知死活的家伙，真是烦死人了！既然如此，就让你们见识一下融合了蒙特鸠与卡帕莱特两大学派禁忌炼金术的终极杰作——玛加提亚那些庸人唯恐避之不及的伟力：#r狂暴弗朗肯#k！！");
+                        eim.dropMessage(5, "尤莱特：让你们见识一下融合了蒙特鸠与卡帕莱特两大学派禁忌炼金术的终极杰作——狂暴弗朗肯！！");
 
                         var mapobj = eim.getMapInstance(926100401);
                         var bossobj = LifeFactory.getMonster(9300140);
 
-                        //mapobj.spawnMonsterWithEffect(bossobj, 14, new Packages.java.awt.Point(250, 100));
                         mapobj.spawnMonsterOnGroundBelow(bossobj, new Point(250, 100));
 
                         eim.setIntProperty("statusStg7", 2);

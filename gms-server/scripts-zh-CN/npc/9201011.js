@@ -151,13 +151,13 @@ function action(mode, type, selection) {
                 var wstg = eim.getIntProperty("weddingStage");
 
                 if (wstg == 2) {
-"Awhoooooooooosh~, the guests have proclaimed their love to y'all. The time has come baby~, #rshould I make you Husband and Wife#k?"
+                    cm.sendYesNo("嗷呜~~~~！宾客们已经向你们表达了最真挚热烈的祝福！时机已到，宝贝们~ #r你们准备好正式结为夫妻了吗#k？");
                     state = 1;
                 } else if (wstg == 1) {
                     cm.sendOk("哇-等一下，好吗？你的客人们正在给你们表达爱意。让我们来点动感，宝贝~~。");
                     cm.dispose();
                 } else {
-                    cm.sendOk("Wheeeeeeeeeeeeeew! 我们的节日现在已经结束了，和#b#p9201009#交谈一下，她会带领你和你的朋友去参加后派对。感谢你们的热情！");
+                    cm.sendOk("Wheeeeeeeeeeeeeew! 我们的庆典现在圆满礼成！请和 #b#p9201009##k 对话，她会引领你们和亲朋好友前往婚后派对。感谢大家的热情！");
                     cm.dispose();
                 }
             } else {
@@ -176,10 +176,10 @@ function action(mode, type, selection) {
                         }
                     }
                 } else if (wstg == 3) {
-                    cm.sendOk("哇哦！现在这对夫妇的爱就像一个超级大闪亮的心一样！而且它将在这个节日之后继续下去。请准备好参加派对，宝贝~。跟着新婚夫妇的步伐走吧！");
+                    cm.sendOk("哇哦！现在这对新人的爱意就像一颗超级巨大的璀璨爱心！庆典结束后狂欢还将继续，准备好参加派对吧，宝贝们~！");
                     cm.dispose();
                 } else {
-"It's now guys... Stay with your eyes and ears keened up! They are about to smooch it all over the place!!!"
+                    cm.sendOk("各位观众……瞪大你们的眼睛，竖起你们的耳朵！最激动人心的时刻到了，新郎新娘马上就要甜蜜拥吻啦！！！");
                     cm.dispose();
                 }
             }
@@ -243,62 +243,58 @@ function action(mode, type, selection) {
                                         player.setMarriageItemId(marriageRingId);
                                         partner.setMarriageItemId(marriageRingId);
 
-                                        //var marriageId = eim.getIntProperty("weddingId");
-                                        //player.sendPacket(Wedding.OnMarriageResult(marriageId, player, true));
-                                        //partner.sendPacket(Wedding.OnMarriageResult(marriageId, player, true));
-
                                         giveCoupleBlessings(eim, player, partner);
 
-                                        cm.getMap().dropMessage(6, "Wayne: I'll call it out right now, and it shall go on: you guys are the key of the other's lock, a lace of a pendant. That's it, snog yourselves!");
+                                        cm.getMap().dropMessage(6, "韦恩：我在此正式宣布——你们就是彼此心锁唯一的钥匙，项链上最完美的坠饰！别害羞了，快深情亲吻对方吧！");
                                         eim.schedule("showMarriedMsg", 2 * 1000);
                                     }
                                 } else {
                                     eim.setIntProperty("confirmedVows", player.getId());
-                                    cm.getMap().dropMessage(6, "Wedding Assistant: " + player.getName() + " has confirmed vows! Alright, one step away to make it official. Tighten your seatbelts!");
+                                    cm.getMap().dropMessage(6, "婚礼助手：" + player.getName() + " 已经确认了誓言！距离礼成只差最后一步，抓稳扶好啦！");
                                 }
 
                                 break;
 
                             case -1:
-                                cm.sendOk("嗯，看来你们不再拥有订婚时交换的戒指/戒指盒了。哎呀~");
+                                cm.sendOk("嗯……看来你身上已经没有订婚时交换的戒指/戒指盒了。哎呀呀~");
                                 break;
 
                             case -2:
-                                cm.sendOk("嗯，看起来你的伴侣不再拥有你们订婚时交换的戒指/戒指盒了。哎呀，太遗憾了~");
+                                cm.sendOk("嗯……看来你的伴侣身上没有订婚时交换的戒指/戒指盒了。太遗憾了~");
                                 break;
 
                             case -3:
-                                cm.sendOk("嗯，看起来你没有入口处给的#r#t4000313##k...请找到它，宝贝~");
+                                cm.sendOk("嗯……看来你身上没有入场时发放的 #r#t4000313##k……快把它找出来，宝贝~");
                                 break;
 
                             case -4:
-                                cm.sendOk("啊，我知道这有点糟糕，但时尚的婚礼服装在这里扮演了一个重要的角色。在和我交谈之前，请穿上它。");
+                                cm.sendOk("哎呀，虽然摇滚自由不羁，但结婚礼服可是仪式感的核心！在和我确认誓言前，请务必穿好婚礼礼服哦。");
                                 break;
 
                             case 1:
-                                cm.sendOk("请开放一个装备栏位以获取结婚戒指，可以吗？");
+                                cm.sendOk("请在装备栏留出至少 1 个空位来接收神圣的结婚戒指。");
                                 break;
 
                             case 2:
-                                cm.sendOk("请让你的伴侣知道要留出一个装备栏位来获取婚戒，好吗？");
+                                cm.sendOk("请提醒你的伴侣在装备栏留出至少 1 个空位来接收结婚戒指。");
                                 break;
 
                             case 3:
-                                cm.sendOk("嗯，看起来你的搭档没有入口处给的#r#t4000313##k，请找到它，没有它我无法召唤最终的东西。");
+                                cm.sendOk("嗯……你的伴侣似乎弄丢了入场发放的 #r#t4000313##k，没有它仪式可无法顺利进行哦。");
                                 break;
 
                             case 4:
-                                cm.sendOk("唉，我知道很遗憾，但看起来你的伴侣没有穿时尚的婚礼服装。请告诉他们在和我交谈之前先穿上。");
+                                cm.sendOk("哎呀，你的伴侣还没有穿上正式的结婚礼服呢。请提醒他们穿好礼服后再来找我吧。");
                                 break;
                         }
 
                         cm.dispose();
                     } else {
-                        cm.sendOk("哦，你的伙伴现在不在吗？...哦不，如果你的伙伴不在，我恐怕不能最终召唤。");
+                        cm.sendOk("咦？你的伴侣现在不在当前地图吗？如果伴侣不在场，我可无法为你们举行神圣的结婚仪式哦。");
                         cm.dispose();
                     }
                 } else {
-                    cm.sendOk("哇哦～你们现在#正式成为一对#，而且是一对出色的一对。你们的配合非常出色，祝贺你们！");
+                    cm.sendOk("芜湖~~！你们现在已经#b正式结为夫妻#k啦！真是天造地设、无比耀眼的一对！祝你们新婚快乐、白头偕老！");
                     cm.dispose();
                 }
             }

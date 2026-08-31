@@ -47,7 +47,7 @@ function start() {
     }
 
     cm.getPlayer().setCS(true);
-    var selStr = "Hello, I am the #bAccessory NPC Crafter#k! My works are widely recognized to be too fine, up to the point at which all my items mimic not only the appearance but too the attributes of them! Everything I charge is some 'ingredients' to make them and, of course, a fee for my services. On what kind of equipment are you interessed?#b";
+    var selStr = "你好，我是 #b饰品锻造大师#k！ My works are widely recognized to be too fine, up to the point at which all my items mimic not only the appearance but too the attributes of them! Everything I charge is some 'ingredients' to make them and, of course, a fee for my services. On what kind of equipment are you interessed?#b";
     var options = ["Pendants", "Face accessories", "Eye accessories", "Belts & medals", "Rings"/*,"#t4032496#"*/];
     for (var i = 0; i < options.length; i++) {
         selStr += "\r\n#L" + i + "# " + options[i] + "#l";

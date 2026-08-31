@@ -67,7 +67,7 @@ function action(mode, type, selection) {
         }
 
         if (status == 0) {
-            var sendStr = "这里是#b网咖派对任务#k，奖励玩家与票类似的#b怪物橡皮#k，可以用在自动售货机上兑换奖品。 通过选择不同的#r层级#k，进一步获得更好的奖品。\r\n\r\n这里描述了每个级别可能的奖励:\r\n\r\n#b";
+            var sendStr = "这里是#b网咖组队任务#k，完成任务可以获得特殊的#b怪物橡皮擦#k，可用于在自动售货机兑换丰厚奖励。挑战不同的#r难度区域#k，还能获得更加稀有的珍贵奖品！\r\n\r\n请选择查看各区域的奖励预览：\r\n\r\n#b";
             for (var i = 0; i < 6; i++) {
                 sendStr += "#L" + i + "#" + levels[i] + "#l\r\n";
             }
@@ -96,7 +96,7 @@ function action(mode, type, selection) {
                 lvQty = itemQty_lv6;
             }
 
-            var sendStr = "下列物品将在#b" + levels[selection] + "#k层获得:\r\n\r\n";
+            var sendStr = "以下是挑战#b" + levels[selection] + "#k可能获得的奖励一览：\r\n\r\n";
             for (var i = 0; i < lvTarget.length; i++) {
                 sendStr += "  #L" + i + "# #i" + lvTarget[i] + "#  #t" + lvTarget[i] + "#";
                 if (lvQty[i] > 1) {

@@ -1,30 +1,8 @@
 /*
-	This file is part of the OdinMS Maple Story Server
-    Copyright (C) 2008 Patrick Huy <patrick.huy@frz.cc>
-		       Matthias Butz <matze@odinms.de>
-		       Jan Christian Meyer <vimes@odinms.de>
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License as
-    published by the Free Software Foundation version 3 as published by
-    the Free Software Foundation. You may not use, modify or distribute
-    this program under any other version of the GNU Affero General Public
-    License.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-/*	
-	Author : Generic
-	NPC Name: 		Kiku
-	Map(s): 		Empress' Road : Training Forest I
-	Description: 		Quest - Kiku the Training Instructor
-	Quest ID : 		20002
+    NPC Name:       Kiku (奇姆)
+    Map(s):         Empress' Road : Training Forest I (圣地: 提鲁的森林 130010000)
+    Description:    Quest - 奇姆的修炼指导
+    Quest ID :      20002
 */
 
 var status = -1;
@@ -37,22 +15,24 @@ function start(mode, type, selection) {
             status++;
         } else {
             status--;
-        if (status == 0)
-            qm.sendNext("什么？奈哈特派你来的？啊，你一定是个新手。欢迎，欢迎。我叫基库，我的工作是训练和塑造像你这样的孩子成为真正的骑士. 额... 你为什么那样看着我。。。啊，你以前一定没见过皮尤.");
-        else if (status == 1)
-            qm.sendNext("我们属于一个叫皮耶斯的种族。你以前和新秀谈过，对吧？站在皇后旁边的那个。是的，新秀也是一个皮尤。他可能是另一个阶级，但是。。。哦，好吧。皮约斯只在埃雷夫发现，所以你可能会发现我们一开始有点奇怪，但你会习惯我们的.");
-        else if (status == 2)
-            qm.sendAcceptDecline("啊，我不知道你是否意识到了，但你不会在埃雷夫找到任何怪物。任何形式的邪恶都不能踏上这座岛。别担心，你还有机会在这里训练。新秀创造了一个叫做咪咪的幻想生物，它将被用作你的训练伙伴。我们开始吧?");
-        else if (status == 3) {
+        }
+        
+        if (status == 0) {
+            qm.sendNext("什么？是指挥官那因哈特派你来的？啊，你一定就是新加入的见习骑士吧！欢迎欢迎！我叫奇姆，我的职责就是指导和训练像你这样的新人，让你成长为一名合格的圣地骑士！咦……你为什么用这种好奇的眼神看着我？哈哈，你之前一定没见过我们皮约族吧？");
+        } else if (status == 1) {
+            qm.sendNext("我们属于圣地特有的灵兽种族——皮约族。你之前已经见过策士那因哈特了吧？他也是我们皮约族的一员哦！我们皮约族只生活在美丽的圣地埃雷夫，虽然你一开始可能会觉得有点新奇，但相信很快你就会喜欢上这里的！");
+        } else if (status == 2) {
+            qm.sendAcceptDecline("对了，你可能已经注意到了，在神圣的圣地岛屿上是不会有任何邪恶怪物的。任何邪恶气息都无法踏上这片纯净的土地。不过别担心，策士大人施展幻术创造了用于练习的幻影怪物，它们就是你的训练对手。准备好开始第一次基础修炼了吗？");
+        } else if (status == 3) {
             qm.forceStartQuest();
             qm.forceCompleteQuest();
 
             qm.gainExp(60);
-            qm.gainItem(2000020, 10); // Red Potion for Noblesse * 10
-            qm.gainItem(2000021, 10); // Blue Potion for Noblesse * 10
-            qm.gainItem(1002869, 1);  // Elegant Noblesse Hat * 1
+            qm.gainItem(2000020, 10); // 初学者红色药水
+            qm.gainItem(2000021, 10); // 初学者蓝色药水
+            qm.gainItem(1002869, 1);  // 初学者见习帽
 
-            qm.sendOk("哈，我喜欢你的热情，但在我们开始之前，你必须先为训练做好准备。确保你装备了武器，并且你的技能已经校准并准备好使用。我也给了你一些药水，所以准备好以防万一。准备好了就告诉我.");
+            qm.sendOk("哈哈！我就喜欢你这种充满干劲的年轻人！但在开始前，你必须做好万全准备：装备好你的见习武器，将技能摆放至快捷键。我还送了你一些初学者恢复药水，以备不时之需。准备就绪后就去消灭幻影怪物吧！");
         } else if (status == 4) {
             qm.dispose();
         }

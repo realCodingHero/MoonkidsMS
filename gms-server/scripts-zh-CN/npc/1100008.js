@@ -8,7 +8,7 @@
  ----------------------------------------------------------------------------------
  **/
 
-var menu = new Array("Ereve");
+var menu = new Array("圣地");
 var method;
 
 function start() {
@@ -25,7 +25,7 @@ function action(mode, type, selection) {
             cm.dispose();
             return;
         } else if (mode == 0) {
-            cm.sendNext("好的。如果你改变主意了，请告诉我。");
+            cm.sendNext("好的。如果你改变主意了，随时来找我。");
             cm.dispose();
             return;
         }
@@ -33,13 +33,13 @@ function action(mode, type, selection) {
         if (status == 0) {
             var display = "";
             for (var i = 0; i < menu.length; i++) {
-                display += "\r\n#L" + i + "##b Ereve (1000 mesos)#k";
+                display += "\r\n#L" + i + "##b 圣地 (1000 金币)#k";
             }
-            cm.sendNext("这艘船将驶向#b圣地#k，那里是一个浮空的岛屿，你会看到明亮的阳光照在树叶上，感受到轻柔的微风拂过你的皮肤，还有女皇——希纳斯。如果你有兴趣加入皇家骑士团，那么你一定要来这里看看。你有兴趣去圣地吗？这次旅行将花费你#b1000#k金币\r\n");
+            cm.sendNext("这艘船将驶向浮空岛屿#b圣地#k。在那里，你能沐浴在明媚的阳光下，感受轻柔的微风，觐见尊贵的西格诺斯女皇。如果你有兴趣加入圣地骑士团，这里绝对是不容错过的地方。你想前往圣地吗？船费为 #b1,000 金币#k。\r\n");
 
         } else if (status == 1) {
             if (cm.getMeso() < 1000) {
-                cm.sendNext("嗯... 你确定你有 #b1000#k 冒险币吗？检查一下你的背包，确保你有足够的冒险币。你必须支付费用，否则我不能让你上船...");
+                cm.sendNext("嗯……你确定身上有 #b1,000 金币#k 吗？请检查一下你的背包。船费不足的话，我是不能让你登船的哦……");
                 cm.dispose();
             } else {
                 cm.gainMeso(-1000);

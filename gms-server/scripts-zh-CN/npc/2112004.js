@@ -49,7 +49,7 @@ function action(mode, type, selection) {
 
         if (cm.getMapId() != 261000011) {
             if (status == 0) {
-                cm.sendYesNo("我们必须继续战斗，拯救朱丽叶，请保持你的速度。如果你感觉不太好，无法继续，你的同伴和我都会理解……那么，你打算撤退吗？");
+                cm.sendYesNo("为了拯救朱丽叶，我们必须继续前进。如果你感觉状态不佳无法继续，大家都能理解……那么，你现在打算离开吗？");
             } else if (status == 1) {
                 cm.warp(926100700, 0);
                 cm.dispose();
@@ -58,7 +58,7 @@ function action(mode, type, selection) {
             if (status == 0) {
                 em = cm.getEventManager("MagatiaPQ_Z");
                 if (em == null) {
-                    cm.sendOk("玛加提亚组队任务（泽尼姆斯特）遇到了一个错误。");
+                    cm.sendOk("玛加提亚组队任务（卡帕莱特）发生错误。");
                     cm.dispose();
                     return;
                 } else if (cm.isUsingOldPqNpcStyle()) {
@@ -66,14 +66,14 @@ function action(mode, type, selection) {
                     return;
                 }
 
-                cm.sendSimple("#e#b<组队任务：罗密欧与朱丽叶>\r\n#k#n" + em.getProperty("party") + "\r\n\r\n我心爱的朱丽叶被绑架了！虽然她是阿尔卡德诺家的人，但我不能坐视她因这场愚蠢的冲突而受苦。我需要你和你的同事们帮助我救她！拜托，帮帮我们！！请让你的#b队伍领袖#k和我谈谈。#b\r\n#L0#我想参加这个组队任务。\r\n#L1#我想" + (cm.getPlayer().isRecvPartySearchInviteEnabled() ? "关闭" : "开启") + "组队搜索。\r\n#L2#我想了解更多细节。");
+                cm.sendSimple("#e#b<组队任务：罗密欧与朱丽叶>\r\n#k#n" + em.getProperty("party") + "\r\n\r\n我最心爱的朱丽叶被绑架了！虽然她是蒙特鸠的人，但我绝不能坐视不管，看着她因为两大学派的愚蠢冲突而受折磨。我需要你和你的队员们帮我救出她！拜托大家了！请让你们的#b队长#k来和我对话。#b\r\n#L0#我想挑战组队任务。\r\n#L1#我想" + (cm.getPlayer().isRecvPartySearchInviteEnabled() ? "关闭" : "开启") + "组队寻找。\r\n#L2#我想了解详细信息。#l#k");
             } else if (status == 1) {
                 if (selection == 0) {
                     if (cm.getParty() == null) {
-                        cm.sendOk("只有当你加入一个队伍时，你才能参加派对任务。");
+                        cm.sendOk("只有加入组队后，才能参加组队任务。");
                         cm.dispose();
                     } else if (!cm.isLeader()) {
-                        cm.sendOk("你的队长必须与我交谈才能开始这个组队任务。");
+                        cm.sendOk("只有队长与我交谈才能开始这个组队任务。");
                         cm.dispose();
                     } else {
                         var eli = em.getEligibleParty(cm.getParty());
@@ -82,17 +82,17 @@ function action(mode, type, selection) {
                                 cm.sendOk("另一个队伍已经进入了该频道的#r组队任务#k。请尝试其他频道，或者等待当前队伍完成。");
                             }
                         } else {
-                            cm.sendOk("你目前无法开始这个组队任务，因为你的队伍可能不符合人数要求，有些队员可能不符合参与条件，或者他们不在这张地图上。如果你找不到队员，可以尝试使用组队搜索功能。");
+                            cm.sendOk("你目前无法开始这个组队任务，因为你的队伍可能不符合人数要求，或者某些队员不符合参与条件，或者他们不在这张地图上。如果队伍人数不足，可以使用组队搜索功能寻找队友。");
                         }
 
                         cm.dispose();
                     }
                 } else if (selection == 1) {
                     var psState = cm.getPlayer().toggleRecvPartySearchInvite();
-                    cm.sendOk("你的组队搜索状态现在是：#b" + (psState ? "enabled" : "disabled") + "#k。想要改变状态时随时找我。");
+                    cm.sendOk("你的组队搜索状态现在是：#b" + (psState ? "已开启" : "已关闭") + "#k。想要更改状态时可以随时找我。");
                     cm.dispose();
                 } else {
-                    cm.sendOk("不久前，一位名叫尤利特的科学家因为他对阿尔卡德诺和泽尼玛斯的合成炼金术的研究而被这个城镇放逐。由于这种组合所带来的巨大力量，根据法律是禁止研究的。然而，他无视了这项法律，并且参与了这两项研究。结果，他被流放了。\r\n他现在在报复，已经带走了我心爱的人，下一个目标是我，因为我们是玛加提亚的重要人物，是这两个社会的继承者。但我不害怕。我们必须不惜一切代价把她夺回来！");
+                    cm.sendOk("不久前，一个名叫尤莱特的科学家因为私自研究融合蒙特鸠与卡帕莱特的禁忌炼金术而被玛加提亚放逐。两派炼金术结合所产生的可怕力量，是受到法律绝对禁止的。但他无视禁令执意研究，最终遭到了流放。\r\n如今他展开了疯狂的报复，抓走了我最心爱的人，下一个目标很可能就是我，因为我们分别是两大学派的继承人。但我绝不退缩，我们必须不惜一切代价救出她！");
                     cm.dispose();
                 }
             }

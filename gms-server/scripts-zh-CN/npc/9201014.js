@@ -56,8 +56,8 @@ function action(mode, type, selection) {
     }
     if (marriageRoom) {
         if (status == 0) {
-            var talk = "Hi there, welcome to the wedding's Gift Registry. From which spouse's wishlist would you like to take a look?";
-            var options = ["Groom", "Bride"];
+            var talk = "你好！欢迎来到婚礼礼品登记处。你想查看哪位新人的婚礼愿望清单？";
+            var options = ["新郎的愿望清单", "新娘的愿望清单"];
 
             cm.sendSimple(talk + "\r\n\r\n#b" + generateSelectionMenu(options) + "#k");
         } else {
@@ -67,7 +67,7 @@ function action(mode, type, selection) {
     } else {
         if (marriageAction == 2) {     // unclaimed gifts
             if (status == 0) {
-                var talk = "Hi there, it seems you have unclaimed gifts from your wedding. Claim them here on the wedding's Gift Registry reserve.";
+                var talk = "你好！你似乎还有未领取的婚礼礼物。可以在婚礼礼品登记处这里直接领取。";
                 cm.sendNext(talk);
             } else {
                 cm.sendMarriageGifts(marriageGifts);
@@ -75,8 +75,8 @@ function action(mode, type, selection) {
             }
         } else if (marriageAction == 1) {     // onyx prizes
             if (status == 0) {
-                var msg = "Hello I exchange Onyx Chest for Bride and Groom and the Onyx Chest for prizes!#b";
-                var choice1 = ["I have an Onyx Chest for Bride and Groom", "I have an Onyx Chest"];
+                var msg = "你好！我可以为你兑换新人玛瑙宝箱和宾客玛瑙宝箱中的丰厚奖励！#b";
+                var choice1 = ["我想开启新人专属玛瑙宝箱", "我想开启宾客玛瑙宝箱"];
                 for (var i = 0; i < choice1.length; i++) {
                     msg += "\r\n#L" + i + "#" + choice1[i] + "#l";
                 }
@@ -92,15 +92,15 @@ function action(mode, type, selection) {
                                 cm.gainItem(4031424, -1);
                                 cm.dispose();
                             } else {
-                                cm.sendOk("你现在没有空闲的使用槽位。");
+                                cm.sendOk("你的消耗栏空间已满，请清理出至少 1 个空位。");
                                 cm.dispose();
                             }
                         } else {
-                            cm.sendOk("你必须结婚才能领取这个宝箱的奖品。");
+                            cm.sendOk("只有已婚的新人才能开启这个专属宝箱。");
                             cm.dispose();
                         }
                     } else {
-                        cm.sendOk("你没有新人用的缟玛瑙宝箱。");
+                        cm.sendOk("你身上没有新人专属的 #b#t4031424##k。");
                         cm.dispose();
                     }
                 } else if (selection == 1) {
@@ -112,17 +112,17 @@ function action(mode, type, selection) {
                             cm.gainItem(4031423, -1);
                             cm.dispose();
                         } else {
-                            cm.sendOk("你现在没有空闲的使用槽位。");
+                            cm.sendOk("你的消耗栏空间已满，请清理出至少 1 个空位。");
                             cm.dispose();
                         }
                     } else {
-                        cm.sendOk("你没有黑檀宝箱。");
+                        cm.sendOk("你身上没有 #b#t4031423##k。");
                         cm.dispose();
                     }
                 }
             }
         } else {
-            cm.sendOk("嗨，欢迎来到阿莫利亚的婚礼礼品登记保留处。我们为新人和幸运的仪式参与者重新分配和提供礼物。");
+            cm.sendOk("你好！欢迎来到阿莫利亚婚礼礼品登记处。我们负责保管和发放新人及宾客的婚礼礼品与宝箱奖励。");
             cm.dispose();
         }
     }

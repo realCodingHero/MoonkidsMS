@@ -47,12 +47,12 @@ function action(mode, type, selection) {
             preamble = eim.getProperty("leader" + nthtext + "preamble");
             mobcount = eim.getProperty("leader" + nthtext + "mobcount");
             if (preamble == null) {
-                cm.sendOk("嗨。欢迎来到第" + nthtext + "阶段。这是你与#bboss#k战斗的地方。我们开始吧？");
+                cm.sendOk("嗨。欢迎来到最终阶段。这是你与#b首领怪物#k决战的地方。准备好开始了吗？");
                 status = 9;
             } else {
                 if (!isLeader()) {
                     if (mobcount == null) {
-                        cm.sendOk("请告诉你的#b队长#k来找我谈话。");
+                        cm.sendOk("请让你们的#b队长#k来和我对话。");
                         cm.dispose();
                     } else {
                         cm.warp(109020001, 0);
@@ -60,19 +60,19 @@ function action(mode, type, selection) {
                     }
                 }
                 if (mobcount == null) {
-                    cm.sendYesNo("你完了？！");
+                    cm.sendYesNo("你们已经消灭全部怪物了吗？");
                 }
             }
         } else if (status == 1) {
             //if (cm.mobCount(600010000)==0) {
             if (cm.mapMobCount() == 0) {
-                cm.sendOk("干得好！你干掉了他们！");
+                cm.sendOk("干得漂亮！你们成功消灭了所有怪物！");
             } else {
-                cm.sendOk("你在说什么？杀死那些怪物！");
+                cm.sendOk("你在说什么呢？地图里还有怪物没清理干净呢！快去消灭它们！");
                 cm.dispose();
             }
         } else if (status == 2) {
-            cm.sendOk("你可以继续到下一阶段！");
+            cm.sendOk("通往下一阶段的传送门已经开启，请继续前进！");
         } else if (status == 3) {
             cm.clear();
             eim.setProperty("leader" + nthtext + "mobcount", "done");

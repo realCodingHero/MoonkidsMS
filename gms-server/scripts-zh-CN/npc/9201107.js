@@ -3,10 +3,10 @@
 
 function start() {
     if (cm.getPlayer().getMapId() == 610030500) {
-        cm.sendOk("难以置信的力量和能力，任何人都可以实现。但是让一个战士特别的是他们的铁一般意志。无论面对多大的困难，真正的战士都会坚持到胜利确保为止。因此，战士之厅是一条残酷的道路，房间本身和其中的超强怪物都在与你对抗。利用你的技能摆脱影响，打败其中的怪物，到达战士雕像并夺取圣剑。祝你好运！");
+        cm.sendOk("强大的力量固然人人向往，但真正让战士脱颖而出的，是他们钢铁般的坚强意志！无论面对何种绝境，真正的勇士都会坚守阵地直至夺取胜利。战士之厅是一条残酷的试炼之路，整个大厅与其中的强力怪物都将成为你的敌人。运用你的战士技能冲破阻碍，消灭怪物，抵达战士雕像夺取圣剑吧！祝你好运！");
         cm.dispose();
     } else if (cm.getPlayer().getMap().getId() == 610030000) {
-        cm.sendOk("一支传奇英雄家族，德弗里西恩家族是风暴法师的创始人。这个家族很特别，因为每个儿子或女儿都继承了他们祖先的全部战斗技巧。这种能力被证明非常有用；因为它几乎可以无限制地运用战略、即兴和战术来打败所有的敌人。一个真正的代代相传的家族。");
+        cm.sendOk("风暴法师的创始人德弗里西恩家族是一支传奇的英雄家族。这个家族非常特别，每一代子孙都能完整继承先祖的所有战斗技巧。凭借无限的战术策略与临场应变，他们击败了无数强敌，是名副其实代代相传的传奇世家。");
         cm.dispose();
     } else if (cm.getPlayer().getMapId() == 610030510) {
         if (cm.getPlayer().getMap().countMonsters() == 0) {
@@ -17,18 +17,18 @@ function start() {
             if ((stgStatus >> jobNiche) % 2 == 0) {
                 if (cm.canHold(4001259, 1)) {
                     cm.gainItem(4001259, 1);
-                    cm.sendOk("干得好。");
+                    cm.sendOk("干得漂亮！你成功获得了武器！");
 
                     stgStatus += (1 << jobNiche);
                     eim.setIntProperty("glpq5_room", stgStatus);
                 } else {
-                    cm.sendOk("先在你的杂项物品栏腾出空间。");
+                    cm.sendOk("请确保你的其它栏至少有 1 个空位。");
                 }
             } else {
-                cm.sendOk("这个房间里的武器已经被取走了。");
+                cm.sendOk("这个房间内的试炼武器已经被取走了。");
             }
         } else {
-"Eliminate all Crimson Guardians."
+            cm.sendOk("请先消灭房间内所有的绯红守卫！");
         }
         cm.dispose();
     }

@@ -31,7 +31,7 @@ var player;
 var em;
 const ExpeditionType = Java.type('org.gms.server.expeditions.ExpeditionType');
 var cwkpq = ExpeditionType.CWKPQ;
-var list = "你想做什么？#b\r\n\r\n#L1#查看当前远征队成员#l\r\n#L2#开始战斗！#l\r\n#L3#退出远征队#l";
+var list = "你想做什么？#b\r\n\r\n#L1#查看当前远征队成员#l\r\n#L2#远征队出发！#l\r\n#L3#解散远征队#l";
 
 function start() {
     action(1, 0, 0);
@@ -53,14 +53,14 @@ function action(mode, type, selection) {
 
         if (status == 0) {
             if (player.getLevel() < cwkpq.getMinLevel() || player.getLevel() > cwkpq.getMaxLevel()) { //Don't fit requirement, thanks Conrad
-                cm.sendOk("你不符合条件参加枫叶城要塞派对任务！");
+                cm.sendOk("你的等级不符合参与绯红要塞远征队的要求！");
                 cm.dispose();
             } else if (expedition == null) { //Start an expedition
-                cm.sendSimple("#e#b<组队任务：红树林要塞>\r\n#k#n" + em.getProperty("party") + "\r\n\r\n你想组建一个队伍来尝试#r红树林要塞组队任务#k吗？\r\n#b#L1#让我们开始吧！#l\r\n\#L2#不，我想再等一会儿...#l");
+                cm.sendSimple("#e#b<组队任务：绯红要塞远征队>\r\n#k#n" + em.getProperty("party") + "\r\n\r\n你想组建一支远征队来挑战 #r绯红要塞组队任务（CWKPQ）#k 吗？\r\n#b#L1#创建远征队！#l\r\n#L2#不，我想再等等...#l");
                 status = 1;
             } else if (expedition.isLeader(player)) { //If you're the leader, manage the exped
                 if (expedition.isInProgress()) {
-                    cm.sendOk("你的探险已经在进行中，对于那些仍在战斗中的人，让我们为那些勇敢的灵魂祈祷吧。");
+                    cm.sendOk("你的远征队战斗已经在进行中了。愿勇气与你们同在！");
                     cm.dispose();
                 } else {
                     cm.sendSimple(list);
@@ -68,7 +68,7 @@ function action(mode, type, selection) {
                 }
             } else if (expedition.isRegistering()) { //If the expedition is registering
                 if (expedition.contains(player)) { //If you're in it but it hasn't started, be patient
-                    cm.sendOk("你已经注册了这次远征。请等待 #r" + expedition.getLeader().getName() + "#k 开始。");
+                    cm.sendOk("你已经加入了本次远征队。请耐心等待远征队长 #r" + expedition.getLeader().getName() + "#k 开启远征！");
                     cm.dispose();
                 } else { //If you aren't in it, you're going to get added
                     cm.sendOk(expedition.addMember(cm.getPlayer()));
@@ -79,7 +79,7 @@ function action(mode, type, selection) {
                     em.getInstance("CWKPQ" + player.getClient().getChannel()).registerPlayer(player);
                     cm.dispose();
                 } else { //If you're not in by now, tough luck
-                    cm.sendOk("另一支探险队已经采取了主动行动来完成赤血城堡派对任务，让我们为那些勇敢的灵魂祈祷吧。");
+                    cm.sendOk("当前频道已有其他远征队正在挑战绯红要塞，请更换频道或稍后再试。");
                     cm.dispose();
                 }
             }
@@ -87,24 +87,24 @@ function action(mode, type, selection) {
             if (selection == 1) {
                 expedition = cm.getExpedition(cwkpq);
                 if (expedition != null) {
-                    cm.sendOk("有人已经主动成为了远征队的领袖。试着加入他们吧！");
+                    cm.sendOk("当前已经有人创建了远征队，你可以直接申请加入他们！");
                     cm.dispose();
                     return;
                 }
 
                 var res = cm.createExpedition(cwkpq);
                 if (res == 0) {
-                    cm.sendOk("“#r红树林要塞派对任务远征#k已经创建。\r\n\r\n再次与我交谈以查看当前团队，或开始战斗！”");
+                    cm.sendOk("#r绯红要塞远征队#k 已成功创建！\r\n\r\n再次与我对话可以管理成员或正式出发！");
                 } else if (res > 0) {
-                    cm.sendOk("抱歉，您已经达到了此次远征的尝试配额！请另选他日再试……");
+                    cm.sendOk("抱歉，你今天参与该远征的次数已达上限，请明天再来挑战吧……");
                 } else {
-                    cm.sendOk("在启动远征时发生了意外错误，请稍后重试。");
+                    cm.sendOk("创建远征队时发生异常，请稍后重试。");
                 }
 
                 cm.dispose();
 
             } else if (selection == 2) {
-                cm.sendOk("当然，并不是每个人都愿意尝试红树林要塞派对任务。");
+                cm.sendOk("看来你还没准备好面对绯红要塞中的严峻考验。");
                 cm.dispose();
 
             }
@@ -118,11 +118,11 @@ function action(mode, type, selection) {
                 expedMembers = expedition.getMemberList();
                 var size = expedMembers.size();
                 if (size == 1) {
-                    cm.sendOk("你是探险队中唯一的成员。");
+                    cm.sendOk("你是当前远征队中唯一的成员。");
                     cm.dispose();
                     return;
                 }
-                var text = "以下成员组成了你的探险队（点击成员名字可以将其踢出探险队）：\r\n";
+                var text = "以下是当前远征队的成员列表（点击成员名字可将其请离队伍）：\r\n";
                 text += "\r\n\t\t1." + expedition.getLeader().getName();
                 for (var i = 1; i < size; i++) {
                     text += "\r\n#b#L" + (i + 1) + "#" + (i + 1) + ". " + expedMembers.get(i).getValue() + "#l\n";
@@ -133,24 +133,24 @@ function action(mode, type, selection) {
                 var min = cwkpq.getMinSize();
                 var size = expedition.getMemberList().size();
                 if (size < min) {
-                    cm.sendOk("你的远征队至少需要有" + min + "名玩家注册。");
+                    cm.sendOk("你的远征队至少需要 " + min + " 名玩家才能出发。");
                     cm.dispose();
                     return;
                 }
 
-                cm.sendOk("探险队即将出发，你现在将被护送至#b神木村彩虹组队任务祭坛入口#k。");
+                cm.sendOk("远征队集结完毕，即将前往 #b绯红要塞#k！");
                 status = 4;
             } else if (selection == 3) {
                 const PacketCreator = Java.type('org.gms.util.PacketCreator');
-                player.getMap().broadcastMessage(PacketCreator.serverNotice(6, expedition.getLeader().getName() + "探险结束了。"));
+                player.getMap().broadcastMessage(PacketCreator.serverNotice(6, expedition.getLeader().getName() + " 的远征队已解散。"));
                 cm.endExpedition(expedition);
-                cm.sendOk("这次探险已经结束。有时候最好的策略就是逃跑。");
+                cm.sendOk("远征队已解散。重整旗鼓后再来挑战吧！");
                 cm.dispose();
 
             }
         } else if (status == 4) {
             if (em == null) {
-                cm.sendOk("事件无法初始化，请在论坛上报告此问题。");
+                cm.sendOk("远征事件初始化失败，请联系管理员。");
                 cm.dispose();
                 return;
             }
@@ -158,7 +158,7 @@ function action(mode, type, selection) {
             em.setProperty("leader", player.getName());
             em.setProperty("channel", player.getClient().getChannel());
             if (!em.startInstance(expedition)) {
-                cm.sendOk("另一支探险队已经采取了主动行动，完成了红木城堡派对任务，让我们为那些勇敢的灵魂祈祷吧。");
+                cm.sendOk("当前频道已有其他远征队正在挑战绯红要塞，请更换频道或稍后重试。");
                 cm.dispose();
                 return;
             }
@@ -169,7 +169,7 @@ function action(mode, type, selection) {
             if (selection > 0) {
                 var banned = expedMembers.get(selection - 1);
                 expedition.ban(banned);
-                cm.sendOk("你已经从远征中禁止了 " + banned.getValue() + "。");
+                cm.sendOk("你已将 " + banned.getValue() + " 请离远征队。");
                 cm.dispose();
             } else {
                 cm.sendSimple(list);

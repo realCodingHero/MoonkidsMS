@@ -35,7 +35,7 @@ function action(mode, type, selection) {
         cm.dispose();
     } else {
         if (mode == 0 && type > 0) {
-            cm.sendNext("嗯，请仔细考虑一下。这不便宜，但您绝对不会对我们的顶级服务感到失望！");
+            cm.sendNext("嗯，请仔细考虑一下。虽然价格不算便宜，但您绝对不会对我们的顶级服务感到失望！");
             cm.dispose();
             return;
         }
@@ -52,12 +52,12 @@ function action(mode, type, selection) {
                     break;
                 }
             }
-            cm.sendNext("你好！这辆出租车会比箭头飞得更快，把你带到奥西里亚的危险地方！我们从#m" + inMap[location] + "#到奥西里亚大陆上的#b#m" + toMap[location] + "##k去！费用是#b" + cost[location] + " 枚金币#k。我知道有点贵，但能避开所有危险区域，绝对物有所值！");
+            cm.sendNext("你好！这是能够比飞箭更快地将你送往危险地带的危险地区出租车！我们可以带你从 #m" + inMap[location] + "# 前往神秘岛各处的 #b#m" + toMap[location] + "##k！费用是 #b" + cost[location] + " 金币#k。虽然有点贵，但能避开沿途所有凶险的怪物，绝对物超所值！");
         } else if (status == 1) {
-            cm.sendYesNo("你想支付 #b" + cost[location] + " 冒险币#k 前往 #b#m" + toMap[location] + "##k 吗？");
+            cm.sendYesNo("你想支付 #b" + cost[location] + " 金币#k 前往 #b#m" + toMap[location] + "##k 吗？");
         } else if (status == 2) {
             if (cm.getMeso() < cost[location]) {
-                cm.sendNext("你似乎没有足够的金币。非常抱歉，除非你付款，否则我无法帮助你。多打怪赚更多金币，等你有足够的金币再回来吧。");
+                cm.sendNext("你身上的金币好像不够呢。非常抱歉，如果没有支付全额车费，我是不能发车的。多去狩猎赚些金币后再来吧。");
             } else {
                 cm.warp(toMap[location], location != 1 ? 0 : 1);
                 cm.gainMeso(-cost[location]);

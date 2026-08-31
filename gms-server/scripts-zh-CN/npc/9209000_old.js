@@ -47,7 +47,7 @@ function action(mode, type, selection) {
             sel = selection;
         }
         if (selection == 0) {
-            var text = "Let's see what you brought...#b";
+            var text = "让我看看你带来了什么好东西……#b";
             for (var i = 0; i < 5; i++) {
                 text += "\r\n#L" + i + "##t" + (3994090 + i) + "#";
             }

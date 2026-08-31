@@ -59,9 +59,9 @@ function action(mode, type, selection) {
             return;
         }
 
-        if (!(cm.isQuestStarted(100200) || cm.isQuestCompleted(100200))) {   // thanks Vcoc for finding out a need of reapproval from the masters for Zakum expeditions
-            if (cm.getPlayer().getLevel() >= 50) {  // thanks Z1peR for noticing not-so-clear unmet requirements message here.
-                cm.sendOk("小心，古老的力量并未被遗忘……如果你希望有朝一日击败#r扎昆#k，首先要获得#b首领之家议会#k的批准，然后#b面对考验#k，只有这样你才有资格进行战斗。");
+        if (!(cm.isQuestStarted(100200) || cm.isQuestCompleted(100200))) {
+            if (cm.getPlayer().getLevel() >= 50) {
+                cm.sendOk("小心，古老的力量并未被遗忘……如果你希望有朝一日挑战 #r扎昆#k，首先要前往长老板屋获得 #b长老议会#k 的批准，然后再来接受我的考验，证明你有面对魔神的资格。");
             } else {
                 cm.sendOk("小心，古老的力量并未被遗忘……");
             }
@@ -78,11 +78,11 @@ function action(mode, type, selection) {
         }
 
         if (status == 0) {
-            cm.sendSimple("#e#b<组队任务：扎昆战役>\r\n#k#n" + em.getProperty("party") + "\r\n\r\n小心，古老的力量并未被遗忘... #b\r\n#L0#进入未知的死亡矿井（第1阶段）#l\r\n#L1#面对熔岩之息（第2阶段）#l\r\n#L2#锻造火眼（第3阶段）#l");
+            cm.sendSimple("#e#b<扎昆前置试炼任务>\r\n#k#n" + em.getProperty("party") + "\r\n\r\n小心，沉睡的远古魔神即将苏醒……#b\r\n#L0#废矿区调查（第1阶段）#l\r\n#L1#扎昆的忍耐之林（第2阶段：熔岩之息）#l\r\n#L2#提炼火焰之眼（第3阶段）#l");
         } else if (status == 1) {
             if (selection == 0) {
                 if (cm.getParty() == null) {
-                    cm.sendOk("只有当你加入一个队伍时，你才能参加派对任务。");
+                    cm.sendOk("你必须先加入或组建一个队伍，才能参加组队任务。");
                     cm.dispose();
                 } else if (!cm.isLeader()) {
                     cm.sendOk("你的队长必须与我交谈才能开始这个组队任务。");
@@ -101,19 +101,19 @@ function action(mode, type, selection) {
                 }
             } else if (selection == 1) {
                 if (cm.haveItem(4031061) && !cm.haveItem(4031062)) {
-                    cm.sendYesNo("你已经成功通过了第一阶段。你还有很长的路才能到达扎昆的祭台。所以，你想好挑战下一个阶段了吗？");
+                    cm.sendYesNo("你已经成功通过了第一阶段的试炼。不过距离抵达扎昆祭台还有漫长险峻的路程。你准备好挑战第二阶段的耐力试炼了吗？");
                 } else {
                     if (cm.haveItem(4031062)) {
-                        cm.sendNext("你已经得到了#b熔岩之息#k，你不需要完成这个阶段。");
+                        cm.sendNext("你已经获得了 #b#t4031062##k，无需重复挑战这一阶段。");
                     } else {
-                        cm.sendNext("请先完成之前的试炼。");
+                        cm.sendNext("请先按顺序完成前面的试炼阶段。");
                     }
                     cm.dispose();
                 }
             } else {
                 if (cm.haveItem(4031061) && cm.haveItem(4031062)) {
                     if (!cm.haveItem(4000082, 30)) {
-                        cm.sendOk("你已经完成了试炼，但是还需要 #b#v4000082##t4000082# * 30#k 来锻造 #b5 个 #v4001017##t4001017##k。");
+                        cm.sendOk("你已经完成了全部考验，但还需要带来 #b#i4000082# #t4000082# 30个#k，我才能为你提炼出 #b5个 #t4001017##k。");
                     } else {
                         cm.completeQuest(100201);
                         cm.gainItem(4031061, -1);
@@ -121,12 +121,12 @@ function action(mode, type, selection) {
                         cm.gainItem(4000082, -30);
 
                         cm.gainItem(4001017, 5);
-                        cm.sendNext("你 #r已经完成了试炼#k，从现在开始我批准你挑战扎昆。");
+                        cm.sendNext("做得好！你已经成功通过了全部试炼！这是给你的 #b#t4001017##k。从现在起，我正式特许你进入祭台挑战扎昆！");
                     }
 
                     cm.dispose();
                 } else {
-                    cm.sendOk("你缺少一些必要的物品\r\n#b#v4031061##t4031061# * 1#k\r\n#b#v4031062##t4031062# * 1#k\r\n来锻造#b#v4001017##t4001017##k。");
+                    cm.sendOk("你还缺少锻造 #b#t4001017##k 所需的试炼信物：\r\n#b#i4031061# #t4031061# 1个\r\n#i4031062# #t4031062# 1个#k\r\n请完成前两阶段的试炼后再来找我。");
                     cm.dispose();
                 }
             }

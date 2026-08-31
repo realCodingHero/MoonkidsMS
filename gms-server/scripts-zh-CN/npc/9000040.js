@@ -1,5 +1,5 @@
-/* Dalair (达利尔)
-   Medal Master NPC (勋章管理员)
+/* Dalair (达尔利)
+   Medal Master NPC (勋章达人)
 */
 
 var status = -1;
@@ -28,7 +28,7 @@ function action(mode, type, selection) {
     }
 
     if (status === 0) {
-        var text = "我是勋章管理员 #b达利尔#k。我掌管着枫之谷世界所有勇敢冒险家的勋章与荣誉。\r\n\r\n";
+        var text = "我是勋章达人 #b达尔利#k。我掌管着冒险岛世界所有勇敢冒险家的勋章与荣誉。\r\n\r\n";
         text += "#b#L0# 重新领取已获得的勋章（补领）#l\r\n";
         text += "#L1# 了解勋章与探险挑战介绍#l\r\n";
         text += "#L2# 装备合并强化服务（辅助）#l#k";

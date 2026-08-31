@@ -376,7 +376,7 @@ function monsterKilled(mob, eim) {
     }
 
     if (isLordPirate(mob)) {  // lord pirate defeated, spawn the little fella!
-        map.broadcastStringMessage(5, "随着海盗领主死亡，无恙被释放了！");
+        map.broadcastStringMessage(5, "随着海盗王被消灭，无恙终于重获自由！");
         eim.spawnNpc(2094001, new java.awt.Point(777, 140), mob.getMap());
     }
 
