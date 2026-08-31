@@ -23,7 +23,7 @@
 /**
  * @description Maple Helper / Script Center
  */
-var OldTitle = "\t\t\t\t\t#eWelcome to #rBeiDou#k Maple Helper#n\t\t\t\t\r\n";
+var OldTitle = "\t\t\t\t\t#eWelcome to #rMoonKids#k Maple Helper#n\t\t\t\t\r\n";
 var status = -1;
 var currentMenu = 0; // 0: Main Menu, 1: More... (Player), 2: More (GM)
 

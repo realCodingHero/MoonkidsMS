@@ -4746,9 +4746,9 @@
         <string name="n1" value="回去吧，入侵者！不要招惹混沌之王奈特的愤怒！"/>
     </imgdir>
     <imgdir name="2104">
-        <string name="n0" value="Welcome to BeiDou~！"/>
+        <string name="n0" value="Welcome to MoonKids~！"/>
         <string name="n1" value="Are you asking why you were born here? That&apos;s because before the MapleStory version 055, all new players came here!"/>
-        <string name="func" value="Beginner&apos;s guide of Maple BeiDou"/>
+        <string name="func" value="Beginner&apos;s guide of Maple MoonKids"/>
         <string name="n2" value="Does it evoke any memories of your childhood?"/>
         <string name="n3" value="Click on me, and I&apos;ll take you on a journey through memories!"/>
         <string name="name" value="NapSleep"/>

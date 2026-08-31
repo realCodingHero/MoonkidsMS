@@ -133,7 +133,7 @@ function showMainMenu() {
         var canCompleteCount = (canCompleteQuests && typeof canCompleteQuests.size === "function") ? canCompleteQuests.size() : 0;
         var inProgressCount = (inProgressQuests && typeof inProgressQuests.size === "function") ? inProgressQuests.size() : 0;
 
-        var text = "\t\t\t\t#e#r【 BeiDou 任务辅助助手 】#k#n\r\n\r\n";
+        var text = "\t\t\t\t#e#r【 MoonKids 任务辅助助手 】#k#n\r\n\r\n";
         text += "在这里您可以查看当前所有已接取的任务进度、一键导航至起止 NPC、快捷传送至怪物地图，以及一键补齐普通任务材料。\r\n\r\n";
 
         if (canCompleteCount > 0) {

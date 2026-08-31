@@ -23,7 +23,7 @@
 /**
  * @description 枫叶助手 / 脚本中心
  */
-var OldTitle = "\t\t\t\t\t#e欢迎来到#rBeiDou#k枫叶助手#n\t\t\t\t\r\n";
+var OldTitle = "\t\t\t\t\t#e欢迎来到#r月兒#k枫叶助手#n\t\t\t\t\r\n";
 var status = -1;
 var currentMenu = 0; // 0: 主菜单, 1: 更多... (玩家), 2: 更多 (GM)
 

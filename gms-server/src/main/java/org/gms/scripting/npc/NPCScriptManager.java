@@ -126,6 +126,9 @@ public class NPCScriptManager extends AbstractScriptManager {
                     if (fileName != null) {
                         engine = getInvocableScriptEngine("npc/" + fileName + ".js", c);
                         if (engine == null) {
+                            engine = getInvocableScriptEngine("MoonKidsSpecial/" + fileName + ".js", c);
+                        }
+                        if (engine == null) {
                             engine = getInvocableScriptEngine("BeiDouSpecial/" + fileName + ".js", c);
                         }
                     }
