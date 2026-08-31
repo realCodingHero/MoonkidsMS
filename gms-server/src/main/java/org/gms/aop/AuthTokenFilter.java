@@ -62,6 +62,13 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
+
+                // 自动滑动续期：若当前 Token 剩余有效期小于 50%，在响应头下发新 Token
+                if (jwtUtils.shouldRenewToken(jwt)) {
+                    String refreshedToken = jwtUtils.generateJwtToken(username);
+                    response.setHeader("Authorization", "Bearer " + refreshedToken);
+                    response.setHeader("Access-Control-Expose-Headers", "Authorization");
+                }
             }
         } catch (Exception e) {
             logger.error("Filter error", e);
