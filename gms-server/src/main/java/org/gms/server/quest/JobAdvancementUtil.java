@@ -90,11 +90,11 @@ public final class JobAdvancementUtil {
      * @return 若角色正处于转职任务中则返回 true，否则返回 false
      */
     public static boolean isUndergoingJobAdvancement(Character chr) {
-        if (chr == null) {
+        if (chr == null || chr.getJob() == null) {
             return false;
         }
 
-        int jobId = chr.getJobId();
+        int jobId = chr.getJob().getId();
         int level = chr.getLevel();
 
         // 1. 希纳斯骑士团 (1100~1512)
