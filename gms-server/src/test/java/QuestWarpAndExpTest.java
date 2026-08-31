@@ -389,6 +389,32 @@ public class QuestWarpAndExpTest {
 
     @Test
     public void testJobAdvancementUtilRestrictions() {
+        // 验证职业阶级计算
+        assertEquals(0, org.gms.server.quest.JobAdvancementUtil.getJobTier(0)); // 初心者
+        assertEquals(0, org.gms.server.quest.JobAdvancementUtil.getJobTier(1000)); // 贵族
+        assertEquals(0, org.gms.server.quest.JobAdvancementUtil.getJobTier(2000)); // 战神新手
+
+        assertEquals(1, org.gms.server.quest.JobAdvancementUtil.getJobTier(100)); // 剑士1转
+        assertEquals(1, org.gms.server.quest.JobAdvancementUtil.getJobTier(200)); // 魔法师1转
+        assertEquals(1, org.gms.server.quest.JobAdvancementUtil.getJobTier(1100)); // 魂骑士1转
+        assertEquals(1, org.gms.server.quest.JobAdvancementUtil.getJobTier(2100)); // 战神1转
+
+        assertEquals(2, org.gms.server.quest.JobAdvancementUtil.getJobTier(130)); // 枪战士2转
+        assertEquals(2, org.gms.server.quest.JobAdvancementUtil.getJobTier(230)); // 牧师2转
+        assertEquals(2, org.gms.server.quest.JobAdvancementUtil.getJobTier(410)); // 刺客2转
+        assertEquals(2, org.gms.server.quest.JobAdvancementUtil.getJobTier(1110)); // 魂骑士2转
+        assertEquals(2, org.gms.server.quest.JobAdvancementUtil.getJobTier(2110)); // 战神2转
+
+        assertEquals(3, org.gms.server.quest.JobAdvancementUtil.getJobTier(131)); // 龙骑士3转
+        assertEquals(3, org.gms.server.quest.JobAdvancementUtil.getJobTier(231)); // 祭司3转
+        assertEquals(3, org.gms.server.quest.JobAdvancementUtil.getJobTier(411)); // 无影者3转
+        assertEquals(3, org.gms.server.quest.JobAdvancementUtil.getJobTier(2111)); // 战神3转
+
+        assertEquals(4, org.gms.server.quest.JobAdvancementUtil.getJobTier(132)); // 黑骑士4转
+        assertEquals(4, org.gms.server.quest.JobAdvancementUtil.getJobTier(232)); // 主教4转
+        assertEquals(4, org.gms.server.quest.JobAdvancementUtil.getJobTier(412)); // 隐士4转
+        assertEquals(4, org.gms.server.quest.JobAdvancementUtil.getJobTier(2112)); // 战神4转
+
         // 验证转职任务 ID 集合完整性（包含 2转、3转、4转）
         java.util.Set<Integer> jobQuestIds = org.gms.server.quest.JobAdvancementUtil.getJobAdvancementQuestIds();
         // 战士/魔法师/飞侠 2转
@@ -401,24 +427,24 @@ public class QuestWarpAndExpTest {
         // 骑士团 2转 / 战神 2转
         assertEquals(true, jobQuestIds.contains(20200));
         assertEquals(true, jobQuestIds.contains(21200));
-        // 3转任务
-        assertEquals(true, jobQuestIds.contains(100200));
-        assertEquals(true, jobQuestIds.contains(6904));
+        // 骑士团 3转 / 战神 3转
         assertEquals(true, jobQuestIds.contains(20300));
         assertEquals(true, jobQuestIds.contains(21300));
-        // 4转任务
+        // 4转任务 (6900~6945, 21400)
         assertEquals(true, jobQuestIds.contains(6900));
+        assertEquals(true, jobQuestIds.contains(6904));
         assertEquals(true, jobQuestIds.contains(6910));
         assertEquals(true, jobQuestIds.contains(6920));
         assertEquals(true, jobQuestIds.contains(6930));
         assertEquals(true, jobQuestIds.contains(6940));
         assertEquals(true, jobQuestIds.contains(21400));
-        // 普通任务不应包含在内
+        // 扎昆任务 (100200) 与普通任务不应包含在转职任务集合内
+        assertEquals(false, jobQuestIds.contains(100200));
         assertEquals(false, jobQuestIds.contains(1000));
         assertEquals(false, jobQuestIds.contains(2236));
         assertEquals(false, jobQuestIds.contains(3250));
 
-        // null 角色与 GM 角色测试
+        // null 角色
         assertEquals(false, org.gms.server.quest.JobAdvancementUtil.isUndergoingJobAdvancement(null));
     }
 }
