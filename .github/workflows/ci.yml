@@ -18,8 +18,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-and-test:
-    name: Maven Build & Unit Tests
+  backend-build:
+    name: Backend Maven Build & Test
     runs-on: ubuntu-latest
 
     steps:
@@ -39,10 +39,41 @@ jobs:
       - name: Build BeiDou.jar
         run: mvn package -DskipTests --batch-mode
 
-      - name: Upload Build Artifact
+      - name: Upload Backend Artifact
         if: success()
         uses: actions/upload-artifact@v4
         with:
           name: BeiDou-Server-jar
           path: gms-server/target/BeiDou.jar
+          retention-days: 7
+
+  frontend-build:
+    name: Frontend Vue UI Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+          cache-dependency-path: 'gms-ui/yarn.lock'
+
+      - name: Install Dependencies
+        working-directory: gms-ui
+        run: yarn install --frozen-lockfile
+
+      - name: Build Frontend
+        working-directory: gms-ui
+        run: yarn build
+
+      - name: Upload Frontend Artifact
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: beidou-ui-dist
+          path: gms-ui/dist/
           retention-days: 7
