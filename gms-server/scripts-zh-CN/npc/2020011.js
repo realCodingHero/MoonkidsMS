@@ -1,33 +1,15 @@
 /*
-	This file is part of the OdinMS Maple Story Server
-    Copyright (C) 2008 Patrick Huy <patrick.huy@frz.cc>
-		       Matthias Butz <matze@odinms.de>
-		       Jan Christian Meyer <vimes@odinms.de>
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License as
-    published by the Free Software Foundation version 3 as published by
-    the Free Software Foundation. You may not use, modify or distribute
-    this program under any other version of the GNU Affero General Public
-    License.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    阿烈达 - 冰峰雪域长老板屋 (211000001)
+    飞侠三转导师 (CMS标准地道化重构)
 */
 
 status = -1;
-var job;
 var sel;
 actionx = {"Mental": false, "Physical": false};
 
 function start() {
     var jobBase = parseInt(cm.getJobId() / 100);
-    var jobStyle = 4;
+    var jobStyle = 4; // 飞侠
     if (!(cm.getPlayer().getLevel() >= 70 && jobBase == jobStyle && cm.getJobId() % 10 == 0)) {
         if (cm.getPlayer().getLevel() >= 50 && jobBase % 10 == jobStyle) {
             status++;
@@ -35,16 +17,18 @@ function start() {
             return;
         }
 
-        cm.sendNext("你好。");
+        cm.sendNext("你好，潜行于暗影之中的致命飞侠。");
         cm.dispose();
         return;
     }
+
     if (cm.haveItem(4031058)) {
         actionx["Mental"] = true;
     } else if (cm.haveItem(4031057)) {
         actionx["Physical"] = true;
     }
-    cm.sendSimple("你需要我做什么吗？#b" + (cm.getJobId() % 10 == 0 ? "\r\n#L0#我想进行第三次职业转职。" : "") + "\r\n#L1#请允许我进行扎昆地牢任务。");
+
+    cm.sendSimple("有什么我可以帮你的吗？#b" + (cm.getJobId() % 10 == 0 ? "\r\n#L0#我想接受飞侠的三转试炼。" : "") + "\r\n#L1#我想申请挑战扎昆的资格。");
 }
 
 function action(mode, type, selection) {
@@ -53,24 +37,26 @@ function action(mode, type, selection) {
         status -= 2;
     } else if (mode != 1 || (status > 2 && !actionx["Mental"]) || status > 3) {
         if (mode == 0 && type == 1) {
-            cm.sendNext("下定决心。");
+            cm.sendNext("既然你还没考虑清楚，那就等做好准备后再来找我吧。");
         }
         cm.dispose();
         return;
     }
+
     if (actionx["Mental"]) {
         if (status == 0) {
-            cm.sendNext("做得好，完成了测试的智力部分。你明智地回答了所有问题。我必须说，你展现出的智慧水平让我印象深刻。在我们进行下一步之前，请先把项链交给我。");
+            cm.sendNext("干得漂亮！你成功通过了神圣之石的智慧试炼。你展现出的博大阅历与冷静洞察力令人折服。在举行晋升仪式之前，请先把智慧项链交还给我吧。");
         } else if (status == 1) {
-            cm.sendYesNo("好的！现在，通过我，你将变成一个更加强大的冒险家。在这之前，请确保你的SP已经被充分使用了，你需要至少使用到70级之前获得的所有SP来进行第三次职业转职。哦，还有，由于你已经在第二次职业转职时选择了你的职业方向，所以在第三次职业转职时就不需要再次选择了。你现在要进行转职吗？");
+            cm.sendYesNo("好极了！现在，在我的引导下，你将觉醒成为暗影中最顶尖的刺客大师。在转职前，请确保在70级前获得的所有技能点（SP）已全部使用完毕。由于你早在二转时就确立了刺客或侠盗路线，三转将直接深化你的暗杀之道。\r\n\r\n你准备好正式晋升为三转职业了吗？");
         } else if (status == 2) {
             if (cm.getPlayer().getRemainingSp() > 0) {
                 if (cm.getPlayer().getRemainingSp() > (cm.getLevel() - 70) * 3) {
-                    cm.sendNext("请在继续之前使用你所有的SP。");
+                    cm.sendNext("转职前必须将70级之前获得的所有技能点（SP）全部消耗完毕，请分配好技能点后再来找我。");
                     cm.dispose();
                     return;
                 }
             }
+
             if (cm.getJobId() % 10 == 0) {
                 cm.gainItem(4031058, -1);
                 cm.changeJobById(cm.getJobId() + 1);
@@ -78,31 +64,32 @@ function action(mode, type, selection) {
             }
 
             if (Math.floor(cm.getJobId() / 10) == 41) {
-                cm.sendNext("你已经正式被封为#b无影人#k。这本技能书为无影人引入了一系列新的攻击技能，利用影子进行复制和替代，包括#b金钱攻击#k（用金币代替MP，并根据投掷的金币数量对怪物造成伤害）和#b影分身#k（创建一个模仿每一个动作的影子，使无影人能够像两个隐士一样攻击怪物）。利用这些技能来对抗以前可能难以征服的怪物。");
+                cm.sendNext("恭喜你正式转职成为#b无影人（标飞）#k！\r\n\r\n你领悟了飞镖投掷的巅峰技艺：召唤影子与你同步投掷飞镖造成双倍打击的灵魂神技#b影分身#k、消耗金币引爆高额固定伤害的#b金钱攻击#k、毒杀群敌的#b吸血蝙蝠/药剂精通#k，以及增强机动性的暗影步法！");
             } else {
-                cm.sendNext("你已经正式被任命为#b独行客#k。技能书中的新技能之一是#b分身术#k，你可以召唤其他强盗一起攻击多个怪物。独行客还可以利用游戏币进行多种操作，从攻击怪物（#b金钱炸弹#k，将地面上的游戏币引爆）到自我防御（#b金钱护盾#k，减少武器伤害）。");
+                cm.sendNext("恭喜你正式转职成为#b侠盗（神偷）#k！\r\n\r\n你领悟了短刀近身搏杀的终极杀阵：化作落叶在怪物丛中极速来回穿梭斩杀的#b落叶斩#k、引爆地面所有金币造成毁灭巨响的#b金钱炸弹#k，以及在暗影隐身状态下蓄力爆发致命一击的#b暗杀/转化术#k！");
             }
-
         } else if (status == 3) {
-            cm.sendNextPrev("我也给了你一些SP和AP；这应该能让你开始了。你现在确实成为了一个强大的盗贼。不过要记住，现实世界将等待着你，那里会有更艰难的障碍需要克服。当你觉得自己无法训练自己达到更高的境界时，那时候，只有那时候，来找我。我会在这里等着。");
+            cm.sendNextPrev("我已经为你注入了全新的能力点（AP）与技能点（SP）。你现在已经是一位名动大陆的暗影刺客大师了！但请谨记，真正的刺客永远潜伏于阴影之中。当你感到暗杀与遁术修为达到极限之时，欢迎再回到这里找我！");
+            cm.dispose();
         }
     } else if (actionx["Physical"]) {
         if (status == 0) {
-            cm.sendNext("完成了测试的体能部分，做得很棒。我知道你能做到。现在你已经通过了测试的前半部分，接下来是后半部分。请先把项链给我。");
+            cm.sendNext("做得非常出色！你成功击败了废弃都市导师达克鲁的分身，夺回了黑符，证明了你凌厉狠绝的身手。把黑符交给我吧。");
         } else if (status == 1) {
             if (cm.haveItem(4031057)) {
                 cm.gainItem(4031057, -1);
                 cm.getPlayer().setPartyQuestItemObtained("JBQ");
             }
-            cm.sendNextPrev("这是测试的第二部分。这个测试将决定你是否足够聪明，可以迈向伟大的下一步。在奥西利亚大陆的雪原深处，有一片被白雪覆盖的黑暗区域，被称为圣地，即使怪物也无法靠近。在这个区域的中心，有一块被称为圣石的巨大石头。你需要献上一件特殊的物品作为祭品，然后圣石将在当场测试你的智慧。");
+            cm.sendNextPrev("接下来是第二阶段——智慧与阅历的试炼。一名行走于阴影中的真正刺客，冷静睿智的头脑往往比手中的锋刃更加致命。\r\n\r\n在神秘岛雪原深处的隐秘之地，矗立着远古流传的【神圣之石】。你需要献上一颗 #b#t4005004##k 作为祭品，神圣之石将会对你展开智慧的考验。");
         } else if (status == 2) {
-            cm.sendNextPrev("你需要诚实而坚定地回答每一个问题。如果你能正确回答所有问题，那么圣石将正式接受你，并交给你#b#t4031058##k。把项链拿回来，我会帮助你迈向下一步。祝你好运。");
+            cm.sendNextPrev("你必须连续回答正确它提出的所有问题。成功通过试炼后，神圣之石会赐予你 #b#t4031058##k。把智慧项链带回来交给我，我就为你举行正式的三转仪式。祝你好运！");
+            cm.dispose();
         }
     } else if (cm.getPlayer().gotPartyQuestItem("JB3") && selection == 0) {
-        cm.sendNext("去，和#b#p1052001#对话，然后给我带来#b#t4031057#。");
+        cm.sendNext("请返回金银岛废弃都市与飞侠导师 #b#p1052001##k 对话，击败他的分身并带回 #b#t4031057##k。");
         cm.dispose();
     } else if (cm.getPlayer().gotPartyQuestItem("JBQ") && selection == 0) {
-        cm.sendNext("去，和#b#p2030006#对话#k，然后给我带来#b#t4031058##k。");
+        cm.sendNext("请前往雪原圣地与 #b#p2030006##k 对话，献上黑暗水晶通过智慧试炼并带回 #b#t4031058##k。");
         cm.dispose();
     } else {
         if (sel == undefined) {
@@ -111,17 +98,18 @@ function action(mode, type, selection) {
         if (sel == 0) {
             if (cm.getPlayer().getLevel() >= 70 && cm.getJobId() % 10 == 0) {
                 if (status == 0) {
-                    cm.sendYesNo("欢迎。我是#b#p2020011##k，所有盗贼的首领，愿意分享我的街头知识和艰难生活给那些愿意倾听的人。你似乎已经准备好迈出这一步，准备好迎接第三职业转职的挑战。太多的盗贼来来去去，无法达到第三职业转职的标准。你呢？你准备好接受考验，进行第三职业转职了吗？");
+                    cm.sendYesNo("欢迎你，刺客。我是冰峰雪域长老板屋的飞侠长老 #b#p2020011##k。你的身手已无比敏捷，看来你已经准备好迈向飞侠三转的至高境界了。\r\n\r\n你确定已经做好了准备，接受三转试炼的严苛考验了吗？");
                 } else if (status == 1) {
                     cm.getPlayer().setPartyQuestItemObtained("JB3");
-                    cm.sendNext("好的。你将接受盗贼的两个重要方面的测试：力量和智慧。我现在会向你解释测试的物理部分。还记得在废弃都市的#b#p1052001##k吗？去找他，他会告诉你测试的第一部分的细节。请完成任务，并从#p1052001#那里得到#b#t4031057##k。");
+                    cm.sendNext("很好！飞侠的三转试炼分为两大核心：身手的考验与智慧的考验。\r\n\r\n首先是身手的考验：请返回金银岛废弃都市，拜访你的入门导师 #b#p1052001##k。他会引导你前往异次元空间迎战他的分身。击败分身后，将象征胜利的 #b#t4031057##k 带回给我。");
                 } else if (status == 2) {
-                    cm.sendNextPrev("测试的心理部分只能在你通过了测试的身体部分之后才能开始。#b#t4031057##k 将证明你确实通过了测试。我会提前告诉#b#p1052001##k你要前往那里，所以做好准备。这不会很容易，但我对你有着最大的信心。祝你好运。");
+                    cm.sendNextPrev("唯有当你带回 #b#t4031057##k 证明了自身潜行刺杀之术后，我们才能开启后续的智慧试炼。我已经向 #b#p1052001##k 发送了密函，去吧，愿暗影永远庇护你的脚步！");
+                    cm.dispose();
                 }
             }
         } else {
             if (cm.getPlayer().getLevel() >= 50) {
-                cm.sendOk("首领居住委员会授予你#b特许#k，让你成为#r反击扎昆的团队的一部分#k。祝你前程似锦。");
+                cm.sendOk("冰峰雪域长老会已正式批准你的申请，特许你成为 #r扎昆远征队#k 的成员。愿你在讨伐古老魔神扎昆的征程中武运昌隆！");
                 if (!(cm.isQuestStarted(100200) || cm.isQuestCompleted(100200))) {
                     cm.startQuest(100200);
                 }
@@ -130,7 +118,7 @@ function action(mode, type, selection) {
                     cm.completeQuest(100201);
                 }
             } else {
-                cm.sendOk("你现在还太弱，无法成为#r反击扎昆小队#k的一员。请至少达到#b50级#k后再来找我。");
+                cm.sendOk("你目前的修为尚浅，还无法承受古代魔神扎昆的可怖力量。请至少提升至 #b50级#k 后再来申请扎昆远征资格。");
             }
             cm.dispose();
         }

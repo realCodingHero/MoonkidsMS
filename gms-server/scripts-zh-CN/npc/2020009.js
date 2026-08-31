@@ -1,33 +1,15 @@
 /*
-	This file is part of the OdinMS Maple Story Server
-    Copyright (C) 2008 Patrick Huy <patrick.huy@frz.cc>
-		       Matthias Butz <matze@odinms.de>
-		       Jan Christian Meyer <vimes@odinms.de>
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License as
-    published by the Free Software Foundation version 3 as published by
-    the Free Software Foundation. You may not use, modify or distribute
-    this program under any other version of the GNU Affero General Public
-    License.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    罗贝拉 - 冰峰雪域长老板屋 (211000001)
+    魔法师三转导师 (CMS标准地道化重构)
 */
 
 status = -1;
-var job;
 var sel;
 actionx = {"Mental": false, "Physical": false};
 
 function start() {
     var jobBase = parseInt(cm.getJobId() / 100);
-    var jobStyle = 2;
+    var jobStyle = 2; // 魔法师
     if (!(cm.getPlayer().getLevel() >= 70 && jobBase == jobStyle && cm.getJobId() % 10 == 0)) {
         if (cm.getPlayer().getLevel() >= 50 && jobBase % 10 == jobStyle) {
             status++;
@@ -35,16 +17,18 @@ function start() {
             return;
         }
 
-        cm.sendNext("你好。");
+        cm.sendNext("你好，漫步于冰雪之中的魔法求道者。");
         cm.dispose();
         return;
     }
+
     if (cm.haveItem(4031058)) {
         actionx["Mental"] = true;
     } else if (cm.haveItem(4031057)) {
         actionx["Physical"] = true;
     }
-    cm.sendSimple("你需要我做什么吗？#b" + (cm.getJobId() % 10 == 0 ? "\r\n#L0#我想进行第三次职业转职。" : "") + "\r\n#L1#请允许我进行扎昆地牢任务。");
+
+    cm.sendSimple("有什么我可以帮你的吗？#b" + (cm.getJobId() % 10 == 0 ? "\r\n#L0#我想接受魔法师的三转试炼。" : "") + "\r\n#L1#我想申请挑战扎昆的资格。");
 }
 
 function action(mode, type, selection) {
@@ -53,24 +37,26 @@ function action(mode, type, selection) {
         status -= 2;
     } else if (mode != 1 || (status > 2 && !actionx["Mental"]) || status > 3) {
         if (mode == 0 && type == 1) {
-            cm.sendNext("下定决心。");
+            cm.sendNext("既然你还没考虑清楚，那就等做好准备后再来找我吧。");
         }
         cm.dispose();
         return;
     }
+
     if (actionx["Mental"]) {
         if (status == 0) {
-            cm.sendNext("做得好，完成了测试的智力部分。你明智地回答了所有问题。我必须说，你展现出的智慧水平让我印象深刻。在我们进行下一步之前，请先把项链交给我。");
+            cm.sendNext("干得漂亮！你成功通过了神圣之石的智慧试炼。你展现出的博大阅历与深邃心智令人赞叹。在举行晋升仪式之前，请先把智慧项链交还给我吧。");
         } else if (status == 1) {
-            cm.sendYesNo("好的！现在，通过我，你将变成一个更加强大的冒险家。在这之前，请确保你的SP已经被充分使用了，你需要至少使用到70级之前获得的所有SP来进行第三次职业转职。哦，还有，由于你已经在第二次职业转职时选择了你的职业方向，所以在第三次职业转职时就不需要再次选择了。你现在要进行转职吗？");
+            cm.sendYesNo("好极了！现在，在我的引导下，你将觉醒成为掌握至高魔导之力的尊贵法师。在转职前，请确保在70级前获得的所有技能点（SP）已全部使用完毕。由于你早在二转时就确立了奥术方向，三转将直接升华你的魔法流派。\r\n\r\n你准备好正式晋升为三转职业了吗？");
         } else if (status == 2) {
             if (cm.getPlayer().getRemainingSp() > 0) {
                 if (cm.getPlayer().getRemainingSp() > (cm.getLevel() - 70) * 3) {
-                    cm.sendNext("请在继续之前使用你所有的SP。");
+                    cm.sendNext("转职前必须将70级之前获得的所有技能点（SP）全部消耗完毕，请分配好技能点后再来找我。");
                     cm.dispose();
                     return;
                 }
             }
+
             if (cm.getJobId() % 10 == 0) {
                 cm.gainItem(4031058, -1);
                 cm.changeJobById(cm.getJobId() + 1);
@@ -78,32 +64,34 @@ function action(mode, type, selection) {
             }
 
             if (Math.floor(cm.getJobId() / 10) == 21) {
-                cm.sendNext("你从现在开始就是#b火毒法师#k了。新的技能书包含了新的和改进的火毒系法术，还有像#b元素增幅#k（改进元素系法术）和#b法术增幅#k（提高你的攻击法术整体速度）这样的技能，能够让你快速有效地攻击怪物。防御性法术如#b部分抗性#k（使你对某些元素攻击更强）和#b封印#k（封印怪物）将有助于弥补法师的一个弱点：缺乏生命值。");
+                cm.sendNext("恭喜你正式转职成为#b火毒魔导士（巫师）#k！\r\n\r\n你领悟了剧毒与烈焰的毁灭奥义：全屏持续剧毒侵蚀的#b致命毒雾#k、对单体爆发极强的#b火凤火球#k，以及大幅提升魔法威力的核心被动#b魔力激化#k与大幅提升吟唱速度的#b魔法狂暴#k！");
             } else if (Math.floor(cm.getJobId() / 10) == 22) {
-                cm.sendNext("你现在是冰雷法师。新的技能书包含了全新和改进的冰雷系法术，像是元素增幅（增强元素法术）和法术加速（提高攻击法术的速度）等技能将使你能够快速有效地攻击怪物。防御法术如部分抗性（增强对特定元素攻击的抵抗力）和封印（封印怪物）将有助于弥补法师的一个弱点：生命值不足。");
+                cm.sendNext("恭喜你正式转职成为#b冰雷魔导士（巫师）#k！\r\n\r\n你领悟了极寒与雷霆的磅礴伟力：全屏大范围绝对冰封的#b冰咆哮#k、贯穿天际轰击群敌的#b落雷枪#k，以及增强元素破坏力的#b魔力激化#k与提升施法速度的#b魔法狂暴#k！");
             } else {
-                cm.sendNext("你现在是#b牧师#k了。新的技能书包含了新的和改进的神圣法术，比如#b闪耀之光#k和#b召唤龙#k，以及#b神秘之门#k（创建通往最近城镇的门）和#b神圣祝福#k（提高经验值获取）等技能对于组队游戏至关重要。像#b末日#k（将怪物变成蜗牛）这样与众不同的法术使牧师成为所有职业中最独特的职业。");
+                cm.sendNext("恭喜你正式转职成为#b祭司#k！\r\n\r\n你获得了圣光神圣力量的真谛：凝聚圣力净化群魔的#b圣光普照#k、全队经验获取大幅提升的团队神技#b神圣祈祷#k、跨越空间直达城镇的#b时空门#k，以及召唤神圣巨龙伴随作战的#b强化圣龙#k！");
             }
         } else if (status == 3) {
-            cm.sendNextPrev("我也给了你一些SP和AP，这将帮助你开始。你现在确实已经成为一个强大的魔法师。但请记住，现实世界将等待着你，那里会有更艰难的障碍需要克服。当你觉得无法自我训练来达到更高的境界时，那时候，只有那时候，来找我。我会在这里等着。");
+            cm.sendNextPrev("我已经为你注入了全新的能力点（AP）与技能点（SP）。你现在已经是一位受人敬仰的高阶法师了！但请谨记，奥术的尽头永无止境。当你感到魔法修为达到瓶颈、需要探寻终极禁咒之时，欢迎再回到这里找我！");
+            cm.dispose();
         }
     } else if (actionx["Physical"]) {
         if (status == 0) {
-            cm.sendNext("完成了测试的体能部分，做得很棒。我知道你能做到。现在你已经通过了测试的前半部分，接下来是后半部分。请先把项链给我。");
+            cm.sendNext("做得非常出色！你成功击败了魔法密林大魔法师汉斯的分身，夺回了黑符，证明了你强大的魔力掌控力。把黑符交给我吧。");
         } else if (status == 1) {
             if (cm.haveItem(4031057)) {
                 cm.gainItem(4031057, -1);
                 cm.getPlayer().setPartyQuestItemObtained("JBQ");
             }
-            cm.sendNextPrev("这是测试的第二部分。这个测试将决定你是否足够聪明，可以迈向伟大的下一步。在奥西利亚大陆的雪原深处，有一片被白雪覆盖的黑暗区域，被称为圣地，即使怪物也无法靠近。在这个区域的中心，有一块被称为圣石的巨大石头。你需要献上一件特殊的物品作为祭品，然后圣石将在当场测试你的智慧。");
+            cm.sendNextPrev("接下来是第二阶段——智慧与阅历的试炼。一名真正的魔导大师，渊博的智慧远比单纯的破坏力更为可贵。\r\n\r\n在神秘岛雪原深处的隐秘之地，矗立着远古流传的【神圣之石】。你需要献上一颗 #b#t4005004##k 作为祭品，神圣之石将会对你展开智慧的考验。");
         } else if (status == 2) {
-            cm.sendNextPrev("你需要诚实而坚定地回答每一个问题。如果你能正确回答所有问题，那么圣石将正式接受你，并交给你#b#t4031058##k。把项链带回来，我会帮助你迈向下一步。祝你好运。");
+            cm.sendNextPrev("你必须连续回答正确它提出的所有问题。成功通过试炼后，神圣之石会赐予你 #b#t4031058##k。把智慧项链带回来交给我，我就为你举行正式的三转仪式。祝你好运！");
+            cm.dispose();
         }
     } else if (cm.getPlayer().gotPartyQuestItem("JB3") && selection == 0) {
-        cm.sendNext("去，和#b#p1032001#对话，给我带来#b#t4031057#。");
+        cm.sendNext("请返回金银岛魔法密林与大魔法师 #b#p1032001##k 对话，击败他的分身并带回 #b#t4031057##k。");
         cm.dispose();
     } else if (cm.getPlayer().gotPartyQuestItem("JBQ") && selection == 0) {
-        cm.sendNext("去，和#b#p2030006# #k交谈，然后给我带来#b#t4031058##k。");
+        cm.sendNext("请前往雪原圣地与 #b#p2030006##k 对话，献上黑暗水晶通过智慧试炼并带回 #b#t4031058##k。");
         cm.dispose();
     } else {
         if (sel == undefined) {
@@ -112,17 +100,18 @@ function action(mode, type, selection) {
         if (sel == 0) {
             if (cm.getPlayer().getLevel() >= 70 && cm.getJobId() % 10 == 0) {
                 if (status == 0) {
-                    cm.sendYesNo("欢迎。我是#b#p2020009##k，所有魔法师的首领，愿意与愿意倾听的人分享我的街头知识和艰难生活。你似乎已经准备好迈出这一步，准备好迎接第三职业转职的挑战。太多的魔法师来来去去，无法达到第三职业转职的标准。你呢？你准备好接受考验并进行第三职业转职了吗？");
+                    cm.sendYesNo("欢迎你，法师。我是冰峰雪域长老板屋的魔法师长老 #b#p2020009##k。我能感受到你周身澎湃涌动的元素共鸣，看来你已经准备好迈向更高深的奥术境界了。\r\n\r\n你确定已经做好了准备，接受三转试炼的严苛考验了吗？");
                 } else if (status == 1) {
                     cm.getPlayer().setPartyQuestItemObtained("JB3");
-                    cm.sendNext("好的。你将在魔法师的两个重要方面进行测试：力量和智慧。我现在会向你解释测试的物理部分。还记得在艾林尼亚的#b#p1032001##k吗？去找他，他会告诉你测试的第一部分的详细信息。请完成任务，并从#p1032001#那里得到#b#t4031057##k。");
+                    cm.sendNext("很好！魔法师的三转试炼分为两大核心：魔力的考验与智慧的考验。\r\n\r\n首先是魔力的考验：请返回金银岛魔法密林，拜访你的入门导师 #b#p1032001##k。他会引导你前往异次元空间迎战他的分身。击败分身后，将象征胜利的 #b#t4031057##k 带回给我。");
                 } else if (status == 2) {
-                    cm.sendNextPrev("测试的心理部分只能在你通过了测试的身体部分之后才能开始。#b#t4031057##k 将证明你确实通过了测试。我会提前告诉#b#p1032001##k你要前往那里，所以做好准备。这不会容易，但我对你有着最大的信心。祝你好运。");
+                    cm.sendNextPrev("唯有当你带回 #b#t4031057##k 证明了自身魔力后，我们才能开启后续的智慧试炼。我已经向 #b#p1032001##k 发送了信函，去吧，愿智慧与奥术之光指引你的前路！");
+                    cm.dispose();
                 }
             }
         } else {
             if (cm.getPlayer().getLevel() >= 50) {
-                cm.sendOk("首领居住委员会授予你#b特许#k，让你成为#r反击扎昆的团队的一部分#k。祝你前程似锦。");
+                cm.sendOk("冰峰雪域长老会已正式批准你的申请，特许你成为 #r扎昆远征队#k 的成员。愿你在讨伐古老魔神扎昆的征程中武运昌隆！");
                 if (!(cm.isQuestStarted(100200) || cm.isQuestCompleted(100200))) {
                     cm.startQuest(100200);
                 }
@@ -131,7 +120,7 @@ function action(mode, type, selection) {
                     cm.completeQuest(100201);
                 }
             } else {
-                cm.sendOk("你现在还太弱，无法成为#r反击扎昆小队#k的一员。请至少达到#b50级#k后再来找我。");
+                cm.sendOk("你目前的修为尚浅，还无法承受古代魔神扎昆的可怖力量。请至少提升至 #b50级#k 后再来申请扎昆远征资格。");
             }
             cm.dispose();
         }
