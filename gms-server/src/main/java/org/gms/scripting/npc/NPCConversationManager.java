@@ -318,7 +318,6 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         getPlayer().gainMeso(gain.intValue());
     }
 
-    @Override
     public void gainExp(int gain) {
         ExpAction.runAction(getPlayer(), gain);
     }
