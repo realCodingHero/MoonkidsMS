@@ -228,6 +228,7 @@
     onSale: 1,
     pageNo: 1,
     itemId: undefined,
+    itemName: undefined,
   });
 
   const selectedKeys = ref([]);
@@ -240,6 +241,18 @@
 
   const pageChange = (data: number) => {
     condition.value.pageNo = data;
+    loadData();
+  };
+
+  const handleSearch = () => {
+    condition.value.pageNo = 1;
+    loadData();
+  };
+
+  const handleReset = () => {
+    condition.value.itemId = undefined;
+    condition.value.itemName = undefined;
+    condition.value.pageNo = 1;
     loadData();
   };
 
@@ -259,6 +272,7 @@
 
   const changeOnSaleFilter = (data: undefined | 0 | 1) => {
     condition.value.onSale = data;
+    condition.value.pageNo = 1;
     loadData();
   };
 
@@ -321,22 +335,7 @@
 </script>
 
 <style scoped lang="less">
-  :deep(.arco-card-body .a-input .arco-space-item) {
-    width: 100%;
-  }
-  :deep(.arco-card-body .arco-space) {
-    flex-wrap: wrap;
-    width: 100%;
-  }
-  :deep(.arco-card-body > .arco-space > .arco-space-item) {
-    margin-bottom: 5px;
-    margin-right: 0px;
-  }
-  :deep(.arco-card-body > .arco-space > .arco-space-item:nth-child(2)) {
-    width: 100%;
-    max-width: 400px;
-  }
-  :deep(.arco-card-body .arco-space .arco-space-item .arco-input-wrapper) {
-    width: 100%;
+  .filter-toolbar {
+    align-items: center;
   }
 </style>

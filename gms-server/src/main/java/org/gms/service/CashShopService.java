@@ -72,19 +72,23 @@ public class CashShopService {
                 .findFirst()
                 .ifPresent(dbCashItem -> setDbItemValue(wzCashItem, dbCashItem)));
 
+        // 批量注入 itemName 值以便后续过滤与展示
+        ItemInformationProvider ii = ItemInformationProvider.getInstance();
+        wzCashItems.forEach(wzCashItem -> {
+            wzCashItem.setItemName(ii.getName(wzCashItem.getItemId()));
+        });
+
         // 按其他条件过滤
+        final String searchItemName = data.getItemName() != null ? data.getItemName().trim().toLowerCase() : null;
         wzCashItems = wzCashItems.stream().filter(item ->
                 // 上架状态
                 (data.getOnSale() == null || Objects.equals(data.getOnSale(), item.getOnSale() != null && item.getOnSale() == 1))
                         // 物品id
                         && (data.getItemId() == null || data.getItemId().equals(item.getItemId()))
+                        // 道具名称模糊搜索
+                        && (searchItemName == null || searchItemName.isEmpty()
+                                || (item.getItemName() != null && item.getItemName().toLowerCase().contains(searchItemName)))
         ).toList();
-
-        // 现在需要批量去set wzCashItems中的itemName值
-        ItemInformationProvider ii = ItemInformationProvider.getInstance();
-        wzCashItems.forEach(wzCashItem -> {
-            wzCashItem.setItemName(ii.getName(wzCashItem.getItemId()));
-        });
 
 
         // 排序是否正确？ 猜测按照Priority降序 ItemId升序排列
