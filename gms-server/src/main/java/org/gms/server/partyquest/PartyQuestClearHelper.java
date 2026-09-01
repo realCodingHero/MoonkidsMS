@@ -5,6 +5,7 @@ import org.gms.client.inventory.manipulator.InventoryManipulator;
 import org.gms.scripting.event.EventInstanceManager;
 import org.gms.server.life.Monster;
 import org.gms.server.maps.MapleMap;
+import org.gms.server.maps.Reactor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,14 +41,17 @@ public class PartyQuestClearHelper {
         return mapId == 103000804 // Kerning King Slime
                 || mapId == 922010900 // Ludi Alishar
                 || mapId == 920010800 || mapId == 920010900 || mapId == 920011000 // Orbis Papa Pixie
-                || mapId == 926100203 || mapId == 926110203 // Magatia Frankenroid
+                || mapId == 926100203 || mapId == 926110203 || mapId == 926100500 // Magatia Frankenroid
                 || mapId == 925100500 // Pirate Captain
                 || mapId == 930000600; // Ellin Poison Golem
     }
 
     public static boolean isPuzzleStage(int mapId) {
         return (mapId >= 103000801 && mapId <= 103000803) // Kerning rope/platform/barrel
-                || mapId == 922010600 || mapId == 922010800; // Ludi box jump / 5-box
+                || mapId == 922010600 || mapId == 922010800 // Ludi box jump / 5-box
+                || mapId == 926100000 || mapId == 926110000 // Magatia Stage 1
+                || mapId == 926100100 || mapId == 926110100 // Magatia Stage 3
+                || mapId == 926100400 || mapId == 926110400; // Magatia Stage 6
     }
 
     public static ClearResult handlePassPQ(Character player, boolean forceBoss) {
@@ -79,8 +83,8 @@ public class PartyQuestClearHelper {
             return handleOrbisPQ(player, leader, eim, mapId, forceBoss);
         }
 
-        // 5. 罗密欧与朱丽叶组队任务 (Magatia PQ / 926100000 ~ 926100401)
-        if (mapId >= 926100000 && mapId <= 926100401) {
+        // 5. 罗密欧与朱丽叶组队任务 (Magatia PQ / 926100000 ~ 926100700, 926110000 ~ 926110700)
+        if ((mapId >= 926100000 && mapId <= 926100700) || (mapId >= 926110000 && mapId <= 926110700)) {
             return handleMagatiaPQ(player, leader, eim, mapId, forceBoss);
         }
 
@@ -253,17 +257,94 @@ public class PartyQuestClearHelper {
     }
 
     private static ClearResult handleMagatiaPQ(Character player, Character leader, EventInstanceManager eim, int mapId, boolean forceBoss) {
-        if (mapId == 926100203 || mapId == 926110203) { // 疯狂/愤怒法郎肯斯坦
+        if (mapId == 926100203 || mapId == 926110203 || mapId == 926100500) { // 疯狂/愤怒法郎肯斯坦 Boss
             if (!forceBoss) {
                 return new ClearResult(ClearResultType.BOSS_STAGE_BLOCKED, "[罗密欧与朱丽叶 PQ] 当前为 Boss 战斗关卡（法郎肯斯坦），请击败 Boss，或使用 '!passpq boss' 强制跳过。");
             }
             giveItem(leader, 4001130, 1);
             giveItem(leader, 4001131, 1);
+            if (eim != null) {
+                eim.setIntProperty("statusStg7", 1);
+                eim.setProperty("statusStg7", "1");
+                eim.showClearEffect(true);
+            }
             return new ClearResult(ClearResultType.SUCCESS, "[罗密欧与朱丽叶 PQ] 已强制发放通关信物，请与 NPC 对话通关！");
         }
 
+        MapleMap map = player.getMap();
+
+        // Stage 1 (926100000 / 926110000): 实验室可疑处 / 地下通道密室暗门
+        if (mapId == 926100000 || mapId == 926110000) {
+            if (eim != null) {
+                eim.setIntProperty("statusStg1", 1);
+                eim.setProperty("statusStg1", "1");
+                eim.showClearEffect(true);
+            }
+            if (map != null) {
+                Reactor door = map.getReactorByName("d00");
+                if (door != null) {
+                    door.forceHitReactor((byte) 1);
+                }
+            }
+            giveItem(leader, 4001131, 1); // 发放朱丽叶的情书信件
+            return new ClearResult(ClearResultType.SUCCESS, "[罗密欧与朱丽叶 PQ - 第1阶段] 地下密室暗门已开启，已发放情书信件，请直接进入传送门！");
+        }
+
+        // Stage 2 (926100001 / 926110001): 黑暗通道
+        if (mapId == 926100001 || mapId == 926110001) {
+            if (eim != null) {
+                eim.setIntProperty("statusStg2", 1);
+                eim.setProperty("statusStg2", "1");
+                eim.showClearEffect(true);
+            }
+            return new ClearResult(ClearResultType.SUCCESS, "[罗密欧与朱丽叶 PQ - 第2阶段] 黑暗通道已解锁，请前往下一阶段传送门！");
+        }
+
+        // Stage 3 (926100100 / 926110100): 烧杯装满液体关卡
+        if (mapId == 926100100 || mapId == 926110100) {
+            if (eim != null) {
+                eim.setIntProperty("statusStg3", 3);
+                eim.setProperty("statusStg3", "3");
+                eim.showClearEffect(true);
+            }
+            if (map != null) {
+                Reactor rDoor = map.getReactorByName("rnj2_door");
+                if (rDoor != null) rDoor.forceHitReactor((byte) 1);
+                Reactor jDoor = map.getReactorByName("jnr2_door");
+                if (jDoor != null) jDoor.forceHitReactor((byte) 1);
+            }
+            return new ClearResult(ClearResultType.SUCCESS, "[罗密欧与朱丽叶 PQ - 第3阶段] 烧杯实验已破解，通往中央实验室的大门已开启！");
+        }
+
+        // Stage 4 (926100200 / 926110200 ~ 926100202): 左右分支实验室
+        if ((mapId >= 926100200 && mapId <= 926100202) || (mapId >= 926110200 && mapId <= 926110202)) {
+            if (eim != null) {
+                eim.setIntProperty("statusStg4", 1);
+                eim.setProperty("statusStg4", "1");
+                eim.showClearEffect(true);
+            }
+            giveItem(leader, 4001134, 1);
+            giveItem(leader, 4001135, 1);
+            return new ClearResult(ClearResultType.SUCCESS, "[罗密欧与朱丽叶 PQ - 第4阶段] 实验室门卡已破解，请前往中央大门！");
+        }
+
+        // Stage 6 (926100400 / 926110400): 机关跳台
+        if (mapId == 926100400 || mapId == 926110400) {
+            if (eim != null) {
+                eim.setIntProperty("statusStg6", 1);
+                eim.setProperty("statusStg6", "1");
+                eim.showClearEffect(true);
+            }
+            return new ClearResult(ClearResultType.SUCCESS, "[罗密欧与朱丽叶 PQ - 第6阶段] 机关平台已破解，请进入顶部传送门！");
+        }
+
         if (eim != null) {
-            eim.setProperty("stageclear", "true");
+            eim.setIntProperty("statusStg1", 1);
+            eim.setIntProperty("statusStg2", 1);
+            eim.setIntProperty("statusStg3", 3);
+            eim.setIntProperty("statusStg4", 1);
+            eim.setIntProperty("statusStg5", 1);
+            eim.setIntProperty("statusStg6", 1);
             eim.showClearEffect(true);
         }
         return new ClearResult(ClearResultType.SUCCESS, "[罗密欧与朱丽叶 PQ] 机关已破解，请前往下一阶段！");

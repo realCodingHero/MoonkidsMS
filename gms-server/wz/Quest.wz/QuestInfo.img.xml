@@ -10663,9 +10663,7 @@ Able to proceed to &apos;For the peace of Victoria Island...&apos; as next quest
     <int name="medalCategory" value="2"/>
     <int name="viewMedalItem" value="1142081"/>
   </imgdir>
-  <imgdir name="29580">
-    <string name="name" value="[系统] 最佳公民达成资格"/>
-  </imgdir>
+
   <imgdir name="29509">
     <string name="name" value="Persevering Challenger"/>
     <int name="area" value="51"/>
