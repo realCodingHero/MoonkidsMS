@@ -35802,10 +35802,8 @@
     </imgdir>
     <imgdir name="29580">
         <imgdir name="0">
-            <int name="npc" value="9000040" />
         </imgdir>
         <imgdir name="1">
-            <int name="npc" value="9000040" />
         </imgdir>
     </imgdir>
     <imgdir name="29509">

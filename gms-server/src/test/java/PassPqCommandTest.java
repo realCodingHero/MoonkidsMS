@@ -31,6 +31,17 @@ public class PassPqCommandTest {
     }
 
     @Test
+    public void testMagatiaPQStages() {
+        // 罗密欧朱丽叶 Stage 1 (密室调查) 与 Stage 3 (烧杯实验) 为谜题关
+        assertTrue(PartyQuestClearHelper.isPuzzleStage(926100000));
+        assertTrue(PartyQuestClearHelper.isPuzzleStage(926100100));
+        assertFalse(PartyQuestClearHelper.isBossStage(926100000));
+
+        // 罗密欧朱丽叶法郎肯斯坦为 Boss 关
+        assertTrue(PartyQuestClearHelper.isBossStage(926100203));
+    }
+
+    @Test
     public void testBossStagesAcrossPQs() {
         // 天空之城爸爸精灵
         assertTrue(PartyQuestClearHelper.isBossStage(920010800));
