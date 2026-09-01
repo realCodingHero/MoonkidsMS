@@ -272,6 +272,7 @@ public class CommandsExecutor {
         addCommand("mobskill", 2, MobSkillCommand.class);
         addCommand("warpmap", 2, WarpMapCommand.class);
         addCommand("warparea", 2, WarpAreaCommand.class);
+        addCommand(new String[]{"passpq", "clearpq"}, 2, PassPqCommand.class);
 
         commandsNameDesc.add(levelCommandsCursor);
     }
