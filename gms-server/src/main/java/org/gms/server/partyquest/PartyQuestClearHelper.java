@@ -36,6 +36,20 @@ public class PartyQuestClearHelper {
         }
     }
 
+    public static boolean isBossStage(int mapId) {
+        return mapId == 103000804 // Kerning King Slime
+                || mapId == 922010900 // Ludi Alishar
+                || mapId == 920010800 || mapId == 920010900 || mapId == 920011000 // Orbis Papa Pixie
+                || mapId == 926100203 || mapId == 926110203 // Magatia Frankenroid
+                || mapId == 925100500 // Pirate Captain
+                || mapId == 930000600; // Ellin Poison Golem
+    }
+
+    public static boolean isPuzzleStage(int mapId) {
+        return (mapId >= 103000801 && mapId <= 103000803) // Kerning rope/platform/barrel
+                || mapId == 922010600 || mapId == 922010800; // Ludi box jump / 5-box
+    }
+
     public static ClearResult handlePassPQ(Character player, boolean forceBoss) {
         if (player == null || player.getMap() == null) {
             return new ClearResult(ClearResultType.ERROR, "玩家或地图不存在。");

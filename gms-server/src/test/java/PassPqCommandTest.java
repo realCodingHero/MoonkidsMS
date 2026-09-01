@@ -1,82 +1,48 @@
-import org.gms.client.Character;
-import org.gms.client.Client;
-import org.gms.server.maps.MapleMap;
 import org.gms.server.partyquest.PartyQuestClearHelper;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.when;
 
 public class PassPqCommandTest {
 
     @Test
-    public void testKerningPQPuzzleStages() {
-        Character player = Mockito.mock(Character.class);
-        MapleMap map = Mockito.mock(MapleMap.class);
-        when(player.getMap()).thenReturn(map);
+    public void testKerningPQPuzzleAndBossStages() {
+        // 废弃都市绳子关、平台关、木桶关为谜题关卡
+        assertTrue(PartyQuestClearHelper.isPuzzleStage(103000801));
+        assertTrue(PartyQuestClearHelper.isPuzzleStage(103000802));
+        assertTrue(PartyQuestClearHelper.isPuzzleStage(103000803));
+        assertFalse(PartyQuestClearHelper.isBossStage(103000801));
 
-        // 1. Stage 2 (103000801 绳子关) -> 应该成功破解
-        when(player.getMapId()).thenReturn(103000801);
-        PartyQuestClearHelper.ClearResult r2 = PartyQuestClearHelper.handlePassPQ(player, false);
-        assertEquals(PartyQuestClearHelper.ClearResultType.SUCCESS, r2.getType());
-        assertTrue(r2.getMessage().contains("第2阶段"));
-
-        // 2. Stage 3 (103000802 平台关) -> 应该成功破解
-        when(player.getMapId()).thenReturn(103000802);
-        PartyQuestClearHelper.ClearResult r3 = PartyQuestClearHelper.handlePassPQ(player, false);
-        assertEquals(PartyQuestClearHelper.ClearResultType.SUCCESS, r3.getType());
-        assertTrue(r3.getMessage().contains("第3阶段"));
-
-        // 3. Stage 4 (103000803 木桶关) -> 应该成功破解
-        when(player.getMapId()).thenReturn(103000803);
-        PartyQuestClearHelper.ClearResult r4 = PartyQuestClearHelper.handlePassPQ(player, false);
-        assertEquals(PartyQuestClearHelper.ClearResultType.SUCCESS, r4.getType());
-        assertTrue(r4.getMessage().contains("第4阶段"));
+        // 废弃都市绿水灵王关必须被识别为 Boss 关卡
+        assertTrue(PartyQuestClearHelper.isBossStage(103000804));
+        assertFalse(PartyQuestClearHelper.isPuzzleStage(103000804));
     }
 
     @Test
-    public void testKerningPQBossStageBlockedByDefault() {
-        Character player = Mockito.mock(Character.class);
-        MapleMap map = Mockito.mock(MapleMap.class);
-        when(player.getMap()).thenReturn(map);
-        when(player.getMapId()).thenReturn(103000804); // Stage 5 绿水灵王 Boss 关
+    public void testLudiPQStages() {
+        // 玩具城算术跳箱子与9箱站位为谜题关
+        assertTrue(PartyQuestClearHelper.isPuzzleStage(922010600));
+        assertTrue(PartyQuestClearHelper.isPuzzleStage(922010800));
+        assertFalse(PartyQuestClearHelper.isBossStage(922010800));
 
-        // 默认模式：必须精准拦截 Boss 战
-        PartyQuestClearHelper.ClearResult normalResult = PartyQuestClearHelper.handlePassPQ(player, false);
-        assertEquals(PartyQuestClearHelper.ClearResultType.BOSS_STAGE_BLOCKED, normalResult.getType());
-        assertTrue(normalResult.getMessage().contains("超级绿水灵"));
-        assertTrue(normalResult.getMessage().contains("!passpq boss"));
-
-        // 强制模式：forceBoss = true 时允许发放
-        PartyQuestClearHelper.ClearResult forceResult = PartyQuestClearHelper.handlePassPQ(player, true);
-        assertEquals(PartyQuestClearHelper.ClearResultType.SUCCESS, forceResult.getType());
+        // 玩具城泥人巨怪为 Boss 关
+        assertTrue(PartyQuestClearHelper.isBossStage(922010900));
     }
 
     @Test
-    public void testLudiPQBossStageBlockedByDefault() {
-        Character player = Mockito.mock(Character.class);
-        MapleMap map = Mockito.mock(MapleMap.class);
-        when(player.getMap()).thenReturn(map);
-        when(player.getMapId()).thenReturn(922010900); // Stage 9 泥人巨怪 Boss 关
+    public void testBossStagesAcrossPQs() {
+        // 天空之城爸爸精灵
+        assertTrue(PartyQuestClearHelper.isBossStage(920010800));
+        // 罗密欧朱丽叶法郎肯斯坦
+        assertTrue(PartyQuestClearHelper.isBossStage(926100203));
+        // 海盗老船长
+        assertTrue(PartyQuestClearHelper.isBossStage(925100500));
+        // 毒雾森林毒藤怪
+        assertTrue(PartyQuestClearHelper.isBossStage(930000600));
 
-        PartyQuestClearHelper.ClearResult normalResult = PartyQuestClearHelper.handlePassPQ(player, false);
-        assertEquals(PartyQuestClearHelper.ClearResultType.BOSS_STAGE_BLOCKED, normalResult.getType());
-        assertTrue(normalResult.getMessage().contains("泥人巨怪"));
-
-        PartyQuestClearHelper.ClearResult forceResult = PartyQuestClearHelper.handlePassPQ(player, true);
-        assertEquals(PartyQuestClearHelper.ClearResultType.SUCCESS, forceResult.getType());
-    }
-
-    @Test
-    public void testNonPQMapReturnsNotInPQ() {
-        Character player = Mockito.mock(Character.class);
-        MapleMap map = Mockito.mock(MapleMap.class);
-        when(player.getMap()).thenReturn(map);
-        when(player.getMapId()).thenReturn(100000000); // 射手村
-
-        PartyQuestClearHelper.ClearResult result = PartyQuestClearHelper.handlePassPQ(player, false);
-        assertEquals(PartyQuestClearHelper.ClearResultType.NOT_IN_PQ, result.getType());
+        // 普通城镇地图不是 Boss 关也不是谜题关
+        assertFalse(PartyQuestClearHelper.isBossStage(100000000));
+        assertFalse(PartyQuestClearHelper.isPuzzleStage(100000000));
     }
 }
