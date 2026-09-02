@@ -49,7 +49,7 @@ function start() {
             cm.teachSkill(5121003, 0, 10, -1);
             cm.forceCompleteQuest(6330);
 
-            cm.sendNext("恭喜你！你成功通过了我的考验。我现在传授你海盗的终极技能【#q5121003#】！\r\n\r\n  #s5121003#    #b#q5121003##k");
+            cm.sendNext("恭喜你！你成功通过了我的考验。我现在传授你海盗的终极技能【#q5121003#】！\r\n\r\n  #s5121003#    #b#q5121003#k");
         }
     } else if (cm.isQuestStarted(6370)) {
         if (cm.getEventInstance() != null) {
@@ -63,7 +63,7 @@ function start() {
             cm.teachSkill(5221006, 0, 10, -1);
             cm.forceCompleteQuest(6370);
 
-            cm.sendNext("恭喜你！你成功通过了我的考验。我现在传授你海盗的终极技能【#q5221006#】！\r\n\r\n  #s5221006#    #b#q5221006##k");
+            cm.sendNext("恭喜你！你成功通过了我的考验。我现在传授你海盗的终极技能【#q5221006#】！\r\n\r\n  #s5221006#    #b#q5221006#k");
         }
     } else if (parseInt(cm.getJobId() / 100) == jobType && cm.canSpawnPlayerNpc(GameConstants.getHallOfFameMapid(cm.getJob()))) {
         spawnPnpc = true;
@@ -87,13 +87,13 @@ function start() {
             }
         } else if (actionx["3thJobI"] || (cm.getPlayer().gotPartyQuestItem("JB3") && cm.getLevel() >= 70 && cm.getJobId() % 10 == 0 && parseInt(cm.getJobId() / 100) == 5 && !cm.getPlayer().gotPartyQuestItem("JBP"))) {
             actionx["3thJobI"] = true;
-            cm.sendNext("你来了。几天前，神秘岛的#b#p2020013##k跟我提起过你。听说你想进行海盗的三转。为了实现这个目标，我必须测试你的实力，看看你是否具备晋升的资格。在金银岛的一处洞穴深处有一处入口通往次元裂缝。进入后你将面对我的分身。你的任务是打败他，并带回#b#t4031059##k。");
+            cm.sendNext("你来了。几天前，神秘岛的#b#p2020013#k跟我提起过你。听说你想进行海盗的三转。为了实现这个目标，我必须测试你的实力，看看你是否具备晋升的资格。在金银岛的一处洞穴深处有一处入口通往次元裂缝。进入后你将面对我的分身。你的任务是打败他，并带回#b#t4031059#k。");
         } else if (cm.getPlayer().gotPartyQuestItem("JBP") && !cm.haveItem(4031059)) {
-            cm.sendNext("请击败分身，将#b#t4031059##k带给我。");
+            cm.sendNext("请击败分身，将#b#t4031059#k带给我。");
             cm.dispose();
         } else if (cm.haveItem(4031059) && cm.getPlayer().gotPartyQuestItem("JBP")) {
             actionx["3thJobC"] = true;
-            cm.sendNext("干得好！你打败了我的分身，并安全带回了#b#t4031059##k。你战胜了我的分身，向我证明了你坚韧不拔的强大实力。现在你应该把这条项链交给在冰峰雪域长老板屋的#b#p2020013##k，去开启智慧的试炼吧。祝你好运！");
+            cm.sendNext("干得好！你打败了我的分身，并安全带回了#b#t4031059#k。你战胜了我的分身，向我证明了你坚韧不拔的强大实力。现在你应该把这条项链交给在冰峰雪域长老板屋的#b#p2020013#k，去开启智慧的试炼吧。祝你好运！");
         } else {
             cm.sendOk("你做出了明智的选择。");
             cm.dispose();
@@ -280,7 +280,7 @@ function action(mode, type, selection) {
                 cm.getPlayer().removePartyQuestItem("JB3");
                 cm.getPlayer().setPartyQuestItemObtained("JBP");
             }
-            cm.sendNextPrev("既然是我的分身，实力自然非同小可，你将面临一场恶战。分身拥有许多强力且特殊的攻击技能，你必须依靠自己的力量一对一将其战胜。另外在次元空间中存在时间限制，你必须在时限内解决战斗。祝你好运，期待你带回#b#t4031059##k。");
+            cm.sendNextPrev("既然是我的分身，实力自然非同小可，你将面临一场恶战。分身拥有许多强力且特殊的攻击技能，你必须依靠自己的力量一对一将其战胜。另外在次元空间中存在时间限制，你必须在时限内解决战斗。祝你好运，期待你带回#b#t4031059#k。");
         }
     } else if (actionx["3thJobC"]) {
         cm.getPlayer().removePartyQuestItem("JBP");

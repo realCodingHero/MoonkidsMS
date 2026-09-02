@@ -21,7 +21,7 @@ function start(mode, type, selection) {
     } else if (status == 1) {
     	qm.sendNextPrev("#b(……也没怎么修炼嘛……?)#k", 2);
     } else if (status == 2) {
-    	qm.sendNextPrev("好，现在让我们开始第3阶段的最后一阶段的锻炼。这次修炼的对象是……#r#o9300343##k！猪猪！你了解他们吗?");
+    	qm.sendNextPrev("好，现在让我们开始第3阶段的最后一阶段的锻炼。这次修炼的对象是……#r#o9300343#k！猪猪！你了解他们吗?");
     } else if (status == 3) {
     	qm.sendNextPrev('一点点……', 2);
     } else if (status == 4) {

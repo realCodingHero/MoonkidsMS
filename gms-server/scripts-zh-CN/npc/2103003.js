@@ -57,12 +57,12 @@ function action(mode, type, selection) {
             cm.sendOk("这里已经放过食物了。");
         } else if (ch == '2') {
             if (!cm.haveItem(4031580, 1)) {
-                cm.sendOk("你身上没有#b#t4031580##k。");
+                cm.sendOk("你身上没有#b#t4031580#k。");
             } else {
                 var nextProgress = progress.substr(0, slot) + '3' + progress.substr(slot + 1);
                 cm.gainItem(4031580, -1);
                 cm.setQuestProgress(3929, nextProgress);
-                cm.sendOk("你悄悄把#b#t4031580##k放在了居民家里。");
+                cm.sendOk("你悄悄把#b#t4031580#k放在了居民家里。");
             }
         } else {
             cm.sendOk("这里似乎没什么特别的。");

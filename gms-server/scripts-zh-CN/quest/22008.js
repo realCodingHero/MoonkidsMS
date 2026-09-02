@@ -17,7 +17,7 @@ function start(mode, type, selection) {
 			qm.dispose();
 		} else {
 			qm.forceStartQuest();
-			qm.sendNext("真的吗？那我们一起去收拾那些狐狸吧！你先去 #b#m100030103##k 消灭 #r10只 #o9300385##k。我会跟在你后面接应你。快去 #m100030103# 吧！");
+			qm.sendNext("真的吗？那我们一起去收拾那些狐狸吧！你先去 #b#m100030103#k 消灭 #r10只 #o9300385#k。我会跟在你后面接应你。快去 #m100030103# 吧！");
 		}
 	} else if (status == 2) {
 		qm.sendImage("UI/tutorial/evan/10/0");

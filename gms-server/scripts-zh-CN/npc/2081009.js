@@ -46,7 +46,7 @@ function action(mode, type, selection) {
         if (cm.getPlayer().haveItemEquipped(1092041)) {
             cm.sendNext("直到任务结束前都要装备好你的盾牌，否则你就得重新开始了！");
         } else {
-            cm.sendOk("请在进入训练场之前装备#r#t1092041##k。");
+            cm.sendOk("请在进入训练场之前装备#r#t1092041#k。");
             cm.dispose();
         }
     } else {

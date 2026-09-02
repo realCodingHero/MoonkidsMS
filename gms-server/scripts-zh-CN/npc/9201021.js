@@ -43,7 +43,7 @@ function action(mode, type, selection) {
     if (status == 1) {
         if (selection < 1) {
             if (!cm.haveItem(4000313, 1)) {
-                cm.sendOk("看起来你丢失了你的 #b#t4000313##k。很抱歉，但是没有那个物品我不能让你前往狩猎场地。");
+                cm.sendOk("看起来你丢失了你的 #b#t4000313#k。很抱歉，但是没有那个物品我不能让你前往狩猎场地。");
                 cm.dispose();
                 return;
             }

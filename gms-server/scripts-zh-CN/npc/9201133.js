@@ -24,7 +24,7 @@ function action(mode, type, selection) {
                     return;
                 }
 
-                cm.sendYesNo("你想要移动到 #b#m" + map + "##k 吗？");
+                cm.sendYesNo("你想要移动到 #b#m" + map + "#k 吗？");
             } else {
                 cm.sendOk("入口被一股奇怪的力量阻挡住了。");
                 cm.dispose();
@@ -32,7 +32,7 @@ function action(mode, type, selection) {
         } else {
             if (cm.getMapId() == 677000011) {
                 map = 677000012;
-                cm.sendYesNo("你想要移动到 #b#m" + map + "##k 吗？");
+                cm.sendYesNo("你想要移动到 #b#m" + map + "#k 吗？");
             } else {
                 map = 105050400;
                 cm.sendYesNo("你想要#b离开这个地方#k吗？");

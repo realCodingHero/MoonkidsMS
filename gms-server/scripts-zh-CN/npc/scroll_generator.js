@@ -82,7 +82,7 @@ function action(mode, type, selection) {
             var listStr = "";
             var i;
             for (i = 0; i < sgItems.length; i++) {
-                listStr += "#b#L" + i + "##t" + sgItems[i] + "##k";
+                listStr += "#b#L" + i + "##t" + sgItems[i] + "#k";
                 if (sgAppliedItems[i] > 0) {
                     listStr += " - " + sgAppliedItems[i];
                 }
@@ -107,7 +107,7 @@ function action(mode, type, selection) {
             } else {
                 var tickSel;
                 if (selection < sgItems.length) {
-                    tickSel = "of #b#t" + sgItems[selection] + "##k";
+                    tickSel = "of #b#t" + sgItems[selection] + "#k";
                     curItemQty = cm.getItemQuantity(sgItems[selection]);
                 } else {
                     tickSel = "#bmesos#k";
@@ -439,7 +439,7 @@ function generateRandomScroll() {
         var itemid = getRandomScroll(calculateScrollTiers());
         if (itemid != -1) {
             if (performExchange(itemid, 1)) {
-                cm.sendNext("交易已接受！你已经收到了一个 #r#t" + itemid + "##k。");
+                cm.sendNext("交易已接受！你已经收到了一个 #r#t" + itemid + "#k。");
             } else {
                 cm.sendOk("哦，看起来有些物品不见了... 在尝试交换之前，请仔细检查你的库存中提供的物品。");
             }

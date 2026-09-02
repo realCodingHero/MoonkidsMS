@@ -22,7 +22,7 @@ function start(mode, type, selection) {
         }
     }
     if (status == 0) {
-        qm.sendAcceptDecline("啊！差点忘了！看我的记性。请你把做好的#b#t4032389##k交给#b#p1300004##k，并向他报告。");
+        qm.sendAcceptDecline("啊！差点忘了！看我的记性。请你把做好的#b#t4032389#k交给#b#p1300004#k，并向他报告。");
     } else if (status == 1) {
         qm.forceStartQuest();
         qm.gainItem(4032389, 1);

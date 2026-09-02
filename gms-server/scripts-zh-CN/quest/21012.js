@@ -44,7 +44,7 @@ function start(mode, type, selection) {
 	qm.sendAcceptDecline("啊，我很抱歉。我很高兴终于见到你了，我想我有点忘乎所以了。喔，深呼吸。深呼吸。好吧，我现在感觉好多了。但我可以请你帮个忙吗？求你了");
     } else if (status == 3) {
 	qm.forceStartQuest();
-	qm.sendNext("正好这附近有很多 #r#o9300383#s#k 请您去击退 #r3只#k。	搞不好会想起些什么。");
+	qm.sendNext("正好这附近有很多 #r#o9300383##k 请您去击退 #r3只#k。	搞不好会想起些什么。");
     } else if (status == 4) { 
 	qm.sendNextPrev("啊，该不会连技能使用方法都忘光了吧？ #b将技能放入快捷栏就可以轻松使用#k。 不只是技能，连消耗道具也可以放进去，请多加利用。") ;  
     } else if (status == 5) { 

@@ -46,9 +46,9 @@ function action(mode, type, selection) {
                 // quest completing here when "forfeiting Timer's Egg", as well as reporting missing quests on M. Shrine are thanks to drmdsr & Thora
 
                 cm.gainItem(4220046, -1);
-                cm.sendOk("你想把#r#t4220046##k交给我，对吧？好的，我会替你拿着。");
+                cm.sendOk("你想把#r#t4220046#k交给我，对吧？好的，我会替你拿着。");
             } else {
-                cm.sendOk("你好！我是#b#p2041026##k，负责观察和报告这个地区的任何超自然活动。");
+                cm.sendOk("你好！我是#b#p2041026#k，负责观察和报告这个地区的任何超自然活动。");
             }
 
             cm.dispose();

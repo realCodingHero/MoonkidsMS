@@ -90,7 +90,7 @@ function action(mode, type, selection) {
                         cm.sendNext("好的……我将在这里测试你的智慧。全部回答正确，你就能通过试炼。但是，只要答错一次，你就必须重新开始。准备好了吗？我们开始吧！");
                     }
                 } else {
-                    cm.sendNext("请带来1颗 #b#t4005004##k 作为祭品，方可开启智慧的试炼。");
+                    cm.sendNext("请带来1颗 #b#t4005004#k 作为祭品，方可开启智慧的试炼。");
                     cm.dispose();
                 }
             } else {
@@ -132,7 +132,7 @@ function action(mode, type, selection) {
                 return;
             }
 
-            cm.sendOk("精彩绝伦！你全部回答正确，你的渊博智慧已经得到了神圣之石的完全认可。\r\n拿着这枚 #b#t4031058##k，回去找你的三转导师完成晋升吧！");
+            cm.sendOk("精彩绝伦！你全部回答正确，你的渊博智慧已经得到了神圣之石的完全认可。\r\n拿着这枚 #b#t4031058#k，回去找你的三转导师完成晋升吧！");
             cm.gainItem(4031058, 1);
             cm.dispose();
         } else {

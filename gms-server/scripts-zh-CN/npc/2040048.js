@@ -27,7 +27,7 @@ var access = false;
 var status = 0;
 
 function start() {
-    cm.sendSimple("你听说过风景优美的#b#m110000000##k吗？那是一片离#m" + cm.getPlayer().getMapId() + "#稍远的海滩。我可以现在带你过去，费用是#b" + pay + "金币#k；如果你带着#b#t" + ticket + "##k，就可以免费前往。\r\n\r\n#L0##b支付 " + pay + " 金币。#k#l\r\n#L1##b使用 #t" + ticket + "#。#k#l\r\n#L2##b#t" + ticket + "# 是什么？#k#l");
+    cm.sendSimple("你听说过风景优美的#b#m110000000#k吗？那是一片离#m" + cm.getPlayer().getMapId() + "#稍远的海滩。我可以现在带你过去，费用是#b" + pay + "金币#k；如果你带着#b#t" + ticket + "#k，就可以免费前往。\r\n\r\n#L0#b支付 " + pay + " 金币。#k#l\r\n#L1#b使用 #t" + ticket + "#。#k#l\r\n#L2#b#t" + ticket + "# 是什么？#k#l");
 }
 
 function action(mode, type, selection) {
@@ -54,7 +54,7 @@ function action(mode, type, selection) {
                 if (selection == 0) {
                     msg = "你要支付#b" + pay + "金币#k前往#m110000000#吗？";
                 } else if (selection == 1) {
-                    msg = "你带着#b#t" + ticket + "##k吗？有了它，就可以随时前往#m110000000#。";
+                    msg = "你带着#b#t" + ticket + "#k吗？有了它，就可以随时前往#m110000000#。";
                 }
                 cm.sendYesNo(msg + "不过那里也有怪物出没，请不要掉以轻心。要现在前往#m110000000#吗？");
             } else if (selection == 2) {
@@ -72,7 +72,7 @@ function action(mode, type, selection) {
                 }
             } else if (check == 1) {
                 if (!cm.haveItem(ticket)) {
-                    cm.sendOk("嗯？#b#t" + ticket + "##k在哪里呢？你确定带在身上吗？请再确认一下。");
+                    cm.sendOk("嗯？#b#t" + ticket + "#k在哪里呢？你确定带在身上吗？请再确认一下。");
                     cm.dispose();
                 } else {
                     access = true;

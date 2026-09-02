@@ -59,7 +59,7 @@ function start(mode, type, selection) {
             }
 
             qm.forceStartQuest();
-            qm.sendNext("是不是吓了一跳？HP跌到0就坏了。来，给你#r#t2010007##k，把它吃掉就会恢复了。你打开道具窗看看");
+            qm.sendNext("是不是吓了一跳？HP跌到0就坏了。来，给你#r#t2010007#k，把它吃掉就会恢复了。你打开道具窗看看");
         } else if (status == 4) {
             qm.sendPrev("你要把我给你的#t2010007#全部吃掉，停滞在一个地方什么都不做HP也会恢复的。。。你恢复了全部的HP在跟我聊聊吧。");
         } else if (status == 5) {

@@ -44,7 +44,7 @@ function action(mode, type, selection) {
                 cm.sendOk("“嘿，你找我有什么事吗？”");
                 cm.dispose();
             } else {
-                cm.sendYesNo("让我们去救 #r#p2095000##k 吧？");
+                cm.sendYesNo("让我们去救 #r#p2095000#k 吧？");
             }
         } else if (status == 1) {
             cm.warp(925010000, 0);

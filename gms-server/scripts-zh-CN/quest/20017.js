@@ -28,7 +28,7 @@ function start(mode, type, selection) {
     } else if (status == 2) {
     	qm.sendNextPrev("哦，你知不知道埃雷夫里面没有怪物？一点邪恶都不敢进入地狱。但别担心。你将能够训练由叫做咪咪的幻觉怪物.");
     } else if (status == 3) {
-    	qm.sendAcceptDecline("你好像准备好了！看看你所取得的成就，我认为你应该马上开始寻找更高级的咪咪。. 现在需要你去猎杀 #b15个 #r#o100122# 在 #m130010100##k? 通过左边的路口可以到达 #b #m130010100# #k.");
+    	qm.sendAcceptDecline("你好像准备好了！看看你所取得的成就，我认为你应该马上开始寻找更高级的咪咪。. 现在需要你去猎杀 #b15个 #r#o100122# 在 #m130010100#k? 通过左边的路口可以到达 #b #m130010100# #k.");
     } else if (status == 4) {
         qm.guideHint(12);
         qm.forceStartQuest(20020);

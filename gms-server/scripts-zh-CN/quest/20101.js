@@ -60,7 +60,7 @@ function end(mode, type, selection) {
         completeQuestID += (jobLevel - 1);    //绑定完成对应给予转职勋章的任务
 
         InitialEquip = InitialEquip[jobId];     //获取绑定的初始物品列表
-        checkItem = InitialEquip.reduce((a, o) => (Object.entries(o).forEach(([i, q]) => (a.itemid.push(Number(i)), a.quantity.push(Number(q)), a.InitialEquipMsg.push(`#b#v${i}##t${i}##k * #r${q}#k`))), a), {itemid: [], quantity: [], InitialEquipMsg: []});  //初始化待检测的物品和数量列表
+        checkItem = InitialEquip.reduce((a, o) => (Object.entries(o).forEach(([i, q]) => (a.itemid.push(Number(i)), a.quantity.push(Number(q)), a.InitialEquipMsg.push(`#b#v${i}##t${i}#k * #r${q}#k`))), a), {itemid: [], quantity: [], InitialEquipMsg: []});  //初始化待检测的物品和数量列表
 
 
     }
@@ -87,7 +87,7 @@ function end(mode, type, selection) {
                 }
                 //检查是否可以持有足够数量的道具以及勋章
                 if (!qm.canHoldAll(checkItem.itemid,checkItem.quantity) || !qm.canHold(medalid)) {
-                    qm.sendOk(`请先给背包腾出一定量的空间用于接收初始装备物资。\r\n\r\n\r\n${checkItem.InitialEquipMsg.join("\r\n")}\r\n#b#v${medalid}##t${medalid}##k * #r1#k`);
+                    qm.sendOk(`请先给背包腾出一定量的空间用于接收初始装备物资。\r\n\r\n\r\n${checkItem.InitialEquipMsg.join("\r\n")}\r\n#b#v${medalid}##t${medalid}#k * #r1#k`);
                     qm.dispose();
                     return;
                 } else {
@@ -97,7 +97,7 @@ function end(mode, type, selection) {
                     InitialEquip.forEach(o => (Object.entries(o).forEach(([i,q]) => (console.log(i,q),qm.gainItem(Number(i), Number(q))))));
                     qm.gainItem(medalid, 1); //原始流程是女皇任务给的勋章，需要配合WZ给任务加入自动完成任务代码,比较麻烦，在这里给了。
                     qm.completeQuest(completeQuestID); //直接完成女皇的任务，这样女皇头顶不会一直顶着书本。
-                    qm.sendNext(`从这一刻起，女皇任命你为#b初级骑士#k！\r\n带上我为你准备初始物资开始历练吧！\r\n\r\n${checkItem.InitialEquipMsg.join("\r\n")}\r\n#b#v${medalid}##t${medalid}##k * #r1#k`);
+                    qm.sendNext(`从这一刻起，女皇任命你为#b初级骑士#k！\r\n带上我为你准备初始物资开始历练吧！\r\n\r\n${checkItem.InitialEquipMsg.join("\r\n")}\r\n#b#v${medalid}##t${medalid}#k * #r1#k`);
                 }
             }
         } else {

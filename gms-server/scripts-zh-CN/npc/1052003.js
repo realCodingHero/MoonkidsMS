@@ -72,7 +72,7 @@ function action(mode, type, selection) {
                 cm.sendYesNo(selStr);
             } else if (selectedType == 3) { //claw refine
                 var selStr = "呃, 你要升级拳套? 告诉我你要升级哪一个?#b";
-                var claws = ["#i1472023##t1472023##k - 飞侠 Lv. 60#b", "#i1472024##t1472024##k - 飞侠 Lv. 60#b", "#i1472025##t1472025##k - 飞侠 Lv. 60#b"];
+                var claws = ["#i1472023##t1472023#k - 飞侠 Lv. 60#b", "#i1472024##t1472024#k - 飞侠 Lv. 60#b", "#i1472025##t1472025#k - 飞侠 Lv. 60#b"];
                 for (var i = 0; i < claws.length; i++) {
                     selStr += "\r\n#L" + i + "# " + claws[i] + "#l";
                 }

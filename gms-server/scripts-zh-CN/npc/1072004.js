@@ -47,7 +47,7 @@ function action(mode, type, selection) {
                 cm.sendNext("哦哦哦.. 你收集了所有30个黑暗弹珠！！这应该很困难... 简直不可思议！好吧。你通过了测试，为此，我会奖励你 #b英雄的证明#k。拿着它回佩里安去吧。");
             } else {
                 completed = false;
-                cm.sendSimple("你需要收集 #b30 个 #t4031013##k。祝你好运。\r\n#b#L1#我想离开#l");
+                cm.sendSimple("你需要收集 #b30 个 #t4031013#k。祝你好运。\r\n#b#L1#我想离开#l");
             }
         } else if (status == 1) {
             if (completed) {

@@ -2,14 +2,14 @@ var MEDAL_ID = 1142133;
 
 function finishIfAlreadyAwarded() {
     if (qm.isQuestCompleted(qm.getQuest())) {
-        qm.sendOk("你已经获得过#b#t" + MEDAL_ID + "##k，这项挑战已经记录在你的冒险履历里了。");
+        qm.sendOk("你已经获得过#b#t" + MEDAL_ID + "#k，这项挑战已经记录在你的冒险履历里了。");
         qm.dispose();
         return true;
     }
     if (qm.haveItemWithId(MEDAL_ID, true)) {
         qm.forceCompleteQuest();
         qm.earnTitle(qm.getMedalName());
-        qm.sendOk("你已经获得过#b#t" + MEDAL_ID + "##k，这项挑战已经记录在你的冒险履历里了。");
+        qm.sendOk("你已经获得过#b#t" + MEDAL_ID + "#k，这项挑战已经记录在你的冒险履历里了。");
         qm.dispose();
         return true;
     }
@@ -21,7 +21,7 @@ function start(mode, type, selection) {
         return;
     }
     qm.forceStartQuest();
-    qm.sendOk("成为 200 级战神后，前往德烈处领取#b#t1142133##k。");
+    qm.sendOk("成为 200 级战神后，前往德烈处领取#b#t1142133#k。");
     qm.dispose();
 }
 
@@ -49,6 +49,6 @@ function awardMedal() {
     }
     qm.forceCompleteQuest();
     qm.earnTitle(qm.getMedalName());
-    qm.sendOk("失去的力量、记忆与名字，都已经回到你的身边。战神的传说不再沉睡于冰雪之下，而是由你亲手续写。\r\n\r\n请收下#b#t1142133##k。这份荣耀，属于归来的英雄。");
+    qm.sendOk("失去的力量、记忆与名字，都已经回到你的身边。战神的传说不再沉睡于冰雪之下，而是由你亲手续写。\r\n\r\n请收下#b#t1142133#k。这份荣耀，属于归来的英雄。");
     qm.dispose();
 }

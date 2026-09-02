@@ -61,7 +61,7 @@ function action(mode, type, selection) {
         }
 
         if (status == 0) {
-            cm.sendSimple("嗨，你好~！我是莱努博士，负责射手村整形医院的美瞳服务！只要使用#b#t5152010##k或#b#t5152013##k，就能为你打造一双神采奕奕、充满魅力的眼睛！记住，眼睛是心灵的窗户，我们会帮你找到最适合你的美瞳颜色！那么，你今天想要尝试哪种服务呢？\r\n#L1#使用普通美瞳券：#i5152010##t5152010##l\r\n#L2#使用高级美瞳券：#i5152013##t5152013##l\r\n#L3#使用一次性美瞳券：#i5152103#（特定颜色）#l");
+            cm.sendSimple("嗨，你好~！我是莱努博士，负责射手村整形医院的美瞳服务！只要使用#b#t5152010#k或#b#t5152013#k，就能为你打造一双神采奕奕、充满魅力的眼睛！记住，眼睛是心灵的窗户，我们会帮你找到最适合你的美瞳颜色！那么，你今天想要尝试哪种服务呢？\r\n#L1#使用普通美瞳券：#i5152010##t5152010##l\r\n#L2#使用高级美瞳券：#i5152013##t5152013##l\r\n#L3#使用一次性美瞳券：#i5152103#（特定颜色）#l");
         } else if (status == 1) {
             if (selection == 1) {
                 beauty = 1;
@@ -73,7 +73,7 @@ function action(mode, type, selection) {
                 }
                 colors = Array();
                 pushIfItemsExists(colors, [current, current + 100, current + 200, current + 400, current + 600, current + 700]);
-                cm.sendYesNo("如果使用普通美瞳券，你的眼睛颜色将会被随机改变。你确定要使用#b#t5152010##k来改变瞳色吗？");
+                cm.sendYesNo("如果使用普通美瞳券，你的眼睛颜色将会被随机改变。你确定要使用#b#t5152010#k来改变瞳色吗？");
             } else if (selection == 2) {
                 beauty = 2;
                 if (cm.getPlayer().getGender() == 0) {

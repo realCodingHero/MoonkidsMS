@@ -43,7 +43,7 @@ function start(mode, type, selection) {
 			if (!qm.isQuestStarted(22500)) {
 				qm.forceStartQuest();
 			}
-			qm.sendNext("带我去找 #r#o1210100##k！现在就去！我要让你见识见识本龙打倒 #o1210100# 有多神速！冲啊！");
+			qm.sendNext("带我去找 #r#o1210100#k！现在就去！我要让你见识见识本龙打倒 #o1210100# 有多神速！冲啊！");
 		}
 	} else if (status == 14) {
 		qm.sendNextPrev("等等！你有好好分配能力点吗？作为我的主人，你的 #b智力 和 运气#k 对我可是有很大影响的！如果你想见识我的厉害，记得在使用技能之前把能力点加好，并且 #b穿戴好魔法师的装备#k！");

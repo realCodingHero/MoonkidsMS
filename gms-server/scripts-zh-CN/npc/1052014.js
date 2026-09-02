@@ -93,14 +93,14 @@ function action(mode, type, selection) {
 
             var listStr = "";
             for (var i = 0; i < tickets.length; i++) {
-                listStr += "#b#L" + i + "##t" + (4001009 + i) + "##k";
+                listStr += "#b#L" + i + "##t" + (4001009 + i) + "#k";
                 if (tickets[i] > 0) {
                     listStr += " - " + tickets[i] + " 橡皮擦";
                 }
                 listStr += "#l\r\n";
             }
             if (hasCoin) {
-                listStr += "#b#L" + tickets.length + "##t" + coinId + "##k";
+                listStr += "#b#L" + tickets.length + "##t" + coinId + "#k";
                 if (coins > 0) {
                     listStr += " - " + coins + " 羽毛";
                 }
@@ -130,9 +130,9 @@ function action(mode, type, selection) {
                 curItemSel = selection;
 
                 if (curItemQty > 0) {
-                    cm.sendGetText("要将提交多少个 #b#t" + tickSel + "##k 提交到机器上? (剩余#r" + curItemQty + "#k 可用)#k");
+                    cm.sendGetText("要将提交多少个 #b#t" + tickSel + "#k 提交到机器上? (剩余#r" + curItemQty + "#k 可用)#k");
                 } else {
-                    cm.sendPrev(" #r你没有可用的 #k #b#t" + tickSel + "##k 提交到机器上。 点击 '#r上项#k' 返回主界面。");
+                    cm.sendPrev(" #r你没有可用的 #k #b#t" + tickSel + "#k 提交到机器上。 点击 '#r上项#k' 返回主界面。");
                     advance = false;
                 }
             }
@@ -253,7 +253,7 @@ function givePrize() {
 
         cm.gainItem(lvTarget[rnd], lvQty[rnd]);
 
-        cm.sendOk("恭喜！你获得了 #b#t" + lvTarget[rnd] + "##k x" + lvQty[rnd] + "！");
+        cm.sendOk("恭喜！你获得了 #b#t" + lvTarget[rnd] + "#k x" + lvQty[rnd] + "！");
     }
 }
 

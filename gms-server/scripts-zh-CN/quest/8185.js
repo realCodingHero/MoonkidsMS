@@ -97,7 +97,7 @@ function end(mode, type, selection) {
 
             //SpawnPetHandler.evolve(qm.getPlayer().getClient(), 5000029, after);
 
-            qm.sendOk("#b太棒了！#k 你的龙变得更加美丽！ #r你可以在 '现金' 背包下找到你的新宠物。\r 它曾经是 #b #i5000029##t5000029##k，现在是 \r 一个 #b#i" + after + "##t" + after + "##k！\r\n\r\n#fUI/UIWindow.img/QuestIcon/4/0#\r\n#v" + after + "# #t" + after + "#");
+            qm.sendOk("#b太棒了！#k 你的龙变得更加美丽！ #r你可以在 '现金' 背包下找到你的新宠物。\r 它曾经是 #b #i5000029##t5000029#k，现在是 \r 一个 #b#i" + after + "##t" + after + "#k！\r\n\r\n#fUI/UIWindow.img/QuestIcon/4/0#\r\n#v" + after + "# #t" + after + "#");
         } else if (status == 5) {
             qm.dispose();
         }

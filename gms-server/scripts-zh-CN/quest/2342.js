@@ -26,17 +26,17 @@ function start(mode, type, selection) {
                     if (qm.canHold(4001318)) {
                         qm.forceStartQuest();
                         qm.gainItem(4001318, 1);
-                        qm.sendOk("看起来你在与蘑菇大臣战斗时忘记拿起#b#t4001318##k了。给你，这对我们王国非常重要，请尽快把它交给我的父亲。");
+                        qm.sendOk("看起来你在与蘑菇大臣战斗时忘记拿起#b#t4001318#k了。给你，这对我们王国非常重要，请尽快把它交给我的父亲。");
                     } else {
                         qm.sendOk("请确保你的其他栏有一个空位");
                         qm.dispose();
                     }
                 } else {
                     qm.forceStartQuest();
-                    qm.sendOk("你手中的#b#t4001318##k对我们王国非常重要，请尽快把它交给我的父亲把。");
+                    qm.sendOk("你手中的#b#t4001318#k对我们王国非常重要，请尽快把它交给我的父亲把。");
                 }
             } else {
-                qm.sendOk("你需要找回被盗的#r#t4001318##k");
+                qm.sendOk("你需要找回被盗的#r#t4001318#k");
                 qm.dispose();
             }
         } else if (status == 1) {
@@ -52,7 +52,7 @@ function end(mode, type, selection) {
         qm.forceCompleteQuest();
         qm.dispose();
     } else {
-        qm.sendOk("请尽快把#b#t4032387##k交给我的父亲。再回来找我.");
+        qm.sendOk("请尽快把#b#t4032387#k交给我的父亲。再回来找我.");
         qm.dispose();
     }
 }

@@ -53,7 +53,7 @@ function action(mode, type, selection) {
             status--;
         }
         if (status == 0) {
-            cm.sendSimple("欢迎来到鲁塔比姆美发沙龙！你有#b#t5150007##k或者#b#t5151007##k吗？如果有的话，让我来为你打理一下头发吧？请选择你想要做的事情...\r\n#L1#理发：#i5150007##t5150007##l\r\n#L2#染发：#i5151007##t5151007##l");
+            cm.sendSimple("欢迎来到鲁塔比姆美发沙龙！你有#b#t5150007#k或者#b#t5151007#k吗？如果有的话，让我来为你打理一下头发吧？请选择你想要做的事情...\r\n#L1#理发：#i5150007##t5150007##l\r\n#L2#染发：#i5151007##t5151007##l");
         } else if (status == 1) {
             if (selection == 1) {
                 beauty = 1;
@@ -68,7 +68,7 @@ function action(mode, type, selection) {
                         pushIfItemExists(hairnew, fhair_v[i] + parseInt(cm.getPlayer().getHair() % 10));
                     }
                 }
-                cm.sendStyle("我可以完全改变你的发型，你还没准备好接受改变吗？给我 #b#t5150007##k，剩下的事我来帮你处理，选你喜欢的风格吧！", hairnew);
+                cm.sendStyle("我可以完全改变你的发型，你还没准备好接受改变吗？给我 #b#t5150007#k，剩下的事我来帮你处理，选你喜欢的风格吧！", hairnew);
             } else if (selection == 2) {
                 beauty = 2;
                 haircolor = Array();
@@ -76,7 +76,7 @@ function action(mode, type, selection) {
                 for (var i = 0; i < 8; i++) {
                     pushIfItemExists(haircolor, current + i);
                 }
-                cm.sendStyle("我可以完全改变你头发的颜色，你还没准备好接受改变吗？给我 #b#t5151007##k，剩下的我来负责，选你喜欢的颜色吧！", haircolor);
+                cm.sendStyle("我可以完全改变你头发的颜色，你还没准备好接受改变吗？给我 #b#t5151007#k，剩下的我来负责，选你喜欢的颜色吧！", haircolor);
             }
         } else if (status == 2) {
             cm.dispose();

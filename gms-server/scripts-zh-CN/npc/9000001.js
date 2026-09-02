@@ -27,7 +27,7 @@
 var status = 0;
 
 function start() {
-    cm.sendNext("嘿，我是#b#p9000001##k。我正在等我哥哥#b保罗#k呢，他按说应该已经到了才对呀……");
+    cm.sendNext("嘿，我是#b#p9000001#k。我正在等我哥哥#b保罗#k呢，他按说应该已经到了才对呀……");
 }
 
 function action(mode, type, selection) {

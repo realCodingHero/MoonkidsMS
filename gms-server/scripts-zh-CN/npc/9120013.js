@@ -81,7 +81,7 @@ function action(mode, type, selection) {
                 cm.sendNext("嗯……人类果然会犯错！想再试一次的话，就带 300 个炸鸡来。")
                 cm.dispose();
             } else {
-                cm.sendNext("喵……竟然全都答对了。虽然我不太喜欢人类，但我不会食言。这颗 #b#t4031064##k 就给你吧。")
+                cm.sendNext("喵……竟然全都答对了。虽然我不太喜欢人类，但我不会食言。这颗 #b#t4031064#k 就给你吧。")
             }
         } else if (status == 8 && mode == 1) { //gain marble
             cm.gainItem(4031064, 1);

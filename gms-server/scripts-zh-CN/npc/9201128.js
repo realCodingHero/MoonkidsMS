@@ -17,7 +17,7 @@ function action(mode, type, selection) {
     if (status == 0) {
         if (cm.isQuestStarted(quest)) {
             if (cm.haveItem(questItem)) {
-                cm.sendYesNo("你想要移动到 #b#m" + map + "##k 吗？");
+                cm.sendYesNo("你想要移动到 #b#m" + map + "#k 吗？");
             } else {
                 cm.sendOk("入口被一种力量封锁，只有持有徽章的人才能解除。");
                 cm.dispose();

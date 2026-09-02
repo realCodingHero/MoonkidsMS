@@ -46,19 +46,19 @@ function start() {
  */
 function levelStart() {
     var text = "#e#b请选择要查找的物品分类：#k#n\r\n\r\n";
-    text += "#L1##r战士武器#k#l\r\n";
-    text += "#L2##r法师武器#k#l\r\n";
-    text += "#L3##r弓箭手武器#k#l\r\n";
-    text += "#L4##r飞侠武器#k#l\r\n";
-    text += "#L5##r海盗武器#k#l\r\n";
-    text += "#L6##r防具类#k#l\r\n";
-    text += "#L7##r饰品类#k#l\r\n";
-    text += "#L8##r消耗品#k#l\r\n";
-    text += "#L9##r卷轴/强化#k#l\r\n";
-    text += "#L10##r其他物品#k#l\r\n";
-    text += "#L11##r职业技能书#k#l\r\n\r\n";
-    text += "#L9999##b[返回爆率查询主菜单]#k#l\r\n";
-    text += "#L12##r关闭#k#l";
+    text += "#L1#r战士武器#k#l\r\n";
+    text += "#L2#r法师武器#k#l\r\n";
+    text += "#L3#r弓箭手武器#k#l\r\n";
+    text += "#L4#r飞侠武器#k#l\r\n";
+    text += "#L5#r海盗武器#k#l\r\n";
+    text += "#L6#r防具类#k#l\r\n";
+    text += "#L7#r饰品类#k#l\r\n";
+    text += "#L8#r消耗品#k#l\r\n";
+    text += "#L9#r卷轴/强化#k#l\r\n";
+    text += "#L10#r其他物品#k#l\r\n";
+    text += "#L11#r职业技能书#k#l\r\n\r\n";
+    text += "#L9999#b[返回爆率查询主菜单]#k#l\r\n";
+    text += "#L12#r关闭#k#l";
     
     cm.sendNextSelectLevel('handleMainSelection', text, 2);
 }

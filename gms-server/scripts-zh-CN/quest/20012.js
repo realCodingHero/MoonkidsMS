@@ -26,7 +26,7 @@ function start(mode, type, selection) {
     } else if (status == 1) {
     	qm.sendNextPrev("当你每次升等你会获得技能点数，这意味这你可以有一些能力了！ 请案 #bK 键#k 看看你的技能. 好好善用你的技能点数在技能上。 #b将技能拉到快捷键上更方便使用。#k.");
     } else if (status == 2) {
-    	qm.sendAcceptDecline("时间过得真快，忘了你是要练习了... 接下来你会发现很多的 #o100121# 在这张地图。你需要打倒 #r3只 #o100121##k 使用你的 #b攻击#b 技能 然后给我 1 #b#t4000483##k 作为证明OK？ 我会在这里等你的。");
+    	qm.sendAcceptDecline("时间过得真快，忘了你是要练习了... 接下来你会发现很多的 #o100121# 在这张地图。你需要打倒 #r3只 #o100121#k 使用你的 #b攻击#b 技能 然后给我 1 #b#t4000483#k 作为证明OK？ 我会在这里等你的。");
     } else if (status == 3) {
         qm.forceStartQuest();
         qm.guideHint(8);
@@ -46,7 +46,7 @@ function end(mode, type, selection) {
         status--;
     }
     if (status == 0) {
-    	qm.sendNext("你已经成功地打败了 #o100121# 并给我带来了 一个 #t4000483#. 这是非常令人印象深刻! #b你善用了 3 个技能点数 当你每一次升级的时候, 你会获得更多技能点数，接下来请照着箭头走去找我的兄弟 #b#p1102007##k, 他将告诉你下一步怎么做。\r\n\r\n#fUI/UIWindow.img/QuestIcon/4/0# \r\n#fUI/UIWindow.img/QuestIcon/8/0# 40 经验值");
+    	qm.sendNext("你已经成功地打败了 #o100121# 并给我带来了 一个 #t4000483#. 这是非常令人印象深刻! #b你善用了 3 个技能点数 当你每一次升级的时候, 你会获得更多技能点数，接下来请照着箭头走去找我的兄弟 #b#p1102007#k, 他将告诉你下一步怎么做。\r\n\r\n#fUI/UIWindow.img/QuestIcon/4/0# \r\n#fUI/UIWindow.img/QuestIcon/8/0# 40 经验值");
     } else if (status == 1) {
         qm.gainItem(4000483, -1);
         qm.forceCompleteQuest();

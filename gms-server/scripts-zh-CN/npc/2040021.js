@@ -142,7 +142,7 @@ function action(mode, type, selection) {
         }
         //Ludi fee is -10%, array not changed unlike 2040016 and 2040020
         cost *= 0.9;
-        var prompt = "你想让我制作 #b#t" + item + "##k 吗？制作需要你提供以下材料。另外，请确认你的背包有足够的空位哦！\r\n#b";
+        var prompt = "你想让我制作 #b#t" + item + "#k 吗？制作需要你提供以下材料。另外，请确认你的背包有足够的空位哦！\r\n#b";
         if (stimulator) {
             prompt += "\r\n#i" + stimID + "# 1 #t" + stimID + "#";
         }

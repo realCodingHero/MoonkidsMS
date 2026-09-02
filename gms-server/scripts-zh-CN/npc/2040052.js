@@ -56,7 +56,7 @@ function action(mode, type, selection) {
                 for (i = 0; i < questid.length; i++) {
                     if (cm.isQuestCompleted(questid[i])) {
                         counter += 1;
-                        books += "\r\n#v" + questitem[i] + "# #b#t" + questitem[i] + "##k";
+                        books += "\r\n#v" + questitem[i] + "# #b#t" + questitem[i] + "#k";
                     }
                 }
                 if (counter == 0) {
@@ -64,13 +64,13 @@ function action(mode, type, selection) {
                 }
             }
             if (counter == 99) {
-                cm.sendOk("#b#h##k还没有归还一本故事书。");
+                cm.sendOk("#b#h#k还没有归还一本故事书。");
                 cm.dispose();
             } else {
-                cm.sendNext("让我看看.. #b#h ##k 一共归还了 #b" + counter + "#k 本书。归还的书目如下：" + books);
+                cm.sendNext("让我看看.. #b#h #k 一共归还了 #b" + counter + "#k 本书。归还的书目如下：" + books);
             }
         } else if (status == 1) {
-            cm.sendNextPrev("图书馆现在已经安定下来，这主要要归功于你，#b#h ##k的巨大帮助。如果故事再次混乱，那么我会指望你再次来修复它。");
+            cm.sendNextPrev("图书馆现在已经安定下来，这主要要归功于你，#b#h #k的巨大帮助。如果故事再次混乱，那么我会指望你再次来修复它。");
         } else if (status == 2) {
             cm.dispose();
         }

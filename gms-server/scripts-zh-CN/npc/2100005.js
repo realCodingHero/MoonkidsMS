@@ -63,7 +63,7 @@ function action(mode, type, selection) {
                 for (var i = 0; i < 8; i++) {
                     pushIfItemExists(haircolor, current + i);
                 }
-                cm.sendYesNo("如果您使用普通的优惠券，您的发色将会随机变成一种新的颜色。您确定要使用 #b#t5151021##k 并随机改变您的发色吗？");
+                cm.sendYesNo("如果您使用普通的优惠券，您的发色将会随机变成一种新的颜色。您确定要使用 #b#t5151021#k 并随机改变您的发色吗？");
             }
         } else if (status == 2) {
             cm.dispose();

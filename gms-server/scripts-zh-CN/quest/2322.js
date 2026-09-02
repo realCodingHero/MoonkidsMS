@@ -24,7 +24,7 @@ function start(mode, type, selection) {
     if (status == 0) {
         qm.sendYesNo("即使穿越了结界，也不能完全放心。我们蘑菇王国的城墙经过特殊设计，绝对无法从外部侵入，想要进去会很困难。嗯……你能先去城墙外部调查一下吗？");
     } else if (status == 1) {
-        // qm.sendNext("经过蘑菇森林往#b#m106020400##k的西面去，就能找到#b#m106020500##k。请你去做调查。");
+        // qm.sendNext("经过蘑菇森林往#b#m106020400#k的西面去，就能找到#b#m106020500#k。请你去做调查。");
         qm.forceStartQuest();
         qm.dispose();
     } //else if (status == 2) {

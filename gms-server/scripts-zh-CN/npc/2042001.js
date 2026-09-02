@@ -262,7 +262,7 @@ function action(mode, type, selection) {
                     status = 60;
                     cm.sendSimple("你想了解哪些内容？\r\n#b#L0# 什么是怪物嘉年华？#l\r\n#L1# 怪物嘉年华玩法概述#l\r\n#L2# 嘉年华点数(CP)与快捷键指南#l\r\n#L3# 算了，我不想了解了#l");
                 } else if (selection == 2) {
-                    cm.sendSimple("只要你手头拥有 #b#t4001129##k（枫叶币），就能找我兑换各种专属饰品、稀有卷轴以及极品武器！\r\n#b#L0# #t1122007#（" + n1 + " 个枫叶币）#l\r\n#L1# #t2041211#（" + n2 + " 个枫叶币）#l\r\n#L2# 战士专属武器#l\r\n#L3# 魔法师专属武器#l\r\n#L4# 弓箭手专属武器#l\r\n#L5# 飞侠专属武器#l\r\n#L6# 海盗专属武器#l");
+                    cm.sendSimple("只要你手头拥有 #b#t4001129#k（枫叶币），就能找我兑换各种专属饰品、稀有卷轴以及极品武器！\r\n#b#L0# #t1122007#（" + n1 + " 个枫叶币）#l\r\n#L1# #t2041211#（" + n2 + " 个枫叶币）#l\r\n#L2# 战士专属武器#l\r\n#L3# 魔法师专属武器#l\r\n#L4# 弓箭手专属武器#l\r\n#L5# 飞侠专属武器#l\r\n#L6# 海盗专属武器#l");
                 } else if (selection == 3) {
                     cm.getChar().saveLocation("MONSTER_CARNIVAL");
                     cm.warp(980030000, 0);
@@ -295,7 +295,7 @@ function action(mode, type, selection) {
                         cm.gainItem(4001129, -n1);
                         cm.dispose();
                     } else {
-                        cm.sendOk("请检查你身上是否有足够的 #b#t4001129##k，或者装备栏是否有空位。");
+                        cm.sendOk("请检查你身上是否有足够的 #b#t4001129#k，或者装备栏是否有空位。");
                         cm.dispose();
                     }
                 } else if (select == 1) {
@@ -304,7 +304,7 @@ function action(mode, type, selection) {
                         cm.gainItem(4001129, -n2);
                         cm.dispose();
                     } else {
-                        cm.sendOk("请检查你身上是否有足够的 #b#t4001129##k，或者消耗栏是否有空位。");
+                        cm.sendOk("请检查你身上是否有足够的 #b#t4001129#k，或者消耗栏是否有空位。");
                         cm.dispose();
                     }
                 } else if (select == 2) {//S2 Warrior 26 S3 Magician 6 S4 Bowman 6 S5 Thief 8
@@ -334,7 +334,7 @@ function action(mode, type, selection) {
                         cm.gainItem(4001129, -cost[selection]);
                         cm.dispose();
                     } else {
-                        cm.sendOk("你的 #b#t4001129##k 数量不足，或者装备栏已满。请检查后再试。");
+                        cm.sendOk("你的 #b#t4001129#k 数量不足，或者装备栏已满。请检查后再试。");
                         cm.dispose();
                     }
                 }
@@ -350,7 +350,7 @@ function action(mode, type, selection) {
                         cm.gainItem(4001129, -cost[selection]);
                         cm.dispose();
                     } else {
-                        cm.sendOk("你的 #b#t4001129##k 数量不足，或者装备栏已满。请检查后再试。");
+                        cm.sendOk("你的 #b#t4001129#k 数量不足，或者装备栏已满。请检查后再试。");
                         cm.dispose();
                     }
                 }
@@ -362,7 +362,7 @@ function action(mode, type, selection) {
                     cm.gainItem(4001129, -cost[selection]);
                     cm.dispose();
                 } else {
-                    cm.sendOk("你的 #b#t4001129##k 数量不足，或者装备栏已满。请检查后再试。");
+                    cm.sendOk("你的 #b#t4001129#k 数量不足，或者装备栏已满。请检查后再试。");
                     cm.dispose();
                 }
             } else if (status == 31) {
@@ -373,7 +373,7 @@ function action(mode, type, selection) {
                     cm.gainItem(4001129, -cost[selection]);
                     cm.dispose();
                 } else {
-                    cm.sendOk("你的 #b#t4001129##k 数量不足，或者装备栏已满。请检查后再试。");
+                    cm.sendOk("你的 #b#t4001129#k 数量不足，或者装备栏已满。请检查后再试。");
                     cm.dispose();
                 }
             } else if (status == 41) {
@@ -384,7 +384,7 @@ function action(mode, type, selection) {
                     cm.gainItem(4001129, -cost[selection]);
                     cm.dispose();
                 } else {
-                    cm.sendOk("你的 #b#t4001129##k 数量不足，或者装备栏已满。请检查后再试。");
+                    cm.sendOk("你的 #b#t4001129#k 数量不足，或者装备栏已满。请检查后再试。");
                     cm.dispose();
                 }
             } else if (status == 51) {
@@ -395,7 +395,7 @@ function action(mode, type, selection) {
                     cm.gainItem(4001129, -cost[selection]);
                     cm.dispose();
                 } else {
-                    cm.sendOk("你的 #b#t4001129##k 数量不足，或者装备栏已满。请检查后再试。");
+                    cm.sendOk("你的 #b#t4001129#k 数量不足，或者装备栏已满。请检查后再试。");
                     cm.dispose();
                 }
             } else if (status == 61) {

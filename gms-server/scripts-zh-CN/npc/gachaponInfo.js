@@ -51,9 +51,9 @@ function action(mode, type, selection) {
         }
 
         if (status == 0) {
-            var sendStr = "你好，我是#r#p9900001##k ！我可以向你展示所有扭蛋机的奖励列表，你想要查看哪一个呢？\r\n\r\n";
+            var sendStr = "你好，我是#r#p9900001#k ！我可以向你展示所有扭蛋机的奖励列表，你想要查看哪一个呢？\r\n\r\n";
             for (let i = 0; i < lootNames.length; i++) {
-                sendStr += "#L" + i + "##b" + lootNames[i] + "#k#l\r\n";
+                sendStr += "#L" + i + "#b" + lootNames[i] + "#k#l\r\n";
             }
             cm.sendSimple(sendStr);
         } else if (status == 1) {

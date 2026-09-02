@@ -21,7 +21,7 @@ function action(mode, type, selection) {
     }
 
     if (status === 0) {
-        let text = "用以下物品可兑换 #r#t2430033##k #i2430033# 一本\r\n\r\n";
+        let text = "用以下物品可兑换 #r#t2430033#k #i2430033# 一本\r\n\r\n";
         text += "#L0#1000万金币#l\r\n";
         text += "#L1#1000点券#l\r\n";
         text += "#L2#1万枫叶#l\r\n";

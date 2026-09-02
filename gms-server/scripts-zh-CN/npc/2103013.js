@@ -85,7 +85,7 @@ function action(mode, type, selection) {
             } else if (selection == 3) {
                 cm.sendSimple("你带来了哪颗宝石？\r\n\r\n#L0##i4001322# #t4001322##l\r\n#L1##i4001323# #t4001323##l\r\n#L2##i4001324# #t4001324##l\r\n#L3##i4001325# #t4001325##l");
             } else if (selection == 4) {
-                cm.sendNext("在法老雪人之墓中，你可以通过击败法老雪人的分身 #b法老小雪人#k 来证明自己的能力，并获得 #e#b#t2022613##k#n。那个盒子里藏着非常特别的宝物，也就是 #e#b#t1132012##k#n。\r\n#i1132012:# #t1132012#\r\n\r\n如果你能在地狱模式中幸存，更强的法老小雪人会掉落 #e#b#t2022618##k#n，里面还有机会获得 #e#b#t1132013##k#n。\r\n\r\n#i1132013:# #t1132013#\r\n\r\n当然，奈特不会轻易允许这种事发生。 ");
+                cm.sendNext("在法老雪人之墓中，你可以通过击败法老雪人的分身 #b法老小雪人#k 来证明自己的能力，并获得 #e#b#t2022613#k#n。那个盒子里藏着非常特别的宝物，也就是 #e#b#t1132012#k#n。\r\n#i1132012:# #t1132012#\r\n\r\n如果你能在地狱模式中幸存，更强的法老小雪人会掉落 #e#b#t2022618#k#n，里面还有机会获得 #e#b#t1132013#k#n。\r\n\r\n#i1132013:# #t1132013#\r\n\r\n当然，奈特不会轻易允许这种事发生。 ");
             } else if (selection == 5) {
                 var progress = cm.getQuestProgressInt(29932, 7760);
                 if (cm.isQuestCompleted(29932) || cm.haveItem(1142142)) {

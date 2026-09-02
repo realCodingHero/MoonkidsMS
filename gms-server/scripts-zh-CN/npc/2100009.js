@@ -48,7 +48,7 @@ function action(mode, type, selection) {
         }
 
         if (status == 0) {
-            cm.sendSimple("嗨，我是这里的整容助理医生。只要有#b#t5152029##k或#b#t5152048##k，我就可以为你进行美容，相信我的手艺！啊，别忘了，普通会员卡的手术结果是随机的哦！那么，你想做哪项服务呢？\r\n#b#L1#普通整容：#i5152029##t5152029##l\r\n#L2#普通美瞳：#i5152048##t5152048##l#k");
+            cm.sendSimple("嗨，我是这里的整容助理医生。只要有#b#t5152029#k或#b#t5152048#k，我就可以为你进行美容，相信我的手艺！啊，别忘了，普通会员卡的手术结果是随机的哦！那么，你想做哪项服务呢？\r\n#b#L1#普通整容：#i5152029##t5152029##l\r\n#L2#普通美瞳：#i5152048##t5152048##l#k");
         } else if (status == 1) {
             if (selection == 1) {
                 beauty = 0;
@@ -68,7 +68,7 @@ function action(mode, type, selection) {
                                 % 100));
                     }
                 }
-                cm.sendYesNo("如果使用普通整容会员卡，你的脸型将会随机变成一种新模样……你确定要使用#b#t5152029##k进行整容吗？");
+                cm.sendYesNo("如果使用普通整容会员卡，你的脸型将会随机变成一种新模样……你确定要使用#b#t5152029#k进行整容吗？");
             } else if (selection == 2) {
                 beauty = 1;
                 if (cm.getPlayer().getGender() == 0) {
@@ -81,7 +81,7 @@ function action(mode, type, selection) {
                 }
                 colors = Array();
                 pushIfItemsExists(colors, [current, current + 100, current + 300, current + 600, current + 700]);
-                cm.sendYesNo("如果使用普通美瞳会员卡，你的眼睛颜色将会随机改变。你确定要使用#b#t5152048##k改变瞳孔颜色吗？");
+                cm.sendYesNo("如果使用普通美瞳会员卡，你的眼睛颜色将会随机改变。你确定要使用#b#t5152048#k改变瞳孔颜色吗？");
             }
         } else if (status == 2) {
             cm.dispose();

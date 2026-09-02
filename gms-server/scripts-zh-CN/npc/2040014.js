@@ -68,7 +68,7 @@ function action(mode, type, selection) {
         cost = costSet[selectedItem];
         qty = 1;
 
-        var prompt = "你想制作 #b#t" + item + "##k 对吧？制作该小游戏道具需要以下材料。制作前请确保你的背包有足够的空位哦！#b";
+        var prompt = "你想制作 #b#t" + item + "#k 对吧？制作该小游戏道具需要以下材料。制作前请确保你的背包有足够的空位哦！#b";
         if (mats instanceof Array) {
             for (var i = 0; i < mats.length; i++) {
                 prompt += "\r\n#i" + mats[i] + "# " + (matQty[i] * qty) + " #t" + mats[i] + "#";
@@ -112,7 +112,7 @@ function action(mode, type, selection) {
                 cm.gainMeso(-(cost * qty));
 
                 cm.gainItem(item, qty);
-                cm.sendOk("做好了！这是你的 #b#t" + item + "##k，祝你和小伙伴们玩得开心！");
+                cm.sendOk("做好了！这是你的 #b#t" + item + "#k，祝你和小伙伴们玩得开心！");
             } else {
                 cm.sendOk("你的背包空间不足，无法放入新的游戏道具。请先清理出空位后再来和我交谈。");
             }

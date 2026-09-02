@@ -130,7 +130,7 @@ function levelStart() {
     text += "#L1#练级地图#l\r\n";
     text += "#L2#城镇地图#l\r\n";
     text += "#L3#活动跳跳坐牢地图#l\r\n\r\n";
-    text += "#L9999##b[返回枫叶助手主菜单]#k#l\r\n";
+    text += "#L9999#b[返回枫叶助手主菜单]#k#l\r\n";
     cm.sendSelectLevel(text);
 }
 
@@ -180,7 +180,7 @@ function level0() {
     if (count === 0) {
         text += "#r当前暂无已探索解锁的 BOSS 地图，请先前往探索对应主城或地图。#k\r\n";
     }
-    text += "\r\n#L9999##b[返回传送主菜单]#k#l\r\n";
+    text += "\r\n#L9999#b[返回传送主菜单]#k#l\r\n";
 	cm.sendNextSelectLevel("Boss", text);
 }
 
@@ -199,7 +199,7 @@ function level1() {
     if (count === 0) {
         text += "#r当前暂无已探索解锁的练级地图，请先前往探索对应主城。#k\r\n";
     }
-    text += "\r\n#L9999##b[返回传送主菜单]#k#l\r\n";
+    text += "\r\n#L9999#b[返回传送主菜单]#k#l\r\n";
 	cm.sendNextSelectLevel("LevelUp", text);
 }
 
@@ -218,7 +218,7 @@ function level2() {
     if (count === 0) {
         text += "#r当前暂无已探索解锁的城镇地图，请先前往探索对应城镇。#k\r\n";
     }
-    text += "\r\n#L9999##b[返回传送主菜单]#k#l\r\n";
+    text += "\r\n#L9999#b[返回传送主菜单]#k#l\r\n";
 	cm.sendNextSelectLevel("Town", text);
 }
 
@@ -237,7 +237,7 @@ function level3() {
     if (count === 0) {
         text += "#r当前暂无已探索解锁的活动地图。#k\r\n";
     }
-    text += "\r\n#L9999##b[返回传送主菜单]#k#l\r\n";
+    text += "\r\n#L9999#b[返回传送主菜单]#k#l\r\n";
 	cm.sendNextSelectLevel("Fuben", text);
 }
 

@@ -157,7 +157,7 @@ function action(mode, type, selection) {
                     cm.sendOk("哇-等一下，好吗？你的客人们正在给你们表达爱意。让我们来点动感，宝贝~~。");
                     cm.dispose();
                 } else {
-                    cm.sendOk("Wheeeeeeeeeeeeeew! 我们的庆典现在圆满礼成！请和 #b#p9201009##k 对话，她会引领你们和亲朋好友前往婚后派对。感谢大家的热情！");
+                    cm.sendOk("Wheeeeeeeeeeeeeew! 我们的庆典现在圆满礼成！请和 #b#p9201009#k 对话，她会引领你们和亲朋好友前往婚后派对。感谢大家的热情！");
                     cm.dispose();
                 }
             } else {
@@ -264,7 +264,7 @@ function action(mode, type, selection) {
                                 break;
 
                             case -3:
-                                cm.sendOk("嗯……看来你身上没有入场时发放的 #r#t4000313##k……快把它找出来，宝贝~");
+                                cm.sendOk("嗯……看来你身上没有入场时发放的 #r#t4000313#k……快把它找出来，宝贝~");
                                 break;
 
                             case -4:
@@ -280,7 +280,7 @@ function action(mode, type, selection) {
                                 break;
 
                             case 3:
-                                cm.sendOk("嗯……你的伴侣似乎弄丢了入场发放的 #r#t4000313##k，没有它仪式可无法顺利进行哦。");
+                                cm.sendOk("嗯……你的伴侣似乎弄丢了入场发放的 #r#t4000313#k，没有它仪式可无法顺利进行哦。");
                                 break;
 
                             case 4:

@@ -22,7 +22,7 @@ function start(mode, type, selection) {
 		} else {//accept
 			qm.gainItem(4032447, true);
 			qm.forceStartQuest();
-			qm.sendNext("去山头 #b左边#k 喂 #b#p1013102##k. 他整个早上都在叫着要喂.");
+			qm.sendNext("去山头 #b左边#k 喂 #b#p1013102#k. 他整个早上都在叫着要喂.");
 		}
 	} else if (status == 4) {
 		qm.sendNextPrev("喂了 #p1013102# 回来找我.");

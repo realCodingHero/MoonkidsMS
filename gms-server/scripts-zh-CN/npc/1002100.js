@@ -56,9 +56,9 @@ function action(mode, type, selection) {
     } else if (status == 1) {
         item = items[selection];
         var recHpMp = ["300点生命值（HP）", "1000点生命值（HP）", "800点魔法值（MP）", "1000点生命值（HP）和魔法值（MP）"];
-        cm.sendGetNumber("你想购买 #b#t" + item[0] + "##k 吗？#t" + item[0] + "# 可以恢复 " + recHpMp[selection] + "。你想买多少个？", 1, 1, 100);
+        cm.sendGetNumber("你想购买 #b#t" + item[0] + "#k 吗？#t" + item[0] + "# 可以恢复 " + recHpMp[selection] + "。你想买多少个？", 1, 1, 100);
     } else if (status == 2) {
-        cm.sendYesNo("你确定要购买 #r" + selection + "#k 个 #b#t" + item[0] + "##k 吗？每个 #t" + item[0] + "# 需要 " + item[1] + " 金币，总共需要 #r" + (item[1] * selection) + "#k 金币。");
+        cm.sendYesNo("你确定要购买 #r" + selection + "#k 个 #b#t" + item[0] + "#k 吗？每个 #t" + item[0] + "# 需要 " + item[1] + " 金币，总共需要 #r" + (item[1] * selection) + "#k 金币。");
         amount = selection;
     } else if (status == 3) {
         if (cm.getMeso() < item[1] * amount) {

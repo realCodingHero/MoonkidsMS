@@ -26,9 +26,9 @@ function start() {
 		mapID_out = mapID - 1;
 		collected = cm.getItemQuantity(itemID);
 		collected = (QuestMode && cm.isQuestCompleted(QuestID)) ? (itemCount + collected) : collected;
-		text = `你需要收集 #e#b#v${itemID}##t${itemID}##k#n × #r#e${itemCount}#k#n  #B${collected / itemCount * 100}#  \r\n才能证明你有点本事，否则我不放心让你去白给！\r\n`;
-		text += `#L1#进入 #b#e#m${mapID_enter}##k#n 继续调查#l\r\n`;
-		text += `#L2#离开 #b#e#m${mapID}##k#n 回到 #b#e#m${mapID_out}##k#n#l`;
+		text = `你需要收集 #e#b#v${itemID}##t${itemID}#k#n × #r#e${itemCount}#k#n  #B${collected / itemCount * 100}#  \r\n才能证明你有点本事，否则我不放心让你去白给！\r\n`;
+		text += `#L1#进入 #b#e#m${mapID_enter}#k#n 继续调查#l\r\n`;
+		text += `#L2#离开 #b#e#m${mapID}#k#n 回到 #b#e#m${mapID_out}#k#n#l`;
 	}
 	if(QuestMode && cm.getQuestStatus(QuestID) == 0) {
 		levelQuest1();
@@ -63,13 +63,13 @@ function resetQuest(){
 }
 function level1() {
 	if ((QuestMode && cm.isQuestCompleted(QuestID)) || (QuestMode == false && cm.haveItem(itemID ,itemCount))) {
-		cm.sendYesNoLevel('','Enter',`我现在送你进入#b#e#m${mapID_enter}##k#n，准备好了吗？`);
+		cm.sendYesNoLevel('','Enter',`我现在送你进入#b#e#m${mapID_enter}#k#n，准备好了吗？`);
 	} else {
 		cm.sendOkLevel('','连这小小的要求都做不到，没点儿本事你难道还想去白给啊？');
 	}
 }
 function level2() {
-	cm.sendYesNoLevel('','Out',`你已经决定要离开吗？\r\n当你准备好去#b#e#m${mapID_enter}##k#n的时候再来找我。`);
+	cm.sendYesNoLevel('','Out',`你已经决定要离开吗？\r\n当你准备好去#b#e#m${mapID_enter}#k#n的时候再来找我。`);
 }
 function levelQuest1(){
 	cm.sendNextLevel('Quest2','敬礼！\r\n要做一些检查！\r\n这里是禁区，闲人免进。\r\n没有许可的人是不允许进入的！\r\n什么？已经获得许可了？');

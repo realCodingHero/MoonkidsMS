@@ -44,7 +44,7 @@ function action(mode, type, selection) {
             if (GameConfig.getServerBoolean("use_enable_custom_npc_script")) {
                 cm.openShopNPC(2082014);
             } else if (cm.isQuestStarted(3749)) {
-                cm.sendOk("我们已经找到了敌人的终极武器！沿着船头区域前进，你会找到我的妹妹 #b#p2082013##k。向她报告，获取有关任务的进一步指示。");
+                cm.sendOk("我们已经找到了敌人的终极武器！沿着船头区域前进，你会找到我的妹妹 #b#p2082013#k。向她报告，获取有关任务的进一步指示。");
             } else {
                 cm.sendDefault();
             }

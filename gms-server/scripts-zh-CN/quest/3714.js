@@ -37,18 +37,18 @@ function start(mode, type, selection) {
 
         if (status == 0) {
             if (!qm.haveItem(4001094, 1)) {
-                qm.sendNext("你没有 #b#t4001094##k...");
+                qm.sendNext("你没有 #b#t4001094#k...");
                 qm.dispose();
                 return;
             }
 
             if (qm.haveItem(2041200, 1)) {
-                qm.sendOk("（自从到达这个地方后，我包里的 #b#t2041200##k 变得更加明亮了... 再次注意到，那边的小龙似乎对它怒视着。）");
+                qm.sendOk("（自从到达这个地方后，我包里的 #b#t2041200#k 变得更加明亮了... 再次注意到，那边的小龙似乎对它怒视着。）");
                 qm.dispose();
                 return;
             }
 
-            qm.sendNext("你带来了一个 #b#t4001094##k，感谢你为我们的巢穴带回了一个同类！请接受这个...\r\n\r\n....... (bleuuhnuhgh) (blahrgngnhhng) ...\r\n\r\n呃，#b#t2041200##k 作为我们同类的感激之情。还有一个请求，请把那个东西带走...");
+            qm.sendNext("你带来了一个 #b#t4001094#k，感谢你为我们的巢穴带回了一个同类！请接受这个...\r\n\r\n....... (bleuuhnuhgh) (blahrgngnhhng) ...\r\n\r\n呃，#b#t2041200#k 作为我们同类的感激之情。还有一个请求，请把那个东西带走...");
         } else if (status == 1) {
             if (!qm.canHold(2041200, 1)) {
                 qm.sendOk("请在消耗栏中腾出空位来领取奖励。");
