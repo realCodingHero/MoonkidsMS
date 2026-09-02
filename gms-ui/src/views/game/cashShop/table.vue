@@ -1,6 +1,6 @@
 <template>
   <a-card class="general-card">
-    <a-space>
+    <a-space wrap class="filter-toolbar" style="margin-bottom: 16px">
       <a-space>
         <a-button
           :disabled="condition.onSale === 1"
@@ -26,16 +26,30 @@
           全部
         </a-button>
       </a-space>
-      <a-space class="a-input">
-        <a-input-number
-          v-model="condition.itemId"
-          placeholder="物品ID"
-          @keydown.enter="loadData"
-        />
-      </a-space>
+      <a-input-number
+        v-model="condition.itemId"
+        placeholder="物品ID"
+        allow-clear
+        style="width: 150px"
+        @keydown.enter="handleSearch"
+      />
+      <a-input
+        v-model="condition.itemName"
+        placeholder="道具名称"
+        allow-clear
+        style="width: 200px"
+        @keydown.enter="handleSearch"
+      />
       <a-space>
-        <a-button @click="loadData">搜索</a-button>
-        <a-button type="primary" @click="showBatchForm">批量编辑</a-button>
+        <a-button type="primary" @click="handleSearch">
+          <template #icon><icon-search /></template>
+          搜索
+        </a-button>
+        <a-button @click="handleReset">
+          <template #icon><icon-refresh /></template>
+          重置
+        </a-button>
+        <a-button type="primary" status="warning" @click="showBatchForm">批量编辑</a-button>
       </a-space>
     </a-space>
     <a-table
