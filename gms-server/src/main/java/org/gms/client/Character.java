@@ -4752,6 +4752,10 @@ public class Character extends AbstractCharacterObject {
             return 1;
         }
 
+        if (GameConfig.getServerBoolean("use_quest_mob_exp_rate")) {
+            return getExpRate() * getMobExpRate();
+        }
+
         World w = getWorldServer();
         return w.getExpRate() * w.getQuestRate();
     }

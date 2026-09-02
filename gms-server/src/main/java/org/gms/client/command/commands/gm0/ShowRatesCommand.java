@@ -69,9 +69,12 @@ public class ShowRatesCommand extends Command {
         }
         showMsg += I18nUtil.getMessage("ShowRatesCommand.message22") + "#e#b" + player.getBossDropRate() + "x#k#n" + "\r\n";
 
-        if (GameConfig.getServerBoolean("use_quest_rate")) {
+        if (GameConfig.getServerBoolean("use_quest_mob_exp_rate")) {
             showMsg += "\r\n#e" + I18nUtil.getMessage("ShowRatesCommand.message23") + "#n\r\n";
-            showMsg += I18nUtil.getMessage("ShowRatesCommand.message24") + "#e#b" + c.getWorldServer().getQuestRate() + "x#k#n" + "\r\n";
+            showMsg += I18nUtil.getMessage("ShowRatesCommand.message24") + "#e#b" + Math.round(player.getQuestExpRate() * 100f) / 100f + "x#k#n\r\n";
+        } else if (GameConfig.getServerBoolean("use_quest_rate")) {
+            showMsg += "\r\n#e" + I18nUtil.getMessage("ShowRatesCommand.message23") + "#n\r\n";
+            showMsg += I18nUtil.getMessage("ShowRatesCommand.message24") + "#e#b" + c.getWorldServer().getQuestRate() + "x#k#n\r\n";
         }
 
         showMsg += "\r\n";
