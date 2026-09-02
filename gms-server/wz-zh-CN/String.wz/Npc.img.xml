@@ -4648,7 +4648,7 @@
     <imgdir name="2101016">
         <string name="name" value="阿烈达"/>
         <string name="n0" value="宝石..快给宝石!!"/>
-        <string name="n1" value="居然提炼出宝石,马加提亚的人有时也蛮有用的嘛~"/>
+        <string name="n1" value="居然提炼出宝石,玛加提亚的人有时也蛮有用的嘛~"/>
     </imgdir>
     <imgdir name="2101017">
         <string name="name" value="世扎乐"/>
@@ -7681,7 +7681,7 @@
         <string name="name" value="枫叶电视"/>
     </imgdir>
     <imgdir name="9250046">
-        <string name="name" value="奥比斯枫叶电视"/>
+        <string name="name" value="天空之城枫叶电视"/>
     </imgdir>
     <imgdir name="9250051">
         <string name="name" value="圣诞老妇人"/>

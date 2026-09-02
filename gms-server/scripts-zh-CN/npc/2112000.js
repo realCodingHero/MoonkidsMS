@@ -99,7 +99,7 @@ function action(mode, type, selection) {
                         cm.sendOk("睁大眼睛看好了！这就是玛加提亚炼金术登峰造极的最高杰作！哈哈哈哈哈哈……");
                     } else if (state == 0) {
                         cm.sendOk("你们这群碍事的家伙，真是阴魂不散。既然如此，就让你们见识一下我倾注最顶尖炼金术打造的最新武器——#r弗朗肯狂人#k吧！");
-                        eim.dropMessage(5, "尤莱特：让你们见识一下我用最顶尖炼金术打造的最新武器——弗朗肯狂人！");
+                        eim.dropMessage(5, "犹泰：让你们见识一下我用最顶尖炼金术打造的最新武器——弗朗肯狂人！");
 
                         var mapobj = eim.getMapInstance(926100401);
                         var bossobj = LifeFactory.getMonster(9300139);
@@ -110,7 +110,7 @@ function action(mode, type, selection) {
                         eim.setIntProperty("yuletePassed", -1);
                     } else {
                         cm.sendOk("你们这群不知死活的家伙，真是烦死人了！既然如此，就让你们见识一下融合了蒙特鸠与卡帕莱特两大学派禁忌炼金术的终极杰作——玛加提亚那些庸人唯恐避之不及的伟力：#r狂暴弗朗肯#k！！");
-                        eim.dropMessage(5, "尤莱特：让你们见识一下融合了蒙特鸠与卡帕莱特两大学派禁忌炼金术的终极杰作——狂暴弗朗肯！！");
+                        eim.dropMessage(5, "犹泰：让你们见识一下融合了蒙特鸠与卡帕莱特两大学派禁忌炼金术的终极杰作——狂暴弗朗肯！！");
 
                         var mapobj = eim.getMapInstance(926100401);
                         var bossobj = LifeFactory.getMonster(9300140);

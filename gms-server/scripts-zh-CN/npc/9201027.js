@@ -70,7 +70,7 @@ function processNanaQuest() {
             cm.sendOk("咿呀~ 非常感谢，这里拿着 #b#t4031367##k。");
             return true;
         } else {
-            cm.sendOk("请确保有一个空余的杂项栏位来存放爱之令。");
+            cm.sendOk("请确保有一个空余的其它栏位来存放爱之令。");
         }
     } else {
         cm.sendOk("请聚集到我这里，带来 #b50 #t" + questItems[nanaLoc] + "##k。");

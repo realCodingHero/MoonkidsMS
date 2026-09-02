@@ -166,7 +166,7 @@ function action(mode, type, selection) {
         var complete = true;
 
         if(!cm.canHold(item, 1)) {
-            cm.sendOk("请检查你的物品栏是否有足够空间。");
+            cm.sendOk("请先确认您的背包中是否有足够的空位。");
             cm.dispose();
             return;
         }

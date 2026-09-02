@@ -184,7 +184,7 @@ function action(mode, type, selection) {
         var complete = true;
 
         if (!cm.canHold(item, 1)) {
-            cm.sendOk("首先检查你的物品栏是否有空位。");
+            cm.sendOk("请先确认您的背包中是否有足够的空位。");
             cm.dispose();
             return;
         } else if (cm.getMeso() < cost) {

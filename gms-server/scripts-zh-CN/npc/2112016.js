@@ -28,7 +28,7 @@ function start() {
     if (cm.isQuestStarted(3367)) {
         var c = cm.getQuestProgressInt(3367, 30);
         if (c >= 30) {
-            cm.sendNext("（所有文件已整理好。向尤莱特报告找到的文件。）");
+            cm.sendNext("（所有文件已整理好。向犹泰报告找到的文件。）");
             cm.dispose();
             return;
         }
@@ -40,7 +40,7 @@ function start() {
 
             if (book < 20) {
                 if (!cm.canHold(4031797, 1)) {
-                    cm.sendNext("（你找到了一份报告文件，但由于你的杂项栏已满，你选择将文件放在你找到的地方。）");
+                    cm.sendNext("（你找到了一份报告文件，但由于你的其它栏已满，你选择将文件放在你找到的地方。）");
                     cm.dispose();
                     return;
                 } else {

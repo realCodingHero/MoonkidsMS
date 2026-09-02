@@ -210,7 +210,7 @@ function action(mode, type, selection) {
         }
 
         if (!cm.canHold(recvItem, recvQty)) {
-            cm.sendOk("请先检查你的背包，找一个空闲的格子。");
+            cm.sendOk("请先确认您的背包中是否有足够的空位。");
             cm.dispose();
             return;
         } else if (cm.getMeso() < cost * qty) {

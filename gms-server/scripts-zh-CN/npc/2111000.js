@@ -33,7 +33,7 @@ function start() {
     if (cm.isQuestStarted(3310) && !cm.haveItem(4031709, 1)) {
         cm.warp(926120100, "out00");
     } else {
-        cm.sendNext("炼金术……还有炼金术士……它们两者都很重要。但更重要的是，是马加提亚容忍了一切。马加提亚的荣誉应该由我来保护。");
+        cm.sendNext("炼金术……还有炼金术士……它们两者都很重要。但更重要的是，是玛加提亚容忍了一切。玛加提亚的荣誉应该由我来保护。");
     }
 
     cm.dispose();

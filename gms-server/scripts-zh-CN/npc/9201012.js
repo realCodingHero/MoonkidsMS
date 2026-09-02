@@ -109,7 +109,7 @@ function action(mode, type, selection) {
                     var partner = cserv.getPlayerStorage().getCharacterById(cm.getPlayer().getPartnerId());
                     if (!(partner == null || !cm.getMap().equals(partner.getMap()))) {
                         if (!cm.canHold(4000313)) {
-                            cm.sendOk("请确保有一个空余的杂项栏位，以便获取#b#t4000313##k。");
+                            cm.sendOk("请确保有一个空余的其它栏位，以便获取#b#t4000313##k。");
                             cm.dispose();
                             return;
                         } else if (!partner.canHold(4000313)) {
