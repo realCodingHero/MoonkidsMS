@@ -42534,6 +42534,16 @@
     <imgdir name="1">
       <int name="npc" value="2112014"/>
       <string name="endscript" value="q3382e"/>
+      <imgdir name="item">
+        <imgdir name="0">
+          <int name="id" value="4001159"/>
+          <int name="count" value="10"/>
+        </imgdir>
+        <imgdir name="1">
+          <int name="id" value="4001160"/>
+          <int name="count" value="10"/>
+        </imgdir>
+      </imgdir>
     </imgdir>
     <imgdir name="0">
       <int name="npc" value="2112014"/>
