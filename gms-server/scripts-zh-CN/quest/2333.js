@@ -38,7 +38,7 @@ function end(mode, type, selection) {
 
 
     if (status == 0) {
-        qm.sendNext("天哪！ #b#h ##k 你居然打败了 #b蘑菇大臣#k.");
+        qm.sendNext("天哪！ #b#h #k 你居然打败了 #b蘑菇大臣#k.");
     } else if (status == 1) {
         qm.gainExp(15000);
         qm.forceCompleteQuest();

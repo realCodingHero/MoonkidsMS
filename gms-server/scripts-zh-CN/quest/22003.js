@@ -10,7 +10,7 @@ function start(mode, type, selection) {
 		status++;
 	}
 	if (status == 0) {
-		qm.sendAcceptDecline("你的 #b父亲#k 今天早上他去农场时忘了带饭盒. 你能把这个饭盒带去给你父亲吗 #b#m100030300##k, 蜂蜜?");
+		qm.sendAcceptDecline("你的 #b父亲#k 今天早上他去农场时忘了带饭盒. 你能把这个饭盒带去给你父亲吗 #b#m100030300#k, 蜂蜜?");
 	} else if (status == 1) {
 		if (mode == 0 && type == 15) {//decline
 			qm.sendNext("好孩子听妈妈的话。现在，埃文，做个好孩子，再和我说话.");

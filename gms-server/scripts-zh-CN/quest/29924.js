@@ -2,14 +2,14 @@ var MEDAL_ID = 1142129;
 
 function finishIfAlreadyAwarded() {
     if (qm.isQuestCompleted(qm.getQuest())) {
-        qm.sendOk("你已经获得过#b#t" + MEDAL_ID + "##k，这项挑战已经记录在你的冒险履历里了。");
+        qm.sendOk("你已经获得过#b#t" + MEDAL_ID + "#k，这项挑战已经记录在你的冒险履历里了。");
         qm.dispose();
         return true;
     }
     if (qm.haveItemWithId(MEDAL_ID, true)) {
         qm.forceCompleteQuest();
         qm.earnTitle(qm.getMedalName());
-        qm.sendOk("你已经获得过#b#t" + MEDAL_ID + "##k，这项挑战已经记录在你的冒险履历里了。");
+        qm.sendOk("你已经获得过#b#t" + MEDAL_ID + "#k，这项挑战已经记录在你的冒险履历里了。");
         qm.dispose();
         return true;
     }
@@ -21,7 +21,7 @@ function start(mode, type, selection) {
         return;
     }
     qm.forceStartQuest();
-    qm.sendOk("成为 10 级以上战神后，前往德烈处领取#b#t1142129##k。");
+    qm.sendOk("成为 10 级以上战神后，前往德烈处领取#b#t1142129#k。");
     qm.dispose();
 }
 
@@ -49,6 +49,6 @@ function awardMedal() {
     }
     qm.forceCompleteQuest();
     qm.earnTitle(qm.getMedalName());
-    qm.sendOk("封住你的寒冰终于开始融化。即使记忆尚未完全归来，你握紧武器的勇气，已经证明了你是谁。\r\n\r\n请收下#b#t1142129##k。从这一刻起，苏醒的英雄将再次踏上冒险之路。");
+    qm.sendOk("封住你的寒冰终于开始融化。即使记忆尚未完全归来，你握紧武器的勇气，已经证明了你是谁。\r\n\r\n请收下#b#t1142129#k。从这一刻起，苏醒的英雄将再次踏上冒险之路。");
     qm.dispose();
 }

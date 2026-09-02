@@ -43,10 +43,10 @@ function action(mode, type, selection) {
         for (var i = 0; i < item.length; i++) {
             selStr += "\r\n#L" + i + "# #b#t" + item[i] + "# (单价: " + cost[i] + " 冒险币)#k#l";
         }
-        cm.sendSimple("多亏了你的鼎力相助，#b#t4031056##k 已经成功被彻底封印了。虽然耗费了我近八百年积累的半数元气……但如今我终于能够安心了。对了，你是不是在寻找稀有的魔法材料？为了感谢你的功绩，我将向你提供我的珍藏秘药与魔法之石。挑选你需要的物品吧！" + selStr);
+        cm.sendSimple("多亏了你的鼎力相助，#b#t4031056#k 已经成功被彻底封印了。虽然耗费了我近八百年积累的半数元气……但如今我终于能够安心了。对了，你是不是在寻找稀有的魔法材料？为了感谢你的功绩，我将向你提供我的珍藏秘药与魔法之石。挑选你需要的物品吧！" + selStr);
     } else if (status == 1) {
         selected = selection;
-        cm.sendGetNumber("你需要的确实是 #b#t" + item[selected] + "##k 吗？这可是" + msg[selected] + "。虽然平时在外界极难寻觅，但我会以特惠价格提供给你，每个仅需 #b" + cost[selected] + " 冒险币#k。你想购买多少个？", 0, 1, 100);
+        cm.sendGetNumber("你需要的确实是 #b#t" + item[selected] + "#k 吗？这可是" + msg[selected] + "。虽然平时在外界极难寻觅，但我会以特惠价格提供给你，每个仅需 #b" + cost[selected] + " 冒险币#k。你想购买多少个？", 0, 1, 100);
     } else if (status == 2) {
         amount = selection;
         totalcost = cost[selected] * amount;
@@ -55,7 +55,7 @@ function action(mode, type, selection) {
             cm.dispose();
             return;
         }
-        cm.sendYesNo("你确定要购买 #r" + amount + " 个 #t" + item[selected] + "##k 吗？\r\n每个 #t" + item[selected] + "# 单价为 " + cost[selected] + " 冒险币，总计需要支付 #r" + totalcost + " 冒险币#k。");
+        cm.sendYesNo("你确定要购买 #r" + amount + " 个 #t" + item[selected] + "#k 吗？\r\n每个 #t" + item[selected] + "# 单价为 " + cost[selected] + " 冒险币，总计需要支付 #r" + totalcost + " 冒险币#k。");
     } else if (status == 3) {
         if (cm.getMeso() < totalcost || !cm.canHold(item[selected], amount)) {
             cm.sendNext("你的冒险币不足，或者背包空间已满。请检查你的【消耗】或【其它】栏是否有足够空位，并确认是否拥有至少 #r" + totalcost + "#k 冒险币。");

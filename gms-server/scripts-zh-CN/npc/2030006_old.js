@@ -40,7 +40,7 @@ function start() {
                 return;
             }
         } else {
-            cm.sendNext("请献上一颗 #b#t4005004##k 作为祭品，方可开启智慧的试炼。");
+            cm.sendNext("请献上一颗 #b#t4005004#k 作为祭品，方可开启智慧的试炼。");
         }
     }
     cm.dispose();
@@ -69,7 +69,7 @@ function action(mode, type, selection) {
         cm.sendSimple("这是第 #b" + (status + 1) + "#k 道问题：\r\n\r\n" + quest[rand]);
         quest[rand] = "";
     } else {
-        cm.sendOk("精彩绝伦！你全部回答正确，你的渊博智慧与敏锐洞察力已经得到了神圣之石的完全认可。拿着这枚 #b#t4031058##k，回去找你的三转导师完成晋升吧！");
+        cm.sendOk("精彩绝伦！你全部回答正确，你的渊博智慧与敏锐洞察力已经得到了神圣之石的完全认可。拿着这枚 #b#t4031058#k，回去找你的三转导师完成晋升吧！");
         cm.gainItem(4031058, 1);
         cm.dispose();
     }

@@ -112,7 +112,7 @@ function insidePqAction(mode, type, selection) {
 
     if (status == 0) {
         if (stg == -1) {
-            cm.sendNext("“#b#h0##k... 你终于来了。这是幸福村居民建造巨大雪人的地方。但斯克鲁奇的手下现在正在攻击它。快点！我们的任务是让你和你的队伍在限定时间内保护雪人免受斯克鲁奇手下的攻击。如果你消灭他们，他们会掉落一个叫做雪之力量的物品。收集它们并丢在雪人身上，你会看到它真的在变大。一旦它恢复到原来的大小，你的任务就完成了。只是要小心一件事。一些手下可能会掉落一个假的雪之力量。假的雪之力量实际上会让雪人比平常更快地融化。祝你好运。”");
+            cm.sendNext("“#b#h0#k... 你终于来了。这是幸福村居民建造巨大雪人的地方。但斯克鲁奇的手下现在正在攻击它。快点！我们的任务是让你和你的队伍在限定时间内保护雪人免受斯克鲁奇手下的攻击。如果你消灭他们，他们会掉落一个叫做雪之力量的物品。收集它们并丢在雪人身上，你会看到它真的在变大。一旦它恢复到原来的大小，你的任务就完成了。只是要小心一件事。一些手下可能会掉落一个假的雪之力量。假的雪之力量实际上会让雪人比平常更快地融化。祝你好运。”");
         } else if (stg == 0) {
             if (cm.getMap().getMonsterById(9400321 + 5 * difficulty) == null) {
                 cm.sendNext("请打败斯克鲁奇的手下，让雪人变大，这样斯克鲁奇就无法再躲避露面了。");
@@ -168,7 +168,7 @@ function insidePqAction(mode, type, selection) {
             gift = cm.haveItem(4032092, 1);
             if (gift) {
                 var optStr = generateSelectionMenu(generatePrizeString());
-                cm.sendSimple("哦，你带了一个#b#t4032092##k吗？太好了，稍等一下... 这是你的冒险岛圣诞礼物。请选择你想要收到的礼物：\r\n\r\n" + optStr);
+                cm.sendSimple("哦，你带了一个#b#t4032092#k吗？太好了，稍等一下... 这是你的冒险岛圣诞礼物。请选择你想要收到的礼物：\r\n\r\n" + optStr);
             } else if (eim.gridCheck(cm.getPlayer()) == -1) {
                 cm.sendNext("这是你的冒险岛圣诞礼物。享受吧~");
             } else {

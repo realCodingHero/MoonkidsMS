@@ -43,7 +43,7 @@ function start(mode, type, selection) {
 	qm.sendAcceptDecline("我有一件东西我一直想送给你作为礼物很长一段时间...我知道你很忙，尤其是当你在你的城市的路上，但你会接受我的礼物吗？");
     } else if (status == 2) {
         qm.forceStartQuest();
-	qm.sendNext("礼物的各个部分都装在附近的一个盒子里。对不起，麻烦你了，你能不能把盒子弄坏，给我拿个 #b#t4032309##k 和 #b#t4032310##k? 我马上给你组装好.", 9);
+	qm.sendNext("礼物的各个部分都装在附近的一个盒子里。对不起，麻烦你了，你能不能把盒子弄坏，给我拿个 #b#t4032309#k 和 #b#t4032310#k? 我马上给你组装好.", 9);
     } else if (status == 3) {
         qm.guideHint(18);
         qm.dispose();

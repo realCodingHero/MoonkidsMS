@@ -101,7 +101,7 @@ function action(mode, type, selection) {
 
                     if (state == -1) {           // preamble
                         if (stage == 4) {
-                            cm.sendOk("你好！欢迎来到阿莫利亚挑战的第 #b" + stage + " 阶段#k。请击败这里的怪物，收集 #b50 个 #t4031597##k 交给我。");
+                            cm.sendOk("你好！欢迎来到阿莫利亚挑战的第 #b" + stage + " 阶段#k。请击败这里的怪物，收集 #b50 个 #t4031597#k 交给我。");
                         } else if (stage == 5) {
                             cm.sendOk("你好！欢迎来到阿莫利亚挑战的第 #b" + stage + " 阶段#k。一口气跑到这里可真不容易！这一关的目标是生存与集合！首先请确保所有存活的队员都安全抵达这里，然后再去挑战最终首领。");
                         }
@@ -123,7 +123,7 @@ function action(mode, type, selection) {
                                 cm.mapMessage(5, "艾莫斯：时间紧迫！你们的目标是打开沿途的机关门，并在下一张地图的终点处全员集合。祝大家好运！");
                                 clearStage(stage, eim, curMap);
                             } else {
-                                cm.sendNext("嗯？你没听清楚吗？我需要 #r50 个 #t4031597##k 才能通过这次试炼。");
+                                cm.sendNext("嗯？你没听清楚吗？我需要 #r50 个 #t4031597#k 才能通过这次试炼。");
                             }
 
                         } else if (stage == 5) {
@@ -187,7 +187,7 @@ function action(mode, type, selection) {
                             clearStage(stage, eim, curMap);
                             eim.clearPQ();
                         } else {
-                            cm.sendNext("战况如何？你们拿到 #b#t4031594##k 了吗？这是最后的试炼，加油坚持住！");
+                            cm.sendNext("战况如何？你们拿到 #b#t4031594#k 了吗？这是最后的试炼，加油坚持住！");
                         }
                     } else {
                         cm.sendNext("请让你们的 #b队长#k 前来与我对话。");

@@ -40,21 +40,21 @@ function level2314_1() {
 }
 
 function level2314_2() {
-    cm.sendNextLevel("2314_3", "这显然不是普通的障碍，应该就是 #b#p1300003##k 提到的结界。", 3);
+    cm.sendNextLevel("2314_3", "这显然不是普通的障碍，应该就是 #b#p1300003#k 提到的结界。", 3);
 }
 
 function level2314_3() {
-    cm.sendOkLevel("dispose", "先回去把这里的情况报告给 #b#p1300003##k 吧。", 3);
+    cm.sendOkLevel("dispose", "先回去把这里的情况报告给 #b#p1300003#k 吧。", 3);
     cm.setQuestProgress(2314, 1);
 }
 
 function level2322() {
-    cm.sendOkLevel("dispose", "城墙上长满了带刺的藤蔓，看来得先回去向 #b#p1300003##k 报告。", 3);
+    cm.sendOkLevel("dispose", "城墙上长满了带刺的藤蔓，看来得先回去向 #b#p1300003#k 报告。", 3);
     cm.setQuestProgress(2322, 1);
 }
 
 function level2430014() {
-    cm.sendOkLevel("dispose", "也许可以在这附近使用 #b#t2430014##k 来解除魔法结界。", 3);
+    cm.sendOkLevel("dispose", "也许可以在这附近使用 #b#t2430014#k 来解除魔法结界。", 3);
 }
 
 function leveldispose() {

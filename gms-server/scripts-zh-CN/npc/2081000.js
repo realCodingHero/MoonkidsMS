@@ -46,7 +46,7 @@ function action(mode, type, selection) {
             cm.dispose();
         }
     } else if (status == 2) {
-        cm.sendGetNumber("#b#t4031346##k是非常珍贵的物品，我不能随随便便就给你。这样吧，帮我一个小忙，我就卖给你。每个#b#t4031346##k卖你 #b30,000 金币#k。你愿意购买吗？那么你想要买多少个呢？", 0, 0, 99);
+        cm.sendGetNumber("#b#t4031346#k是非常珍贵的物品，我不能随随便便就给你。这样吧，帮我一个小忙，我就卖给你。每个#b#t4031346#k卖你 #b30,000 金币#k。你愿意购买吗？那么你想要买多少个呢？", 0, 0, 99);
     } else if (status == 3) {
         if (selection == 0) {
             cm.sendOk("购买数量不能为0。");
@@ -54,7 +54,7 @@ function action(mode, type, selection) {
         } else {
             temp = selection;
             cost = temp * 30000;
-            cm.sendYesNo("购买 #b" + temp + " 个 #t4031346##k 一共需要 #b" + cost + " 金币#k。你确定要购买吗？");
+            cm.sendYesNo("购买 #b" + temp + " 个 #t4031346#k 一共需要 #b" + cost + " 金币#k。你确定要购买吗？");
         }
     } else if (status == 4) {
         if (cm.getMeso() < cost || !cm.canHold(4031346)) {

@@ -2,7 +2,7 @@ var status = 0;
 var cost = 5000;
 
 function start() {
-    cm.sendYesNo("你好，我负责出售前往神秘岛-天空之城的船票。前往天空之城的船每15分钟出发一次，从整点开始，票价为#b" + cost + "金币#k。你确定要购买#b#t4031045##k吗？");
+    cm.sendYesNo("你好，我负责出售前往神秘岛-天空之城的船票。前往天空之城的船每15分钟出发一次，从整点开始，票价为#b" + cost + "金币#k。你确定要购买#b#t4031045#k吗？");
 }
 
 function action(mode, type, selection) {

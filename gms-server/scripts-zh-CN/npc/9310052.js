@@ -54,7 +54,7 @@ function action(mode, type, selection) {
         }
 
         if (cm.isQuestStarted(QUEST_FIND_SENIOR_1) && !cm.isQuestCompleted(QUEST_FIND_SENIOR_1)) {
-            cm.sendOk("小僧的师兄法号#b#p9310040##k，还请施主代为寻找。");
+            cm.sendOk("小僧的师兄法号#b#p9310040#k，还请施主代为寻找。");
             cm.dispose();
             return;
         }
@@ -72,7 +72,7 @@ function action(mode, type, selection) {
 
     if (status == 1) {
         if (flow == "start8538") {
-            cm.sendAcceptDecline("小僧有个师兄早年外出苦修，时日已久却不见音信，小僧好不挂念，还请施主代为寻找。小僧的师兄法号#b#p9310040##k。");
+            cm.sendAcceptDecline("小僧有个师兄早年外出苦修，时日已久却不见音信，小僧好不挂念，还请施主代为寻找。小僧的师兄法号#b#p9310040#k。");
             return;
         }
 
@@ -97,7 +97,7 @@ function action(mode, type, selection) {
             Quest.getInstance(QUEST_FIND_SENIOR_1).start(player, npcId);
             if (cm.isQuestStarted(QUEST_FIND_SENIOR_1)) {
                 cm.gainItem(ITEM_LETTER_TO_SENIOR, 1);
-                cm.sendOk("小僧的师兄法号#b#p9310040##k，还请施主代为寻找。");
+                cm.sendOk("小僧的师兄法号#b#p9310040#k，还请施主代为寻找。");
             } else {
                 cm.sendOk("似乎暂时无法接取任务（请确认等级/职业条件，并确保背包有空位）。");
             }

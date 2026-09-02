@@ -103,7 +103,7 @@ function action(mode, type, selection) {
         cm.sendSimple(selStr);
     } else if (status == 2) {
         selectedItem = selection;
-        cm.sendGetText("你想制作多少个#b#t" + itemSet[selectedItem] + "##k？");
+        cm.sendGetText("你想制作多少个#b#t" + itemSet[selectedItem] + "#k？");
     } else if (status == 3) {
         if (selectedType == 0) { // Medicines
             var text = cm.getText();
@@ -117,7 +117,7 @@ function action(mode, type, selection) {
             matQty = matQtySet[selectedItem];
             matMeso = matQtyMeso[selectedItem];
 
-            var prompt = "你想制作#b" + makeQty + "个#t" + item + "##k吗？制作这些#t" + item + "#需要以下材料：\r\n";
+            var prompt = "你想制作#b" + makeQty + "个#t" + item + "#k吗？制作这些#t" + item + "#需要以下材料：\r\n";
             if (mats instanceof Array) {
                 for (var i = 0; i < mats.length; i++) {
                     prompt += "\r\n#i" + mats[i] + "# " + matQty[i] * makeQty + "个 #t" + mats[i] + "#";
@@ -144,7 +144,7 @@ function action(mode, type, selection) {
             item = itemSet[selectedItem];
             mats = matSet[selectedItem];
             matQty = matQtySet[selectedItem];
-            var prompt = "你想制作#b#t" + item + "##k吗？制作#t" + item + "#需要以下材料：";
+            var prompt = "你想制作#b#t" + item + "#k吗？制作#t" + item + "#需要以下材料：";
             if (mats instanceof Array) {
                 for (var i = 0; i < mats.length; i++) {
                     prompt += "\r\n#i" + mats[i] + "# " + matQty[i] + "个 #t" + mats[i] + "#";
@@ -161,7 +161,7 @@ function action(mode, type, selection) {
             rewdSet = [7, 7, [7, 8], 10, 11, 8, [7, 8], [7, 9], [7, 8], 9, 10, [10, 11], 11, [11, 12], 13, 13, 14, 15, [15, 16], 17];
 
             item = itemSet[selectedItem];
-            var prompt = "确定要捐赠#b100个#t" + item + "##k吗？";
+            var prompt = "确定要捐赠#b100个#t" + item + "#k吗？";
             cm.sendYesNo(prompt);
         }
     } else if (status == 4) {

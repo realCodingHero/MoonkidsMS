@@ -38,7 +38,7 @@ function pushIfItemExists(array, itemid) {
 }
 
 function start() {
-    cm.sendSimple("嗨，你好！欢迎来到新叶城整形医院！你想让自己的容貌焕然一新吗？只要使用 #b#t5152034##k，就能随心所欲定制你心仪的面容！\r\n#L2#使用高级脸型卡：#i5152034##t5152034##l");
+    cm.sendSimple("嗨，你好！欢迎来到新叶城整形医院！你想让自己的容貌焕然一新吗？只要使用 #b#t5152034#k，就能随心所欲定制你心仪的面容！\r\n#L2#使用高级脸型卡：#i5152034##t5152034##l");
 }
 
 function action(mode, type, selection) {
@@ -64,7 +64,7 @@ function action(mode, type, selection) {
                         pushIfItemExists(facenew, fface_v[i] + cm.getPlayer().getFace() % 1000 - (cm.getPlayer().getFace() % 100));
                     }
                 }
-                cm.sendStyle("让我看看……我可以为你彻底改头换面！使用 #b#t5152034##k，你可以在下方挑选任何你喜欢的脸型。请慢慢挑选吧！", facenew);
+                cm.sendStyle("让我看看……我可以为你彻底改头换面！使用 #b#t5152034#k，你可以在下方挑选任何你喜欢的脸型。请慢慢挑选吧！", facenew);
             }
         } else if (status == 2) {
             if (cm.haveItem(5152034)) {
@@ -72,7 +72,7 @@ function action(mode, type, selection) {
                 cm.setFace(facenew[selection]);
                 cm.sendOk("太棒了！快照照镜子，你的新面容是不是格外迷人？");
             } else {
-                cm.sendOk("嗯……看起来你背包里没有 #b#t5152034##k。非常抱歉，没有会员卡的话我无法为你进行面部整形手术哦……");
+                cm.sendOk("嗯……看起来你背包里没有 #b#t5152034#k。非常抱歉，没有会员卡的话我无法为你进行面部整形手术哦……");
             }
 
             cm.dispose();

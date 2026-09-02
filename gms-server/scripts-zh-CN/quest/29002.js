@@ -4,14 +4,14 @@ var challengeDurationMs = 30 * 24 * 60 * 60 * 1000;
 
 function finishIfAlreadyAwarded() {
     if (qm.isQuestCompleted(qm.getQuest())) {
-        qm.sendOk("你已经获得过#b#t" + medalId + "##k，这项挑战已经记录在你的冒险履历里了。");
+        qm.sendOk("你已经获得过#b#t" + medalId + "#k，这项挑战已经记录在你的冒险履历里了。");
         qm.dispose();
         return true;
     }
     if (qm.haveItemWithId(medalId, true)) {
         qm.forceCompleteQuest();
         qm.earnTitle(qm.getMedalName());
-        qm.sendOk("你已经获得过#b#t" + medalId + "##k，这项挑战已经记录在你的冒险履历里了。");
+        qm.sendOk("你已经获得过#b#t" + medalId + "#k，这项挑战已经记录在你的冒险履历里了。");
         qm.dispose();
         return true;
     }
@@ -35,7 +35,7 @@ function start(mode, type, selection) {
 
     qm.forceStartQuest();
     qm.setQuestProgress(qm.getQuest(), "" + qm.getPlayer().getFame());
-    qm.sendOk("请在 30 天内把人气提高 #b" + requiredFameGain + "#k 点，再来领取#b#t" + medalId + "##k。");
+    qm.sendOk("请在 30 天内把人气提高 #b" + requiredFameGain + "#k 点，再来领取#b#t" + medalId + "#k。");
     qm.dispose();
 }
 
@@ -46,7 +46,7 @@ function end(mode, type, selection) {
 
     var questRecord = qm.getQuestRecord(qm.getQuest());
     if (questRecord == null || System.currentTimeMillis() > questRecord.getCompletionTime() + challengeDurationMs) {
-        qm.sendOk("30 天挑战期限已经结束了。如果你还想挑战#b#t" + medalId + "##k，请先重新接取任务。");
+        qm.sendOk("30 天挑战期限已经结束了。如果你还想挑战#b#t" + medalId + "#k，请先重新接取任务。");
         qm.dispose();
         return;
     }
@@ -77,6 +77,6 @@ function end(mode, type, selection) {
 
     qm.forceCompleteQuest();
     qm.earnTitle(qm.getMedalName());
-    qm.sendOk("你在 30 天内成功提高了 #b" + gainedFame + "#k 点人气，已经证明自己是真正的超人气冒险家。\r\n\r\n请收下#b#t" + medalId + "##k。");
+    qm.sendOk("你在 30 天内成功提高了 #b" + gainedFame + "#k 点人气，已经证明自己是真正的超人气冒险家。\r\n\r\n请收下#b#t" + medalId + "#k。");
     qm.dispose();
 }

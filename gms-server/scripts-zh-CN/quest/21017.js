@@ -12,7 +12,7 @@ function start(mode, type, selection) {
     if (status == 0) {
         qm.sendNext("“看来你现在已经热身了。这时候严格的训练真的能帮助你打下坚实的基础。我们开始基础训练吧，好吗？”", 8);
     } else if (status == 1) {
-        qm.sendNextPrev("这次去#b#m140020200##k打败一些 #r#o0100133##k。我想大约#r20#k就行了。继续前进……嗯？你有什么想说的吗？?", 8);
+        qm.sendNextPrev("这次去#b#m140020200#k打败一些 #r#o0100133#k。我想大约#r20#k就行了。继续前进……嗯？你有什么想说的吗？?", 8);
     } else if (status == 2) {
         qm.sendNextPrev("“数字不是越来越大了吗”?", 2);
     } else if (status == 3) {

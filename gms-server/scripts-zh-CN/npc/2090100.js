@@ -39,7 +39,7 @@ function pushIfItemExists(array, itemid) {
 }
 
 function start() {
-    cm.sendSimple("欢迎来到冒险岛美容店。如果你有#b#t5150025##k或者#b#t5151020##k，请让我来为你打理发型。请选择你想要的服务。\r\n#L1#理发：#i5150025##t5150025##l\r\n#L2#染发：#i5151020##t5151020##l");
+    cm.sendSimple("欢迎来到冒险岛美容店。如果你有#b#t5150025#k或者#b#t5151020#k，请让我来为你打理发型。请选择你想要的服务。\r\n#L1#理发：#i5150025##t5150025##l\r\n#L2#染发：#i5151020##t5151020##l");
 }
 
 function action(mode, type, selection) {
@@ -67,7 +67,7 @@ function action(mode, type, selection) {
                             % 10));
                     }
                 }
-                cm.sendStyle("我完全可以改变你的发型，让它看起来好极了。你为什么不改一下呢？只需 #b#t5150025##k，剩下的事我来帮你处理，选你喜欢的风格吧！", hairnew);
+                cm.sendStyle("我完全可以改变你的发型，让它看起来好极了。你为什么不改一下呢？只需 #b#t5150025#k，剩下的事我来帮你处理，选你喜欢的风格吧！", hairnew);
             } else if (selection == 2) {
                 beauty = 2;
                 haircolor = Array();
@@ -76,7 +76,7 @@ function action(mode, type, selection) {
                 for (var i = 0; i < 8; i++) {
                     pushIfItemExists(haircolor, current + i);
                 }
-                cm.sendStyle("我完全可以改变你的发色，让它看起来那么好。你为什么不改一下呢？只需要 #b#t5151020##k，剩下的我来负责，选你喜欢的颜色吧！", haircolor);
+                cm.sendStyle("我完全可以改变你的发色，让它看起来那么好。你为什么不改一下呢？只需要 #b#t5151020#k，剩下的我来负责，选你喜欢的颜色吧！", haircolor);
             }
         } else if (status == 2) {
             cm.dispose();

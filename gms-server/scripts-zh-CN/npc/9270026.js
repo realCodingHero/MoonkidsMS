@@ -44,7 +44,7 @@ function pushIfItemsExists(array, itemidList) {
 }
 
 function start() {
-    cm.sendSimple("嗨，你好！我是Sixx，在CBD的大眼睛镜片店负责这里的事务！使用#b#t5152039##k或#b#t5152040##k，你可以让我们来处理剩下的事情，拥有你一直渴望的美丽外观！记住，每个人注意到的第一件事就是眼睛，我们可以帮助你找到最适合你的美瞳！那么，你想要使用什么呢？\r\n#L1#美瞳：#i5152039##t5152039##l\r\n#L2#美瞳：#i5152040##t5152040##l\r\n#L3#一次性美瞳：#i5152107#（任何颜色）#l");
+    cm.sendSimple("嗨，你好！我是Sixx，在CBD的大眼睛镜片店负责这里的事务！使用#b#t5152039#k或#b#t5152040#k，你可以让我们来处理剩下的事情，拥有你一直渴望的美丽外观！记住，每个人注意到的第一件事就是眼睛，我们可以帮助你找到最适合你的美瞳！那么，你想要使用什么呢？\r\n#L1#美瞳：#i5152039##t5152039##l\r\n#L2#美瞳：#i5152040##t5152040##l\r\n#L3#一次性美瞳：#i5152107#（任何颜色）#l");
 }
 
 function action(mode, type, selection) {
@@ -56,7 +56,7 @@ function action(mode, type, selection) {
             if (selection == 1) {
                 beauty = 1;
                 var current = cm.getPlayer().getFace() % 100 + 20000 + cm.getPlayer().getGender() * 1000;
-                cm.sendYesNo("如果你使用普通优惠券，你将获得一副随机的化妆隐形眼镜。你打算使用#b#t5152039##k，真的改变你的眼睛吗？");
+                cm.sendYesNo("如果你使用普通优惠券，你将获得一副随机的化妆隐形眼镜。你打算使用#b#t5152039#k，真的改变你的眼睛吗？");
             } else if (selection == 2) {
                 beauty = 2;
                 var current = cm.getPlayer().getFace() % 100 + 20000 + cm.getPlayer().getGender() * 1000;

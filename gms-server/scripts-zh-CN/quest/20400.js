@@ -40,7 +40,7 @@ function start(mode, type, selection) {
         }
 
         if (status == 0) {
-            qm.sendNext("不久前，我们收到了#b高级骑士#p1103000##k的求救信号, 目前驻扎在#r圣地#k. 你的任务是找到他,首先去和#b#p1101002##k联系，接受关于你任务的进一步指示.");
+            qm.sendNext("不久前，我们收到了#b高级骑士#p1103000#k的求救信号, 目前驻扎在#r圣地#k. 你的任务是找到他,首先去和#b#p1101002#k联系，接受关于你任务的进一步指示.");
         } else if (status == 1) {
             qm.forceCompleteQuest();
             qm.dispose();

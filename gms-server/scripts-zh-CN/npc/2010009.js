@@ -41,7 +41,7 @@ function action(mode, type, selection) {
     }
     if (status == 0) {
         if (cm.getPlayer().getGuildId() < 1 || cm.getPlayer().getGuildRank() != 1) {
-            cm.sendNext("你好！我是#b#p2010009##k。只有家族会长才能尝试组建家族联盟。");
+            cm.sendNext("你好！我是#b#p2010009#k。只有家族会长才能尝试组建家族联盟。");
             cm.dispose();
             return;
         }

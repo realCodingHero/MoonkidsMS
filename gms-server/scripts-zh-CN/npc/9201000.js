@@ -69,9 +69,9 @@ function action(mode, type, selection) {
                 if (!cm.isQuestCompleted(100400)) {
                     if (!cm.isQuestStarted(100400)) {
                         state = 0;
-                        cm.sendNext("你想制作订婚戒指是吗？好的，不过你必须先去获得#b#p9201003##k的#r真爱祝福#k，我才能为你打造。");
+                        cm.sendNext("你想制作订婚戒指是吗？好的，不过你必须先去获得#b#p9201003#k的#r真爱祝福#k，我才能为你打造。");
                     } else {
-                        cm.sendOk("在制作订婚戒指之前，请先去获得#b#p9201003##k的祝福。他就在#r射手村狩猎场#k的附近等你。");
+                        cm.sendOk("在制作订婚戒指之前，请先去获得#b#p9201003#k的祝福。他就在#r射手村狩猎场#k的附近等你。");
                         cm.dispose();
                     }
                 } else {
@@ -120,7 +120,7 @@ function action(mode, type, selection) {
                 matQty = matQtySet[selection];
                 cost = costSet[selection];
 
-                var prompt = "你确定要制作 #b#t" + item + "##k 吗？";
+                var prompt = "你确定要制作 #b#t" + item + "#k 吗？";
                 prompt += "\r\n制作这枚戒指需要准备以下材料与手续费，请确保你的背包有足够的空位：#b";
 
                 if (mats instanceof Array) {

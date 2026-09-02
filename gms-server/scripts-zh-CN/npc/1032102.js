@@ -43,7 +43,7 @@ function action(mode, type, selection) {
                 cm.sendOk("确保你的宠物装备在第一个槽位上。");
                 cm.dispose();
             } else if (cm.getPlayer().getPet(0).getItemId() < 5000029 || cm.getPlayer().getPet(0).getItemId() > 5000033 || !cm.haveItem(5380000, 1)) {
-                cm.sendOk("你不符合要求。你需要 #i5380000##t5380000#，以及 #d#i5000029##t5000029##k, #g#i5000030##t5000030##k, #r#i5000031##t5000031##k, #b#i5000032##t5000032##k, 或者 #e#i5000033##t5000033##n 中的任意一个装备在槽位1上。请在符合条件后再来。");
+                cm.sendOk("你不符合要求。你需要 #i5380000##t5380000#，以及 #d#i5000029##t5000029#k, #g#i5000030##t5000030#k, #r#i5000031##t5000031#k, #b#i5000032##t5000032#k, 或者 #e#i5000033##t5000033##n 中的任意一个装备在槽位1上。请在符合条件后再来。");
                 cm.dispose();
             } else if (cm.getPlayer().getPet(0).getLevel() < 15) {
                 cm.sendOk("你的宠物必须达到15级或以上才能进化。");
@@ -60,7 +60,7 @@ function action(mode, type, selection) {
                     }
                 }
                 if (i == 3) {
-                    cm.sendOk("你要么没有准备好进化的宠物龙，要么缺少#b#t5380000##k。");
+                    cm.sendOk("你要么没有准备好进化的宠物龙，要么缺少#b#t5380000#k。");
                     cm.dispose();
                     return;
                 }

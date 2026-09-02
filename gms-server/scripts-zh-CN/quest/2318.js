@@ -25,7 +25,7 @@ function start(mode, type, selection) {
         qm.sendAcceptDecline("嗯……在你搜集紫色毒蘑菇盖的时间里，我查了一下，我还需要另外的材料。请你再去帮我搜集一种材料。");
     } else if (status == 1) {
         qm.forceStartQuest();
-        qm.sendOk("很好。请你帮我去打猎得意的蘑菇仔，搜集#b50个#t4000499##k。");
+        qm.sendOk("很好。请你帮我去打猎得意的蘑菇仔，搜集#b50个#t4000499#k。");
     } else if (status == 2) {
         qm.dispose();
     }
@@ -45,7 +45,7 @@ function end(mode, type, selection) {
         qm.sendOk("需要的材料全部搜集到了吗？")
     } else if (status == 1) {
         if (!qm.haveItem(4000499, 50)) {
-            qm.sendOk("嗯？你好像还没搜集到#b50个#t4000499##k啊。我需要#b50个#t4000499##k。");
+            qm.sendOk("嗯？你好像还没搜集到#b50个#t4000499#k啊。我需要#b50个#t4000499#k。");
             status = 2;
             return;
         }

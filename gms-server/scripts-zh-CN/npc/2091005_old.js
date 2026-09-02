@@ -172,10 +172,10 @@ function action(mode, type, selection) {
                         if (cm.getPlayer().getLevel() > level) {
                             cm.gainItem(belt, 1);
                         } else {
-                            cm.sendNext("想要获得 #i" + belt + "# #b#t" + belt + "##k，等级至少需要达到 #b" + level + "级#k，并且至少拥有 #b" + points + " 点修练点数#k。\r\n\r\n如果你想获得这条腰带，还需要 #r" + (points - cm.getPlayer().getDojoPoints()) + "#k 点修练点数。");
+                            cm.sendNext("想要获得 #i" + belt + "# #b#t" + belt + "#k，等级至少需要达到 #b" + level + "级#k，并且至少拥有 #b" + points + " 点修练点数#k。\r\n\r\n如果你想获得这条腰带，还需要 #r" + (points - cm.getPlayer().getDojoPoints()) + "#k 点修练点数。");
                         }
                     } else {
-                        cm.sendNext("想要获得 #i" + belt + "# #b#t" + belt + "##k，等级至少需要达到 #b" + level + "级#k，并且至少拥有 #b" + points + " 点修练点数#k。\r\n\r\n如果你想获得这条腰带，还需要 #r" + (points - cm.getPlayer().getDojoPoints()) + "#k 点修练点数。");
+                        cm.sendNext("想要获得 #i" + belt + "# #b#t" + belt + "#k，等级至少需要达到 #b" + level + "级#k，并且至少拥有 #b" + points + " 点修练点数#k。\r\n\r\n如果你想获得这条腰带，还需要 #r" + (points - cm.getPlayer().getDojoPoints()) + "#k 点修练点数。");
                     }
                     cm.dispose();
                 }
@@ -193,7 +193,7 @@ function action(mode, type, selection) {
                 }
             } else if (selectedMenu == 4) { //I want to receive a medal.
                 if (status == 0 && cm.getPlayer().getVanquisherStage() <= 0) {
-                    cm.sendYesNo("你还没有尝试过挑战勋章吗？如果在武陵道场击败某种怪物 #b100次#k，就可以获得 #b#t" + (1142033 + cm.getPlayer().getVanquisherStage()) + "##k 称号勋章。看起来你还没有获得 #b#t" + (1142033 + cm.getPlayer().getVanquisherStage()) + "##k……你想挑战 #b#t" + (1142033 + cm.getPlayer().getVanquisherStage()) + "##k 吗？");
+                    cm.sendYesNo("你还没有尝试过挑战勋章吗？如果在武陵道场击败某种怪物 #b100次#k，就可以获得 #b#t" + (1142033 + cm.getPlayer().getVanquisherStage()) + "#k 称号勋章。看起来你还没有获得 #b#t" + (1142033 + cm.getPlayer().getVanquisherStage()) + "#k……你想挑战 #b#t" + (1142033 + cm.getPlayer().getVanquisherStage()) + "#k 吗？");
                 } else if (status == 1 || cm.getPlayer().getVanquisherStage() > 0) {
                     if (mode == 0) {
                         cm.sendNext("如果不想挑战的话也没关系。");
@@ -202,11 +202,11 @@ function action(mode, type, selection) {
                         if (cm.getPlayer().getDojoStage() > 37) {
                             cm.sendNext("你已经完成了所有的勋章挑战！");
                         } else if (cm.getPlayer().getVanquisherKills() < 100 && cm.getPlayer().getVanquisherStage() > 0) {
-                            cm.sendNext("你还需要击败 #b" + (100 - cm.getPlayer().getVanquisherKills()) + " 只#k 怪物才能获得 #b#t" + (1142032 + cm.getPlayer().getVanquisherStage()) + "##k。请继续加油。顺便提醒一下，只有在武陵道场由我师父召唤出来的怪物才算数哦。还有，打完怪之后可别直接退场！#r如果击败怪物后没有进入下一层，是不会计入胜利次数的#k。");
+                            cm.sendNext("你还需要击败 #b" + (100 - cm.getPlayer().getVanquisherKills()) + " 只#k 怪物才能获得 #b#t" + (1142032 + cm.getPlayer().getVanquisherStage()) + "#k。请继续加油。顺便提醒一下，只有在武陵道场由我师父召唤出来的怪物才算数哦。还有，打完怪之后可别直接退场！#r如果击败怪物后没有进入下一层，是不会计入胜利次数的#k。");
                         } else if (cm.getPlayer().getVanquisherStage() <= 0) {
                             cm.getPlayer().setVanquisherStage(1);
                         } else {
-                            cm.sendNext("恭喜你获得了 #b#t" + (1142032 + cm.getPlayer().getVanquisherStage()) + "##k！");
+                            cm.sendNext("恭喜你获得了 #b#t" + (1142032 + cm.getPlayer().getVanquisherStage()) + "#k！");
                             cm.gainItem(1142033 + cm.getPlayer().getVanquisherStage(), 1);
                             cm.getPlayer().setVanquisherStage(cm.c.getPlayer().getVanquisherStage() + 1);
                             cm.getPlayer().setVanquisherKills(0);

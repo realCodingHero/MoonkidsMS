@@ -31,7 +31,7 @@ function start(mode, type, selection) {
 			qm.dispose();//get the message xd
 		} else {//accept
 			qm.forceStartQuest();
-			qm.sendNext("#b#p1013101##k 去 #b#m100030102##k 给猎犬喂饭了。从家里出去就能见到他了.");
+			qm.sendNext("#b#p1013101#k 去 #b#m100030102#k 给猎犬喂饭了。从家里出去就能见到他了.");
 		}
 	} else if (status == 9) {
 		qm.sendImage("UI/tutorial/evan/1/0");

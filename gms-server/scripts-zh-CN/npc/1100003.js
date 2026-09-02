@@ -33,7 +33,7 @@ function action(mode, type, selection) {
         if (status == 0) {
             var display = "";
             for (var i = 0; i < menu.length; i++) {
-                display += "\r\n#L" + i + "##b 金银岛 (1000 金币)#k";
+                display += "\r\n#L" + i + "#b 金银岛 (1000 金币)#k";
             }
             cm.sendNext("你好！你想离开圣地去其他地方吗？那你找我就找对人啦！我经营着往返于#b圣地#k与#b金银岛#k之间的渡船。只需支付 #b1,000 金币#k，我就可以送你前往金银岛。你想现在出发吗？\r\n");
         } else if (status == 1) {

@@ -79,20 +79,20 @@ function action(mode, type, selection) {
         } else if (status == 1) {
             var listStr = "";
             for (var i = 0; i < wishPrizes.length; i++) {
-                listStr += "#b#L" + i + "#" + wishPrizesQty[i] + " 个 #z" + wishPrizes[i] + "##k";
+                listStr += "#b#L" + i + "#" + wishPrizesQty[i] + " 个 #z" + wishPrizes[i] + "#k";
                 listStr += " - " + wishPrizesCst[i] + " 张许愿券";
                 listStr += "#l\r\n";
             }
 
-            cm.sendSimple("你当前拥有 #b" + amntTicket + " 张 #i" + slctTicket + "# #t" + slctTicket + "##k。\r\n\r\n请选择你想要兑换的奖励：\r\n\r\n" + listStr);
+            cm.sendSimple("你当前拥有 #b" + amntTicket + " 张 #i" + slctTicket + "# #t" + slctTicket + "#k。\r\n\r\n请选择你想要兑换的奖励：\r\n\r\n" + listStr);
         } else if (status == 2) {
             sel = selection;
 
             if (amntTicket < wishPrizesCst[selection]) {
-                cm.sendPrev("兑换该奖励需要 #b" + wishPrizesCst[selection] + " 张 #t" + slctTicket + "##k！你手头的许愿券数量不够哦，等收集齐了再来找我吧。");
+                cm.sendPrev("兑换该奖励需要 #b" + wishPrizesCst[selection] + " 张 #t" + slctTicket + "#k！你手头的许愿券数量不够哦，等收集齐了再来找我吧。");
                 advance = false;
             } else {
-                cm.sendYesNo("你选择了兑换 #b#t" + wishPrizes[selection] + "# x" + wishPrizesQty[selection] + "#k，需要消耗 #b" + wishPrizesCst[selection] + " 张 #t" + slctTicket + "##k。确定要兑换吗？");
+                cm.sendYesNo("你选择了兑换 #b#t" + wishPrizes[selection] + "# x" + wishPrizesQty[selection] + "#k，需要消耗 #b" + wishPrizesCst[selection] + " 张 #t" + slctTicket + "#k。确定要兑换吗？");
             }
         } else {
             if (cm.canHold(wishPrizes[sel], wishPrizesQty[sel])) {

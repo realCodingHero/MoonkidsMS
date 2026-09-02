@@ -17,7 +17,7 @@ function start(mode, type, selection) {
 
 
     if (status == 0) {
-        qm.sendNext("这还不是结束，#b#h ##k。 #b首相#k 的手下仍然散布在城堡中。");
+        qm.sendNext("这还不是结束，#b#h #k。 #b首相#k 的手下仍然散布在城堡中。");
     } else if (status == 1) {
         qm.sendAcceptDecline("据我所知，靠近#b天空高楼 3#k附近有一群首相的手下。前几天我捡到了首相掉落的一把钥匙。拿去吧，用这把钥匙。");
     } else if (status == 2) {

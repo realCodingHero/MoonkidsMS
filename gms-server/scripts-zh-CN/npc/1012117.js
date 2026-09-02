@@ -63,7 +63,7 @@ function action(mode, type, selection) {
         } else if (status == 1) {
             if (selection == 0) {
                 beauty = 1;
-                cm.sendYesNo("如果使用普通会员卡，换出来的发型将是随机的……你确定要使用 #b#t5150040##k 吗？请记住，发型是随机生成的哦！");
+                cm.sendYesNo("如果使用普通会员卡，换出来的发型将是随机的……你确定要使用 #b#t5150040#k 吗？请记住，发型是随机生成的哦！");
             } else {
                 beauty = 2;
 

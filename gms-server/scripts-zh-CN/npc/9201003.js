@@ -68,10 +68,10 @@ function action(mode, type, selection) {
                     cm.sendNext("爸爸、妈妈，我有一个请求想向你们请教……我想向我心爱的人求婚，请指引我如何像你们一样，走过充满爱与关怀的相伴之路。");
                 } else {
                     if (!hasProofOfLoves(cm.getPlayer())) {
-                        cm.sendOk("孩子，我们需要确认你是否真正做好了全心全意去爱伴侣的准备。请为我们带回 #b4 个 #t4031367##k。");
+                        cm.sendOk("孩子，我们需要确认你是否真正做好了全心全意去爱伴侣的准备。请为我们带回 #b4 个 #t4031367#k。");
                         cm.dispose();
                     } else {
-                        cm.sendNext("#b#h0##k，你今天真让我们感到无比骄傲！你已经获得了我们的真爱祝福，可以去向你心仪的伴侣求婚了。现在去阿莫利亚找订婚戒指工匠 #p9201000# 吧。愿你们的未来充满爱与幸福~~");
+                        cm.sendNext("#b#h0#k，你今天真让我们感到无比骄傲！你已经获得了我们的真爱祝福，可以去向你心仪的伴侣求婚了。现在去阿莫利亚找订婚戒指工匠 #p9201000# 吧。愿你们的未来充满爱与幸福~~");
                         state = 1;
                     }
                 }
@@ -91,7 +91,7 @@ function action(mode, type, selection) {
                 cm.dispose();
             }
         } else if (status == 2) {
-            cm.sendNextPrev("在枫之谷世界各大城镇中，住着负责守护爱情的爱之仙子#r娜娜#k。去拜访她们并收集 #b4 个 #t4031367##k 带回来给我们吧。这段旅程会让你明白爱情的真正意义……");
+            cm.sendNextPrev("在枫之谷世界各大城镇中，住着负责守护爱情的爱之仙子#r娜娜#k。去拜访她们并收集 #b4 个 #t4031367#k 带回来给我们吧。这段旅程会让你明白爱情的真正意义……");
         } else if (status == 3) {
             cm.setQuestProgress(100400, 1, 1);
             cm.dispose();

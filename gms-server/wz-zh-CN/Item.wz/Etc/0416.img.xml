@@ -1457,13 +1457,13 @@
           <int name="align" value="1"/>
         </imgdir>
         <imgdir name="1">
-          <string name="text" value="#L1##bThe first page of the diary...#k#l"/>
+          <string name="text" value="#L1#bThe first page of the diary...#k#l"/>
         </imgdir>
         <imgdir name="2">
-          <string name="text" value="#L3##bskip...#k#l"/>
+          <string name="text" value="#L3#bskip...#k#l"/>
         </imgdir>
         <imgdir name="3">
-          <string name="text" value="#L7##bTo the last page of the diary#k#l"/>
+          <string name="text" value="#L7#bTo the last page of the diary#k#l"/>
         </imgdir>
       </imgdir>
       <imgdir name="1">
@@ -1596,7 +1596,7 @@
           <int name="align" value="1"/>
         </imgdir>
         <imgdir name="1">
-          <string name="text" value="  目录\n#L1##b1. 什么是新手？#k#l\n#L3##b2. 基本操作#k#l\n#L9##b3. 什么是道具？#k#l\n#L11##b4. AP与SP#k#l\n#L14##b5. 什么是转职？#k#l\n#L15##b6. 第一次转职：该怎么做？#k#l"/>
+          <string name="text" value="  目录\n#L1#b1. 什么是新手？#k#l\n#L3#b2. 基本操作#k#l\n#L9#b3. 什么是道具？#k#l\n#L11#b4. AP与SP#k#l\n#L14#b5. 什么是转职？#k#l\n#L15#b6. 第一次转职：该怎么做？#k#l"/>
         </imgdir>
       </imgdir>
       <imgdir name="1">
@@ -1615,7 +1615,7 @@
           <string name="text" value="即使是最厉害的冒险家，也都经历过新手时期的成长烦恼。请认真训练，让自己成为出色的冒险家！"/>
         </imgdir>
         <imgdir name="1">
-          <string name="text" value="\n\n\n\n\n\n\n\n#L1##b返回目录#k#l"/>
+          <string name="text" value="\n\n\n\n\n\n\n\n#L1#b返回目录#k#l"/>
           <string name="align" value="2"/>
         </imgdir>
       </imgdir>
@@ -1662,7 +1662,7 @@
           <string name="text" value="#e/partyinfo#n：查看当前队伍成员信息。\n#e/makeparty#n：创建新队伍。\n#e/leaveparty#n：离开当前队伍。\n#e/partyexpell#n：强制移除一名队伍成员。#b提示：#k也可以通过队伍窗口进行操作。"/>
         </imgdir>
         <imgdir name="2">
-          <string name="text" value="\n\n\n#L1##b返回目录#k#l"/>
+          <string name="text" value="\n\n\n#L1#b返回目录#k#l"/>
           <string name="align" value="2"/>
         </imgdir>
       </imgdir>
@@ -1712,7 +1712,7 @@
           <string name="text" value="#b智力（INT）#k - 数值越高，魔法攻击越强；将AP投入智力也会影响最大MP。是魔法师魔法攻击力的重要来源。"/>
         </imgdir>
         <imgdir name="2">
-          <string name="text" value="#L1##b返回目录#k#l"/>
+          <string name="text" value="#L1#b返回目录#k#l"/>
           <string name="align" value="2"/>
         </imgdir>
       </imgdir>
@@ -1777,7 +1777,7 @@
       </imgdir>
       <imgdir name="19">
         <imgdir name="0">
-          <string name="text" value="\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n#L1##b返回目录#k#l"/>
+          <string name="text" value="\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n#L1#b返回目录#k#l"/>
           <int name="align" value="2"/>
         </imgdir>
       </imgdir>
@@ -4955,7 +4955,7 @@
       </imgdir>
       <imgdir name="4">
         <imgdir name="0">
-          <string name="text" value="Tired from hunting for a long time, we decided to take a rest on the roof of a house. It was weird to see that there were #bboots#k hung by the chimney which were coming out from the roof tops. More surprisingly, there were full of Carrot, Grass and sugar inside the boots as if they knew that we will be taking a rest there. We really appreciated their kind effort and spirit so we have filled the boots with candies and gifts and left for the hunting again."/>
+          <string name="text" value="Tired from hunting for a long time, we decided to take a rest on the roof of a house. It was weird to see that there were #boots#k hung by the chimney which were coming out from the roof tops. More surprisingly, there were full of Carrot, Grass and sugar inside the boots as if they knew that we will be taking a rest there. We really appreciated their kind effort and spirit so we have filled the boots with candies and gifts and left for the hunting again."/>
         </imgdir>
       </imgdir>
       <imgdir name="5">
@@ -5308,7 +5308,7 @@
           <int name="align" value="1"/>
         </imgdir>
         <imgdir name="1">
-          <string name="text" value="  Table of Contents\n#L1##b1. What is a Noblesse?#k#l\n#L3##b2. Basic Controls#k#l\n#L9##b3. What is an Item?#k#l\n#L11##b4. AP and SP#k#l\n#L14##b5. What is Job Advancement?#k#l\n#L15##b6. 1st Job Advancement#k#l"/>
+          <string name="text" value="  Table of Contents\n#L1#b1. What is a Noblesse?#k#l\n#L3#b2. Basic Controls#k#l\n#L9#b3. What is an Item?#k#l\n#L11#b4. AP and SP#k#l\n#L14#b5. What is Job Advancement?#k#l\n#L15#b6. 1st Job Advancement#k#l"/>
         </imgdir>
       </imgdir>
       <imgdir name="1">
@@ -5327,7 +5327,7 @@
           <string name="text" value="making a Job Advancement. Even the strongest Knights began their careers as Noblesses. Work hard so you can be like them!"/>
         </imgdir>
         <imgdir name="1">
-          <string name="text" value="\n\n\n\n\n\n\n\n\n\n#L1##bReturn to the Table of Contents#k#l"/>
+          <string name="text" value="\n\n\n\n\n\n\n\n\n\n#L1#bReturn to the Table of Contents#k#l"/>
           <int name="align" value="2"/>
         </imgdir>
       </imgdir>
@@ -5377,7 +5377,7 @@
           <string name="text" value="#e/partyinvite#n : Invite a new party member.#b(Party Leader)#k\n#e/partyexpell#n : Kick a party member out of the party.#b(Party Leader)#k"/>
         </imgdir>
         <imgdir name="3">
-          <string name="text" value="#L1##bReturn to the Table of Contents#k#l"/>
+          <string name="text" value="#L1#bReturn to the Table of Contents#k#l"/>
           <string name="align" value="2"/>
         </imgdir>
       </imgdir>
@@ -5408,7 +5408,7 @@
           <string name="text" value="(4)#e Cash Items#n\n  Items that can be purchased in the Cash Shop, primarily to customize the look of a character and create other visual effects. #rCash items can be purchased by charging your account with cash. #k"/>
         </imgdir>
         <imgdir name="2">
-          <string name="text" value="\n#L1##bReturn to the Table of Contents#k#l"/>
+          <string name="text" value="\n#L1#bReturn to the Table of Contents#k#l"/>
           <int name="align" value="2"/>
         </imgdir>
       </imgdir>
@@ -5501,7 +5501,7 @@
           <string name="text" value="#bTip.#k If you wait until Lv. 30 to make your Job Advancement, you will not receive the SP corresponding to previous levels. Therefore, we recommend that you make your 1st Job Advancement as soon as you reach the eligible level."/>
         </imgdir>
         <imgdir name="1">
-          <string name="text" value="\n\n#L1##bReturn to the Table of Contents#k#l"/>
+          <string name="text" value="\n\n#L1#bReturn to the Table of Contents#k#l"/>
           <int name="align" value="2"/>
         </imgdir>
       </imgdir>
@@ -5527,7 +5527,7 @@
           <int name="align" value="1"/>
         </imgdir>
         <imgdir name="1">
-          <string name="text" value="  Table of Contents\n#L1##b1. What&apos;s a Legend?#k#l\n#L3##b2. Simple Controls#k#l\n#L9##b3. What are Items?#k#l\n#L11##b4. AP and SP#k#l\n#L14##b5. What&apos;s a Job Advancement?#k#l\n#L15##b6. Guide to 1st Job Advancement#k#l"/>
+          <string name="text" value="  Table of Contents\n#L1#b1. What&apos;s a Legend?#k#l\n#L3#b2. Simple Controls#k#l\n#L9#b3. What are Items?#k#l\n#L11#b4. AP and SP#k#l\n#L14#b5. What&apos;s a Job Advancement?#k#l\n#L15#b6. Guide to 1st Job Advancement#k#l"/>
         </imgdir>
       </imgdir>
       <imgdir name="1">
@@ -5548,7 +5548,7 @@
           <string name="text" value="The resurrection of the Black Wizard cannot be prevented unless you recover all of your previous powers that once made you a Legend. Continue training so that one day you&apos;ll be back above the rest!"/>
         </imgdir>
         <imgdir name="1">
-          <string name="text" value="\n\n#L1##bReturn to Table of Contents#k#l"/>
+          <string name="text" value="\n\n#L1#bReturn to Table of Contents#k#l"/>
           <int name="align" value="2"/>
         </imgdir>
       </imgdir>
@@ -5601,7 +5601,7 @@
           <string name="text" value="#e/partyinvite#n : Sends a party invitation.#b(Party Leaders Only)#k\n#e/partyexpel#n : Expels a member from the party.#b(Party Leaders Only)#k"/>
         </imgdir>
         <imgdir name="3">
-          <string name="text" value="#L1##bReturn to Table of Contents#k#l"/>
+          <string name="text" value="#L1#bReturn to Table of Contents#k#l"/>
           <string name="align" value="2"/>
         </imgdir>
       </imgdir>
@@ -5632,7 +5632,7 @@
           <string name="text" value="(4)#e Cash Items#n\n These are decorative items, sometimes with special effects, that can be purchased through the Cash Shop. #rCash Items can only be purchased with NX Prepaid, which can be charged to your account.#k"/>
         </imgdir>
         <imgdir name="2">
-          <string name="text" value="\n#L1##bReturn to Table of Contents#k#l"/>
+          <string name="text" value="\n#L1#bReturn to Table of Contents#k#l"/>
           <int name="align" value="2"/>
         </imgdir>
       </imgdir>
@@ -5657,7 +5657,7 @@
           <string name="text" value="(2) #eSP(Skill Point)#n\nPoints which can be used on skills acquired through job advancements. Starting out as a Legend, no SP will be assigned to you, but make the 1st job advancement and you will receive 1 point. After, each level-up will reward you with 3 Skill Points. "/>
         </imgdir>
         <imgdir name="1">
-          <string name="text" value="#L1##bReturn to Table of Contents#k#l"/>
+          <string name="text" value="#L1#bReturn to Table of Contents#k#l"/>
           <string name="align" value="2.000000"/>
         </imgdir>
       </imgdir>
@@ -5699,7 +5699,7 @@
           <string name="text" value="#bTip.#k If you make the first job advancement AFTER reaching Level 30, you will not receive the SP that is available to levels below 30. Thus, it’s highly recommended that you make the job advancement as soon as you are eligible."/>
         </imgdir>
         <imgdir name="1">
-          <string name="text" value="\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n#L1##bReturn to Table of Contents#k#l"/>
+          <string name="text" value="\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n#L1#bReturn to Table of Contents#k#l"/>
           <int name="align" value="2"/>
         </imgdir>
       </imgdir>
@@ -5964,7 +5964,7 @@
       </imgdir>
       <imgdir name="4">
         <imgdir name="0">
-          <string name="text" value="Tired from hunting for a long time, we decided to take a rest on the roof of a house. It was weird to see that there were #bboots#k hung by the chimney which were coming out from the roof tops. More surprisingly, there were full of Carrot, Grass and sugar inside the boots as if they knew that we will be taking a rest there. We really appreciated their kind effort and spirit so we have filled the boots with candies and gifts and left for the hunting again."/>
+          <string name="text" value="Tired from hunting for a long time, we decided to take a rest on the roof of a house. It was weird to see that there were #boots#k hung by the chimney which were coming out from the roof tops. More surprisingly, there were full of Carrot, Grass and sugar inside the boots as if they knew that we will be taking a rest there. We really appreciated their kind effort and spirit so we have filled the boots with candies and gifts and left for the hunting again."/>
         </imgdir>
       </imgdir>
       <imgdir name="5">
@@ -6047,7 +6047,7 @@
           <int name="align" value="1"/>
         </imgdir>
         <imgdir name="1">
-          <string name="text" value="  목  차\n#L1##b1. 노블레스란?#k#l\n#L3##b2. 간단한 조작 방법#k#l\n#L9##b3. 아이템이란?#k#l\n#L11##b4. AP와 SP#k#l\n#L14##b5. 전직이란?#k#l\n#L15##b6. 1차 전직 조건과 방법#k#l"/>
+          <string name="text" value="  목  차\n#L1#b1. 노블레스란?#k#l\n#L3#b2. 간단한 조작 방법#k#l\n#L9#b3. 아이템이란?#k#l\n#L11#b4. AP와 SP#k#l\n#L14#b5. 전직이란?#k#l\n#L15#b6. 1차 전직 조건과 방법#k#l"/>
         </imgdir>
       </imgdir>
     </imgdir>
@@ -6072,7 +6072,7 @@
           <int name="align" value="1"/>
         </imgdir>
         <imgdir name="1">
-          <string name="text" value="  목  차\n#L1##b1. 레전드란?#k#l\n#L3##b2. 간단한 조작 방법#k#l\n#L9##b3. 아이템이란?#k#l\n#L11##b4. AP와 SP#k#l\n#L14##b5. 전직이란?#k#l\n#L15##b6. 1차 전직 조건과 방법#k#l"/>
+          <string name="text" value="  목  차\n#L1#b1. 레전드란?#k#l\n#L3#b2. 간단한 조작 방법#k#l\n#L9#b3. 아이템이란?#k#l\n#L11#b4. AP와 SP#k#l\n#L14#b5. 전직이란?#k#l\n#L15#b6. 1차 전직 조건과 방법#k#l"/>
         </imgdir>
       </imgdir>
     </imgdir>
@@ -6097,7 +6097,7 @@
           <int name="align" value="1"/>
         </imgdir>
         <imgdir name="1">
-          <string name="text" value="  목  차\n#L1##b1. 레전드란?#k#l\n#L3##b2. 간단한 조작 방법#k#l\n#L9##b3. 아이템이란?#k#l\n#L11##b4. AP와 SP#k#l\n#L14##b5. 전직이란?#k#l\n#L15##b6. 1차 전직 조건과 방법#k#l"/>
+          <string name="text" value="  목  차\n#L1#b1. 레전드란?#k#l\n#L3#b2. 간단한 조작 방법#k#l\n#L9#b3. 아이템이란?#k#l\n#L11#b4. AP와 SP#k#l\n#L14#b5. 전직이란?#k#l\n#L15#b6. 1차 전직 조건과 방법#k#l"/>
         </imgdir>
       </imgdir>
     </imgdir>

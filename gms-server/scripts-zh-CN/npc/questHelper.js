@@ -137,13 +137,13 @@ function showMainMenu() {
         text += "在这里您可以查看当前所有已接取的任务进度、一键导航至起止 NPC、快捷传送至怪物地图，以及一键补齐普通任务材料。\r\n\r\n";
 
         if (canCompleteCount > 0) {
-            text += "#L1##b>> 查看当前可直接交付的任务#k #r(" + canCompleteCount + " 个已达成)#k#l\r\n";
+            text += "#L1#b>> 查看当前可直接交付的任务#k #r(" + canCompleteCount + " 个已达成)#k#l\r\n";
         } else {
             text += "#L1##d>> 查看当前可交付的任务 (暂无可交付任务)#k#l\r\n";
         }
 
-        text += "#L2##b>> 查看当前进行中的任务列表#k #d(" + inProgressCount + " 个进行中)#k#l\r\n\r\n";
-        text += "#L999999##b[返回枫叶助手主菜单]#k#l";
+        text += "#L2#b>> 查看当前进行中的任务列表#k #d(" + inProgressCount + " 个进行中)#k#l\r\n\r\n";
+        text += "#L999999#b[返回枫叶助手主菜单]#k#l";
 
         cm.sendSimple(text);
     } catch (e) {
@@ -178,7 +178,7 @@ function showQuestList(category) {
 
         if (listSize === 0) {
             text += (category === 1) ? "当前没有任何已达成全部条件的任务。\r\n" : "您当前尚未接取任何任务。\r\n";
-            text += "\r\n#L999999##b[返回主菜单]#k#l";
+            text += "\r\n#L999999#b[返回主菜单]#k#l";
             cm.sendSimple(text);
             return;
         }
@@ -230,7 +230,7 @@ function showQuestList(category) {
             }
         }
 
-        text += "\r\n#L999999##b[返回主菜单]#k#l";
+        text += "\r\n#L999999#b[返回主菜单]#k#l";
         cm.sendSimple(text);
     } catch (e) {
         cm.sendOk("任务列表加载失败：" + e);
@@ -314,11 +314,11 @@ function showQuestDetail(questId) {
         var combinedCost = currentDetail.getTotalCostWithMobsAndMaterials();
 
         if (hasSyncableMobs && hasDeliverableIncomplete) {
-            text += "#L10000##k【 #d[一键同步账号击杀并购买全部普通材料]#k 】 #d(" + combinedCost + " 金币)#k#l\r\n\r\n";
+            text += "#L10000#k【 #d[一键同步账号击杀并购买全部普通材料]#k 】 #d(" + combinedCost + " 金币)#k#l\r\n\r\n";
         } else if (hasSyncableMobs) {
-            text += "#L10000##k【 #d[一键同步本任务全部满足条件的账号怪物击杀]#k 】 #d(" + totalMobCost + " 金币)#k#l\r\n\r\n";
+            text += "#L10000#k【 #d[一键同步本任务全部满足条件的账号怪物击杀]#k 】 #d(" + totalMobCost + " 金币)#k#l\r\n\r\n";
         } else if (hasDeliverableIncomplete) {
-            text += "#L10000##k【 #d[一键购买补齐本任务全部普通/商店材料]#k 】 #d(" + totalMatCost + " 金币)#k#l\r\n\r\n";
+            text += "#L10000#k【 #d[一键购买补齐本任务全部普通/商店材料]#k 】 #d(" + totalMatCost + " 金币)#k#l\r\n\r\n";
         }
 
         var hasContent = false;
@@ -487,7 +487,7 @@ function showQuestDetail(questId) {
             text += "该任务为纯对话/探索类任务，无需特定击杀或物品收集。\r\n\r\n";
         }
 
-        text += "#L999999##b[返回任务列表]#k#l";
+        text += "#L999999#b[返回任务列表]#k#l";
         cm.sendSimple(text);
     } catch (e) {
         cm.sendOk("任务详情加载失败：" + e);
@@ -647,7 +647,7 @@ function showMobMapList(mob) {
             var map = unlockedMaps[i];
             text += "#L" + (500000 + i) + "# " + map.getDisplayName() + "#l\r\n";
         }
-        text += "\r\n#L999998##b[返回任务详情]#k#l";
+        text += "\r\n#L999998#b[返回任务详情]#k#l";
         cm.sendSimple(text);
     } catch (e) {
         cm.sendOk("怪物分布地图加载失败：" + e);
@@ -725,7 +725,7 @@ function showDropMobList(item) {
             text += "\r\n";
         }
 
-        text += "#L999998##b[返回任务详情]#k#l";
+        text += "#L999998#b[返回任务详情]#k#l";
         cm.sendSimple(text);
     } catch (e) {
         cm.sendOk("掉落来源加载失败：" + e);
@@ -761,7 +761,7 @@ function showNpcMapList(npc, npcType) {
             var map = unlockedMaps[i];
             text += "#L" + (500000 + i) + "# " + map.getDisplayName() + "#l\r\n";
         }
-        text += "\r\n#L999998##b[返回任务详情]#k#l";
+        text += "\r\n#L999998#b[返回任务详情]#k#l";
         cm.sendSimple(text);
     } catch (e) {
         cm.sendOk("NPC地图加载失败：" + e);
@@ -845,7 +845,7 @@ function showDropMobMapList(dropMob) {
             var map = unlockedMaps[i];
             text += "#L" + (500000 + i) + "# " + map.getDisplayName() + "#l\r\n";
         }
-        text += "\r\n#L999997##b[返回出处来源列表]#k#l";
+        text += "\r\n#L999997#b[返回出处来源列表]#k#l";
         cm.sendSimple(text);
     } catch (e) {
         cm.sendOk("掉落怪物地图加载失败：" + e);
@@ -877,7 +877,7 @@ function showDropReactorMapList(dropReactor) {
             var map = unlockedMaps[i];
             text += "#L" + (500000 + i) + "# " + map.getDisplayName() + "#l\r\n";
         }
-        text += "\r\n#L999997##b[返回出处来源列表]#k#l";
+        text += "\r\n#L999997#b[返回出处来源列表]#k#l";
         cm.sendSimple(text);
     } catch (e) {
         cm.sendOk("采集物分布地图加载失败：" + e);
@@ -995,7 +995,7 @@ function showCardDropList(card) {
                 text += "#L" + (400000 + entry.index) + "# " + dropMob.getMobName() + " (掉率: " + dropMob.getChanceText() + ", 可传送)#l\r\n";
             }
         }
-        text += "\r\n#L999998##b[返回任务详情]#k#l";
+        text += "\r\n#L999998#b[返回任务详情]#k#l";
         cm.sendSimple(text);
     } catch (e) {
         cm.sendOk("卡片掉落来源加载失败：" + e);

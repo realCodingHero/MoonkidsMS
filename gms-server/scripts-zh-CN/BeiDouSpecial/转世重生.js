@@ -21,11 +21,11 @@ function action(mode, type, selection) {
     if (status === 0) {
         cm.sendNext("当你想要再次转生时，就来找我吧。你目前总共转生了 #r" + cm.getChar().getReborns() + "#k 次。");
     } else if (status === 1) {
-        cm.sendSimple("你今天想做什么呢？\r\n\r\n#L0##b我想转生！#l\r\n#L1##b[返回枫叶助手主菜单]#k#l");
+        cm.sendSimple("你今天想做什么呢？\r\n\r\n#L0#b我想转生！#l\r\n#L1#b[返回枫叶助手主菜单]#k#l");
     } else if (status === 2) {
         if (selection === 0) {
             if (cm.getChar().getLevel() === cm.getChar().getMaxClassLevel()) {
-                cm.sendSimple("我明白了……你想选择哪条转生之路？\r\n\r\n#L0##b冒险家（新手）#l\r\n");//*#L1##b圣地（贵族）#l\r\n#L2##b战神（传说）#l
+                cm.sendSimple("我明白了……你想选择哪条转生之路？\r\n\r\n#L0#b冒险家（新手）#l\r\n");//*#L1#b圣地（贵族）#l\r\n#L2#b战神（传说）#l
             } else {
                 cm.sendOk("看起来你的修行还未圆满……当你达到等级 #b" + cm.getChar().getMaxClassLevel() + "#k 级时再来找我吧。");
                 cm.dispose();

@@ -70,7 +70,7 @@ function action(mode, type, selection) {
             text += "#b#L3#传送自由#l \t #L69#快速转职#l \t #L70#学习技能#l\r\n";
             text += "#L72#转世重生#l \t #L4#爆率一览#l \t #L2#在线奖励#l\r\n";
             text += "#L0#新人福利#l \t #L1#每日签到#l\r\n\r\n";
-            text += "#L9999##b[返回主菜单]#k#l";
+            text += "#L9999#b[返回主菜单]#k#l";
             cm.sendSimple(text);
         } else if (selection === 200 && cm.getPlayer().isGM()) {
             // GM：更多 (GM)
@@ -78,7 +78,7 @@ function action(mode, type, selection) {
             let text = "\t\t\t\t\t#r#e【 GM 管理与调试功能 】#n#k\r\n\r\n";
             text += "#b#L64#UI查询#l \t #L65#一键删除道具#l \t #L66#一键刷道具#l\r\n\r\n";
             text += "#L67#有状态脚本示例#l \t #L68#NextLevel脚本示例#l\r\n\r\n";
-            text += "#L9999##b[返回主菜单]#k#l";
+            text += "#L9999#b[返回主菜单]#k#l";
             cm.sendSimple(text);
         } else if (selection === 9999) {
             start();

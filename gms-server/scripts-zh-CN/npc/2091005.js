@@ -230,7 +230,7 @@ function action(mode, type, selection) {
                                     }
                                     cm.gainItem(belt, 1);
                                     cm.getPlayer().setDojoPoints(cm.getPlayer().getDojoPoints() - points);
-                                    cm.sendNext("这是你的 #i" + belt + "# #b#t" + belt + "##k。你已经证明了自己的勇气，足以在道馆中更进一步。做得好！");
+                                    cm.sendNext("这是你的 #i" + belt + "# #b#t" + belt + "#k。你已经证明了自己的勇气，足以在道馆中更进一步。做得好！");
                                 } else {
                                     sendBeltRequirements(belt, oldbelt, haveOldbelt, level, points);
                                 }
@@ -256,7 +256,7 @@ function action(mode, type, selection) {
                         }
                     } else if (selectedMenu == 4) { //I want to receive a medal.
                         if (status == 1 && cm.getPlayer().getVanquisherStage() <= 0) {
-                            cm.sendYesNo("你还没有尝试过勋章挑战吗？如果你在武陵道场里打败某一种怪物 #b100 次#k，就可以获得一个名为 #b#t" + (1142033 + cm.getPlayer().getVanquisherStage()) + "##k 的称号。看起来你连 #b#t" + (1142033 + cm.getPlayer().getVanquisherStage()) + "##k 都还没拿到……你想挑战 #b#t" + (1142033 + cm.getPlayer().getVanquisherStage()) + "##k 吗？");
+                            cm.sendYesNo("你还没有尝试过勋章挑战吗？如果你在武陵道场里打败某一种怪物 #b100 次#k，就可以获得一个名为 #b#t" + (1142033 + cm.getPlayer().getVanquisherStage()) + "#k 的称号。看起来你连 #b#t" + (1142033 + cm.getPlayer().getVanquisherStage()) + "#k 都还没拿到……你想挑战 #b#t" + (1142033 + cm.getPlayer().getVanquisherStage()) + "#k 吗？");
                         } else if (status == 2 || cm.getPlayer().getVanquisherStage() > 0) {
                             if (mode == 0) {
                                 cm.sendNext("如果你不想尝试，那也没关系。");
@@ -264,11 +264,11 @@ function action(mode, type, selection) {
                                 if (cm.getPlayer().getDojoStage() > 37) {
                                     cm.sendNext("你已经完成了所有勋章挑战。");
                                 } else if (cm.getPlayer().getVanquisherKills() < 100 && cm.getPlayer().getVanquisherStage() > 0) {
-                                    cm.sendNext("你还需要再击败 #b" + (100 - cm.getPlayer().getVanquisherKills()) + "#k 只，才能获得 #b#t" + (1142032 + cm.getPlayer().getVanquisherStage()) + "##k。请再加把劲。提醒你一下，只有在武陵道场里由我们师傅召唤出的怪物才会计入次数。还有，别在打完怪之后就直接退出！#r如果你打败怪物后没有进入下一关，就不会算作胜利#k。");
+                                    cm.sendNext("你还需要再击败 #b" + (100 - cm.getPlayer().getVanquisherKills()) + "#k 只，才能获得 #b#t" + (1142032 + cm.getPlayer().getVanquisherStage()) + "#k。请再加把劲。提醒你一下，只有在武陵道场里由我们师傅召唤出的怪物才会计入次数。还有，别在打完怪之后就直接退出！#r如果你打败怪物后没有进入下一关，就不会算作胜利#k。");
                                 } else if (cm.getPlayer().getVanquisherStage() <= 0) {
                                     cm.getPlayer().setVanquisherStage(1);
                                 } else {
-                                    cm.sendNext("你已经获得了 #b#t" + (1142032 + cm.getPlayer().getVanquisherStage()) + "##k。");
+                                    cm.sendNext("你已经获得了 #b#t" + (1142032 + cm.getPlayer().getVanquisherStage()) + "#k。");
                                     cm.gainItem(1142033 + cm.getPlayer().getVanquisherStage(), 1);
                                     cm.getPlayer().setVanquisherStage(cm.c.getPlayer().getVanquisherStage() + 1);
                                     cm.getPlayer().setVanquisherKills(0);
@@ -396,7 +396,7 @@ function sendBeltRequirements(belt, oldbelt, haveOldbelt, level, points) {
     var beltLeftStr = (!haveOldbelt) ? " 你必须先把所需的前置腰带卸下，并放在装备栏里" : "";
     var conjStr = (pointsLeftStr.length > 0 && beltLeftStr.length > 0) ? "，并且" : "";
 
-    cm.sendNext("想获得 #i" + belt + "# #b#t" + belt + "##k，" + beltReqStr + "你的等级必须至少达到 #b" + level + "#k，并且至少要累积 #b" + points + " 点训练点数#k。\r\n\r\n如果你想领取这条腰带，" + beltLeftStr + conjStr + pointsLeftStr + "。");
+    cm.sendNext("想获得 #i" + belt + "# #b#t" + belt + "#k，" + beltReqStr + "你的等级必须至少达到 #b" + level + "#k，并且至少要累积 #b" + points + " 点训练点数#k。\r\n\r\n如果你想领取这条腰带，" + beltLeftStr + conjStr + pointsLeftStr + "。");
 }
 
 function isRestingSpot(id) {

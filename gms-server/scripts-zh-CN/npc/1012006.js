@@ -27,7 +27,7 @@
 var status = 0;
 
 function start() {
-    cm.sendSimple("你有什么事情找我吗？\r\n#L0##b请告诉我关于这个地方的情况。#l\r\n#L1#我是因为仙子玛尔的话才来这里的…#k#l");
+    cm.sendSimple("你有什么事情找我吗？\r\n#L0#b请告诉我关于这个地方的情况。#l\r\n#L1#我是因为仙子玛尔的话才来这里的…#k#l");
 }
 
 function action(mode, type, selection) {

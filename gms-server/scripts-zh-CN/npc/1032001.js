@@ -54,20 +54,20 @@ function start() {
             if (cm.haveItem(4031012)) {
                 cm.sendNext("做得不错。看来你已经做好了向更广阔的魔法世界迈出下一步的准备。");
             } else if (cm.haveItem(4031009)) {
-                cm.sendOk("去找魔法师二转转职教官#b#p1072001##k吧。");
+                cm.sendOk("去找魔法师二转转职教官#b#p1072001#k吧。");
                 cm.dispose();
             } else {
                 cm.sendNext("你取得的进步令人惊叹。不知不觉中，你已经成长为一名优秀的魔法师了。");
             }
         } else if (actionx["3thJobI"] || (cm.getPlayer().gotPartyQuestItem("JB3") && cm.getLevel() >= 70 && cm.getJobId() % 10 == 0 && parseInt(cm.getJobId() / 100) == 2 && !cm.getPlayer().gotPartyQuestItem("JBP"))) {
             actionx["3thJobI"] = true;
-            cm.sendNext("你来了。几天前，神秘岛的#b#p2020009##k跟我提起过你。听说你想进行魔法师的三转。为了实现这个目标，我必须测试你的实力，看看你是否具备晋升的资格。在金银岛的邪恶森林深处有一处入口通往次元裂缝。进入后你将面对我的分身。你的任务是打败他，并带回#b#t4031059##k。");
+            cm.sendNext("你来了。几天前，神秘岛的#b#p2020009#k跟我提起过你。听说你想进行魔法师的三转。为了实现这个目标，我必须测试你的实力，看看你是否具备晋升的资格。在金银岛的邪恶森林深处有一处入口通往次元裂缝。进入后你将面对我的分身。你的任务是打败他，并带回#b#t4031059#k。");
         } else if (cm.getPlayer().gotPartyQuestItem("JBP") && !cm.haveItem(4031059)) {
-            cm.sendNext("请击败邪恶森林次元裂缝中的分身，带回#b#t4031059##k给我。");
+            cm.sendNext("请击败邪恶森林次元裂缝中的分身，带回#b#t4031059#k给我。");
             cm.dispose();
         } else if (cm.haveItem(4031059) && cm.getPlayer().gotPartyQuestItem("JBP")) {
             actionx["3thJobC"] = true;
-            cm.sendNext("干得好！你打败了我的分身，并安全带回了#b#t4031059##k。你战胜了我的分身，向我证明了你坚韧不拔的强大实力。现在你应该把这条项链交给在冰峰雪域长老板屋的#b#p2020009##k，去开启智慧的试炼吧。祝你好运！");
+            cm.sendNext("干得好！你打败了我的分身，并安全带回了#b#t4031059#k。你战胜了我的分身，向我证明了你坚韧不拔的强大实力。现在你应该把这条项链交给在冰峰雪域长老板屋的#b#p2020009#k，去开启智慧的试炼吧。祝你好运！");
         } else {
             cm.sendOk("你做出了明智的选择。");
             cm.dispose();
@@ -168,7 +168,7 @@ function action(mode, type, selection) {
                     if (!cm.haveItem(4031009)) {
                         cm.gainItem(4031009, 1);
                     }
-                    cm.sendNextPrev("请将这封推荐信交给魔法密林附近的#b#p1072001##k（位于#b#m101020000##k）。他是魔法师二转转职教官。把信交给这位魔法师，他会负责主持你的转职测试。祝你好运！");
+                    cm.sendNextPrev("请将这封推荐信交给魔法密林附近的#b#p1072001#k（位于#b#m101020000#k）。他是魔法师二转转职教官。把信交给这位魔法师，他会负责主持你的转职测试。祝你好运！");
                 } else {
                     cm.sendNext("请在你的背包中留出足够的空位。");
                     cm.dispose();
@@ -218,7 +218,7 @@ function action(mode, type, selection) {
                 cm.getPlayer().removePartyQuestItem("JB3");
                 cm.getPlayer().setPartyQuestItemObtained("JBP");
             }
-            cm.sendNextPrev("既然是我的分身，实力自然非同小可，你将面临一场恶战。分身拥有许多强力且特殊的攻击技能，你必须依靠自己的力量一对一将其战胜。另外在次元空间中存在时间限制，你必须在时限内解决战斗。祝你好运，期待你带回#b#t4031059##k。");
+            cm.sendNextPrev("既然是我的分身，实力自然非同小可，你将面临一场恶战。分身拥有许多强力且特殊的攻击技能，你必须依靠自己的力量一对一将其战胜。另外在次元空间中存在时间限制，你必须在时限内解决战斗。祝你好运，期待你带回#b#t4031059#k。");
         }
     } else if (actionx["3thJobC"]) {
         cm.getPlayer().removePartyQuestItem("JBP");

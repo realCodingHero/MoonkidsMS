@@ -49,9 +49,9 @@ function action(mode, type, selection) {
               cm.sendNext("这片地方可以说是绝佳之处，每逢满月你都能品尝到月兔制作的美味年糕。");
           } else if (chosen == 1) {
               if (cm.haveItem(4001101, 10)) {
-                  cm.sendNext("哦……这不是月兔做的年糕吗？请把年糕给我。嗯……这些看起来很美味。下次再带更多的 #b#t4001101##k 来找我哦。一路平安！");
+                  cm.sendNext("哦……这不是月兔做的年糕吗？请把年糕给我。嗯……这些看起来很美味。下次再带更多的 #b#t4001101#k 来找我哦。一路平安！");
               } else {
-                  cm.sendOk("我建议你检查一下，确保你确实收集了 #b10 个 #t4001101##k。");
+                  cm.sendOk("我建议你检查一下，确保你确实收集了 #b10 个 #t4001101#k。");
                   cm.dispose();
               }
           } else if (chosen == 2) {

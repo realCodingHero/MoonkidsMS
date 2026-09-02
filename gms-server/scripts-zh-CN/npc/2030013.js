@@ -97,7 +97,7 @@ function action(mode, type, selection) {
         } else if (status == 1) {
             if (selection == 1) {
                 if (!cm.haveItem(expedItem)) {
-                    cm.sendOk("作为远征队长，你的物品栏中必须携带 #b#t" + expedItem + "##k，才能召唤并挑战 " + expedBoss + "！");
+                    cm.sendOk("作为远征队长，你的物品栏中必须携带 #b#t" + expedItem + "#k，才能召唤并挑战 " + expedBoss + "！");
                     cm.dispose();
                     return;
                 }

@@ -46,16 +46,16 @@ function action(mode, type, selection) {
         if (status == 0) {
             const GameConfig = Java.type('org.gms.config.GameConfig');
             if (cm.haveItem(4001086)) {
-                cm.sendYesNo("你现在想要进入 #b#m240050400##k 吗？");
+                cm.sendYesNo("你现在想要进入 #b#m240050400#k 吗？");
             } else if (GameConfig.getServerBoolean("use_enable_solo_expeditions")) {
                 if (canBypassHTPQ()) {
-                    cm.sendYesNo("你现在想要进入 #b#m240050400##k 吗？");
+                    cm.sendYesNo("你现在想要进入 #b#m240050400#k 吗？");
                 } else {
-                    cm.sendOk("没有#r#t4001086##k的人，在挑战#b暗黑龙王#k之前必须先证明自己的勇气。请带着证明你们有资格的#r3张证书#k来这里。");
+                    cm.sendOk("没有#r#t4001086#k的人，在挑战#b暗黑龙王#k之前必须先证明自己的勇气。请带着证明你们有资格的#r3张证书#k来这里。");
                     cm.dispose();
                 }
             } else {
-                cm.sendOk("没有#r#t4001086##k的人，在挑战#b暗黑龙王#k之前必须先证明自己的勇气。");
+                cm.sendOk("没有#r#t4001086#k的人，在挑战#b暗黑龙王#k之前必须先证明自己的勇气。");
                 cm.dispose();
             }
         } else {

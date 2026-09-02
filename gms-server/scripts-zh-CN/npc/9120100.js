@@ -53,7 +53,7 @@ function action(mode, type, selection) {
             status--;
         }
         if (status == 0) {
-            cm.sendSimple("欢迎来到梢发廊。如果你有#b#t5150009##k或者#b#t5151009##k，请让我来为你打理发型。请选择你想要的服务。\r\n#L1#理发：#i5150009##t5150009##l\r\n#L2#染发：#i5151009##t5151009##l");
+            cm.sendSimple("欢迎来到梢发廊。如果你有#b#t5150009#k或者#b#t5151009#k，请让我来为你打理发型。请选择你想要的服务。\r\n#L1#理发：#i5150009##t5150009##l\r\n#L2#染发：#i5151009##t5151009##l");
         } else if (status == 1) {
             if (selection == 1) {
                 beauty = 1;
@@ -68,7 +68,7 @@ function action(mode, type, selection) {
                         pushIfItemExists(hairnew, fhair_v[i] + parseInt(cm.getPlayer().getHair() % 10));
                     }
                 }
-                cm.sendStyle("我完全可以改变你的发型，让它看起来好极了。你为什么不改一下呢？只需 #b#t5150009##k，剩下的事我来帮你处理，选你喜欢的风格吧！", hairnew);
+                cm.sendStyle("我完全可以改变你的发型，让它看起来好极了。你为什么不改一下呢？只需 #b#t5150009#k，剩下的事我来帮你处理，选你喜欢的风格吧！", hairnew);
             } else if (selection == 2) {
                 beauty = 2;
                 haircolor = Array();
@@ -76,7 +76,7 @@ function action(mode, type, selection) {
                 for (var i = 0; i < 8; i++) {
                     pushIfItemExists(haircolor, current + i);
                 }
-                cm.sendStyle("我完全可以改变你的发色，让它看起来那么好。你为什么不改一下呢？只需要 #b#t5151009##k，剩下的我来负责，选你喜欢的颜色吧！", haircolor);
+                cm.sendStyle("我完全可以改变你的发色，让它看起来那么好。你为什么不改一下呢？只需要 #b#t5151009#k，剩下的我来负责，选你喜欢的颜色吧！", haircolor);
             }
         } else if (status == 2) {
             cm.dispose();

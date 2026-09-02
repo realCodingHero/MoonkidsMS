@@ -28,7 +28,7 @@ var status = 0;
 
 function start() {
     status = -1;
-    cm.sendSimple("哥们...太热了！！！~ 我能帮你什么吗？\r\n#L0##b离开活动游戏。#l\r\n#L1#购买武器（木棍 1 枚）");
+    cm.sendSimple("哥们...太热了！！！~ 我能帮你什么吗？\r\n#L0#b离开活动游戏。#l\r\n#L1#购买武器（木棍 1 枚）");
 }
 
 function action(mode, type, selection) {

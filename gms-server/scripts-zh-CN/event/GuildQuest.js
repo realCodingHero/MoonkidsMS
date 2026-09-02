@@ -253,7 +253,7 @@ function changedMap(eim, player, mapid) {
 
 function afterChangedMap(eim, player, mapid) {
     if (mapid == 990000100) {
-        var texttt = "听好了，简要说明一下。请务必注意：一旦离开要塞郊外，任何未佩戴#b#t1032033##k的人都会因周围剧毒恶劣的空气而瞬间丧命。因此，队伍出发后，请务必在前方区域#b击打发光的岩石#k，并在进入下一阶段前#b装备掉落的道具#k。这将保护你们免受毒气侵蚀。祝你们好运！";
+        var texttt = "听好了，简要说明一下。请务必注意：一旦离开要塞郊外，任何未佩戴#b#t1032033#k的人都会因周围剧毒恶劣的空气而瞬间丧命。因此，队伍出发后，请务必在前方区域#b击打发光的岩石#k，并在进入下一阶段前#b装备掉落的道具#k。这将保护你们免受毒气侵蚀。祝你们好运！";
         player.getAbstractPlayerInteraction().npcTalk(9040000, texttt);
     }
 }

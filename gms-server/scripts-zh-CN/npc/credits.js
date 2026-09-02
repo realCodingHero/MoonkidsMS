@@ -175,9 +175,9 @@ function action(mode, type, selection) {
                 var hist = servers_history[i];
 
                 if (hist && hist.length > 0) {
-                    sendStr += "#L" + i + "##b" + servers[i] + "#k  --  " + ((hist[0] != hist[1]) ? hist[0] + " ~ " + hist[1] : hist[0]) + "#l\r\n";
+                    sendStr += "#L" + i + "#b" + servers[i] + "#k  --  " + ((hist[0] != hist[1]) ? hist[0] + " ~ " + hist[1] : hist[0]) + "#l\r\n";
                 } else {
-                    sendStr += "#L" + i + "##b" + servers[i] + "#k#l\r\n";
+                    sendStr += "#L" + i + "#b" + servers[i] + "#k#l\r\n";
                 }
             }
 
