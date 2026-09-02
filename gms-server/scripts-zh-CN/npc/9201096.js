@@ -99,7 +99,7 @@ function action(mode, type, selection) {
         if (cm.getMeso() < cost * qty) {
             cm.sendOk("嗯，我确实说过我需要一些资金来制作它，不是吗？");
         } else if (!cm.canHold(item, qty)) {
-            cm.sendOk("你在制作之前没有检查你的背包是否有空余的槽位，对吗？");
+            cm.sendOk("在制作之前，请先确认背包是否有足够的空位哦。");
         } else {
             if (mats instanceof Array) {
                 for (var i = 0; complete && i < mats.length; i++) {

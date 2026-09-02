@@ -189,7 +189,7 @@ function action(mode, type, selection) {
                         var partner = cserv.getPlayerStorage().getCharacterById(cm.getPlayer().getPartnerId());
                         if (!(partner == null || !cm.getMap().equals(partner.getMap()))) {
                             if (!cm.canHold(4000313)) {
-                                cm.sendOk("请确保有一个空闲的杂项栏位以获取#b#t4000313##k。");
+                                cm.sendOk("请确保有一个空闲的其它栏位以获取#b#t4000313##k。");
                                 cm.dispose();
                                 return;
                             } else if (!partner.canHold(4000313)) {

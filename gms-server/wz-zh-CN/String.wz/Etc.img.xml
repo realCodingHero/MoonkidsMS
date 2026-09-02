@@ -2496,8 +2496,8 @@
             <string name="desc" value="阿里安特"/>
         </imgdir>
         <imgdir name="4001153">
-            <string name="name" value="马加提亚"/>
-            <string name="desc" value="马加提亚"/>
+            <string name="name" value="玛加提亚"/>
+            <string name="desc" value="玛加提亚"/>
         </imgdir>
         <imgdir name="4001154">
             <string name="name" value="雪域废矿"/>
@@ -7859,7 +7859,7 @@
         </imgdir>
         <imgdir name="4032478">
             <string name="name" value="V.I. 花蘑菇酒"/>
-            <string name="desc" value="用维多利亚岛上花蘑菇帽酿制的\n昂贵美酒。"/>
+            <string name="desc" value="用金银岛上花蘑菇帽酿制的\n昂贵美酒。"/>
         </imgdir>
         <imgdir name="4032479">
             <string name="name" value="培训导师徽章"/>

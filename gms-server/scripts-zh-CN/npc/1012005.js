@@ -136,7 +136,7 @@ function action(mode, type, selection) {
                 cm.sendNextPrev("即使日后能再次唤醒，看到它们突然停下不动也挺让人难过的。所以在它们陪伴你的每一天里，请好好爱护并喂饱它们吧。有这样一个全心全意信任并跟随你的小家伙，难道不是很温馨的事吗？");
             } else if (sel == 27) {
                 if (cm.getMeso() < 250000 || !cm.canHold(4160011)) {
-                    cm.sendOk("请检查你的背包是否有足够空间，或者确认金币是否足够。");
+                    cm.sendOk("请确认您的背包是否有足够的空位，并确认金币是否充足。");
                 } else {
                     cm.gainMeso(-250000);
                     cm.gainItem(4160011, 1);

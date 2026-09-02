@@ -62,7 +62,7 @@ function action(mode, type, selection) {
         amount = selection;
     } else if (status == 3) {
         if (cm.getMeso() < item[1] * amount) {
-            cm.sendNext("你身上的金币好像不够呢。请检查你的背包空间，以及是否带够了 #r" + (item[1] * amount) + "#k 金币。");
+            cm.sendNext("你身上的金币好像不够呢。请确认背包空间是否充足，以及是否带够了 #r" + (item[1] * amount) + "#k 金币。");
         } else {
             if (cm.canHold(item[0])) {
                 cm.gainMeso(-item[1] * amount);

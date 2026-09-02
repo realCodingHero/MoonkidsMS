@@ -60,7 +60,7 @@ function action(mode, type, selection) {
             } else if (status == 1) {
                 if (selection == 0) {
                     if (!cm.canHold(4001158, 1)) {
-                        cm.sendOk("请在杂项栏中腾出空间。");
+                        cm.sendOk("请在其它栏中腾出空间。");
                         cm.dispose();
                         return;
                     }
