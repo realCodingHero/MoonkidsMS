@@ -41,7 +41,7 @@ var maxEqp = 0;
 function start() {
     const GameConfig = Java.type('org.gms.config.GameConfig');
     if (!GameConfig.getServerBoolean("use_enable_custom_npc_script")) {
-        cm.sendOk("嗨，我是 #b#p" + cm.getNpc() + "#k。");
+        cm.sendOk("嗨，我是 #b#p" + cm.getNpc() + "##k。");
         cm.dispose();
         return;
     }
@@ -66,19 +66,19 @@ function action(mode, type, selection) {
             var selStr = "没问题！我能打造以下几种强力吊坠：#b";
             items = [1122018, 1122007, 1122001, 1122003, 1122004, 1122006, 1122002, 1122005, 1122058];
             for (var i = 0; i < items.length; i++) {
-                selStr += "\r\n#L" + i + "##t" + items[i] + "#b";
+                selStr += "\r\n#L" + i + "##t" + items[i] + "##b";
             }
         } else if (selection == 1) { //face accessory
             var selStr = "脸部饰品吗？请选择你想制作的款式：#b";
             items = [1012181, 1012182, 1012183, 1012184, 1012185, 1012186, 1012108, 1012109, 1012110, 1012111];
             for (var i = 0; i < items.length; i++) {
-                selStr += "\r\n#L" + i + "##t" + items[i] + "#b";
+                selStr += "\r\n#L" + i + "##t" + items[i] + "##b";
             }
         } else if (selection == 2) { //eye accessory
             var selStr = "想要副帅气的眼镜吗？请选择你想打造的款式：#b";
             items = [1022073, 1022088, 1022103, 1022089, 1022082];
             for (var i = 0; i < items.length; i++) {
-                selStr += "\r\n#L" + i + "##t" + items[i] + "#b";
+                selStr += "\r\n#L" + i + "##t" + items[i] + "##b";
             }
         } else if (selection == 3) { //belt & medal
             var selStr = "嗯……制作这类饰品可得碰碰运气。因为它们的配方非常相似，合成出哪种款式带有一定的随机性。你还想尝试制作吗？";
@@ -100,14 +100,14 @@ function action(mode, type, selection) {
             for (var x = 1142122; x < 1142143; maxEqp++, x++) {
                 items[maxEqp] = x;
             }
-            selStr += "\r\n#L" + i + "#bTry it!#b";
+            selStr += "\r\n#L" + i + "##bTry it!#b";
 
         } else if (selection == 4) { //ring refine
             var selStr = "Rings, huh? These are my specialty, go check it yourself!#b";
             items = [1112407, 1112408, 1112401, 1112413, 1112414, 1112405, 1112402];
 
             for (var i = 0; i < items.length; i++) {
-                selStr += "\r\n#L" + i + "##t" + items[i] + "#b";
+                selStr += "\r\n#L" + i + "##t" + items[i] + "##b";
             }
 
         }/*else if (selection == 5) { //make necklace
@@ -165,12 +165,12 @@ function action(mode, type, selection) {
         var prompt = "You want me to make ";
         if (selectedType != 3) {
             if (qty == 1) {
-                prompt += "a #b#t" + item + "#k?";
+                prompt += "a #b#t" + item + "##k?";
             } else {
-                prompt += "#b" + qty + " #t" + item + "#k?";
+                prompt += "#b" + qty + " #t" + item + "##k?";
             }
         } else {
-            prompt += "a #belt#k or a #bmedal#k?";
+            prompt += "a #bbelt#k or a #bmedal#k?";
         }
 
         prompt += " 太好了！制作该装备需要消耗以下材料。请确保背包装备栏保留 #b足够的空位#k！#b";

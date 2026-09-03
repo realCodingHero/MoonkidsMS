@@ -50,7 +50,7 @@ function start(mode, type, selection)
 		else if (status == 3)
 		{
 			//最后一层对话完继续循环至此，退出结束
-			qm.sendOk("很好！去消灭5只 #b#o9409000#k 吧！");
+			qm.sendOk("很好！去消灭5只 #b#o9409000##k 吧！");
 			qm.forceStartQuest();
             qm.dispose();
 		}

@@ -31,7 +31,7 @@ function action(mode, type, selection) {
         text += "#L4#裤裙商店#l \t #L5#套服商店#l \t #L6#手套商店#l\r\n";
         text += "#L7#鞋子商店#l \t #L8#盾牌商店#l \t #L9#披风商店#l\r\n";
         text += "#L10#耳环商店#l \t #L11#戒指商店#l \t #L12#其它饰品#l\r\n\r\n";
-        text += "#L9999#b[返回枫叶助手主菜单]#k#l\r\n";
+        text += "#L9999##b[返回枫叶助手主菜单]#k#l\r\n";
 
         cm.sendSimple(text);
     } else if (status === 1) {
@@ -73,7 +73,7 @@ function action(mode, type, selection) {
 
             text += "#L9#全职业通用趣味武器#l\r\n";
             text += "#L0#全部职业武器 (全量浏览)#l\r\n\r\n";
-            text += "#L9999#b[返回装备商店主菜单]#k#l\r\n";
+            text += "#L9999##b[返回装备商店主菜单]#k#l\r\n";
 
             cm.sendSimple(text);
         }
@@ -89,7 +89,7 @@ function action(mode, type, selection) {
             text += "#L203#高阶勇士 (71 ~ 100 级)#l\r\n";
             text += "#L204#顶级神装 (101 级以上)#l\r\n";
             text += "#L200#全量浏览 (包含全部等级)#l\r\n\r\n";
-            text += "#L9999#b[返回装备商店主菜单]#k#l\r\n";
+            text += "#L9999##b[返回装备商店主菜单]#k#l\r\n";
 
             cm.sendSimple(text);
         }

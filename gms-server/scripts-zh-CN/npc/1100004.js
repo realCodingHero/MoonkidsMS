@@ -32,7 +32,7 @@ function action(mode, type, selection) {
         if (status == 0) {
             var display = "";
             for (var i = 0; i < menu.length; i++) {
-                display += "\r\n#L" + i + "#b 天空之城 (1000 金币)#k";
+                display += "\r\n#L" + i + "##b 天空之城 (1000 金币)#k";
             }
             cm.sendNext("嗯……现在的风向正好。你是想离开圣地前往其他地方吗？这艘渡船开往神秘岛的天空之城。你在圣地的事情都办完了吗？如果你要去#b天空之城#k，只需支付 #b1,000 金币#k 就可以登船。你想现在出发吗？\r\n");
 

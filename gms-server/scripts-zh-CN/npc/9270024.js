@@ -53,7 +53,7 @@ function action(mode, type, selection) {
             status--;
         }
         if (status == 0) {
-            cm.sendSimple("让我看看……我可以完全改变你的脸，让它变成全新的样子。你不想试试吗？用 #b#t5152038#k，你可以得到你喜欢的脸。慢慢挑选你喜欢的脸……\r\n\#L2#让我得到我梦寐以求的脸！（使用 #i5152038# #t5152038#）#l");
+            cm.sendSimple("让我看看……我可以完全改变你的脸，让它变成全新的样子。你不想试试吗？用 #b#t5152038##k，你可以得到你喜欢的脸。慢慢挑选你喜欢的脸……\r\n\#L2#让我得到我梦寐以求的脸！（使用 #i5152038# #t5152038#）#l");
         } else if (status == 1) {
             if (!cm.haveItem(5152038)) {
                 cm.sendOk("嗯...看起来你没有这个地方专门的优惠券。很抱歉要说这个，但没有优惠券，你就不能进行整形手术了...");
@@ -72,7 +72,7 @@ function action(mode, type, selection) {
                     pushIfItemExists(facenew, fface_v[i] + cm.getPlayer().getFace() % 1000 - (cm.getPlayer().getFace() % 100));
                 }
             }
-            cm.sendStyle("让我瞧瞧……我可以为你打造全新的精致容貌！想尝试一下吗？只要持有 #b#t5152038#k，就能随心挑选你喜欢的脸型。请慢慢挑选吧……", facenew);
+            cm.sendStyle("让我瞧瞧……我可以为你打造全新的精致容貌！想尝试一下吗？只要持有 #b#t5152038##k，就能随心挑选你喜欢的脸型。请慢慢挑选吧……", facenew);
         } else if (status == 2) {
             cm.gainItem(5152038, -1);
             cm.setFace(facenew[selection]);

@@ -76,7 +76,7 @@ function end(mode, type, selection) {
             status--;
         }
         if (status == 0) {
-            qm.sendYesNo(`既然你带来了所有的#b#v${ProofofExamID}##t${ProofofExamID}#k，那我现在相信你有资格成为#b正式骑士 - ${job.getName()}#k，你想成为其中的一员吗？`);
+            qm.sendYesNo(`既然你带来了所有的#b#v${ProofofExamID}##t${ProofofExamID}##k，那我现在相信你有资格成为#b正式骑士 - ${job.getName()}#k，你想成为其中的一员吗？`);
         } else if (status == 1) {
             if (qm.getPlayer().getJob().getId() == (1000+jobId*100) && qm.getPlayer().getRemainingSp() > ((qm.getPlayer().getLevel() - chrLevel) * 3)) {
                 qm.sendNext("你还有技能点没有使用完，所以你还不能成为正式的骑士！在一转技能上使用更多的SP.");
@@ -84,7 +84,7 @@ function end(mode, type, selection) {
             } else {
                 if (qm.getPlayer().getJob().getId() != (1010+jobId*100)) {
                     if (!qm.canHold(medalid)) {
-                        qm.sendOk(`女皇将赋予你#b#v${medalid}##t${medalid}#k，你必须将#b装备栏#k#r空出1个格子#k才可以接受。\r\n\r\n如果你已拥有该勋章，请你将其丢弃。`);
+                        qm.sendOk(`女皇将赋予你#b#v${medalid}##t${medalid}##k，你必须将#b装备栏#k#r空出1个格子#k才可以接受。\r\n\r\n如果你已拥有该勋章，请你将其丢弃。`);
                         qm.dispose();
                         return;
                     }
@@ -94,7 +94,7 @@ function end(mode, type, selection) {
                     qm.gainItem(medalid, 1); //原始流程是女皇任务给的勋章，需要配合WZ给任务加入自动完成任务代码,比较麻烦，在这里给了。
                     qm.completeQuest(completeQuestID); //直接完成女皇的任务，这样女皇头顶不会一直顶着书本。
                 }
-                qm.sendNext(`训练已经结束。你现在皇家骑士团的骑士官员.\r\n获得女皇赋予的勋章：\r\n#b#v${medalid}##t${medalid}#k`);
+                qm.sendNext(`训练已经结束。你现在皇家骑士团的骑士官员.\r\n获得女皇赋予的勋章：\r\n#b#v${medalid}##t${medalid}##k`);
             }
         } else if (status == 2) {
             qm.sendNextPrev("我给了你一些#b技能点#k。我还传授了你一些只有骑士才能掌握的灵魂大师的技能，所以我希望你能努力钻研，并尽可能地培养它们，就像培养你的灵魂一样。");

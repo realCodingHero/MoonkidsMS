@@ -96,7 +96,7 @@ function action(mode, type, selection) {
                     cm.gainItem(4001198, -10);
                     cm.dispose();
                 } else {
-                    cm.sendOk("你已经拥有了 #b#t1032060#k，或者你身上的 #b#t4001198#k 不足 10 个。");
+                    cm.sendOk("你已经拥有了 #b#t1032060##k，或者你身上的 #b#t4001198##k 不足 10 个。");
                     cm.dispose();
                 }
             } else if (selection == 1) {
@@ -106,7 +106,7 @@ function action(mode, type, selection) {
                     cm.gainItem(4001198, -10);
                     cm.dispose();
                 } else {
-                    cm.sendOk("你需要先拥有 #b#t1032060#k 并且集齐 10 个 #b#t4001198#k 才能升级。");
+                    cm.sendOk("你需要先拥有 #b#t1032060##k 并且集齐 10 个 #b#t4001198##k 才能升级。");
                     cm.dispose();
                 }
             }

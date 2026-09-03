@@ -44,18 +44,18 @@ function showSkillList() {
     
     // 根据技能状态显示不同的文本
     if (hasDoubleJump) {
-        text += "#L0#b#s4111006# #q4111006#k (已学会，重新绑定#e-#n键)#l\r\n\r\n";
+        text += "#L0##b#s4111006# #q4111006##k (已学会，重新绑定#e-#n键)#l\r\n\r\n";
     } else {
-        text += "#L0#b#s4111006# #q4111006#k (学习并绑定#e-#n键)#l\r\n\r\n";
+        text += "#L0##b#s4111006# #q4111006##k (学习并绑定#e-#n键)#l\r\n\r\n";
     }
     
     if (hasTeleport) {
-        text += "#L1#b#s2101002# #q2101002#k (已学会，重新绑定#e+#n键)#l\r\n\r\n";
+        text += "#L1##b#s2101002# #q2101002##k (已学会，重新绑定#e+#n键)#l\r\n\r\n";
     } else {
-        text += "#L1#b#s2101002# #q2101002#k (学习并绑定#e+#n键)#l\r\n\r\n";
+        text += "#L1##b#s2101002# #q2101002##k (学习并绑定#e+#n键)#l\r\n\r\n";
     }
     
-    text += "#L2#b[返回枫叶助手主菜单]#k#l";
+    text += "#L2##b[返回枫叶助手主菜单]#k#l";
     
     cm.sendSimple(text);
 }

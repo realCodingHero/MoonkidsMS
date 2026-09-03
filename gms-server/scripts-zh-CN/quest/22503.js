@@ -20,7 +20,7 @@ function start(mode, type, selection) {
 			qm.sendNext("你怎么能这样，要饿死我啊。我还只是个宝宝。这是不对的!");
 		} else {
 			qm.forceStartQuest();
-			qm.sendNext("#b#b(尝试是给 #p1013000# 一些 #t4032453#. 你得去农场弄一些 #o1210100#. 十个就够了...)");
+			qm.sendNext("#b#b(尝试是给 #p1013000# 一些 #t4032453#. 你得去农场弄一些 #o1210100#s. 十个就够了...)");
 		}
 	} else if (status == 4) {
                 qm.dispose();

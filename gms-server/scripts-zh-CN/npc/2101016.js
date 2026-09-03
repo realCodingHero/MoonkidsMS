@@ -32,7 +32,7 @@ function action(mode, type, selection) {
                 cm.sendOk("太糟糕了，你没有得到任何珠宝！");
                 cm.dispose();
             } else {
-                cm.sendNext("好的，让我看看……你做得非常好，而且你带来了我喜欢的#b" + copns + "#k珠宝。由于你完成了比赛，我将奖励你#b" + arena.getAriantRewardTier(cm.getPlayer()) + "点#k战斗竞技场分数。如果你想了解更多关于战斗竞技场分数的信息，那就去找#b#p2101015#k谈谈吧。");
+                cm.sendNext("好的，让我看看……你做得非常好，而且你带来了我喜欢的#b" + copns + "#k珠宝。由于你完成了比赛，我将奖励你#b" + arena.getAriantRewardTier(cm.getPlayer()) + "点#k战斗竞技场分数。如果你想了解更多关于战斗竞技场分数的信息，那就去找#b#p2101015##k谈谈吧。");
             }
         } else if (status == 1) {
             copns = arena.getAriantRewardTier(cm.getPlayer());

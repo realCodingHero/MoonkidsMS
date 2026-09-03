@@ -114,7 +114,7 @@ function getRewardList(count) {
 		if (count > 1) qty = `${qty}#k × ${count}份 = #b${qty * count}#k`;
 		// 处理不同物品类型的显示逻辑
 		if (id >= 1_000_000) {  // 有效的物品ID≥7位数，使用数字分隔符提高可读性
-			itemshow = `#i${id}#   #e#b#t${id}#k#n × #r${qty}#k`;
+			itemshow = `#i${id}#   #e#b#t${id}##k#n × #r${qty}#k`;
 		} else if (itemshow) {// 已知物品追加数量显示
 			itemshow += ` × #r${qty}#k`;
 		} else {// 未知物品显示错误提示
@@ -146,7 +146,7 @@ function giveRewardItems(count) {
 	for (const {id, qty} of normalItems) {
 		const totalQty = qty * count;
 		if (!im.canHold(id, totalQty)) {
-			failedItems.push(`#fUI/UIWindow.img/FadeYesNo/BtCancel/mouseOver/0# #i${id}#   #b#t${id}#k × #r${totalQty}#k`);
+			failedItems.push(`#fUI/UIWindow.img/FadeYesNo/BtCancel/mouseOver/0# #i${id}#   #b#t${id}##k × #r${totalQty}#k`);
 		}
 	}
 
@@ -164,7 +164,7 @@ function giveRewardItems(count) {
 
 		if (id >= 1_000_000) {
 			im.gainItem(id, totalQty);
-			succitemshow = `#i${id}#   #b#t${id}#k × #r${totalQty}#k`;
+			succitemshow = `#i${id}#   #b#t${id}##k × #r${totalQty}#k`;
 		} else {
 			switch(id) {
 				case 0:
@@ -195,5 +195,5 @@ function giveRewardItems(count) {
  * 返回硬币图标与名称
  */
 function getCoinInfo() {
-	return `#i${config.haveitem.id}# #e#b#t${config.haveitem.id}#k#n`;
+	return `#i${config.haveitem.id}# #e#b#t${config.haveitem.id}##k#n`;
 }

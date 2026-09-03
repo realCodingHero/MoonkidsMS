@@ -66,7 +66,7 @@ function action(mode, type, selection) {
             cm.completeQuest(100000);
             cm.startQuest(100001);
             cm.gainItem(4031010, -1);
-            cm.sendOk("你需要帮我收集#b30个#t4031013#k。祝你好运。")
+            cm.sendOk("你需要帮我收集#b30个#t4031013##k。祝你好运。")
         } else if (status == 4) {
             cm.warp(108000100, 0);
             cm.dispose();

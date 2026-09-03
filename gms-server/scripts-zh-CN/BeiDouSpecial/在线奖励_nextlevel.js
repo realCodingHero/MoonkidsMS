@@ -133,11 +133,11 @@ function leveldispose() {
 }
 
 function levelmain() {
-	text = "亲爱的玩家：#e#b#h #k#n，感谢您持续在线支持！\r\n";
+	text = "亲爱的玩家：#e#b#h ##k#n，感谢您持续在线支持！\r\n";
 	text += `#e今日已累积在线：#n${formatMinutes(g_OnlineMinutes)}\r\n`;
 	text += "我们为您准备了丰厚的在线时长奖励，点击领取下方的奖励：\r\n";
 	text += getOnlineRewardListText() + "\r\n\r\n";
-	text += "#L9999#b[返回枫叶助手主菜单]#k#l\r\n";
+	text += "#L9999##b[返回枫叶助手主菜单]#k#l\r\n";
 	text += "\r\n【领取说明】\r\n · 每份奖励需手动领取\r\n · #b每日0点#e#r重置#b#n累计时长#k\r\n · 背包空间不足将不会发放奖励\r\n · 坚持在线时间越长，获得奖励越丰厚！";
 	cm.sendNextSelectLevel("claimrewards",text);
 }
@@ -182,7 +182,7 @@ function getRewardList(Select,count = 1) {
 		if (count > 1) qty = `${qty}#k × ${count}份 = #b${qty * count}#k`;
 		// 处理不同物品类型的显示逻辑
 		if (id >= 1_000_000) {  // 有效的物品ID≥7位数，使用数字分隔符提高可读性
-			itemshow = `#i${id}#   #e#b#t${id}#k#n × #r${qty}#k`;
+			itemshow = `#i${id}#   #e#b#t${id}##k#n × #r${qty}#k`;
 		} else if (itemshow) {// 已知物品追加数量显示
 			itemshow += ` × #r${qty}#k`;
 		} else {// 未知物品显示错误提示
@@ -209,7 +209,7 @@ function giveRewardItems(Select,count = 1) {
 	for (const {id, qty} of normalItems) {
 		const totalQty = qty * count;
 		if (!cm.canHold(id, totalQty)) {
-			failedItems.push(`#fUI/UIWindow.img/FadeYesNo/BtCancel/mouseOver/0# #i${id}#   #b#t${id}#k × #r${totalQty}#k`);
+			failedItems.push(`#fUI/UIWindow.img/FadeYesNo/BtCancel/mouseOver/0# #i${id}#   #b#t${id}##k × #r${totalQty}#k`);
 		}
 	}
 
@@ -225,7 +225,7 @@ function giveRewardItems(Select,count = 1) {
 
 		if (id >= 1_000_000) {
 			cm.gainItem(id, totalQty);
-			succitemshow = `#i${id}#   #b#t${id}#k × #r${totalQty}#k`;
+			succitemshow = `#i${id}#   #b#t${id}##k × #r${totalQty}#k`;
 		} else {
 			switch(id) {
 				case 0:
@@ -322,9 +322,9 @@ function getOnlineRewardListText() {
 		if (!isReceived) {
 			listtext.push(1);
 			if (isClaimable) {
-				text += `\r\n#L${i}#b领取【${formatMinutes(obj.online)}#b】在线奖励 ${CheckBox_0}#k#l`;
+				text += `\r\n#L${i}##b领取【${formatMinutes(obj.online)}#b】在线奖励 ${CheckBox_0}#k#l`;
 			} else {
-				text += `\r\n#L${i}#r查看【${formatMinutes(obj.online)}#r】在线奖励 ${CheckBox_2}#k#l`;
+				text += `\r\n#L${i}##r查看【${formatMinutes(obj.online)}#r】在线奖励 ${CheckBox_2}#k#l`;
 			}
 		} else {
 			if (i > 0 && listtext[i-1] === 1) text += "\r\n";

@@ -68,7 +68,7 @@ function action(mode, type, selection) {
 
             if (cm.haveItem(4000313) && isMarrying) {
                 if (eim.getIntProperty("weddingStage") == 3) {
-                    cm.sendOk("恭喜你们的婚礼。请与#b#p9201007#k交谈，开始婚礼后的派对。");
+                    cm.sendOk("恭喜你们的婚礼。请与#b#p9201007##k交谈，开始婚礼后的派对。");
                     cm.dispose();
                 } else if (hasEngagement) {
                     if (!cm.createMarriageWishlist()) {
@@ -83,7 +83,7 @@ function action(mode, type, selection) {
                     if (!isMarrying) {
                         cm.sendYesNo("这对夫妇刚刚结婚，很快他们就会开始婚礼后的派对。你应该在这里等他们。你真的准备好退出这场婚礼，回到阿莫利亚了吗？");
                     } else {
-                        cm.sendOk("恭喜你们的婚礼。请与#b#p9201007#k交谈，开始婚礼后的派对。");
+                        cm.sendOk("恭喜你们的婚礼。请与#b#p9201007##k交谈，开始婚礼后的派对。");
                         cm.dispose();
                     }
                 } else {

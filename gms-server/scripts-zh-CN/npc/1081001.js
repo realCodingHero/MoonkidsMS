@@ -39,7 +39,7 @@ function start() {
     if (returnmap == -1) {
         returnmap = 104000000;
     }
-    cm.sendNext("所以你想离开 #b#m110000000#k 吗？如果你想的话，我可以带你回到 #b#m" + returnmap + "#k。");
+    cm.sendNext("所以你想离开 #b#m110000000##k 吗？如果你想的话，我可以带你回到 #b#m" + returnmap + "##k。");
 }
 
 function action(mode, type, selection) {
@@ -53,7 +53,7 @@ function action(mode, type, selection) {
     } else if (mode == 1) {
         status++;
         if (status == 1) {
-            cm.sendYesNo("你确定要返回#b#m" + returnmap + "#k吗？好吧，我们得赶紧出发了。你想现在回#m" + returnmap + "#吗？")
+            cm.sendYesNo("你确定要返回#b#m" + returnmap + "##k吗？好吧，我们得赶紧出发了。你想现在回#m" + returnmap + "#吗？")
         } else {
             cm.getPlayer().getSavedLocation("FLORINA");
             cm.warp(returnmap);

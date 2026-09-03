@@ -2,14 +2,14 @@ var Medal = Java.type('org.gms.server.quest.medal.SpecialChallengeMedal');
 
 function finishIfAlreadyAwarded(medalId) {
     if (qm.isQuestCompleted(qm.getQuest())) {
-        qm.sendOk("你已经获得过#b#t" + medalId + "#k，这项挑战已经记录在你的冒险履历里了。");
+        qm.sendOk("你已经获得过#b#t" + medalId + "##k，这项挑战已经记录在你的冒险履历里了。");
         qm.dispose();
         return true;
     }
     if (qm.haveItemWithId(medalId, true)) {
         qm.forceCompleteQuest();
         qm.earnTitle(qm.getMedalName());
-        qm.sendOk("你已经获得过#b#t" + medalId + "#k，这项挑战已经记录在你的冒险履历里了。");
+        qm.sendOk("你已经获得过#b#t" + medalId + "##k，这项挑战已经记录在你的冒险履历里了。");
         qm.dispose();
         return true;
     }
@@ -21,7 +21,7 @@ function start(mode, type, selection) {
         return;
     }
     qm.forceStartQuest();
-    qm.sendOk("将宠物亲密度提升到 #b" + Medal.PET_REQUIRED_TAMENESS + "#k 后，再来领取#b#t" + Medal.PET_OWNER_MEDAL_ID + "#k。");
+    qm.sendOk("将宠物亲密度提升到 #b" + Medal.PET_REQUIRED_TAMENESS + "#k 后，再来领取#b#t" + Medal.PET_OWNER_MEDAL_ID + "##k。");
     qm.dispose();
 }
 
@@ -49,6 +49,6 @@ function awardMedal(medalId) {
     }
     qm.forceCompleteQuest();
     qm.earnTitle(qm.getMedalName());
-    qm.sendOk("宠物跟随你，并不是因为命令，而是因为信任。能把这份羁绊培养到如此深厚，本身就是了不起的冒险。\r\n\r\n请收下#b#t" + medalId + "#k。愿所有人都看见你是一位真正可爱的宠物主人。");
+    qm.sendOk("宠物跟随你，并不是因为命令，而是因为信任。能把这份羁绊培养到如此深厚，本身就是了不起的冒险。\r\n\r\n请收下#b#t" + medalId + "##k。愿所有人都看见你是一位真正可爱的宠物主人。");
     qm.dispose();
 }

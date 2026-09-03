@@ -42,7 +42,7 @@ function start(mode, type, selection) {
                 return;
             }
 
-            qm.sendNext("你把#b#t2430014#k弄丢了？");
+            qm.sendNext("你把#b#t2430014##k弄丢了？");
         } else if (status == 1) {
             if (!qm.canHold(2430014, 1)) {
                 qm.sendNext("请在消耗栏留至少一个空位，好吗？");

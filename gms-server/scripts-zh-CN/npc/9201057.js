@@ -1,6 +1,6 @@
 function start() {
     if (cm.c.getPlayer().getMapId() == 103000100 || cm.c.getPlayer().getMapId() == 600010001) {
-        cm.sendYesNo("开往 " + (cm.c.getPlayer().getMapId() == 103000100 ? "新叶城" : "废弃都市") + " 的地铁每分钟一班，单程票价为 #b5,000 金币#k。你确定要购买一张 #b#t" + (4031711 + parseInt(cm.c.getPlayer().getMapId() / 300000000)) + "#k 吗？");
+        cm.sendYesNo("开往 " + (cm.c.getPlayer().getMapId() == 103000100 ? "新叶城" : "废弃都市") + " 的地铁每分钟一班，单程票价为 #b5,000 金币#k。你确定要购买一张 #b#t" + (4031711 + parseInt(cm.c.getPlayer().getMapId() / 300000000)) + "##k 吗？");
     } else if (cm.c.getPlayer().getMapId() == 600010002 || cm.c.getPlayer().getMapId() == 600010004) {
         cm.sendYesNo("列车即将发车，你确定要在发车前离开吗？注意：离开后车票将不予退还。");
     }

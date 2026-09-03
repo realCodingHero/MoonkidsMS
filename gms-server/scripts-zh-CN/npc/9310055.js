@@ -34,7 +34,7 @@ function action(mode, type, selection) {
 
     if (status == 0) {
 
-        cm.sendYesNo("嘿！我是热气球操纵员小胖。想从上海外滩搭乘热气球，前往#b#m701010320#k看看吗？");
+        cm.sendYesNo("嘿！我是热气球操纵员小胖。想从上海外滩搭乘热气球，前往#b#m701010320##k看看吗？");
 
     } else if (status == 1) {
 

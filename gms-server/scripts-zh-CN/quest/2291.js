@@ -37,12 +37,12 @@ function end(mode, type, selection) {
 
         if (status == 0) {
             if (!qm.haveItem(4032521, 10)) {
-                qm.sendNext("嘿，你还没有得到#b10张#t4032521#k吗？");
+                qm.sendNext("嘿，你还没有得到#b10张#t4032521##k吗？");
                 qm.dispose();
                 return;
             }
 
-            qm.sendNext("你身上有#b#i4032521#k，很好，让我给你带路。");
+            qm.sendNext("你身上有#b#i4032521##k，很好，让我给你带路。");
         } else if (status == 1) {
             var em = qm.getEventManager("RockSpiritVIP");
             if (!em.startInstance(qm.getPlayer())) {

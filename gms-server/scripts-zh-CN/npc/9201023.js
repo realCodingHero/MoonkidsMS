@@ -67,13 +67,13 @@ function processNanaQuest() {
             cm.gainItem(questItems[nanaLoc], -50);
             cm.gainItem(4031367 + nanaLoc, 1);
 
-            cm.sendOk("咿呀~ 非常感谢，这里拿着 #b#t4031367#k。");
+            cm.sendOk("咿呀~ 非常感谢，这里拿着 #b#t4031367##k。");
             return true;
         } else {
             cm.sendOk("请确保有一个空余的ETC槽位来存放爱之令牌。");
         }
     } else {
-        cm.sendOk("请聚集到我这里，带着 #b50 #t" + questItems[nanaLoc] + "#k。");
+        cm.sendOk("请聚集到我这里，带着 #b50 #t" + questItems[nanaLoc] + "##k。");
     }
 
     return false;
@@ -100,14 +100,14 @@ function action(mode, type, selection) {
 
         if (status == 0) {
             if (!cm.isQuestStarted(100400)) {
-                cm.sendOk("你好 #b#h0#k，我是爱情仙子 #p9201023#。");     // thanks Periwinks (LuckyStory) for noticing Nana's introducing themselves as Nana (H)
+                cm.sendOk("你好 #b#h0##k，我是爱情仙子 #p9201023#。");     // thanks Periwinks (LuckyStory) for noticing Nana's introducing themselves as Nana (H)
                 cm.dispose();
                 return;
             }
 
             nanaLoc = getNanaLocation(cm.getPlayer());
             if (nanaLoc == -1) {
-                cm.sendOk("你好 #b#h0#k，我是爱情仙子 #p9201023#。");
+                cm.sendOk("你好 #b#h0##k，我是爱情仙子 #p9201023#。");
                 cm.dispose();
                 return;
             }
@@ -115,7 +115,7 @@ function action(mode, type, selection) {
             if (!cm.haveItem(4031367 + nanaLoc, 1)) {
                 if (cm.isQuestCompleted(100401 + nanaLoc)) {
                     state = 1;
-                    cm.sendAcceptDecline("你是不是把我给你的#k#t4031367#k弄丢了？也罢，我可以再给你一个，不过你得重新完成我上次交代的差事，没问题吧？我需要你去给我找来#r50个#t" + questItems[nanaLoc] + "#。#k");
+                    cm.sendAcceptDecline("你是不是把我给你的#k#t4031367##k弄丢了？也罢，我可以再给你一个，不过你得重新完成我上次交代的差事，没问题吧？我需要你去给我找来#r50个#t" + questItems[nanaLoc] + "#。#k");
                 } else if (cm.isQuestStarted(100401 + nanaLoc)) {
                     if (processNanaQuest()) {
                         cm.gainExp(questExp[nanaLoc] * cm.getPlayer().getExpRate());
@@ -135,7 +135,7 @@ function action(mode, type, selection) {
             if (state == 0) {
                 cm.startQuest(100401 + nanaLoc);
 
-                cm.sendOk("我需要你收集 #r50 #t" + questItems[nanaLoc] + "#k.");
+                cm.sendOk("我需要你收集 #r50 #t" + questItems[nanaLoc] + "##k.");
                 cm.dispose();
             } else {
                 processNanaQuest();

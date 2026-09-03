@@ -130,7 +130,7 @@ function action(mode, type, selection) {
             }
             var rand = Math.floor(Math.random() * pri.length);
             if (!cm.haveItem(ite, quan)) {
-                cm.sendOk("你需要 #b" + quan + " 个 #t" + ite + "#k 才能兑换奖励。");
+                cm.sendOk("你需要 #b" + quan + " 个 #t" + ite + "##k 才能兑换奖励。");
             } else if (cm.getInventory(1).getNextFreeSlot() <= -1 || cm.getInventory(2).getNextFreeSlot() <= -1 || cm.getInventory(3).getNextFreeSlot() <= -1 || cm.getInventory(4).getNextFreeSlot() <= -1) {
                 cm.sendOk("请在背包各栏中至少留出一格空位。");
             } else {

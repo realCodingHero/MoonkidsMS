@@ -58,7 +58,7 @@ function action(mode, type, selection) {
             status--;
         }
         if (status == 0) {
-            cm.sendSimple("嘿，你好~！我是J.J.！我负责NLC商店的隐形眼镜！如果你有#b#t5152036#k，我可以为你提供有史以来最好的隐形眼镜！现在，你想做什么呢？\r\n#L2#隐形眼镜：#i5152036##t5152036##l\r\n#L3#一次性隐形眼镜：#i5152107#（任何颜色）#l");
+            cm.sendSimple("嘿，你好~！我是J.J.！我负责NLC商店的隐形眼镜！如果你有#b#t5152036##k，我可以为你提供有史以来最好的隐形眼镜！现在，你想做什么呢？\r\n#L2#隐形眼镜：#i5152036##t5152036##l\r\n#L3#一次性隐形眼镜：#i5152107#（任何颜色）#l");
         } else if (status == 1) {
             if (selection == 2) {
                 if (cm.getPlayer().getGender() == 0) {

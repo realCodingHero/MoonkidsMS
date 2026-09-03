@@ -77,7 +77,7 @@ function action(mode, type, selection) {
                     cm.sendOk("抱歉，飞机已经起飞，请稍等几分钟。");
                 }
             } else {
-                cm.sendOk("你需要一个#b#t4031732#k才能上飞机！");
+                cm.sendOk("你需要一个#b#t4031732##k才能上飞机！");
             }
         }
         cm.dispose();

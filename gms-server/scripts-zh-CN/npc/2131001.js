@@ -20,7 +20,7 @@ function action(mode, type, selection) {
             cm.dispose();
         } else {
             // thanks yuxaij for noticing a few methods having parameters not matching the expected Math library function parameter types
-            cm.sendGetNumber("嘿，这个主意真棒！每给我100个 #i" + exchangeItem + "##t" + exchangeItem + "#，我就可以给你1个 #i4310000# #b#t4310000#k。你想要兑换多少个？（当前持有数量：" + cm.itemQuantity(exchangeItem) + "）", Math.min(300, cm.itemQuantity(exchangeItem) / 100), 1, Math.min(300, cm.itemQuantity(exchangeItem) / 100));
+            cm.sendGetNumber("嘿，这个主意真棒！每给我100个 #i" + exchangeItem + "##t" + exchangeItem + "#，我就可以给你1个 #i4310000# #b#t4310000##k。你想要兑换多少个？（当前持有数量：" + cm.itemQuantity(exchangeItem) + "）", Math.min(300, cm.itemQuantity(exchangeItem) / 100), 1, Math.min(300, cm.itemQuantity(exchangeItem) / 100));
         }
     } else if (status == 2) {
         if (selection >= 1 && selection <= cm.itemQuantity(exchangeItem) / 100) {

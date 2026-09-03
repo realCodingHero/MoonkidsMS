@@ -33,7 +33,7 @@ function action(mode, type, selection) {
         if (status == 0) {
             var display = "";
             for (var i = 0; i < menu.length; i++) {
-                display += "\r\n#L" + i + "#b 圣地 (1000 金币)#k";
+                display += "\r\n#L" + i + "##b 圣地 (1000 金币)#k";
             }
             cm.sendNext("你好！你是想离开金银岛前往其他地区吗？你可以乘坐这艘渡船前往#b圣地#k。在那里，你能沐浴在明媚的阳光下，感受轻柔的微风，那里正是神兽与西格诺斯女皇居住的圣地。你想前往圣地吗？航程大约需要 #b2分钟#k，费用是 #b1,000 金币#k。\r\n");
 

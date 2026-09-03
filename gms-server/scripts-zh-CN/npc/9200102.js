@@ -59,7 +59,7 @@ function action(mode, type, selection) {
             status--;
         }
         if (status == 0) {
-            cm.sendSimple("“嗯...嗨，我是博士博世，我是卢迪布里姆整形外科诊所的美瞳专家。我相信你的眼睛是你身体中最重要的特征，通过使用#b#t5152012#k或者#b#t5152015#k，我可以为你开具适合的美瞳。现在，你想要使用哪种呢？\r\n#L1#美瞳：#i5152012##t5152012##l\r\n#L2#美瞳：#i5152015##t5152015##l\r\n#L3#一次性美瞳：#i5152105#（任何颜色）#l");
+            cm.sendSimple("“嗯...嗨，我是博士博世，我是卢迪布里姆整形外科诊所的美瞳专家。我相信你的眼睛是你身体中最重要的特征，通过使用#b#t5152012##k或者#b#t5152015##k，我可以为你开具适合的美瞳。现在，你想要使用哪种呢？\r\n#L1#美瞳：#i5152012##t5152012##l\r\n#L2#美瞳：#i5152015##t5152015##l\r\n#L3#一次性美瞳：#i5152105#（任何颜色）#l");
         } else if (status == 1) {
             if (selection == 1) {
                 beauty = 1;
@@ -71,7 +71,7 @@ function action(mode, type, selection) {
                 }
                 colors = Array();
                 pushIfItemsExists(colors, [current + 200, current + 300, current + 400, current + 500, current + 700]);
-                cm.sendYesNo("如果你使用普通优惠券，你将获得一副随机的化妆隐形眼镜。你打算使用#b#t5152012#k，真的改变你的眼睛吗？");
+                cm.sendYesNo("如果你使用普通优惠券，你将获得一副随机的化妆隐形眼镜。你打算使用#b#t5152012##k，真的改变你的眼睛吗？");
             } else if (selection == 2) {
                 beauty = 2;
                 if (cm.getPlayer().getGender() == 0) {

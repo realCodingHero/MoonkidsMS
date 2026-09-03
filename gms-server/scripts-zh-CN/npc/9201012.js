@@ -93,7 +93,7 @@ function action(mode, type, selection) {
                 var text = "你好呀。要不要和你的未婚妻一起，让今天变得超甜蜜呢~？";
                 var choice = new Array("我们已经准备好举行婚礼了。");
                 for (x = 0; x < choice.length; x++) {
-                    text += "\r\n#L" + x + "#b" + choice[x] + "#l";
+                    text += "\r\n#L" + x + "##b" + choice[x] + "#l";
                 }
                 cm.sendSimple(text);
             } else {
@@ -109,11 +109,11 @@ function action(mode, type, selection) {
                     var partner = cserv.getPlayerStorage().getCharacterById(cm.getPlayer().getPartnerId());
                     if (!(partner == null || !cm.getMap().equals(partner.getMap()))) {
                         if (!cm.canHold(4000313)) {
-                            cm.sendOk("请确保有一个空余的其它栏位，以便获取#b#t4000313#k。");
+                            cm.sendOk("请确保有一个空余的其它栏位，以便获取#b#t4000313##k。");
                             cm.dispose();
                             return;
                         } else if (!partner.canHold(4000313)) {
-                            cm.sendOk("请让你的伙伴知道，他们必须有一个空闲的ETC槽位才能获得#b#t4000313#k。");
+                            cm.sendOk("请让你的伙伴知道，他们必须有一个空闲的ETC槽位才能获得#b#t4000313##k。");
                             cm.dispose();
                             return;
                         } else if (!isSuitedForWedding(cm.getPlayer(), false)) {

@@ -191,14 +191,14 @@ function action(mode, type, selection) {
     } else if (status == 3) {
         lastSelection = selection;
         requiredItem = eQuestChoices[selection];
-        cm.sendYesNo("让我看看……你想用 #b100个 #t" + requiredItem + "#k 来和我交换，对吧？交易前请确认你的背包有足够的空位。现在开始交换吗？");
+        cm.sendYesNo("让我看看……你想用 #b100个 #t" + requiredItem + "##k 来和我交换，对吧？交易前请确认你的背包有足够的空位。现在开始交换吗？");
     } else if (status == 4) {
         itemSet = (Math.floor(Math.random() * eQuestPrizes[lastSelection].length));
         reward = eQuestPrizes[lastSelection];
         prizeItem = reward[itemSet][0];
         prizeQuantity = reward[itemSet][1];
         if (!cm.haveItem(requiredItem, 100)) {
-            cm.sendOk("嗯？你确定带齐了 #b100个 #t" + requiredItem + "#k 吗？如果确实带了，请检查一下背包空间是否已满。");
+            cm.sendOk("嗯？你确定带齐了 #b100个 #t" + requiredItem + "##k 吗？如果确实带了，请检查一下背包空间是否已满。");
         } else if (prizeItem <= 0 || prizeQuantity <= 0) {
             cm.sendOk("奇怪……我这边的交易清单好像出了点问题。你先稍等一下，晚点再来找我交易吧。");
         } else if (!cm.canHold(prizeItem, prizeQuantity, requiredItem, 100)) {
@@ -207,7 +207,7 @@ function action(mode, type, selection) {
             cm.gainItem(requiredItem, -100);
             cm.gainExp(500 * cm.getPlayer().getExpRate());
             cm.gainItem(prizeItem, prizeQuantity);
-            cm.sendOk("这是用你的 #b100个 #t" + requiredItem + "#k 换来的 #b" + prizeQuantity + "个 #t" + prizeItem + "#k。怎么样？对换到的东西还满意吗？我还会在这里待上一阵子，如果你又收集到了材料，随时欢迎再来找我交换！");
+            cm.sendOk("这是用你的 #b100个 #t" + requiredItem + "##k 换来的 #b" + prizeQuantity + "个 #t" + prizeItem + "##k。怎么样？对换到的东西还满意吗？我还会在这里待上一阵子，如果你又收集到了材料，随时欢迎再来找我交换！");
         }
         cm.dispose();
     }

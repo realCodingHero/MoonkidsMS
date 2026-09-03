@@ -55,7 +55,7 @@ function action(mode, type, selection) {
             status--;
         }
         if (status == 0) {
-            cm.sendSimple("嗨，我是这里的助手。别担心，我完全能胜任这个任务。如果你碰巧有#b#t5150006#k、#b#t5150012#k或#b#t5151006#k，那就让我来处理剩下的事情，好吗？\r\n#L0#理发：#i5150006##t5150006##l\r\n#L1#理发：#i5150012##t5150012##l\r\n#L2#染发：#i5151006##t5151006##l");
+            cm.sendSimple("嗨，我是这里的助手。别担心，我完全能胜任这个任务。如果你碰巧有#b#t5150006##k、#b#t5150012##k或#b#t5151006##k，那就让我来处理剩下的事情，好吗？\r\n#L0#理发：#i5150006##t5150006##l\r\n#L1#理发：#i5150012##t5150012##l\r\n#L2#染发：#i5151006##t5151006##l");
         } else if (status == 1) {
             if (selection == 0) {
                 beauty = 3;
@@ -70,7 +70,7 @@ function action(mode, type, selection) {
                         pushIfItemExists(hairnew, fhair_r[i] + parseInt(cm.getPlayer().getHair() % 10));
                     }
                 }
-                cm.sendYesNo("如果您使用REG优惠券，您的发型将随机改变，并有机会获得我设计的新实验风格。您要使用#b#t5150012#k来真正改变您的发型吗？");
+                cm.sendYesNo("如果您使用REG优惠券，您的发型将随机改变，并有机会获得我设计的新实验风格。您要使用#b#t5150012##k来真正改变您的发型吗？");
             } else if (selection == 1) {
                 beauty = 1;
                 hairnew = Array();
@@ -84,7 +84,7 @@ function action(mode, type, selection) {
                         pushIfItemExists(hairnew, fhair_e[i] + parseInt(cm.getPlayer().getHair() % 10));
                     }
                 }
-                cm.sendYesNo("如果你使用了经验值券，你的发型将会随机改变，并有机会获得我设计的新实验性发型。你要使用 #b#t5150012#k 真的改变你的发型吗？");
+                cm.sendYesNo("如果你使用了经验值券，你的发型将会随机改变，并有机会获得我设计的新实验性发型。你要使用 #b#t5150012##k 真的改变你的发型吗？");
             } else if (selection == 2) {
                 beauty = 2;
                 haircolor = Array();
@@ -92,7 +92,7 @@ function action(mode, type, selection) {
                 for (var i = 0; i < 8; i++) {
                     pushIfItemExists(haircolor, current + i);
                 }
-                cm.sendYesNo("如果你使用普通的优惠券，你的发型将会随机改变。你还想使用 #b#t5151006#k 来改变吗？");
+                cm.sendYesNo("如果你使用普通的优惠券，你的发型将会随机改变。你还想使用 #b#t5151006##k 来改变吗？");
             }
         } else if (status == 2) {
             cm.dispose();

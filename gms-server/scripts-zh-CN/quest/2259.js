@@ -36,7 +36,7 @@ function start(mode, type, selection) {
         }
 
         if (status == 0) {
-            qm.sendNext("好的，我们在#b#m260020700#k等你消息。要到达那里，请搭乘#r骆驼中巴#k前往#r玛加提亚#k，我会在那里等你，现在出发吧。");
+            qm.sendNext("好的，我们在#b#m260020700##k等你消息。要到达那里，请搭乘#r骆驼中巴#k前往#r玛加提亚#k，我会在那里等你，现在出发吧。");
         } else {
             qm.forceStartQuest();
             qm.dispose();
@@ -61,7 +61,7 @@ function end(mode, type, selection) {
 
         if (status == 0) {
             if (qm.getMapId() == 260020000) {
-                qm.sendNext("呃，你还在这里？想要到达#b#m260020700##k，可以搭乘#r骆驼中巴#k前往#r玛加提亚#k，我会在那里等你。现在出发吧。");
+                qm.sendNext("呃，你还在这里？想要到达#b#m260020700###k，可以搭乘#r骆驼中巴#k前往#r玛加提亚#k，我会在那里等你。现在出发吧。");
                 return;
             }
 

@@ -173,7 +173,7 @@ function action(mode, type, selection) {
                     var text = "你好。我能为你提供什么帮助？";
                     var choice = new Array("我们已经准备好举办婚礼了。");
                     for (x = 0; x < choice.length; x++) {
-                        text += "\r\n#L" + x + "#b" + choice[x] + "#l";
+                        text += "\r\n#L" + x + "##b" + choice[x] + "#l";
                     }
                     cm.sendSimple(text);
                 } else {
@@ -189,11 +189,11 @@ function action(mode, type, selection) {
                         var partner = cserv.getPlayerStorage().getCharacterById(cm.getPlayer().getPartnerId());
                         if (!(partner == null || !cm.getMap().equals(partner.getMap()))) {
                             if (!cm.canHold(4000313)) {
-                                cm.sendOk("请确保有一个空闲的其它栏位以获取#b#t4000313#k。");
+                                cm.sendOk("请确保有一个空闲的其它栏位以获取#b#t4000313##k。");
                                 cm.dispose();
                                 return;
                             } else if (!partner.canHold(4000313)) {
-                                cm.sendOk("请告知你的伙伴，他们必须有一个空闲的ETC槽位才能获得#b#t4000313#k。");
+                                cm.sendOk("请告知你的伙伴，他们必须有一个空闲的ETC槽位才能获得#b#t4000313##k。");
                                 cm.dispose();
                                 return;
                             } else if (!isSuitedForWedding(cm.getPlayer(), false)) {
@@ -280,7 +280,7 @@ function action(mode, type, selection) {
                         cm.sendOk("当你们两个向彼此宣誓结婚的时候，你们的客人正在向你们祝福。这是你们两个的幸福时刻，请享受这个仪式。");
                         cm.dispose();
                     } else {
-                        cm.sendOk("恭喜你的婚礼！我们的仪式已经结束，你现在可以前往 #b#p9201007#k，她会带领你和你的客人去参加婚礼后的派对。为你们的爱干杯！");
+                        cm.sendOk("恭喜你的婚礼！我们的仪式已经结束，你现在可以前往 #b#p9201007##k，她会带领你和你的客人去参加婚礼后的派对。为你们的爱干杯！");
                         cm.dispose();
                     }
                 } else {
@@ -391,7 +391,7 @@ function action(mode, type, selection) {
                                     break;
 
                                 case -3:
-                                    cm.sendOk("看起来你没有入口处给的 #r#t4000313#k... 请找到它，没有这个物品我不能嫁给你。");
+                                    cm.sendOk("看起来你没有入口处给的 #r#t4000313##k... 请找到它，没有这个物品我不能嫁给你。");
                                     break;
 
                                 case -4:
@@ -407,7 +407,7 @@ function action(mode, type, selection) {
                                     break;
 
                                 case 3:
-                                    cm.sendOk("看起来你的伴侣没有入口处给的#r#t4000313#k... 请找到它，没有这个物品我不能和你结婚。");
+                                    cm.sendOk("看起来你的伴侣没有入口处给的#r#t4000313##k... 请找到它，没有这个物品我不能和你结婚。");
                                     break;
 
                                 case 4:

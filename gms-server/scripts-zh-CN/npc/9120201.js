@@ -96,7 +96,7 @@ function action(mode, type, selection) {
         } else if (status == 1) {
             if (selection == 1) {
                 if (!cm.haveItem(expedItem)) {
-                    cm.sendOk("作为远征队领袖，你必须在你的物品栏中拥有一件#b#t" + expedItem + "#k，以对抗" + expedBoss + "！");
+                    cm.sendOk("作为远征队领袖，你必须在你的物品栏中拥有一件#b#t" + expedItem + "##k，以对抗" + expedBoss + "！");
                     cm.dispose();
                     return;
                 }

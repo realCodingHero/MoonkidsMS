@@ -331,7 +331,7 @@ function action(mode, type, selection) {
         if (status == 0) {
             var sendStr = "HeavenMS was developed on the timespan of 4 years, based on where Solaxia left. I'm glad to say the development itself had continuously been agraciated by dozens of contributors and cheerers (truly thanks for the trusting vow, guys & gals!).\r\n\r\nTalking about results: many nice features emerged, development aimed to get back the old GMS experience. Now many of these so-long missing features are gracefully presented to you in the shape of this server. Long live MapleStory!!\r\n\r\nThese are the features from #bHeavenMS#k:\r\n\r\n";
             for (var i = 0; i < tabs.length; i++) {
-                sendStr += "#L" + i + "#b" + tabs[i] + "#k#l\r\n";
+                sendStr += "#L" + i + "##b" + tabs[i] + "#k#l\r\n";
             }
 
             cm.sendSimple(sendStr);

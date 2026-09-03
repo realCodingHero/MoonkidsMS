@@ -296,7 +296,7 @@ function action(mode, type, selection) {
                         cm.gainItem(4001129, -n1);
                         cm.dispose();
                     } else {
-                        cm.sendOk("检查一下你是否缺少#b#t4001129#k，或者你的装备栏是否已满。");
+                        cm.sendOk("检查一下你是否缺少#b#t4001129##k，或者你的装备栏是否已满。");
                         cm.dispose();
                     }
                 } else if (select == 1) {
@@ -305,7 +305,7 @@ function action(mode, type, selection) {
                         cm.gainItem(4001129, -n2);
                         cm.dispose();
                     } else {
-                        cm.sendOk("检查一下你是否缺少#b#t4001129#k，或者你的使用物品栏是否已满。");
+                        cm.sendOk("检查一下你是否缺少#b#t4001129##k，或者你的使用物品栏是否已满。");
                         cm.dispose();
                     }
                 } else if (select == 2) {//S2 Warrior 26 S3 Magician 6 S4 Bowman 6 S5 Thief 8
@@ -335,14 +335,14 @@ function action(mode, type, selection) {
                         cm.gainItem(4001129, -cost[selection]);
                         cm.dispose();
                     } else {
-                        cm.sendOk("您没有足够的#b#t4001129#k，或者您的背包已满。请再次检查。");
+                        cm.sendOk("您没有足够的#b#t4001129##k，或者您的背包已满。请再次检查。");
                         cm.dispose();
                     }
                 }
             } else if (status == 12) {
                 if (selection == 12) {
                     status = 10;
-                    cm.sendSimple("请确保你有#b#t4001129#k用于你想要的武器。选择你想要交换的武器#t4001129#。我这里的选择都非常不错，而且我不是那些说话空话的人！\r\n#b#L0# #z1302004#（" + n3 + " 纪念币）#l\r\n#L1# #z1402006#（" + n3 + " 纪念币）#l\r\n#L2# #z1302009#（" + n4 + " 纪念币）#l\r\n#L3# #z1402007#（" + n4 + " 纪念币）#l\r\n#L4# #z1302010#（" + n5 + " 纪念币）#l\r\n#L5# #z1402003#（" + n5 + " 纪念币）#l\r\n#L6# #z1312006#（" + n3 + " 纪念币）#l\r\n#L7# #z1412004#（" + n3 + " 纪念币）#l\r\n#L8# #z1312007#（" + n4 + " 纪念币）#l\r\n#L9# #z1412005#（" + n4 + " 纪念币）#l\r\n#L10# #z1312008#（" + n5 + " 纪念币）#l\r\n#L11# #z1412003#（" + n5 + " 纪念币）#l\r\n#L12# 继续到下一页（1/2）#l");
+                    cm.sendSimple("请确保你有#b#t4001129##k用于你想要的武器。选择你想要交换的武器#t4001129#。我这里的选择都非常不错，而且我不是那些说话空话的人！\r\n#b#L0# #z1302004#（" + n3 + " 纪念币）#l\r\n#L1# #z1402006#（" + n3 + " 纪念币）#l\r\n#L2# #z1302009#（" + n4 + " 纪念币）#l\r\n#L3# #z1402007#（" + n4 + " 纪念币）#l\r\n#L4# #z1302010#（" + n5 + " 纪念币）#l\r\n#L5# #z1402003#（" + n5 + " 纪念币）#l\r\n#L6# #z1312006#（" + n3 + " 纪念币）#l\r\n#L7# #z1412004#（" + n3 + " 纪念币）#l\r\n#L8# #z1312007#（" + n4 + " 纪念币）#l\r\n#L9# #z1412005#（" + n4 + " 纪念币）#l\r\n#L10# #z1312008#（" + n5 + " 纪念币）#l\r\n#L11# #z1412003#（" + n5 + " 纪念币）#l\r\n#L12# 继续到下一页（1/2）#l");
                 } else {
                     var item = [1322015, 1422008, 1322016, 1422007, 1322017, 1422005, 1432003, 1442003, 1432005, 1442009, 1442005, 1432004];
                     var cost = [n3, n3, n4, n4, n5, n5, n3, n3, n4, n4, n5, n5];
@@ -351,7 +351,7 @@ function action(mode, type, selection) {
                         cm.gainItem(4001129, -cost[selection]);
                         cm.dispose();
                     } else {
-                        cm.sendOk("您没有足够的 #b#t4001129#k，或者您的背包已满。请再次检查。");
+                        cm.sendOk("您没有足够的 #b#t4001129##k，或者您的背包已满。请再次检查。");
                         cm.dispose();
                     }
                 }
@@ -363,7 +363,7 @@ function action(mode, type, selection) {
                     cm.gainItem(4001129, -cost[selection]);
                     cm.dispose();
                 } else {
-                    cm.sendOk("您没有足够的#b#t4001129#k，或者您的背包已满。请再次检查。");
+                    cm.sendOk("您没有足够的#b#t4001129##k，或者您的背包已满。请再次检查。");
                     cm.dispose();
                 }
             } else if (status == 31) {
@@ -374,7 +374,7 @@ function action(mode, type, selection) {
                     cm.gainItem(4001129, -cost[selection]);
                     cm.dispose();
                 } else {
-                    cm.sendOk("您没有足够的#b#t4001129#k，或者您的背包已满。请再次检查。");
+                    cm.sendOk("您没有足够的#b#t4001129##k，或者您的背包已满。请再次检查。");
                     cm.dispose();
                 }
             } else if (status == 41) {
@@ -385,7 +385,7 @@ function action(mode, type, selection) {
                     cm.gainItem(4001129, -cost[selection]);
                     cm.dispose();
                 } else {
-                    cm.sendOk("您没有足够的#b#t4001129#k，或者您的背包已满。请再次检查。");
+                    cm.sendOk("您没有足够的#b#t4001129##k，或者您的背包已满。请再次检查。");
                     cm.dispose();
                 }
             } else if (status == 51) {
@@ -396,7 +396,7 @@ function action(mode, type, selection) {
                     cm.gainItem(4001129, -cost[selection]);
                     cm.dispose();
                 } else {
-                    cm.sendOk("您没有足够的#b#t4001129#k，或者您的背包已满。请再次检查。");
+                    cm.sendOk("您没有足够的#b#t4001129##k，或者您的背包已满。请再次检查。");
                     cm.dispose();
                 }
             } else if (status == 61) {

@@ -40,7 +40,7 @@ function start(mode, type, selection) {
         }
 
         if (status == 0) {
-            qm.sendNext("上一次看到#b高级骑士#p1103000#k时,他正在调查最近在废矿区僵尸激增的原因。你应该亲自去看看是否能找到任何可能发生的线索.");
+            qm.sendNext("上一次看到#b高级骑士#p1103000##k时,他正在调查最近在废矿区僵尸激增的原因。你应该亲自去看看是否能找到任何可能发生的线索.");
         } else if (status == 1) {
             qm.forceCompleteQuest();
             qm.dispose();

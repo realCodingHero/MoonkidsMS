@@ -49,7 +49,7 @@ function action(mode, type, selection) {
         if (!cm.isQuestStarted(QUEST_FIND_SENIOR_2) && !cm.isQuestCompleted(QUEST_FIND_SENIOR_2) &&
             Quest.getInstance(QUEST_FIND_SENIOR_2).canStart(player, npcId)) {
             flow = "start8539";
-            cm.sendAcceptDecline("原来是#b#p9310052#k师弟所托，贫僧入世修行未满，还不能回寺。这里有书信一封，请施主带给我的小师弟，不知可否？");
+            cm.sendAcceptDecline("原来是#b#p9310052##k师弟所托，贫僧入世修行未满，还不能回寺。这里有书信一封，请施主带给我的小师弟，不知可否？");
             return;
         }
 

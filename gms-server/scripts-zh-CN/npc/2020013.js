@@ -82,16 +82,16 @@ function action(mode, type, selection) {
                 cm.gainItem(4031057, -1);
                 cm.getPlayer().setPartyQuestItemObtained("JBQ");
             }
-            cm.sendNextPrev("接下来是第二阶段——智慧与阅历的试炼。一名征服大海的真正船长，睿智洞察的头脑与博大见识至关重要。\r\n\r\n在神秘岛雪原深处的隐秘之地，矗立着远古流传的【神圣之石】。你需要献上一颗 #b#t4005004#k 作为祭品，神圣之石将会对你展开智慧的考验。");
+            cm.sendNextPrev("接下来是第二阶段——智慧与阅历的试炼。一名征服大海的真正船长，睿智洞察的头脑与博大见识至关重要。\r\n\r\n在神秘岛雪原深处的隐秘之地，矗立着远古流传的【神圣之石】。你需要献上一颗 #b#t4005004##k 作为祭品，神圣之石将会对你展开智慧的考验。");
         } else if (status == 2) {
-            cm.sendNextPrev("你必须连续回答正确它提出的所有问题。成功通过试炼后，神圣之石会赐予你 #b#t4031058#k。把智慧项链带回来交给我，我就为你举行正式的三转仪式。祝你好运！");
+            cm.sendNextPrev("你必须连续回答正确它提出的所有问题。成功通过试炼后，神圣之石会赐予你 #b#t4031058##k。把智慧项链带回来交给我，我就为你举行正式的三转仪式。祝你好运！");
             cm.dispose();
         }
     } else if (cm.getPlayer().gotPartyQuestItem("JB3") && selection == 0) {
-        cm.sendNext("请返回金银岛诺特勒斯号与海盗导师 #b#p1090000#k 对话，击败她的分身并带回 #b#t4031057#k。");
+        cm.sendNext("请返回金银岛诺特勒斯号与海盗导师 #b#p1090000##k 对话，击败她的分身并带回 #b#t4031057##k。");
         cm.dispose();
     } else if (cm.getPlayer().gotPartyQuestItem("JBQ") && selection == 0) {
-        cm.sendNext("请前往雪原圣地与 #b#p2030006#k 对话，献上黑暗水晶通过智慧试炼并带回 #b#t4031058#k。");
+        cm.sendNext("请前往雪原圣地与 #b#p2030006##k 对话，献上黑暗水晶通过智慧试炼并带回 #b#t4031058##k。");
         cm.dispose();
     } else {
         if (sel == undefined) {
@@ -100,12 +100,12 @@ function action(mode, type, selection) {
         if (sel == 0) {
             if (cm.getPlayer().getLevel() >= 70 && cm.getJobId() % 10 == 0) {
                 if (status == 0) {
-                    cm.sendYesNo("欢迎你，海盗勇士。我是冰峰雪域长老板屋的海盗长老 #b#p2020013#k。你的豪气与胆魄非同凡响，看来你已经准备好迈向海盗三转的大师之路了。\r\n\r\n你确定已经做好了准备，接受三转试炼的严苛考验了吗？");
+                    cm.sendYesNo("欢迎你，海盗勇士。我是冰峰雪域长老板屋的海盗长老 #b#p2020013##k。你的豪气与胆魄非同凡响，看来你已经准备好迈向海盗三转的大师之路了。\r\n\r\n你确定已经做好了准备，接受三转试炼的严苛考验了吗？");
                 } else if (status == 1) {
                     cm.getPlayer().setPartyQuestItemObtained("JB3");
-                    cm.sendNext("很好！海盗的三转试炼分为两大核心：武力的考验与智慧的考验。\r\n\r\n首先是武力的考验：请返回金银岛诺特勒斯号，拜访你的入门导师 #b#p1090000#k。她会引导你前往异次元空间迎战她的分身。击败分身后，将象征胜利的 #b#t4031057#k 带回给我。");
+                    cm.sendNext("很好！海盗的三转试炼分为两大核心：武力的考验与智慧的考验。\r\n\r\n首先是武力的考验：请返回金银岛诺特勒斯号，拜访你的入门导师 #b#p1090000##k。她会引导你前往异次元空间迎战她的分身。击败分身后，将象征胜利的 #b#t4031057##k 带回给我。");
                 } else if (status == 2) {
-                    cm.sendNextPrev("唯有当你带回 #b#t4031057#k 证明了自身实力后，我们才能开启后续的智慧试炼。我已经向 #b#p1090000#k 发送了信函，去吧，愿狂风暴雨为你加冕！");
+                    cm.sendNextPrev("唯有当你带回 #b#t4031057##k 证明了自身实力后，我们才能开启后续的智慧试炼。我已经向 #b#p1090000##k 发送了信函，去吧，愿狂风暴雨为你加冕！");
                     cm.dispose();
                 }
             }

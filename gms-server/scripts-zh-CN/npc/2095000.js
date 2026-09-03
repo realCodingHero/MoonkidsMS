@@ -55,9 +55,9 @@ function action(mode, type, selection) {
                     return;
                 }
 
-                cm.sendSimple("#e#b<组队任务：拯救戴利>\r\n#k#n" + em.getProperty("party") + "\r\n\r\n啊，是#r#p1095000#k让你来的吗？她很担心我？……很抱歉让她操心了，但我现在还不能回去，这里的怪物受到了黑魔法师邪恶力量的侵蚀，我必须解救它们！……看你的样子，应该不会袖手旁观吧？你愿意和你的队员们一起帮帮我吗？如果准备好了，请让你们的#b队长#k来和我对话。#b\r\n#L0#我想挑战组队任务。\r\n#L1#我想" + (cm.getPlayer().isRecvPartySearchInviteEnabled() ? "关闭" : "开启") + "组队寻找。\r\n#L2#我想了解详细信息。#l#k");
+                cm.sendSimple("#e#b<组队任务：拯救戴利>\r\n#k#n" + em.getProperty("party") + "\r\n\r\n啊，是#r#p1095000##k让你来的吗？她很担心我？……很抱歉让她操心了，但我现在还不能回去，这里的怪物受到了黑魔法师邪恶力量的侵蚀，我必须解救它们！……看你的样子，应该不会袖手旁观吧？你愿意和你的队员们一起帮帮我吗？如果准备好了，请让你们的#b队长#k来和我对话。#b\r\n#L0#我想挑战组队任务。\r\n#L1#我想" + (cm.getPlayer().isRecvPartySearchInviteEnabled() ? "关闭" : "开启") + "组队寻找。\r\n#L2#我想了解详细信息。#l#k");
             } else {
-                cm.sendYesNo("任务成功了，非常感谢你的护送！我可以带你前往#b#m120000104#k，你准备好了吗？");
+                cm.sendYesNo("任务成功了，非常感谢你的护送！我可以带你前往#b#m120000104##k，你准备好了吗？");
             }
         } else if (status == 1) {
             if (cm.getMapId() != 925010400) {

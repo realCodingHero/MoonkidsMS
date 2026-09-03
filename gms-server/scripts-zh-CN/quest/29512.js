@@ -2,14 +2,14 @@ var Medal = Java.type('org.gms.server.quest.medal.SpecialChallengeMedal');
 
 function finishIfAlreadyAwarded(medalId) {
     if (qm.isQuestCompleted(qm.getQuest())) {
-        qm.sendOk("你已经获得过#b#t" + medalId + "#k，这项挑战已经记录在你的冒险履历里了。");
+        qm.sendOk("你已经获得过#b#t" + medalId + "##k，这项挑战已经记录在你的冒险履历里了。");
         qm.dispose();
         return true;
     }
     if (qm.haveItemWithId(medalId, true)) {
         qm.forceCompleteQuest();
         qm.earnTitle(qm.getMedalName());
-        qm.sendOk("你已经获得过#b#t" + medalId + "#k，这项挑战已经记录在你的冒险履历里了。");
+        qm.sendOk("你已经获得过#b#t" + medalId + "##k，这项挑战已经记录在你的冒险履历里了。");
         qm.dispose();
         return true;
     }
@@ -21,7 +21,7 @@ function start(mode, type, selection) {
         return;
     }
     qm.forceStartQuest();
-    qm.sendOk("收集 #b" + Medal.MONSTER_BOOK_REQUIRED_CARDS + "#k 张怪物卡后，再来领取#b#t" + Medal.MONSTER_EXPERT_MEDAL_ID + "#k。");
+    qm.sendOk("收集 #b" + Medal.MONSTER_BOOK_REQUIRED_CARDS + "#k 张怪物卡后，再来领取#b#t" + Medal.MONSTER_EXPERT_MEDAL_ID + "##k。");
     qm.dispose();
 }
 
@@ -49,6 +49,6 @@ function awardMedal(medalId) {
     }
     qm.forceCompleteQuest();
     qm.earnTitle(qm.getMedalName());
-    qm.sendOk("你了解怪物，不只是靠战斗，更靠观察它们的习性、踪迹与秘密。知识同样是一把锋利的武器。\r\n\r\n请收下#b#t" + medalId + "#k。从现在起，你可以自豪地被称为怪物博士。");
+    qm.sendOk("你了解怪物，不只是靠战斗，更靠观察它们的习性、踪迹与秘密。知识同样是一把锋利的武器。\r\n\r\n请收下#b#t" + medalId + "##k。从现在起，你可以自豪地被称为怪物博士。");
     qm.dispose();
 }

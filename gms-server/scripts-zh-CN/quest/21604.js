@@ -38,7 +38,7 @@ function start(mode, type, selection) {
         if (status == 0) {
             qm.sendNext("你想用狼当坐骑，但你没有狼鞍？为什么，我有很好的解决方案给你！先到这里来，我会教你怎么骑狼.");
         } else if (status == 1) {
-            qm.sendNext("到这里，去找 #r50 #t4000048#k 然后把它们带给我.");
+            qm.sendNext("到这里，去找 #r50 #t4000048##k 然后把它们带给我.");
         } else if (status == 2) {
             qm.forceStartQuest();
             qm.dispose();
