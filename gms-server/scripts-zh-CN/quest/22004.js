@@ -37,7 +37,7 @@ function end(mode, type, selection) {
 		status++;
 	}
 	if (status == 0) {
-		qm.sendNext("哦，#t4032498#搜集到了吗？真了不起。我应该给你什么作为奖赏呢……对了，我有那个东西。 \r\n\r\n#fUI/UIWindow.img/QuestIcon/4/0# \r\n#i3010097# 1 #t3010097# \r\n#i2022621# 15 #t2022621#s \r\n#i2022622# 15 #t2022622#s \r\n\r\n#fUI/UIWindow.img/QuestIcon/8/0# 210 exp");
+		qm.sendNext("哦，#t4032498#搜集到了吗？真了不起。我应该给你什么作为奖赏呢……对了，我有那个东西。 \r\n\r\n#fUI/UIWindow.img/QuestIcon/4/0# \r\n#i3010097# 1 #t3010097# \r\n#i2022621# 15 #t2022621# \r\n#i2022622# 15 #t2022622# \r\n\r\n#fUI/UIWindow.img/QuestIcon/8/0# 210 exp");
 	} else if (status == 1) {
 		if (!qm.isQuestCompleted(22004)) {
 			qm.gainItem(3010097, true);

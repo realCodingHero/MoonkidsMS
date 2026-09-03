@@ -1,0 +1,46 @@
+name: MapleStory Script Tag Validation
+
+on:
+  push:
+    branches:
+      - master
+      - main
+      - 'feat/**'
+      - 'fix/**'
+    paths:
+      - 'gms-server/scripts-zh-CN/**'
+      - 'script-validator/**'
+      - '.github/workflows/script-tag-validation.yml'
+  pull_request:
+    branches:
+      - master
+      - main
+    paths:
+      - 'gms-server/scripts-zh-CN/**'
+      - 'script-validator/**'
+      - '.github/workflows/script-tag-validation.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-maple-tags:
+    name: Validate MapleStory Rich Text Tags
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run MapleTagParser Unit Tests
+        run: python script-validator/test_maple_tags.py
+
+      - name: Validate All Scripts for Tag Corruptions
+        run: python script-validator/validate_all_scripts.py

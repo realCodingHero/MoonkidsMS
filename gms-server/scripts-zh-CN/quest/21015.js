@@ -21,7 +21,7 @@ function start(mode, type, selection) {
             qm.dispose();
         } else {
             qm.forceStartQuest();
-            qm.sendNext("虽然里恩岛的居民大多是企鹅，但这座岛上也有怪物。如果你前往位于城镇右侧的#b#m140020000##k，你会发现#o0100131#s。请击败#r10只#o0100131#s#k。我相信这对你来说轻而易举，毕竟就连这里最菜的企鹅都能打败它们。", 1);
+            qm.sendNext("虽然里恩岛的居民大多是企鹅，但这座岛上也有怪物。如果你前往位于城镇右侧的#b#m140020000##k，你会发现#o0100131#。请击败#r10只#o0100131##k。我相信这对你来说轻而易举，毕竟就连这里最菜的企鹅都能打败它们。", 1);
         }
     } else if (status == 4) {
         qm.showInfo("Effect/OnUserEff.img/guideEffect/aranTutorial/tutorialArrow3");
