@@ -41,7 +41,7 @@ function action(mode, type, selection) {
             cm.sendNext("恭喜你走到了这一步！好吧，我想我最好给你#b烈焰之息#k。你确实赢得了它！");
         } else if (status == 1) {
             if (!cm.canHold(4031062)) {
-                cm.sendOk("尝试释放一个空位来接收#b#t4031062#k。");
+                cm.sendOk("尝试释放一个空位来接收#b#t4031062##k。");
                 cm.dispose();
                 return;
             }

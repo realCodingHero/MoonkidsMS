@@ -64,7 +64,7 @@ function start() {
 
 
 
-    var text = startedTravel ? "你好，我是#b#p9201135#k，负责前往#r马来西亚#k的旅行服务。由于你没有通过#b冒险岛旅游中心#k登记特别旅行套餐，本次搭乘费用会比较高。请选择目的地：\r\n" : "你好，我是#b#p9201135#k，#r马来西亚#k旅游向导。你想去哪里？\r\n";
+    var text = startedTravel ? "你好，我是#b#p9201135##k，负责前往#r马来西亚#k的旅行服务。由于你没有通过#b冒险岛旅游中心#k登记特别旅行套餐，本次搭乘费用会比较高。请选择目的地：\r\n" : "你好，我是#b#p9201135##k，#r马来西亚#k旅游向导。你想去哪里？\r\n";
 
     if (toMap[location] instanceof Array) {
 
@@ -130,7 +130,7 @@ function action(mode, type, selection) {
 
         if (travelCost > 0) {
 
-            cm.sendYesNo("前往#b#m" + travelMap + "#k需要#r" + cm.numberWithCommas(travelCost) + " 金币#k。现在要出发吗？");
+            cm.sendYesNo("前往#b#m" + travelMap + "##k需要#r" + cm.numberWithCommas(travelCost) + " 金币#k。现在要出发吗？");
 
         } else {
 

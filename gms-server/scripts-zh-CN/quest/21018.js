@@ -19,7 +19,7 @@ function start(mode, type, selection) {
             qm.dispose();
         } else {
             qm.forceStartQuest();
-            qm.sendNext("#o0100134#在岛的较深处。村子左边的路一直走，就能看到#b#m140010200#k，请去那里消灭#r5只#o0100134##k。");
+            qm.sendNext("#o0100134#在岛的较深处。村子左边的路一直走，就能看到#b#m140010200##k，请去那里消灭#r5只#o0100134#s#k。");
         }
     } else if (status == 3) {
         qm.showInfo("Effect/OnUserEff.img/guideEffect/aranTutorial/tutorialArrow1");

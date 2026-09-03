@@ -86,7 +86,7 @@ function action(mode, type, selection) {
 
         }
 
-        var text = "你好！我是#b#p9201050#k，新叶城市长。欢迎来到新叶城！你想了解什么？#b";
+        var text = "你好！我是#b#p9201050##k，新叶城市长。欢迎来到新叶城！你想了解什么？#b";
 
         for (var i = 0; i < info.length; i++) {
 

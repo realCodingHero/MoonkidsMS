@@ -109,18 +109,18 @@ function action(mode, type, selection) {
                 var text = "欢迎来到阿莫利亚#b大教堂#k！请问有什么我可以为您效劳的吗？";
                 var choice = ["如何筹备一场婚礼？", "我们已经订婚，想预约婚礼场地", "我是宾客，想入场参加婚礼"];
                 for (x = 0; x < choice.length; x++) {
-                    text += "\r\n#L" + x + "#b" + choice[x] + "#l";
+                    text += "\r\n#L" + x + "##b" + choice[x] + "#l";
                 }
 
                 if (cm.haveItem(5251100)) {
-                    text += "\r\n#L" + x + "#b制作额外的婚礼请柬#l";
+                    text += "\r\n#L" + x + "##b制作额外的婚礼请柬#l";
                 }
 
                 cm.sendSimple(text);
             } else if (status == 1) {
                 switch (selection) {
                     case 0:
-                        cm.sendOk("首先，你需要先完成订婚并向伴侣求婚。可以在阿莫利亚找 #p9201000# 打造订婚戒指。订婚成功后，购买一张 #b#t" + weddingEntryTicketCommon + "#k。\r\n把订婚戒指和婚礼券出示给我，我就会为你预约婚礼场地并发放 #r15 张婚礼邀请函#k。双击邀请函即可邀请亲朋好友，每位宾客需凭请柬入场。");
+                        cm.sendOk("首先，你需要先完成订婚并向伴侣求婚。可以在阿莫利亚找 #p9201000# 打造订婚戒指。订婚成功后，购买一张 #b#t" + weddingEntryTicketCommon + "##k。\r\n把订婚戒指和婚礼券出示给我，我就会为你预约婚礼场地并发放 #r15 张婚礼邀请函#k。双击邀请函即可邀请亲朋好友，每位宾客需凭请柬入场。");
                         cm.dispose();
                         break;
 
@@ -161,7 +161,7 @@ function action(mode, type, selection) {
                                     }
 
                                     if (!cm.getUnclaimedMarriageGifts().isEmpty() || !partner.getAbstractPlayerInteraction().getUnclaimedMarriageGifts().isEmpty()) {
-                                        cm.sendOk("抱歉，根据阿莫利亚婚礼礼品簿的记录，你们还有未领取的婚礼礼物。请先找 #b#p9201014#k 处理。");
+                                        cm.sendOk("抱歉，根据阿莫利亚婚礼礼品簿的记录，你们还有未领取的婚礼礼物。请先找 #b#p9201014##k 处理。");
                                         cm.dispose();
                                         return;
                                     }
@@ -201,7 +201,7 @@ function action(mode, type, selection) {
                                             cm.sendOk("您的婚礼预约最近已被处理，请稍后再试。");
                                         }
                                     } else {
-                                        cm.sendOk("在尝试预约婚礼前，请确保你的现金商城背包中拥有一张 #b#t" + weddingEntryTicketCommon + "#k。");
+                                        cm.sendOk("在尝试预约婚礼前，请确保你的现金商城背包中拥有一张 #b#t" + weddingEntryTicketCommon + "##k。");
                                     }
                                 }
                             } else {
@@ -238,7 +238,7 @@ function action(mode, type, selection) {
                                 cm.dispose();
                             }
                         } else {
-                            cm.sendOk("你身上没有 #b#t" + weddingGuestTicket + "#k（婚礼宾客券）。");
+                            cm.sendOk("你身上没有 #b#t" + weddingGuestTicket + "##k（婚礼宾客券）。");
                             cm.dispose();
                         }
                         break;
@@ -290,9 +290,9 @@ function action(mode, type, selection) {
 
                 if (eim.getIntProperty("weddingStage") == 0) {
                     if (!isMarrying) {
-                        cm.sendOk("欢迎来到 #b#m" + cm.getMapId() + "#k。在仪式开始前，请在此与其他宾客一同陪伴新郎新娘。\r\n\r\n倒计时结束后，新人将前往神圣祭坛，届时您可以在二楼#b宾客观礼席#k见证神圣时刻。");
+                        cm.sendOk("欢迎来到 #b#m" + cm.getMapId() + "##k。在仪式开始前，请在此与其他宾客一同陪伴新郎新娘。\r\n\r\n倒计时结束后，新人将前往神圣祭坛，届时您可以在二楼#b宾客观礼席#k见证神圣时刻。");
                     } else {
-                        cm.sendOk("欢迎来到 #b#m" + cm.getMapId() + "#k！在倒计时结束前，请向到场的宾客们致意。倒计时结束后，你们将步入神圣祭坛举行仪式。");
+                        cm.sendOk("欢迎来到 #b#m" + cm.getMapId() + "##k！在倒计时结束前，请向到场的宾客们致意。倒计时结束后，你们将步入神圣祭坛举行仪式。");
                     }
 
                     cm.dispose();

@@ -36,10 +36,10 @@ function action(mode, type, selection) {
     } else if (status == 1) {
         selectedPet = selection;
         var pet = pets.get(selectedPet);
-        cm.sendYesNo("你确定要使用 #b#t5180000#k 唤醒宠物 #r" + pet.getName() + "#k 吗？注入生命之水后，它将重新恢复活力，陪伴你继续展开冒险！");
+        cm.sendYesNo("你确定要使用 #b#t5180000##k 唤醒宠物 #r" + pet.getName() + "#k 吗？注入生命之水后，它将重新恢复活力，陪伴你继续展开冒险！");
     } else if (status == 2) {
         if (!cm.haveItem(5180000, 1)) {
-            cm.sendOk("你身上没有 #b#t5180000#k，无法唤醒宠物。请先准备好生命之水后再来找我吧。");
+            cm.sendOk("你身上没有 #b#t5180000##k，无法唤醒宠物。请先准备好生命之水后再来找我吧。");
             cm.dispose();
             return;
         }

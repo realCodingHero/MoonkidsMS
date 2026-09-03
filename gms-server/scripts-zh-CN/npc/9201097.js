@@ -105,24 +105,24 @@ function action(mode, type, selection) {
             qnt = 25;
         }
 
-        cm.sendYesNo("让我看看，你想用我的东西交换 #b" + qnt + " #t" + requiredItem + "#k，对吗？在交易之前，请确保你的消耗栏或其他物品栏有足够空位。现在，你想交易吗？");
+        cm.sendYesNo("让我看看，你想用我的东西交换 #b" + qnt + " #t" + requiredItem + "##k，对吗？在交易之前，请确保你的消耗栏或其他物品栏有足够空位。现在，你想交易吗？");
     } else if (status == 4) {
         itemSet = (Math.floor(Math.random() * eQuestPrizes[lastSelection].length));
         reward = eQuestPrizes[lastSelection];
         prizeItem = reward[itemSet][0];
         prizeQuantity = reward[itemSet][1];
         if (!cm.haveItem(requiredItem, qnt)) {
-            cm.sendOk("嗯……你确定你有 #b" + qnt + " #t" + requiredItem + "#k 吗？如果有的话，请先确认物品栏是否已满。");
+            cm.sendOk("嗯……你确定你有 #b" + qnt + " #t" + requiredItem + "##k 吗？如果有的话，请先确认物品栏是否已满。");
         } else if (prizeItem == 0) {
             cm.gainItem(requiredItem, -qnt);
             cm.gainMeso(prizeQuantity);
-            cm.sendOk("这是你的 #b" + qnt + " #t" + requiredItem + "#k，我给你 #b" + prizeQuantity + " 金币#k。你满意吗？我会在这里待一段时间，所以如果你收集更多材料，随时可以来交易…");
+            cm.sendOk("这是你的 #b" + qnt + " #t" + requiredItem + "##k，我给你 #b" + prizeQuantity + " 金币#k。你满意吗？我会在这里待一段时间，所以如果你收集更多材料，随时可以来交易…");
         } else if (!cm.canHold(prizeItem)) {
             cm.sendOk("你的使用栏或其他物品栏似乎已满。请腾出空间再来交易！");
         } else {
             cm.gainItem(requiredItem, -qnt);
             cm.gainItem(prizeItem, prizeQuantity);
-            cm.sendOk("这是你的 #b" + qnt + " #t" + requiredItem + "#k，我给你 #b" + prizeQuantity + " #t" + prizeItem + "#k。你满意吗？我会在这里待一段时间，所以如果你收集更多材料，随时可以来交易…");
+            cm.sendOk("这是你的 #b" + qnt + " #t" + requiredItem + "##k，我给你 #b" + prizeQuantity + " #t" + prizeItem + "##k。你满意吗？我会在这里待一段时间，所以如果你收集更多材料，随时可以来交易…");
         }
         cm.dispose();
     }

@@ -71,7 +71,7 @@ function action(mode, type, selection) {
 
                 if (cm.haveItem(4000313) && isMarrying) {
                     if (eim.getIntProperty("weddingStage") == 3) {
-                        cm.sendOk("你们完全征服了舞台！！！快去找#b#p9201007#k开始派对。");
+                        cm.sendOk("你们完全征服了舞台！！！快去找#b#p9201007##k开始派对。");
                         cm.dispose();
                     } else if (hasEngagement) {
                         if (!cm.createMarriageWishlist()) {
@@ -86,7 +86,7 @@ function action(mode, type, selection) {
                         if (!isMarrying) {
                             cm.sendYesNo("你们不会错过他们了吧？我们的超级明星们#r合作得非常出色#k，很快#b他们就会开始派对#k。你真的要#r退出节目#k，回到#b阿莫利亚#k吗？");
                         } else {
-                            cm.sendOk("你们完全征服了舞台！！！快去找#b#p9201007#k开始派对。");
+                            cm.sendOk("你们完全征服了舞台！！！快去找#b#p9201007##k开始派对。");
                             cm.dispose();
                         }
                     } else {

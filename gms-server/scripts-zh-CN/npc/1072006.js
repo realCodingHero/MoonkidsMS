@@ -59,7 +59,7 @@ function action(mode, type, selection) {
                 cm.sendOk("你是一个真正的英雄！拿着这个，雅典娜会承认你的。");
             } else {
                 completed = false;
-                cm.sendSimple("你需要收集 #b30 #t4031013#k。祝你好运。\r\n#b#L1#我想离开#l");
+                cm.sendSimple("你需要收集 #b30 #t4031013##k。祝你好运。\r\n#b#L1#我想离开#l");
             }
         } else if (status == 1) {
             if (completed) {

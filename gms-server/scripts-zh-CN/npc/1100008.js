@@ -33,7 +33,7 @@ function action(mode, type, selection) {
         if (status == 0) {
             var display = "";
             for (var i = 0; i < menu.length; i++) {
-                display += "\r\n#L" + i + "#b 圣地 (1000 金币)#k";
+                display += "\r\n#L" + i + "##b 圣地 (1000 金币)#k";
             }
             cm.sendNext("这艘船将驶向浮空岛屿#b圣地#k。在那里，你能沐浴在明媚的阳光下，感受轻柔的微风，觐见尊贵的西格诺斯女皇。如果你有兴趣加入圣地骑士团，这里绝对是不容错过的地方。你想前往圣地吗？船费为 #b1,000 金币#k。\r\n");
 

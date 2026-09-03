@@ -35,7 +35,7 @@ function action(mode, type, selection) {
             }
             cm.sendSimple(selStr);
         } else if (status == 2) {
-            cm.sendYesNo("你确定要前往 #b#m" + maps[selection] + "#k 吗？本次车费为 #b" + (cm.getJobId() == 0 ? cost[selection] / 10 : cost[selection]) + " 金币#k。");
+            cm.sendYesNo("你确定要前往 #b#m" + maps[selection] + "##k 吗？本次车费为 #b" + (cm.getJobId() == 0 ? cost[selection] / 10 : cost[selection]) + " 金币#k。");
             selectedMap = selection;
         } else if (status == 3) {
             if (cm.getJobId() == 0) {

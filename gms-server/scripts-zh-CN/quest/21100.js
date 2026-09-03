@@ -18,7 +18,7 @@ function start(mode, type, selection) {
     } else if (status == 3) {
 	qm.sendNext("武器？", 2);
     } else if (status == 4) {
-	qm.sendNext("之前在冰雪中挖掘英雄时曾经找到一些厉害的武器。当时推测应该是英雄使用过的东西，因此保存在村庄中央。您经过时没看到吗？ #b#p1201001#k... \r\r#i4032372#\r\r长成这样...", 8);
+	qm.sendNext("之前在冰雪中挖掘英雄时曾经找到一些厉害的武器。当时推测应该是英雄使用过的东西，因此保存在村庄中央。您经过时没看到吗？ #b#p1201001##k... \r\r#i4032372#\r\r长成这样...", 8);
     } else if (status == 5) {
 	qm.sendNext("难怪我觉得很奇怪，有把 #p1201001# 就在村庄里面...", 2);
     } else if (status == 6) {

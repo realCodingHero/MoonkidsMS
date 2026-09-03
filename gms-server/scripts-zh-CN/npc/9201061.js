@@ -51,7 +51,7 @@ function action(mode, type, selection) {
             status--;
         }
         if (status == 0) {
-            cm.sendSimple("嗨，你好~！我是Bomack。如果你有#b#t5152035#k，我可以为你开具合适的美瞳。现在，你想做什么呢？\r\n#L2#美瞳：#i5152035##t5152035##l");
+            cm.sendSimple("嗨，你好~！我是Bomack。如果你有#b#t5152035##k，我可以为你开具合适的美瞳。现在，你想做什么呢？\r\n#L2#美瞳：#i5152035##t5152035##l");
         } else if (status == 1) {
             if (selection == 2) {
                 if (cm.getPlayer().getGender() == 0) {
@@ -62,7 +62,7 @@ function action(mode, type, selection) {
                 }
                 colors = Array();
                 pushIfItemsExists(colors, [current + 100, current + 200, current + 300, current + 400, current + 500, current + 600, current + 700]);
-                cm.sendYesNo("如果你使用普通优惠券，你将获得一副随机的化妆隐形眼镜。你打算使用#b#t5152035#k，真的改变你的眼睛吗？");
+                cm.sendYesNo("如果你使用普通优惠券，你将获得一副随机的化妆隐形眼镜。你打算使用#b#t5152035##k，真的改变你的眼睛吗？");
             }
         } else if (status == 2) {
             cm.dispose();

@@ -52,9 +52,9 @@ function action(mode, type, selection) {
                     break;
                 }
             }
-            cm.sendNext("你好！这是能够比飞箭更快地将你送往危险地带的危险地区出租车！我们可以带你从 #m" + inMap[location] + "# 前往神秘岛各处的 #b#m" + toMap[location] + "#k！费用是 #b" + cost[location] + " 金币#k。虽然有点贵，但能避开沿途所有凶险的怪物，绝对物超所值！");
+            cm.sendNext("你好！这是能够比飞箭更快地将你送往危险地带的危险地区出租车！我们可以带你从 #m" + inMap[location] + "# 前往神秘岛各处的 #b#m" + toMap[location] + "##k！费用是 #b" + cost[location] + " 金币#k。虽然有点贵，但能避开沿途所有凶险的怪物，绝对物超所值！");
         } else if (status == 1) {
-            cm.sendYesNo("你想支付 #b" + cost[location] + " 金币#k 前往 #b#m" + toMap[location] + "#k 吗？");
+            cm.sendYesNo("你想支付 #b" + cost[location] + " 金币#k 前往 #b#m" + toMap[location] + "##k 吗？");
         } else if (status == 2) {
             if (cm.getMeso() < cost[location]) {
                 cm.sendNext("你身上的金币好像不够呢。非常抱歉，如果没有支付全额车费，我是不能发车的。多去狩猎赚些金币后再来吧。");

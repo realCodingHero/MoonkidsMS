@@ -84,7 +84,7 @@ function action(mode, type, selection) {
             } else if (seagullProgress == 1) {
                 cm.sendNextPrev("我会把你送到诺特勒斯号的一个独立房间里。在那里你会看到9个巴特。哈哈哈~ 难道他们是九胞胎吗？当然不是啦，这是我为了测试你的洞察力而施加的一点小魔法。");
             } else {
-                cm.sendNextPrev("使用技能【#q5221003#】召唤我们，海鸥大队会立刻赶来支援你！这就是伙伴之间的羁绊！\r\n\r\n  #s5221003# #b#q5221003#k");
+                cm.sendNextPrev("使用技能【#q5221003#】召唤我们，海鸥大队会立刻赶来支援你！这就是伙伴之间的羁绊！\r\n\r\n  #s5221003# #b#q5221003##k");
             }
         } else if (status == 2) {
             if (seagullIdx > -1) {

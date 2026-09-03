@@ -23,7 +23,7 @@ function start(mode, type, selection) {
         if (status == 0) {
             qm.sendNext("你把#b卡帕莱特披风#k弄丢了。我可以再给你做一件，但需要一些材料。");
         } else if (status == 1) {
-            qm.sendAcceptDecline("要制作新披风，请给我带来#b5个#t4021006#k、#b10个#t4000021#k和#b10000金币#k。");
+            qm.sendAcceptDecline("要制作新披风，请给我带来#b5个#t4021006##k、#b10个#t4000021##k和#b10000金币#k。");
         } else if (status == 2) {
             qm.sendOk("等你收集到了所有材料再回来找我。");
             qm.forceStartQuest();

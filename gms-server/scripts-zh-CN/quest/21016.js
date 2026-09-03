@@ -17,7 +17,7 @@ function start(mode, type, selection) {
             qm.dispose();
         } else {
             qm.forceStartQuest();
-            qm.sendNext("“好的。这次，让你打败#r#o0100132##k，它们比#o0100131#s稍微强大一些。前往#b#m140020100#k并打败#r15#k只它们。那应该能帮助你增强力量。好的！我们开始吧！”", 1);
+            qm.sendNext("“好的。这次，让你打败#r#o0100132#s#k，它们比#o0100131#s稍微强大一些。前往#b#m140020100##k并打败#r15#k只它们。那应该能帮助你增强力量。好的！我们开始吧！”", 1);
         }
     } else if (status == 2) {
         qm.showInfo("Effect/OnUserEff.img/guideEffect/aranTutorial/tutorialArrow3");

@@ -22,7 +22,7 @@ function start() {
     }
 
     if (eim == null) { // Not in instance
-        cm.sendYesNo("你准备好进入 #b#m922000000#k 了吗？");
+        cm.sendYesNo("你准备好进入 #b#m922000000##k 了吗？");
     }
     else { // Inside the instance
         cm.sendYesNo("你准备好离开这个地方了吗？");

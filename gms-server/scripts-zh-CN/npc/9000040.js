@@ -66,7 +66,7 @@ function action(mode, type, selection) {
             var text = "以下是您已获得头衔但当前未持有的勋章。请选择您想要重新领取的勋章（每枚补领手续费为 #r" + cm.numberWithCommas(reissueFee) + " 金币#k）：\r\n\r\n";
             for (var i = 0; i < availableReissue.length; i++) {
                 var item = availableReissue[i];
-                text += "#L" + i + "# #i" + item.medalId + "# #b#t" + item.medalId + "#k#l\r\n";
+                text += "#L" + i + "# #i" + item.medalId + "# #b#t" + item.medalId + "##k#l\r\n";
             }
             cm.sendSimple(text);
 
@@ -127,7 +127,7 @@ function action(mode, type, selection) {
 
             cm.gainMeso(-reissueFee);
             cm.gainItem(selectedMedal.medalId, 1);
-            cm.sendOk("已经成功为您补发了 #b#i" + selectedMedal.medalId + "# #t" + selectedMedal.medalId + "#k！\r\n请妥善保管好您的荣誉勋章。");
+            cm.sendOk("已经成功为您补发了 #b#i" + selectedMedal.medalId + "# #t" + selectedMedal.medalId + "##k！\r\n请妥善保管好您的荣誉勋章。");
             cm.dispose();
 
         } else if (selectedOption === 2) { // 装备合并输入

@@ -30,7 +30,7 @@ var status = 0;
 
 function start() {
     if (cm.isQuestCompleted(3034)) {
-        cm.sendYesNo("你之前帮了我很大的忙……如果你有 #b#t4004004#k，我可以帮你精炼成 #b#t4005004#k，每个只需收取 #b500,000 金币#k 的手续费。");
+        cm.sendYesNo("你之前帮了我很大的忙……如果你有 #b#t4004004##k，我可以帮你精炼成 #b#t4005004##k，每个只需收取 #b500,000 金币#k 的手续费。");
     } else {
         cm.sendOk("走开，别打扰我冥想。");
         cm.dispose();
@@ -44,7 +44,7 @@ function action(mode, type, selection) {
     }
     status++;
     if (status == 1) {
-        cm.sendGetNumber("好的，你想要我帮你制作多少个 #b#t4005004#k 呢？", 1, 1, 100);
+        cm.sendGetNumber("好的，你想要我帮你制作多少个 #b#t4005004##k 呢？", 1, 1, 100);
     } else if (status == 2) {
         var complete = true;
 

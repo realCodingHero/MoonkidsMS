@@ -42,7 +42,7 @@ function start(mode, type, selection) {
                 return;
             }
             
-            qm.sendNext("给，拿着这个。把它交给#r#p1002104#k，里面有一封维护世界和平的信。不要把这个秘密告诉别人。");
+            qm.sendNext("给，拿着这个。把它交给#r#p1002104##k，里面有一封维护世界和平的信。不要把这个秘密告诉别人。");
         } else if (status == 1) {
             qm.forceStartQuest();
 

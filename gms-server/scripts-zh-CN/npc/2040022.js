@@ -201,7 +201,7 @@ function action(mode, type, selection) {
             cost = costSet[selectedItem];
         }
 
-        var prompt = "你想要我制作一个 #r#t" + item + ":#k 吗？这样的话，我需要你提供以下材料。请确保你的背包有足够的空间！\r\n#b";
+        var prompt = "你想要我制作一个 #r#t" + item + ":##k 吗？这样的话，我需要你提供以下材料。请确保你的背包有足够的空间！\r\n#b";
 
         if (stimulator) {
             stimID = mats[0] - 998; //stim ID for a weapon = manual ID for weapon - 998

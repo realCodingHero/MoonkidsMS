@@ -104,7 +104,7 @@ function handleReturn(selection) {
             if (savedMap <= 0) {
                 cm.sendNext("我这里没有记录到你来之前的位置，我会先送你回到射手村。下次通过导游出发，就能返回原来的地方了。");
             } else {
-                cm.sendNext("好的，我这就送你回到 #b#m" + savedMap + "#k。以后想旅行的话，随时再来找我吧！");
+                cm.sendNext("好的，我这就送你回到 #b#m" + savedMap + "##k。以后想旅行的话，随时再来找我吧！");
             }
         } else {
             cm.sendOk("好的。如果你想回去了，可以随时来找我。祝你旅途愉快！");

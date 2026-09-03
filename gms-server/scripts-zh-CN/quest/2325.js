@@ -18,7 +18,7 @@ function end(mode, type, selection) {
     if (status == 0) {
         qm.sendNext("我好……好害怕……请你一定要救救我……");
     } else if (status == 1) {
-        qm.sendNextPrev("别害怕，是#b#p1300005#k让我来找你的。", 2);
+        qm.sendNextPrev("别害怕，是#b#p1300005##k让我来找你的。", 2);
     } else if (status == 2) {
         qm.forceCompleteQuest();
         qm.gainExp(6000);

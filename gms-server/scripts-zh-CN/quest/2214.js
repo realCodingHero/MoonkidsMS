@@ -58,7 +58,7 @@ function end(mode, type, selection) {
             }
 
             canComplete = true;
-            qm.sendNext("(啊，这里有张碎纸条。。。嗯，它包含了一些即将发生的计划的细节，#r#p1052002#k一定就是所需要的东西了。)");
+            qm.sendNext("(啊，这里有张碎纸条。。。嗯，它包含了一些即将发生的计划的细节，#r#p1052002##k一定就是所需要的东西了。)");
         } else if (status == 1) {
             if (canComplete) {
                 qm.forceCompleteQuest();

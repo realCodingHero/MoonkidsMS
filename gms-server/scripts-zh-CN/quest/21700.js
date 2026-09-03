@@ -33,7 +33,7 @@ function start(mode, type, selection) {
 			qm.forceStartQuest();
 		}
     } else if (status == 6) {
-            qm.sendPrev("如果你离开这里，从村子的左边出去，在里恩修炼场入口可以见到长期研究英雄技能的#b#p1202006#k，让他来帮助你。");
+            qm.sendPrev("如果你离开这里，从村子的左边出去，在里恩修炼场入口可以见到长期研究英雄技能的#b#p1202006##k，让他来帮助你。");
     } else if (status == 7) {
         qm.dispose();
     }

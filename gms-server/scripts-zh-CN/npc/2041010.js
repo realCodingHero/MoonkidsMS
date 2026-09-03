@@ -52,7 +52,7 @@ function action(mode, type, selection) {
             status--;
         }
         if (status == 0) {
-            cm.sendSimple("嗨，你好！欢迎来到玩具城整形外科！你想拥有一张崭新帅气/漂亮的脸庞吗？只要使用 #b#t5152007#k，就可以挑选你心仪的容貌哦！\r\n#L2#高级整形：#i5152007# #t5152007##l");
+            cm.sendSimple("嗨，你好！欢迎来到玩具城整形外科！你想拥有一张崭新帅气/漂亮的脸庞吗？只要使用 #b#t5152007##k，就可以挑选你心仪的容貌哦！\r\n#L2#高级整形：#i5152007# #t5152007##l");
         } else if (status == 1) {
             if (selection == 2) {
                 facenew = Array();
@@ -70,7 +70,7 @@ function action(mode, type, selection) {
                                 % 100));
                     }
                 }
-                cm.sendStyle("让我瞧瞧……我能为你的容貌带来脱胎换骨的改变。只要使用一张 #b#t5152007#k，你就能任意挑选你喜欢的容貌。慢慢挑选最符合你心意的那一款吧！", facenew);
+                cm.sendStyle("让我瞧瞧……我能为你的容貌带来脱胎换骨的改变。只要使用一张 #b#t5152007##k，你就能任意挑选你喜欢的容貌。慢慢挑选最符合你心意的那一款吧！", facenew);
             }
         } else if (status == 2) {
             cm.dispose();
@@ -79,7 +79,7 @@ function action(mode, type, selection) {
                 cm.setFace(facenew[selection]);
                 cm.sendOk("整形手术非常成功！好好享受你的崭新面容吧！");
             } else {
-                cm.sendOk("嗯……看起来你身上并没有 #b#t5152007#k 呢。非常抱歉，没有整形卡的话是无法进行手术的……");
+                cm.sendOk("嗯……看起来你身上并没有 #b#t5152007##k 呢。非常抱歉，没有整形卡的话是无法进行手术的……");
             }
         }
     }

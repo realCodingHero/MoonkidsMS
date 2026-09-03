@@ -53,7 +53,7 @@ function action(mode, type, selection) {
             status--;
         }
         if (status == 0) {
-            cm.sendSimple("我是沙龙西蒙。如果你碰巧有#b#t5150019#k或者#b#t5151016#k，那么让我来给你换个发型怎么样？\r\n#L1#理发：#i5150019##t5150019##l\r\n#L2#染发：#i5151016##t5151016##l");
+            cm.sendSimple("我是沙龙西蒙。如果你碰巧有#b#t5150019##k或者#b#t5151016##k，那么让我来给你换个发型怎么样？\r\n#L1#理发：#i5150019##t5150019##l\r\n#L2#染发：#i5151016##t5151016##l");
         } else if (status == 1) {
             if (selection == 1) {
                 beauty = 1;
@@ -70,7 +70,7 @@ function action(mode, type, selection) {
                             % 10));
                     }
                 }
-                cm.sendYesNo("如果你使用了经验值券，你的发型将会随机改变，并有机会获得一种你自己都没想到可能存在的新实验性发型。你要使用 #b#t5150019#k 真的改变你的发型吗？");
+                cm.sendYesNo("如果你使用了经验值券，你的发型将会随机改变，并有机会获得一种你自己都没想到可能存在的新实验性发型。你要使用 #b#t5150019##k 真的改变你的发型吗？");
             } else if (selection == 2) {
                 beauty = 2;
                 haircolor = Array();
@@ -79,7 +79,7 @@ function action(mode, type, selection) {
                 for (var i = 0; i < 8; i++) {
                     pushIfItemExists(haircolor, current + i);
                 }
-                cm.sendYesNo("如果你使用普通的优惠券，你的发型将会随机改变。你还想使用 #b#t5150016#k 来改变吗？");
+                cm.sendYesNo("如果你使用普通的优惠券，你的发型将会随机改变。你还想使用 #b#t5150016##k 来改变吗？");
             }
         } else if (status == 2) {
             cm.dispose();

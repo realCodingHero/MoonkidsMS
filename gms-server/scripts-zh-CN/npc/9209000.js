@@ -120,9 +120,9 @@ function action(mode, type, selection) {
                 var mobList = cm.getNamesWhoDropsItem(table[selected]);
 
                 if (mobList.length == 0) {
-                    sendStr = "当前没有怪物掉落 '#b#t" + table[selected] + "#k'.\r\n\r\n";
+                    sendStr = "当前没有怪物掉落 '#b#t" + table[selected] + "##k'.\r\n\r\n";
                 } else {
-                    sendStr = "下列怪物会掉落 '#b#t" + table[selected] + "#k':\r\n\r\n";
+                    sendStr = "下列怪物会掉落 '#b#t" + table[selected] + "##k':\r\n\r\n";
 
                     for (var i = 0; i < mobList.length; i++) {
                         sendStr += "  #L" + i + "# " + mobList[i] + "#l\r\n";

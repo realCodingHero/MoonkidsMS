@@ -68,14 +68,14 @@ function action(mode, type, selection) {
     if (status == 0) {
         cm.sendNext("好的，把青蛙的舌头和松鼠的牙齿混合在一起……哎呀！差点忘了放闪闪发光的白色粉末！！呼，好险差点就搞砸了……哇啊！！你站在那里看多久了？我做起实验来总是太投入了……嘿嘿。");
     } else if (status == 1) {
-        cm.sendSimple("正如你所见，我是一名游历各地的炼金术士。虽然我还在修行之中，但我已经能够制作一些你冒险中必不可少的神奇道具了。想看看吗？\r\n\r\n#L0#b制作魔法石（5个）#k#l\r\n#L1#b制作召唤石（5个）#k#l");
+        cm.sendSimple("正如你所见，我是一名游历各地的炼金术士。虽然我还在修行之中，但我已经能够制作一些你冒险中必不可少的神奇道具了。想看看吗？\r\n\r\n#L0##b制作魔法石（5个）#k#l\r\n#L1##b制作召唤石（5个）#k#l");
     } else if (status == 2) {
         set = selection;
         makeitem = makeditem[set];
         for (i = 0; i < reqset[set].length; i++) {
-            menu += "\r\n#L" + i + "#b使用 #t" + reqset[set][i][0][0] + "# 和 #t" + reqset[set][i][1][0] + "# 等材料制作#k#l";
+            menu += "\r\n#L" + i + "##b使用 #t" + reqset[set][i][0][0] + "# 和 #t" + reqset[set][i][1][0] + "# 等材料制作#k#l";
         }
-        cm.sendSimple("哈哈…… #b#t" + makeitem + "#k 是一种充满神秘力量的石头，只有像我这样的炼金术士才能制作出来。许多冒险家施展强大的三转高级技能时都需要消耗它。目前有5种不同的配方可以制作 #t" + makeitem + "#，你想用哪种配方来制作？" + menu);
+        cm.sendSimple("哈哈…… #b#t" + makeitem + "##k 是一种充满神秘力量的石头，只有像我这样的炼金术士才能制作出来。许多冒险家施展强大的三转高级技能时都需要消耗它。目前有5种不同的配方可以制作 #t" + makeitem + "#，你想用哪种配方来制作？" + menu);
     } else if (status == 3) {
         set = reqset[set][selection];
         reqitem[0] = [set[0][0], set[0][1]];
@@ -86,7 +86,7 @@ function action(mode, type, selection) {
             menu += "\r\n#i" + reqitem[i][0] + "# #b#t" + reqitem[i][0] + "# " + reqitem[i][1] + "个#k";
         }
         menu += "\r\n#i4031138# #b" + cost + " 金币#k";
-        cm.sendYesNo("为了制作 #b5个 #t" + makeitem + "#k，我需要你提供以下材料和手续费。这些材料在怪物身上大多很容易获得。怎么样？要现在开始制作吗？\r\n" + menu);
+        cm.sendYesNo("为了制作 #b5个 #t" + makeitem + "##k，我需要你提供以下材料和手续费。这些材料在怪物身上大多很容易获得。怎么样？要现在开始制作吗？\r\n" + menu);
     } else if (status == 4) {
         for (i = 0; i < reqitem.length; i++) {
             if (!cm.haveItem(reqitem[i][0], reqitem[i][1])) {
@@ -96,7 +96,7 @@ function action(mode, type, selection) {
         if (access == false || !cm.canHold(makeitem) || cm.getMeso() < cost) {
             cm.sendNext("请检查你是否带齐了所有所需材料和金币，或者你的【其它】栏空间是否已满。");
         } else {
-            cm.sendOk("给，这是制作好的5个 #b#t" + makeitem + "#k！不得不说，这真是一件完美的炼金杰作。如果以后还需要的话，随时欢迎再来找我！");
+            cm.sendOk("给，这是制作好的5个 #b#t" + makeitem + "##k！不得不说，这真是一件完美的炼金杰作。如果以后还需要的话，随时欢迎再来找我！");
             cm.gainItem(reqitem[0][0], -reqitem[0][1]);
             cm.gainItem(reqitem[1][0], -reqitem[1][1]);
             cm.gainItem(reqitem[2][0], -reqitem[2][1]);

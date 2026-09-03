@@ -26,7 +26,7 @@ function start() {
     completed = cm.haveItem(4031508, 5) && cm.haveItem(4031507, 5);
 
     if (completed) {
-        cm.sendNext("哇~ 你成功收集了5个#b#t4031508#k和#b#t4031507#k。好的，那么我会送你去动物园。到了之后请再和我交谈。");
+        cm.sendNext("哇~ 你成功收集了5个#b#t4031508##k和#b#t4031507##k。好的，那么我会送你去动物园。到了之后请再和我交谈。");
     } else {
         cm.sendYesNo("你还没有完成要求。你确定要离开吗？");
     }

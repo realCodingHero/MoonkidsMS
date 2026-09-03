@@ -51,7 +51,7 @@ function action(mode, type, selection) {
         var selStr = "嘿，你知道现在绯红峡谷正在进行的远征活动吗？这是一个提升自己的好机会，在那里可以快速积累经验和战利品。";
         cm.sendNext(selStr);
     } else if (status == 1) {
-        var selStr = "既然如此，我认为使用一些强力的辅助药水可以在前线产生一些优势。我的意思是开始制作 #b#t2022284#k 来协助远征。目前我正在收集 #r大量#k 这些物品：#r#t4032010#k、#r#t4032011#k、#r#t4032012#k，以及一些资金来支持行动。你想获取一些这些增益物品吗？";
+        var selStr = "既然如此，我认为使用一些强力的辅助药水可以在前线产生一些优势。我的意思是开始制作 #b#t2022284##k 来协助远征。目前我正在收集 #r大量#k 这些物品：#r#t4032010##k、#r#t4032011##k、#r#t4032012##k，以及一些资金来支持行动。你想获取一些这些增益物品吗？";
         cm.sendYesNo(selStr);
     } else if (status == 2) {
         //selectedItem = selection;

@@ -38,7 +38,7 @@ function end(mode, type, selection) {
 		status++;
 	}
 	if (status == 0) {
-		qm.sendNext("你吃早餐了吗，埃文？那么，你能帮我个忙吗?  \r\n\r\n#fUI/UIWindow.img/QuestIcon/4/0# \r\n#i1003028# 1 #t1003028#  \r\n#i2022621# 5 #t2022621# \r\n#i2022622# 5 #t2022622# \r\n#fUI/UIWindow.img/QuestIcon/8/0# 60 exp");
+		qm.sendNext("你吃早餐了吗，埃文？那么，你能帮我个忙吗?  \r\n\r\n#fUI/UIWindow.img/QuestIcon/4/0# \r\n#i1003028# 1 #t1003028#  \r\n#i2022621# 5 #t2022621#s \r\n#i2022622# 5 #t2022622# \r\n#fUI/UIWindow.img/QuestIcon/8/0# 60 exp");
 	} else if (status == 1) {
 		qm.forceCompleteQuest();
                 qm.gainItem(1003028, 1, true);

@@ -54,20 +54,20 @@ function start() {
             if (cm.haveItem(4031012)) {
                 cm.sendNext("你安全回来了！我果然没看错，你是一名合格的战士！现在你可以进行第二次转职了，有什么疑问就来问我吧。");
             } else if (cm.haveItem(4031008)) {
-                cm.sendOk("去找#b#p1072000#k，他在#b#m102020300#k附近。");
+                cm.sendOk("去找#b#p1072000##k，他在#b#m102020300##k附近。");
                 cm.dispose();
             } else {
                 cm.sendNext("你取得了惊人的进步。");
             }
         } else if (actionx["3thJobI"] || (cm.getPlayer().gotPartyQuestItem("JB3") && cm.getLevel() >= 70 && (cm.getJobId() % 10 === 0 && parseInt(cm.getJobId() / 100) === 1 && !cm.getPlayer().gotPartyQuestItem("JBP")))) {
             actionx["3thJobI"] = true;
-            cm.sendNext("我一直在等你！几天前，我从#b#p2020008#k听到了你的消息，你现在可以变得更强，但是你得通过我的考验。在蚂蚁洞广场有一个异界之门，里面有我的分身，你去击败它并带回#b#t4031059#k。");
+            cm.sendNext("我一直在等你！几天前，我从#b#p2020008##k听到了你的消息，你现在可以变得更强，但是你得通过我的考验。在蚂蚁洞广场有一个异界之门，里面有我的分身，你去击败它并带回#b#t4031059##k。");
         } else if (cm.getPlayer().gotPartyQuestItem("JBP") && !cm.haveItem(4031059)) {
-            cm.sendNext("你还没有#b#t4031059#k。");
+            cm.sendNext("你还没有#b#t4031059##k。");
             cm.dispose();
         } else if (cm.haveItem(4031059) && cm.getPlayer().gotPartyQuestItem("JBP")) {
             actionx["3thJobC"] = true;
-            cm.sendNext("你成功击败了我的分身并带回了#b#t4031059#k！看来你已经准备好第三次转职了，把#b#t4031057#k带给#b#p2020008#k，他会帮助你进行第三次转职的，祝你好运！");
+            cm.sendNext("你成功击败了我的分身并带回了#b#t4031059##k！看来你已经准备好第三次转职了，把#b#t4031057##k带给#b#p2020008##k，他会帮助你进行第三次转职的，祝你好运！");
         } else {
             cm.sendOk("你的选择很明智！");
             cm.dispose();
@@ -164,7 +164,7 @@ function action(mode, type, selection) {
                     if (!cm.haveItem(4031008)) {
                         cm.gainItem(4031008, 1);
                     }
-                    cm.sendNextPrev("请把这封信带给#b#p1072000#k，他在#b#m102020300#k附近。");
+                    cm.sendNextPrev("请把这封信带给#b#p1072000##k，他在#b#m102020300##k附近。");
                 } else {
                     cm.sendNext("#r其他栏满了 -> #r其他栏已满");
                     cm.dispose();
@@ -221,7 +221,7 @@ function action(mode, type, selection) {
                 cm.getPlayer().removePartyQuestItem("JB3");
                 cm.getPlayer().setPartyQuestItemObtained("JBP");
             }
-            cm.sendNext("我的分身相当强大，他会使用特殊技能，你应该跟他一对一战斗，击败他并带回#b#t4031059#k，祝你好运！");
+            cm.sendNext("我的分身相当强大，他会使用特殊技能，你应该跟他一对一战斗，击败他并带回#b#t4031059##k，祝你好运！");
 			cm.dispose();
         }
     } else if (actionx["3thJobC"]) {

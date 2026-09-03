@@ -10,7 +10,7 @@ function end(mode, type, selection) {
     status++;
 
     if (status == 0) {
-        qm.sendNext("果然是你。我早就知道你很快可以完成~ 上次也是做得不错~ 真是了不起阿！作为谢礼题，我应该送你礼物。#b#p1051000#k送了你一双鞋，希望对的你冒险之旅有帮助，赶快收下吧。");
+        qm.sendNext("果然是你。我早就知道你很快可以完成~ 上次也是做得不错~ 真是了不起阿！作为谢礼题，我应该送你礼物。#b#p1051000##k送了你一双鞋，希望对的你冒险之旅有帮助，赶快收下吧。");
     } else if (status == 1) {
         const InventoryType = Java.type('org.gms.client.inventory.InventoryType');
         if (qm.getPlayer().getInventory(InventoryType.EQUIP).getNumFreeSlot() < 1) {

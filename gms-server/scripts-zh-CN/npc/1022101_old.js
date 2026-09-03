@@ -67,7 +67,7 @@ function action(mode, type, selection) {
                 return;
             }
             var outStr = "你好，我是投票点数兑换使者！\r\n";
-            outStr += "你目前拥有 #r#c" + itemToUse + "#k 个 #t" + itemToUse + "# 以及 #r" + vp + "#k 点投票点数。#b\r\n\r\n";
+            outStr += "你目前拥有 #r#c" + itemToUse + "##k 个 #t" + itemToUse + "# 以及 #r" + vp + "#k 点投票点数。#b\r\n\r\n";
             outStr += "#L0#我想将投票点数兑换为枫叶#l\r\n";
             outStr += "#L1#我想用 1 个 #t" + itemToUse + "# 兑换 " + nxAmount + " 点券#l\r\n";
             outStr += "#L2#我想用 1 个 #t" + itemToUse + "# 兑换 " + chairAmount + " 张随机椅子#l\r\n";

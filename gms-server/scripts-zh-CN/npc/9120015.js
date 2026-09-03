@@ -32,7 +32,7 @@
 var status = 0;
 
 function start() {
-    cm.sendSimple("你找我有什么事？\r\n#L0#b打听藏身处的情报。#l\r\n#L1#带我去藏身处。#l\r\n#L2#没什么。#l#k");
+    cm.sendSimple("你找我有什么事？\r\n#L0##b打听藏身处的情报。#l\r\n#L1#带我去藏身处。#l\r\n#L2#没什么。#l#k");
 }
 
 function action(mode, type, selection) {

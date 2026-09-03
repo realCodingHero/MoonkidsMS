@@ -53,7 +53,7 @@ function action(mode, type, selection) {
     if (status == 0) {
         const GameConfig = Java.type('org.gms.config.GameConfig');
         if (!GameConfig.getServerBoolean("use_enable_custom_npc_script")) {
-            cm.sendOk("嗨，我是 #b#p" + cm.getNpc() + "#k。");
+            cm.sendOk("嗨，我是 #b#p" + cm.getNpc() + "##k。");
             cm.dispose();
             return;
         }
@@ -61,7 +61,7 @@ function action(mode, type, selection) {
         var selStr = "嘿，旅行者！靠近点...我们这里有一桩#b不错的生意#k。想知道是什么，就继续听我说。";
         cm.sendNext(selStr);
     } else if (status == 1) {
-        var selStr = "我们掌握了合成#b#t2049100#k的方法！当然，制作它并不轻松。不过别担心，只要准备材料并支付#b1,200,000金币#k的手续费，我就能帮你合成。还要继续吗？";
+        var selStr = "我们掌握了合成#b#t2049100##k的方法！当然，制作它并不轻松。不过别担心，只要准备材料并支付#b1,200,000金币#k的手续费，我就能帮你合成。还要继续吗？";
         cm.sendYesNo(selStr);
     } else if (status == 2) {
         //selectedItem = selection;

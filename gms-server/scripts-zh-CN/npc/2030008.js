@@ -104,7 +104,7 @@ function action(mode, type, selection) {
                     cm.sendYesNo("你已经成功通过了第一阶段的试炼。不过距离抵达扎昆祭台还有漫长险峻的路程。你准备好挑战第二阶段的耐力试炼了吗？");
                 } else {
                     if (cm.haveItem(4031062)) {
-                        cm.sendNext("你已经获得了 #b#t4031062#k，无需重复挑战这一阶段。");
+                        cm.sendNext("你已经获得了 #b#t4031062##k，无需重复挑战这一阶段。");
                     } else {
                         cm.sendNext("请先按顺序完成前面的试炼阶段。");
                     }
@@ -113,7 +113,7 @@ function action(mode, type, selection) {
             } else {
                 if (cm.haveItem(4031061) && cm.haveItem(4031062)) {
                     if (!cm.haveItem(4000082, 30)) {
-                        cm.sendOk("你已经完成了全部考验，但还需要带来 #b#i4000082# #t4000082# 30个#k，我才能为你提炼出 #b5个 #t4001017#k。");
+                        cm.sendOk("你已经完成了全部考验，但还需要带来 #b#i4000082# #t4000082# 30个#k，我才能为你提炼出 #b5个 #t4001017##k。");
                     } else {
                         cm.completeQuest(100201);
                         cm.gainItem(4031061, -1);
@@ -121,12 +121,12 @@ function action(mode, type, selection) {
                         cm.gainItem(4000082, -30);
 
                         cm.gainItem(4001017, 5);
-                        cm.sendNext("做得好！你已经成功通过了全部试炼！这是给你的 #b#t4001017#k。从现在起，我正式特许你进入祭台挑战扎昆！");
+                        cm.sendNext("做得好！你已经成功通过了全部试炼！这是给你的 #b#t4001017##k。从现在起，我正式特许你进入祭台挑战扎昆！");
                     }
 
                     cm.dispose();
                 } else {
-                    cm.sendOk("你还缺少锻造 #b#t4001017#k 所需的试炼信物：\r\n#b#i4031061# #t4031061# 1个\r\n#i4031062# #t4031062# 1个#k\r\n请完成前两阶段的试炼后再来找我。");
+                    cm.sendOk("你还缺少锻造 #b#t4001017##k 所需的试炼信物：\r\n#b#i4031061# #t4031061# 1个\r\n#i4031062# #t4031062# 1个#k\r\n请完成前两阶段的试炼后再来找我。");
                     cm.dispose();
                 }
             }

@@ -61,7 +61,7 @@ function action(mode, type, selection) {
                 if (cm.getPlayer().getLevel() > 50) {
                     cm.sendOk("VIP区域仅供50级或以下的玩家使用。");
                 } else {
-                    cm.sendOk("VIP区域只有在完成“进入VIP区域”的任务并交出#r#t4032521##k后才能进入。");
+                    cm.sendOk("VIP区域只有在完成“进入VIP区域”的任务并交出#r#t4032521#s#k后才能进入。");
                 }
             } else {
                 cm.sendOk("#rVIP#k？是的，这很有趣 #rVIP先生#k，现在赶紧滚开，否则我就叫保安了。");

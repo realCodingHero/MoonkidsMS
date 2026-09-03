@@ -33,7 +33,7 @@ function action(mode, type, selection) {
         if (status == 0) {
             var display = "";
             for (var i = 0; i < menu.length; i++) {
-                display += "\r\n#L" + i + "#b 里恩 (800 金币)#k";
+                display += "\r\n#L" + i + "##b 里恩 (800 金币)#k";
             }
             cm.sendNext("你想离开金银岛前往我们的城镇吗？只要乘坐这艘船，我就可以带你往返于#b明珠港#k与#b里恩#k之间。船费只需 #b800 金币#k。你想现在前往里恩吗？");
 

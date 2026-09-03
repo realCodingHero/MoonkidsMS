@@ -85,13 +85,13 @@ function start(mode, type, selection) {
                 qm.sendNext("请检查你的技能点数是否已经加完。");
             } else {
                 if (!qm.canHold(medalid)) {
-                    qm.sendOk(`女皇将赋予你#b#v${medalid}##t${medalid}#k，你必须将#b装备栏#k#r空出1个格子#k才可以接受。\r\n\r\n如果你已拥有该勋章，请你将其丢弃。`);
+                    qm.sendOk(`女皇将赋予你#b#v${medalid}##t${medalid}##k，你必须将#b装备栏#k#r空出1个格子#k才可以接受。\r\n\r\n如果你已拥有该勋章，请你将其丢弃。`);
                 } else {
                     qm.getPlayer().changeJob(job);  //更改职业
                     qm.completeQuest();
                     qm.gainItem(medalid, 1); //原始流程是女皇任务给的勋章，需要配合WZ给任务29908加入自动完成任务代码,比较麻烦，在这里给了。
                     qm.completeQuest(completeQuestID); //直接完成女皇的任务，这样女皇头顶不会一直顶着书本。
-                    qm.sendNext(`从这一刻起，女皇任命你为高级骑士。请继续努力，成为一名享受更艰难的冒险过程的#b高级骑士#k吧！\r\n获得女皇赋予的勋章：\r\n#b#v${medalid}##t${medalid}#k`);
+                    qm.sendNext(`从这一刻起，女皇任命你为高级骑士。请继续努力，成为一名享受更艰难的冒险过程的#b高级骑士#k吧！\r\n获得女皇赋予的勋章：\r\n#b#v${medalid}##t${medalid}##k`);
                 }
             }
         } else if (status == 3) {

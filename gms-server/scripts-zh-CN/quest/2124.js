@@ -42,7 +42,7 @@ function end(mode, type, selection) {
 
         if (status == 0) {
             if (!qm.haveItem(4031619, 1)) {
-                qm.sendOk("请把#b#p2012019#k...带给我");
+                qm.sendOk("请把#b#p2012019##k...带给我");
             } else {
                 qm.gainItem(4031619, -1);
                 qm.sendOk("噢，你居然带来了#p2012019#k，谢谢。");

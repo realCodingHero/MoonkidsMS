@@ -100,7 +100,7 @@ function action(mode, type, selection) {
                             cm.dispose();
                         }
                     } else {
-                        cm.sendOk("你身上没有新人专属的 #b#t4031424#k。");
+                        cm.sendOk("你身上没有新人专属的 #b#t4031424##k。");
                         cm.dispose();
                     }
                 } else if (selection == 1) {
@@ -116,7 +116,7 @@ function action(mode, type, selection) {
                             cm.dispose();
                         }
                     } else {
-                        cm.sendOk("你身上没有 #b#t4031423#k。");
+                        cm.sendOk("你身上没有 #b#t4031423##k。");
                         cm.dispose();
                     }
                 }
