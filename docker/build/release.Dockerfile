@@ -23,6 +23,14 @@ RUN mkdir -p /opt/server_unzip
 
 RUN tar -xzvf latest_release.tar.gz -C /opt/server_unzip --strip-components=1
 
+# The JAR, WZ directories and scripts are one release unit. The runtime
+# entrypoint uses this deterministic fingerprint to refresh an older persistent
+# /opt/server volume.
+RUN cd /opt/server_unzip && \
+    tar --sort=name --mtime='UTC 1970-01-01' --owner=0 --group=0 --numeric-owner \
+        -cf - BeiDou.jar wz wz-zh-CN scripts scripts-zh-CN \
+        | sha256sum | cut -d ' ' -f 1 > .resource-version
+
 FROM ubuntu:20.04
 
 ENV LANG=C.UTF-8

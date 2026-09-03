@@ -62,6 +62,7 @@ import org.gms.server.TimerManager;
 import org.gms.server.expeditions.ExpeditionBossLog;
 import org.gms.server.life.PlayerNPC;
 import org.gms.server.quest.Quest;
+import org.gms.server.shop.EquipShopService;
 import org.gms.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -695,9 +696,14 @@ public class Server {
         }
         log.info(I18nUtil.getLogMessage("Server.init.info3"));
 
-        // 异步后台加载辅助服务，避免阻塞主游戏服务与登录网关启动
+        // 装备商店索引必须在创建世界和监听任何玩家端口前完整构建。
+        // 否则玩家可能看到尚未完成扫描的部分装备列表。
+        log.info("Loading equipment shop index before opening player connections...");
+        EquipShopService.getInstance().initialize();
+        log.info("Equipment shop index is ready; continuing server startup.");
+
+        // 其他辅助服务仍可后台加载，不影响玩家连接启动。
         Thread.ofVirtual().name("Async-QuestHelpService-Init").start(org.gms.server.quest.QuestHelpService.getInstance()::ensureInitialized);
-        Thread.ofVirtual().name("Async-EquipShopService-Init").start(org.gms.server.shop.EquipShopService.getInstance()::initialize);
 
         TimeZone.setDefault(TimeZone.getTimeZone(GameConfig.getServerString("timezone")));
 
