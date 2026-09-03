@@ -68,6 +68,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author Matze
@@ -101,7 +102,7 @@ public class ItemInformationProvider {
     protected Map<Integer, Integer> wholePriceCache = new HashMap<>();
     protected Map<Integer, Double> unitPriceCache = new HashMap<>();
     protected Map<Integer, Integer> projectileWatkCache = new HashMap<>();
-    protected Map<Integer, Pair<String, String>> nameDescCache = new HashMap<>();
+    protected Map<Integer, Pair<String, String>> nameDescCache = new ConcurrentHashMap<>();
     protected Map<Integer, String> msgCache = new HashMap<>();
     protected Map<Integer, Boolean> accountItemRestrictionCache = new HashMap<>();
     protected Map<Integer, Boolean> dropRestrictionCache = new HashMap<>();
@@ -1349,8 +1350,9 @@ public class ItemInformationProvider {
     }
 
     public Pair<String, String> getNameDesc(int itemId) {
-        if (nameDescCache.containsKey(itemId)) {
-            return nameDescCache.get(itemId);
+        Pair<String, String> cached = nameDescCache.get(itemId);
+        if (cached != null) {
+            return cached;
         }
         Data strings = getStringData(itemId);
         if (strings == null) {
@@ -1362,8 +1364,8 @@ public class ItemInformationProvider {
             return null;
         }
         Pair<String, String> ret = new Pair<>(name, desc);
-        nameDescCache.put(itemId, ret);
-        return ret;
+        Pair<String, String> existing = nameDescCache.putIfAbsent(itemId, ret);
+        return existing != null ? existing : ret;
     }
 
     public String getMsg(int itemId) {

@@ -42,8 +42,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * 装备商店服务：提供分类装备管理、非现金过滤、职业匹配与升序等级排序
@@ -111,96 +109,114 @@ public class EquipShopService {
         }
     }
 
-    private final Map<Integer, List<EquipEntry>> categoryEquips = new ConcurrentHashMap<>();
-    private final AtomicBoolean initialized = new AtomicBoolean(false);
+    /**
+     * The published index is immutable. Build a separate local map first and publish it
+     * only after every resource file has been scanned and every category has been sorted.
+     */
+    private volatile Map<Integer, List<EquipEntry>> categoryEquips = Collections.emptyMap();
+    private volatile boolean initialized = false;
 
     private EquipShopService() {
     }
 
-    public void initialize() {
-        if (!initialized.compareAndSet(false, true)) {
+    public synchronized void initialize() {
+        if (initialized) {
             return;
         }
         long startTime = System.currentTimeMillis();
-        ItemInformationProvider ii = ItemInformationProvider.getInstance();
-        DataProvider equipData = DataProviderFactory.getDataProvider(WZFiles.CHARACTER);
-        DataDirectoryEntry root = equipData.getRoot();
-
-        Map<Integer, List<EquipEntry>> tempMap = new ConcurrentHashMap<>();
-        for (int i = 1; i <= 12; i++) {
-            tempMap.put(i, Collections.synchronizedList(new ArrayList<>()));
-        }
-
-        root.getSubdirectories().parallelStream().forEach(subDir -> {
-            String dirName = subDir.getName();
-            if (!isEquipFolder(dirName)) {
-                return;
+        try {
+            ItemInformationProvider ii = ItemInformationProvider.getInstance();
+            DataProvider equipData = DataProviderFactory.getDataProvider(WZFiles.CHARACTER);
+            if (equipData == null || equipData.getRoot() == null) {
+                throw new IllegalStateException("Character.wz data provider is unavailable");
             }
-            subDir.getFiles().parallelStream().forEach(file -> {
-                String fileName = file.getName();
-                if (!fileName.endsWith(".img")) {
-                    return;
+            DataDirectoryEntry root = equipData.getRoot();
+
+            Map<Integer, List<EquipEntry>> tempMap = new HashMap<>();
+            for (int i = 1; i <= 12; i++) {
+                tempMap.put(i, new ArrayList<>());
+            }
+
+            // WZ XML parsing and ItemInformationProvider caches are not safe for nested
+            // parallel scans. Keep the startup index deterministic and publish it atomically.
+            int totalIndexed = 0;
+            for (DataDirectoryEntry subDir : root.getSubdirectories()) {
+                String dirName = subDir.getName();
+                if (!isEquipFolder(dirName)) {
+                    continue;
                 }
-                String idStr = fileName.substring(0, fileName.length() - 4);
-                try {
-                    int itemId = Integer.parseInt(idStr);
-                    int category = getCategoryByItemId(itemId);
-                    if (category == 0) {
-                        return;
+                for (DataFileEntry file : subDir.getFiles()) {
+                    String fileName = file.getName();
+                    if (!fileName.endsWith(".img")) {
+                        continue;
                     }
+                    String resourcePath = dirName + "/" + fileName;
+                    String idStr = fileName.substring(0, fileName.length() - 4);
+                    try {
+                        int itemId = Integer.parseInt(idStr);
+                        int category = getCategoryByItemId(itemId);
+                        if (category == 0) {
+                            continue;
+                        }
 
-                    Data itemNode = equipData.getData(subDir.getName() + "/" + fileName);
-                    if (itemNode == null) {
-                        return;
-                    }
-                    Data info = itemNode.getChildByPath("info");
-                    if (info == null) {
-                        return;
-                    }
+                        Data itemNode = equipData.getData(resourcePath);
+                        if (itemNode == null) {
+                            continue;
+                        }
+                        Data info = itemNode.getChildByPath("info");
+                        if (info == null) {
+                            continue;
+                        }
 
-                    int cash = org.gms.provider.DataTool.getInt("cash", info, 0);
-                    if (cash == 1) {
-                        return;
-                    }
+                        int cash = org.gms.provider.DataTool.getInt("cash", info, 0);
+                        if (cash == 1) {
+                            continue;
+                        }
 
-                    String name = ii.getName(itemId);
-                    if (name == null || name.trim().isEmpty() || name.equals("NO-NAME") || name.startsWith("??")) {
-                        return;
-                    }
+                        String name = ii.getName(itemId);
+                        if (name == null || name.trim().isEmpty() || name.equals("NO-NAME") || name.startsWith("??")) {
+                            continue;
+                        }
 
-                    if (isExcludedEquip(itemId, name, info)) {
-                        return;
-                    }
-                    int reqLevel = org.gms.provider.DataTool.getInt("reqLevel", info, 0);
-                    int reqJob = org.gms.provider.DataTool.getInt("reqJob", info, 0);
-                    int wholePrice = org.gms.provider.DataTool.getInt("price", info, 0);
-                    int price;
-                    if (wholePrice > 0) {
-                        price = wholePrice;
-                    } else {
-                        price = Math.max(1000, reqLevel * reqLevel * 80 + reqLevel * 500 + 1000);
-                    }
+                        if (isExcludedEquip(itemId, name, info)) {
+                            continue;
+                        }
+                        int reqLevel = org.gms.provider.DataTool.getInt("reqLevel", info, 0);
+                        int reqJob = org.gms.provider.DataTool.getInt("reqJob", info, 0);
+                        int wholePrice = org.gms.provider.DataTool.getInt("price", info, 0);
+                        int price;
+                        if (wholePrice > 0) {
+                            price = wholePrice;
+                        } else {
+                            price = Math.max(1000, reqLevel * reqLevel * 80 + reqLevel * 500 + 1000);
+                        }
 
-                    EquipEntry entry = new EquipEntry(itemId, name, reqLevel, reqJob, price, category);
-                    tempMap.get(category).add(entry);
-                } catch (NumberFormatException ignored) {
-                } catch (Exception e) {
-                    log.debug("Failed parsing equip file {}", fileName, e);
+                        EquipEntry entry = new EquipEntry(itemId, name, reqLevel, reqJob, price, category);
+                        tempMap.get(category).add(entry);
+                        totalIndexed++;
+                    } catch (NumberFormatException ignored) {
+                    } catch (Exception e) {
+                        log.warn("Failed parsing equip resource {}", resourcePath, e);
+                    }
                 }
-            });
-        });
+            }
 
-        int totalIndexed = 0;
-        // 按需求等级升序排列，相同等级按 itemId 排序
-        for (Map.Entry<Integer, List<EquipEntry>> e : tempMap.entrySet()) {
-            List<EquipEntry> list = new ArrayList<>(e.getValue());
-            list.sort(Comparator.comparingInt(EquipEntry::getReqLevel).thenComparingInt(EquipEntry::getItemId));
-            categoryEquips.put(e.getKey(), Collections.unmodifiableList(list));
-            totalIndexed += list.size();
+            Map<Integer, List<EquipEntry>> publishedMap = new HashMap<>();
+            for (Map.Entry<Integer, List<EquipEntry>> e : tempMap.entrySet()) {
+                // 按需求等级升序排列，相同等级按 itemId 排序
+                List<EquipEntry> list = e.getValue();
+                list.sort(Comparator.comparingInt(EquipEntry::getReqLevel).thenComparingInt(EquipEntry::getItemId));
+                publishedMap.put(e.getKey(), Collections.unmodifiableList(list));
+            }
+
+            categoryEquips = Collections.unmodifiableMap(publishedMap);
+            initialized = true;
+            log.info("EquipShopService initialized {} regular equipment items across 12 categories in {}ms",
+                    totalIndexed, System.currentTimeMillis() - startTime);
+        } catch (RuntimeException e) {
+            log.error("EquipShopService initialization failed; server startup must not continue", e);
+            throw e;
         }
-
-        log.info("EquipShopService initialized {} regular equipment items across 12 categories in {}ms",
-                totalIndexed, System.currentTimeMillis() - startTime);
     }
 
     /**
@@ -388,7 +404,7 @@ public class EquipShopService {
     }
 
     public boolean openShop(Client c, int categoryId, int subType, int minLevel, int maxLevel) {
-        if (!initialized.get()) {
+        if (!initialized) {
             initialize();
         }
 
