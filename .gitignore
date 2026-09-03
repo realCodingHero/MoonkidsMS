@@ -49,3 +49,6 @@ build-client-cashshop.ps1
 import-cash-shop.ps1
 .pnpm-store/
 
+
+__pycache__/
+*.pyc
