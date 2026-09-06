@@ -15203,6 +15203,12 @@
         <imgdir name="1">
             <int name="npc" value="1102002" />
             <string name="endscript" value="q20522e" />
+            <imgdir name="item">
+                <imgdir name="0">
+                    <int name="id" value="4220137" />
+                    <int name="count" value="1" />
+                </imgdir>
+            </imgdir>
         </imgdir>
     </imgdir>
     <imgdir name="20523">
@@ -15416,6 +15422,12 @@
             <int name="npc" value="1102002" />
             <string name="endscript" value="q20526e" />
             <int name="endmeso" value="10000000" />
+            <imgdir name="item">
+                <imgdir name="0">
+                    <int name="id" value="4220137" />
+                    <int name="count" value="1" />
+                </imgdir>
+            </imgdir>
         </imgdir>
     </imgdir>
     <imgdir name="20527">
@@ -22696,6 +22708,16 @@
         </imgdir>
         <imgdir name="1">
             <int name="npc" value="2091007" />
+            <imgdir name="item">
+                <imgdir name="0">
+                    <int name="id" value="4032342" />
+                    <int name="count" value="8" />
+                </imgdir>
+                <imgdir name="1">
+                    <int name="id" value="4220151" />
+                    <int name="count" value="1" />
+                </imgdir>
+            </imgdir>
             <imgdir name="mob">
                 <imgdir name="0">
                     <int name="id" value="9300350" />
@@ -26144,6 +26166,18 @@
       </imgdir>
     </imgdir>
         <imgdir name="1">
+            <imgdir name="quest">
+                <imgdir name="0">
+                    <int name="id" value="2336" />
+                    <int name="state" value="2" />
+                </imgdir>
+            </imgdir>
+            <imgdir name="item">
+                <imgdir name="0">
+                    <int name="id" value="4001318" />
+                    <int name="count" value="1" />
+                </imgdir>
+            </imgdir>
         </imgdir>
     </imgdir>
     <imgdir name="2400">
@@ -51434,6 +51468,12 @@
         <imgdir name="1">
             <int name="npc" value="1012006" />
             <string name="endscript" value="q4647e" />
+            <imgdir name="item">
+                <imgdir name="0">
+                    <int name="id" value="5460000" />
+                    <int name="count" value="1" />
+                </imgdir>
+            </imgdir>
         </imgdir>
         <imgdir name="0">
             <int name="npc" value="1012006" />
