@@ -76990,7 +76990,7 @@
             <imgdir name="item">
                 <imgdir name="0">
                     <int name="count" value="1" />
-                    <int name="id" value="4031736" />
+                    <int name="id" value="4031290" />
                 </imgdir>
             </imgdir>
             <int name="npc" value="9310012" />
